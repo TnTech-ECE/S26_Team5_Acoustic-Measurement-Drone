@@ -1,12 +1,7 @@
 # **Teamwork Contract**
 
 **Team 5**  
-**Team Members:** 
-Bernie Friesel
-Sean Ike
-Elliot Lovins
-Jackson Phillips
-Mashoud Modi   
+**Team Members: Bernie Friesel, Sean Ike, Elliot Lovins, Jackson Phillips, Mashoud Modi**   
 *Electrical and Computer Engineering Department*  
 *Tennessee Technological University*
 
@@ -45,7 +40,7 @@ In this section, the team will discuss and clearly define their collective expec
 ### **4. Meetings**
 
 - **Expectation:** Regarding team meetings:
-  - **Frequency:** The team will meet [specify frequency, e.g., twice a week on Mondays and Thursdays at 4 PM].
+  - **Frequency:** The team will meet for three hours every week outside of class. We will meet Monday from 2-4pm and Wednsday 3-4pm.
   - **Attendance:** Members are expected to attend all meetings; absences should be communicated in advance.
   - **Preparation:** Members should come prepared, having completed any agreed-upon tasks or research.
 
