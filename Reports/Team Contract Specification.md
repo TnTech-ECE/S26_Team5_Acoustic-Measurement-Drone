@@ -1,7 +1,12 @@
 # **Teamwork Contract**
 
-**Team X**  
-**Team Members:** [List all student names here]   
+**Team 5**  
+**Team Members:** 
+Bernie Friesel
+Sean Ike
+Elliot Lovins
+Jackson Phillips
+Mashoud Modi   
 *Electrical and Computer Engineering Department*  
 *Tennessee Technological University*
 
