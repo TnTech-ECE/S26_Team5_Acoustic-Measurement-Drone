@@ -7,7 +7,7 @@
 
 ## **Introduction**
 
-*This teamwork contract outlines the agreed-upon expectations, responsibilities, and guidelines for effective collaboration among the members of Team X. By adhering to this contract, we aim to foster a productive, respectful, and supportive team environment conducive to the success of our project.*
+*This teamwork contract outlines the agreed-upon expectations, responsibilities, and guidelines for effective collaboration among the members of Team 5. By adhering to this contract, we aim to foster a productive, respectful, and supportive team environment conducive to the success of our project.*
 
 
 ## **Team Expectations**
@@ -32,15 +32,15 @@ In this section, the team will discuss and clearly define their collective expec
 
 - **Expectation:** Team communication should be:
   - Professional, respectful, and considerate.
-  - Conducted through agreed-upon channels (Discord).
-  - Responsive, with replies to inquiries within 24 hours on weekdays.
+  - Conducted through agreed-upon channels (Discord and Text Message).
+  - Responsive, with replies to inquiries within 24 hours.
 
 ### **4. Meetings**
 
 - **Expectation:** Regarding team meetings:
-  - **Frequency:** The team will meet twice a week outside of class. We will meet Monday from 2-3:45pm and Wednsday 3-3:45pm.
-  - **Attendance:** Members are expected to attend all meetings; absences should be communicated in advance.
-  - **Preparation:** Members should come prepared, having completed any agreed-upon tasks or research. At the beginning of each meeting, expectations and things to be accomplished in the meeting will be addressed. 
+  - **Frequency:** The team will meet twice a week outside of class as well as the specified ECE-4961 meeting time. We will meet Monday from 2-3pm and Wednesday 3-3:45pm.
+  - **Attendance:** Members are expected to attend all meetings; absences should be communicated 24 hours in advance.
+  - **Preparation:** Members should come prepared, having completed any agreed-upon tasks or research. At the beginning of each meeting, expectations for tasks to be accomplished in the meeting will be addressed. 
 
 ### **5. Conduct**
 
@@ -58,12 +58,13 @@ In this section, the team will discuss and clearly define their collective expec
     2. If unresolved, bring the issue to the team for discussion.
     3. Seek input from the instructor if necessary.
   - Focus on finding mutually acceptable solutions.
+  - In the event of differing opinions, the outcome will be determined by a majority vote.
 
 ### **7. Deadlines**
 
 - **Expectation:** Regarding deadlines:
   - All team-set and instructor-set deadlines are to be met.
-  - If a member anticipates difficulty meeting a deadline, they must inform the team as soon as possible.
+  - If a member anticipates difficulty meeting a deadline, they must inform the team at least 48 hours in advance.
   - The team will collaboratively adjust workloads to ensure project timelines are maintained.
 
 
@@ -80,7 +81,7 @@ In this section, the team will discuss and clearly define their collective expec
 - **Expectation Changes:**
   - In addition to regular duties, the Team Leader will handle organizational tasks but remains equally responsible for project work.
 
-**b. Recorder/Secretary: (Optional)** [Name of student who will fill this role]
+**b. Recorder/Secretary: Jackson Phillips**
 
 - **Responsibilities:**
   - Take detailed notes during meetings.
@@ -91,12 +92,12 @@ In this section, the team will discuss and clearly define their collective expec
   - Ensures documentation is maintained without reducing their responsibility in other project areas.
 
 ## **Additional Agreements**
-  - If the team gets ahead of work and the meetings are no longer productive or needed, then the team can vote to shorten the amount of time the group needs to meet. No matter what though the team will meet at 2pm on Mondays to talk about what needs to get done and to review progress of the project.
-  - Grading on peer evaluations will reflect unexcused absences. If a person has two unexcused absences there will be an auotmatic drop of a point on the grading scale. After 4 unexscused absences there will be two point deduction. After 5 unescused absences the professor will be contacted about further consequences. 
+  - If the team gets ahead of work and the meetings are no longer productive or needed, then the team can vote to shorten the amount of time the group needs to meet. Regardless, the team will meet at 2pm on Mondays to talk about what needs to get done and to review progress of the project.
+  - Grading on peer evaluations will reflect unexcused absences. If a person has one unexcused absence, there will be an auotmatic drop of a point on the grading scale. After two unexcused absences there will be a two point deduction, and after 3 unexcused absences the professor will be contacted about further consequences. 
 
 
 ## **Team Member Signatures**
 
 By typing our names below, we acknowledge that we have read, understand, and agree to abide by the terms of this Teamwork Contract.
 
-[List all student names here]
+Elliot Lovins, Mashoud Modi, Jackson Phillips, Bernie Friesel, Sean Ike.
