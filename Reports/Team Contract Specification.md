@@ -5,8 +5,6 @@
 *Electrical and Computer Engineering Department*  
 *Tennessee Technological University*
 
-The following are suggestions for items to include in your team contract. You get to customize this document as you see fit. Note that your final contract, must be approved by your instructor.
-
 ## **Introduction**
 
 *This teamwork contract outlines the agreed-upon expectations, responsibilities, and guidelines for effective collaboration among the members of Team X. By adhering to this contract, we aim to foster a productive, respectful, and supportive team environment conducive to the success of our project.*
@@ -34,15 +32,15 @@ In this section, the team will discuss and clearly define their collective expec
 
 - **Expectation:** Team communication should be:
   - Professional, respectful, and considerate.
-  - Conducted through agreed-upon channels (e.g., email, Slack, Microsoft Teams).
+  - Conducted through agreed-upon channels (Discord).
   - Responsive, with replies to inquiries within 24 hours on weekdays.
 
 ### **4. Meetings**
 
 - **Expectation:** Regarding team meetings:
-  - **Frequency:** The team will meet for three hours every week outside of class. We will meet Monday from 2-4pm and Wednsday 3-4pm.
+  - **Frequency:** The team will meet twice a week outside of class. We will meet Monday from 2-3:45pm and Wednsday 3-3:45pm.
   - **Attendance:** Members are expected to attend all meetings; absences should be communicated in advance.
-  - **Preparation:** Members should come prepared, having completed any agreed-upon tasks or research.
+  - **Preparation:** Members should come prepared, having completed any agreed-upon tasks or research. At the beginning of each meeting, expectations and things to be accomplished in the meeting will be addressed. 
 
 ### **5. Conduct**
 
@@ -71,9 +69,7 @@ In this section, the team will discuss and clearly define their collective expec
 
 ## **Unique Roles**
 
-Assigning specific roles can help streamline team operations. Below, define any unique roles, their responsibilities, the powers granted, and any changes to expectations.
-
-**a. Team Leader/Coordinator: (Required)** [Name of student who will fill this role]
+**a. Team Leader/Coordinator: Bernie Friesel**
 
 - **Responsibilities:**
   - Schedule and coordinate team meetings.
@@ -94,12 +90,9 @@ Assigning specific roles can help streamline team operations. Below, define any 
 - **Expectation Changes:**
   - Ensures documentation is maintained without reducing their responsibility in other project areas.
 
-*(Add or modify roles based on your team's needs.)*
-
-
 ## **Additional Agreements**
-
-Include any other important agreements the team decides upon.
+  - If the team gets ahead of work and the meetings are no longer productive or needed, then the team can vote to shorten the amount of time the group needs to meet. No matter what though the team will meet at 2pm on Mondays to talk about what needs to get done and to review progress of the project.
+  - Grading on peer evaluations will reflect unexcused absences. If a person has two unexcused absences there will be an auotmatic drop of a point on the grading scale. After 4 unexscused absences there will be two point deduction. After 5 unescused absences the professor will be contacted about further consequences. 
 
 
 ## **Team Member Signatures**
