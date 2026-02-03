@@ -93,7 +93,7 @@ In this section, the team will discuss and clearly define their collective expec
 
 ## **Additional Agreements**
   - If the team gets ahead of work and the meetings are no longer productive or needed, then the team can vote to shorten the amount of time the group needs to meet. Regardless, the team will meet at 2pm on Mondays to talk about what needs to get done and to review progress of the project.
-  - Grading on peer evaluations will reflect unexcused absences. If a person has one unexcused absence, there will be an auotmatic drop of a point on the grading scale. After two unexcused absences there will be a two point deduction, and after 3 unexcused absences the professor will be contacted about further consequences. 
+  - After 3 unexcused absences the professor will be contacted about further consequences. 
 
 
 ## **Team Member Signatures**
