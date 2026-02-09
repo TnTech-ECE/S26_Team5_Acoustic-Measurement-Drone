@@ -39,7 +39,10 @@ In this section, the team will discuss and clearly define their collective expec
 
 - **Expectation:** Regarding team meetings:
   - **Frequency:** The team will meet twice a week outside of class as well as the specified ECE-4961 meeting time. We will meet Monday from 2-3pm and Wednesday 3-3:45pm.
-  - **Attendance:** Members are expected to attend all meetings; absences should be communicated 24 hours in advance.
+  - **Attendance:** 
+    - Members are expected to attend all scheduled meetings.
+      - An absence is considered excused if the member notifies the team at least 24 hours in advance or communicates an immediate emergency as soon as possible.
+      - An absence is considered unexcused if a member fails to attend a scheduled meeting without providing a 24 hour prior notice and without a valid reason communicated to the team.
   - **Preparation:** Members should come prepared, having completed any agreed-upon tasks or research. At the beginning of each meeting, expectations for tasks to be accomplished in the meeting will be addressed. 
 
 ### **5. Conduct**
@@ -58,7 +61,7 @@ In this section, the team will discuss and clearly define their collective expec
     2. If unresolved, bring the issue to the team for discussion.
     3. Seek input from the instructor if necessary.
   - Focus on finding mutually acceptable solutions.
-  - In the event of differing opinions, the outcome will be determined by a majority vote.
+  - In the event of differing opinions, all five team members must be consulted, and the outcome will be determined by a majority vote.
 
 ### **7. Deadlines**
 
