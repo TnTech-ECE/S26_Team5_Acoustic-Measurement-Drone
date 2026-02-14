@@ -20,13 +20,16 @@ In this section, the team will discuss and clearly define their collective expec
   - Actively participate in all team meetings and discussions.
   - Engage fully in project activities and contribute ideas.
   - Notify the team in advance if unable to attend a meeting or meet an obligation.
+  - Team members will finish their weekly work that was assigned to them in the weekly meetings.
 
 ### **2. Contribution** *(Progress on the Project)*
 
 - **Expectation:** Each team member is expected to:
   - Complete assigned tasks diligently and on time.
+      - All assignments will be posted in the group discord and progress will be discussed in each our weekly meeting.
   - Contribute equal effort to the project's progress.
   - Share expertise and assist others when needed.
+
 
 ### **3. Communication**
 
