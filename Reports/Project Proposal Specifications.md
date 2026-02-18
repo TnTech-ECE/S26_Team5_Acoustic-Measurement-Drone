@@ -100,6 +100,7 @@ Below are benefits the consumer can recieve from this product:
 - Repeatable measurement runs that support consistent outcomes across events
 - Adaptable and practical use for countless different venues
 
+In modern acoustic analysis, there are certain points that audio engineers must calibrate manually in order for the venue to be properly adjusted for the acoustics of the event. This process can take several attempts and much time to do, while a drone could expedite this process with ease.
 
 ## Broader Implications, Ethics, and Responsibility as Engineers
 
