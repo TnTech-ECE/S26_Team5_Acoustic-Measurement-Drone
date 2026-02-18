@@ -70,19 +70,56 @@ Define how the project’s success will be measured. This involves explaining th
 
 ## Resources
 
-Each project proposal must include a comprehensive description of the necessary resources.
+The autonomous acoustic measurement drone will require a complete system-level design encompassing both the physical airframe and the hardware and software architectures that govern flight and data acquisition. This project demands a broad range of technical skills, including embedded systems design, CAD, digital signal processing and filtering, audio engineering, and control systems. Each of these disciplines must function cohesively to produce a platform capable of collecting clean acoustic data while maintaining stable, safe, and autonomous flight. Achieving both high-quality signal acquisition and reliable aerial performance requires careful integration across electrical, mechanical, and software subsystems.
+
+For safe and reliable autonomous pathing in dynamic environments, the drone will require onboard sensing, state estimation, and real-time control logic. Although modern flight controllers provide basic stabilization, mission-level autonomy demands accurate positioning, obstacle awareness, and robust fail-safe behavior. The feasibility of consistent autonomous performance under varying conditions will be evaluated through iterative testing. This may involve sensor fusion between GPS, inertial measurement units, and proximity sensors, along with control tuning to maintain flight stability while executing onboard data processing.
+
+Another major technical challenge of this project is maintaining acoustic signal quality during flight. Rotor vibration and wind turbulence can introduce significant disturbances into the audio captured by the onboard microphone. The team will evaluate mechanical isolation methods, sensor placement, and digital filtering techniques to reduce these disturbances. Controlled testing will be conducted to determine whether sufficient signal clarity can be achieved while remaining within budget constraints, power limitations, and microphone selection.
+
+Throughout development, the team will utilize university laboratory equipment, open-source flight firmware, and commercially available components to support efficient prototyping and validation. Rapid prototyping tools such as 3D printing will enable iterative refinement of mounting structures and sensor placement as integration progresses.
+
+As development advances, the team will apply systematic testing and iterative design practices to address challenges in autonomy and acoustic performance. By maintaining a strong focus on system-level integration and practical constraints, the team is confident in delivering a functional prototype that demonstrates the feasibility of autonomous acoustic measurement in real-world environments.
 
 ### Budget
 
 Provide a budget proposal with justifications for expenses such as software, equipment, components, testing machinery, and prototyping costs. This should be an estimate, not a detailed bill of materials.
 
+| **Item**                         | **Description**                                         | **Estimated Cost**      |
+|----------------------------------|---------------------------------------------------------|--------------------------|
+| **3D Printing Filament**         | Material for producing the body of the drone.           | $40 – $80                |
+| **Motors (4x)**                  | Brushless motors selected for stable thrust             | $160 – $240              |
+| **Electronic Speed Controllers (ESCs)** | Motor controllers that ensure stable and efficient propulsion. | $70 – $100              |
+| **Propellers (Sets + Spares)**   | Propellers optimized for stability and efficiency | $10 – $30                |
+| **Battery (LiPo/Li-ion)**               | Primary onboard power source sized for payload and flight duration | $100 – $200              |
+| **Flight Controller**            | Central flight control unit responsible for stabilization, navigation, and autonomous path execution. | $150 - $200       |
+| **GPS Module**                   | Provides positioning data for autonomous navigation | $40 – $60                |
+| **Vibration Isolation Materials**| Damping materials and mounting hardware to reduce mechanical interference | $30 – $80       |
+| **Wiring, Connectors, Hardware** | Electrical connectors, cabling, and integration components | $25 – $50        |
+
+
 ### Personel
 
-Identify the skills present in the team and compare them to those required to complete the project. Address any skill gaps with a plan to acquire the necessary knowledge.
+**Faculty:**
 
-Besides the team, also state who you choose to be you supervisor and why.
+Instructor - 
 
-State who your instrucotr is and what role you expect them to play in the project.
+Advisor - 
+
+Customer - 
+
+**Team Members:**
+
+Bernie Friesel -
+
+Jackson Phillips - 
+
+Sean Ike - 
+
+Mashoud Modi
+
+Elliot Lovins - 
+
+
 
 ### Timeline
 
