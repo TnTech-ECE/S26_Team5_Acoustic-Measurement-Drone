@@ -95,7 +95,79 @@ $$
 
 ## Survey of Existing Solutions
 
-Research existing solutions, whether in literature, on the market, or within the industry. Present these findings in a coherent, organized manner. Remember to cite all information that is not common knowledge.
+The success of this project will be evaluated based on the drone system’s ability to meet functional, control, reliability, and usability requirements during real-world operation and testing. The following key performance indicators (KPIs) and verification methodologies will be used to ensure the system satisfies its technical specifications, safety constraints, and performance objectives.
+
+1. Flight Stability and Control Accuracy
+
+Objective: Verify that the drone maintains stable and accurate flight control under varying operating conditions.
+
+Methodology:
+
+Hover Stability Testing: Conduct repeated hover trials to measure positional drift and stability over fixed time intervals.
+
+Control Response Evaluation: Measure the drone’s response time and accuracy to pilot or programmed control inputs.
+
+Disturbance Rejection: Introduce minor external disturbances (e.g., airflow variations) to evaluate stabilization performance.
+
+Sensor Calibration Verification: Validate proper integration and calibration of IMU and onboard sensors for accurate orientation and motion tracking.
+
+2. Autonomous and Signal Processing Performance
+
+Objective: Ensure that the microcontroller and digital signal processing (DSP) components reliably interpret sensor data and execute control algorithms.
+
+Methodology:
+
+Data Processing Latency: Measure the time between sensor input acquisition and control output execution.
+
+Algorithm Validation: Test filtering and control algorithms for consistency and noise reduction in sensor readings.
+
+Communication Reliability: Verify stable data transmission between onboard modules and control interfaces.
+
+Fail-Safe Logic Testing: Simulate signal loss or abnormal inputs to confirm proper autonomous safety responses.
+
+3. System Integration and Hardware Reliability
+
+Objective: Confirm that all hardware components, including the flight controller, sensors, power system, and communication modules, operate cohesively and reliably.
+
+Methodology:
+
+End-to-End System Testing: Perform full-flight trials to validate coordinated subsystem operation.
+
+Component Stress Testing: Evaluate system performance under extended operation to identify overheating or instability.
+
+Power System Evaluation: Monitor voltage levels, current draw, and battery performance during various flight modes.
+
+Connection Integrity Checks: Ensure secure wiring, solder joints, and module interfaces under vibration conditions.
+
+4. Safety and Operational Robustness
+
+Objective: Verify that the drone operates safely and maintains controlled behavior in both normal and abnormal scenarios.
+
+Methodology:
+
+Emergency Shutdown Testing: Confirm reliable activation of kill-switch or emergency stop mechanisms.
+
+Controlled Landing Trials: Evaluate the system’s ability to execute safe landings during low power or signal interruption.
+
+Thermal Monitoring: Assess operating temperatures of critical electronics to prevent overheating risks.
+
+Flight Boundary Testing: Ensure the drone maintains stable operation within defined operational limits.
+
+5. Cost Efficiency and Expandability
+
+Objective: Demonstrate that the drone system remains cost-effective while supporting future enhancements in control, sensing, and DSP capabilities.
+
+Methodology:
+
+Budget Assessment: Compare total system cost against initial project constraints and comparable commercial platforms.
+
+Modular Design Review: Evaluate the ease of integrating additional sensors, DSP modules, or control upgrades.
+
+Maintenance and Durability Analysis: Track component wear, repair frequency, and long-term usability.
+
+Documentation Verification: Ensure clear technical documentation enables replication and future development.
+
+By meeting these success criteria, the project will demonstrate a reliable, stable, and cost-effective drone system that successfully integrates microcontroller-based control and digital signal processing while maintaining safe operation and expandability for future research and development.
 
 
 ## Measures of Success
