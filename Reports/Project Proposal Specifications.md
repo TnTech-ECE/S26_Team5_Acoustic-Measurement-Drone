@@ -95,7 +95,7 @@ $$
 
 ## Survey of Existing Solutions
 
-The success of this project will be evaluated based on the drone system’s ability to meet functional, control, reliability, and usability requirements during real-world operation and testing. The following key performance indicators (KPIs) and verification methodologies will be used to ensure the system satisfies its technical specifications, safety constraints, and performance objectives.
+&nbsp; &nbsp; &nbsp; &nbsp; The success of this project will be evaluated based on the drone system’s ability to achieve precise flight control, maintain operational reliability, and perform accurate acoustic data acquisition during real-world testing and measurement scenarios.The following key performance indicators (KPIs) and verification methodologies will be used to ensure the system meets its control, sensing, safety, and acoustic measurement specifications while operating within defined technical and environmental constraints.
 
 1. Flight Stability and Control Accuracy
 
@@ -153,6 +153,7 @@ Thermal Monitoring: Assess operating temperatures of critical electronics to pre
 
 Flight Boundary Testing: Ensure the drone maintains stable operation within defined operational limits.
 
+****************************************************************
 5. Cost Efficiency and Expandability
 
 Objective: Demonstrate that the drone system remains cost-effective while supporting future enhancements in control, sensing, and DSP capabilities.
@@ -166,6 +167,8 @@ Modular Design Review: Evaluate the ease of integrating additional sensors, DSP 
 Maintenance and Durability Analysis: Track component wear, repair frequency, and long-term usability.
 
 Documentation Verification: Ensure clear technical documentation enables replication and future development.
+*********************************************************************
+
 
 By meeting these success criteria, the project will demonstrate a reliable, stable, and cost-effective drone system that successfully integrates microcontroller-based control and digital signal processing while maintaining safe operation and expandability for future research and development.
 
