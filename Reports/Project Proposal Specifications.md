@@ -92,18 +92,23 @@ Provide a detailed timeline, including all major deadlines and tasks. This shoul
 ## Specific Implications
 
 - Faster setup and tuning cycles due to automated measurement collection:
+
    In today’s workflow, engineers typically set up one or more measurement mics on stands, run test signals, interpret results, then physically move the mics and repeat, usually across multiple zones (front fills, sides, balcony). That repositioning and re-measuring is accurate but time-heavy and depends on crew availability and clear access to seating areas. With an acoustics measurement drone, the same measurements can be collected in a planned sequence of waypoints automatically; thereby reducing repeated manual mic moves and compressing the “measure → adjust → verify” loop into fewer, faster passes.
 
 - Higher spatial resolution in acoustic assessment (more time, more points, more coverage):
+
    In the real world, crews usually measure a limited number of positions because each additional point costs time (moving stands, re-running sweeps, re-checking levels). As a result, tuning decisions are often based on a “representative” set of listening locations rather than dense coverage, which can miss localized hot spots, dead zones, or frequency-specific problems. A drone-based process enables many more measurement points in the same time window, producing a denser dataset that makes coverage gaps and frequency issues easier to see and quantify.
 
 - Improved confidence in adjustments based on visualized coverage patterns:
+
    Without this product, engineers combine prediction software (what should happen) with manual measurements (what happens at a few real points). When the room behaves unexpectedly, the team has to infer what’s happening between measured positions, and decisions can lean heavily on experience and best-guess tradeoffs. With the drone approach, higher-density measurements can be turned into visual coverage maps that show trends across the venue, helping engineers justify EQ, delay, level, and aiming decisions with clearer evidence.
 
 - Repeatable measurement runs that support consistent outcomes across events:
+
    Traditional measurement sessions vary from day to day: mic placements shift slightly, available measurement locations change due to staging, and different technicians may choose different points or sequences. That inconsistency makes it harder to compare “before vs. after” changes or to reproduce a known-good tuning approach across multiple events. A drone can follow the same waypoint plan each time (or a consistent template per venue), enabling repeatable runs and cleaner comparisons. Then engineers can validate improvements, document results, and build a reliable playbook for future shows.
 
 - Adaptable and practical use for countless different venues:
+
    Right now, adapting to a new venue usually means rebuilding a measurement plan from scratch—choosing mic locations that are physically accessible, negotiating access with venue staff, and settling for fewer points when time is tight. That can lead to uneven measurement quality across venues of different shapes, sizes, and seating layouts. A drone-based system can scale the same core process to different rooms by adjusting the waypoint grid (floor, balcony, VIP areas) and automatically collecting data, making the workflow more consistent and practical across a wide range of venues while still letting engineers target problem zones when needed.
 
 ## Broader Implications, Ethics, and Responsibility as Engineers
