@@ -93,7 +93,7 @@ Provide a detailed timeline, including all major deadlines and tasks. This shoul
 
 - Faster setup and tuning cycles due to automated measurement collection:
 
-   In today’s workflow, engineers typically set up one or more measurement mics on stands, run test signals, interpret results, then physically move the mics and repeat, usually across multiple zones (front fills, sides, balcony). That repositioning and re-measuring is accurate but time-heavy and depends on crew availability and clear access to seating areas. With an acoustics measurement drone, the same measurements can be collected in a planned sequence of waypoints automatically; thereby reducing repeated manual mic moves and compressing the “measure → adjust → verify” loop into fewer, faster passes.
+   In today’s workflow, engineers typically set up one or more measurement mics on stands, run test signals, interpret results, then physically move the mics and repeat, usually across multiple zones (front fills, sides, balcony). That repositioning and re-measuring is accurate but time-heavy and depends on crew availability and clear access to seating areas. With an acoustics measurement drone, the same measurements can be collected in a planned sequence of waypoints automatically; thereby reducing repeated manual mic moves and compressing the “measure -> adjust -> verify” loop into fewer, faster passes.
 
 - Higher spatial resolution in acoustic assessment (more time, more points, more coverage):
 
