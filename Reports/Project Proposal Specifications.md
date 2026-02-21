@@ -82,7 +82,9 @@ As development advances, the team will apply systematic testing and iterative de
 
 ### Budget
 
-Provide a budget proposal with justifications for expenses such as software, equipment, components, testing machinery, and prototyping costs. This should be an estimate, not a detailed bill of materials.
+The total estimated budget for this project is approximately $1,000–$1,500, which covers the essential components required to construct a functional prototype of an autonomous acoustic measurement drone. This includes the drone propulsion system, flight controller, onboard sensing hardware, battery systems, structural components, and acoustic isolation materials necessary for stable flight and reliable audio acquisition.
+
+The budget is intentionally constrained by prioritizing commercially available components, open-source flight firmware, and university-provided laboratory resources. By leveraging in-house prototyping tools such as 3D printing and existing testing equipment, the team aims to minimize cost while maintaining system performance and reliability.
 
 | **Item**                         | **Description**                                         | **Estimated Cost**      |
 |----------------------------------|---------------------------------------------------------|--------------------------|
@@ -101,29 +103,27 @@ Provide a budget proposal with justifications for expenses such as software, equ
 
 **Faculty:**
 
-Instructor - 
+Instructor - Dr. Johnson will be the team's instructor. Dr. Johnson will meet with the team weekly to review progress, provide feedback, and offer guidance as needed. He will help ensure the project remains on track and meets overall expectations.
 
-Advisor - 
+Advisor - Owen O’Connor will be the project's advisor. He will provide technical guidance throughout the project with particular emphasis on embedded systems. He will assist with system design decisions and help address technical challenges as they arise to ensure a reliable and well-executed solution.
 
-Customer - 
+Customer - Audio Company will be as the project’s customer and provide industry-based direction throughout development. They will help define system requirements, performance expectations, and practical constraints to ensure the final solution aligns with current industry standards. Ongoing communication with Audio Company will help guide design decisions and ensure the completed project delivers real-world value.
 
 **Team Members:**
 
-Bernie Friesel -
+Bernie Friesel - Experience in power systems, controls, and digital signal processing, supported by coursework and laboratory experience. Strong background in circuit design and construction. Proficient in C/C++ and MATLAB programming, with experience in digital system design, microcontrollers, and microprocessors.
 
-Jackson Phillips - 
+Jackson Phillips - Strong background in FPGA and microcontroller programming, supported by coursework in digital system design and computer architecture. Experience in signals and telecommunications with familiarity in DSP concepts. Proficient in C, C++, and VHDL, with foundational knowledge in power systems.
 
-Sean Ike - 
+Sean Ike - Strong background in CAD, FPGA development, and microcontroller-based systems. Experience in circuit design and construction, supported by coursework in power systems. Proficient in C, C++, and VHDL, with working knowledge of MATLAB and foundational experience in DSP through signals and telecommunications.
 
-Mashoud Modi
+Mashoud Modi - Strong background in embedded systems, microcontrollers, and digital system design. Coursework includes Signals and Systems, Digital System Design, Microcontrollers, PLCs, and Control Systems with lab experience focused on system modeling and implementation. Proficient in C programming and experienced in hardware/software integration and debugging.
 
-Elliot Lovins - 
-
-
+Elliot Lovins - Strong background in CAD, control systems, and physical system design. Competitive robotics experience has strengthened skills in system integration and troubleshooting. Proficient in C/C++ and MATLAB, with coursework in control systems, signals, and telecommunications. Hands-on experience with microcontrollers through robotics and project development.
 
 ### Timeline
 
-Provide a detailed timeline, including all major deadlines and tasks. This should be illustrated with a professional Gantt chart.
+The capstone team has one academic year to design and develop an autonomous acoustic measurement drone. During the first semester, the focus will be on research, system architecture, part selection, and detailed design to ensure all major decisions are finalized before summer. The second semester will concentrate on building, integrating, testing, and refining the prototype. If the team follows the timeline outlined in the Gantt chart, the project will result in a functional and validated prototype by December 2026.
 
 
 ## Specific Implications
