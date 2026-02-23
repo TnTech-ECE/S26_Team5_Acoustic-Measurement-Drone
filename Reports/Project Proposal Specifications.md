@@ -488,6 +488,16 @@ By aligning system design with established principles in sound-system engineerin
 
 [7] Federal Communications Commission, Title 47 CFR Part 15 – Radio Frequency Devices, Washington, DC, USA.
 
+[8] M. Pham, “Sound check! crafting acoustics for performance - USC viterbi school of engineering,” USC Viterbi School of Engineering - USC Viterbi School   of Engineering, https://illumin.usc.edu/crafting-acoustics-for-performance/ (last accessed Feb. 23, 2026). 
+
+[9] J. Bedard, “How do we measure SPL? A guide to SPL metrics,” Rational Acoustics, https://support.rationalacoustics.com/support/solutions/articles/150000183624-spl-metrics-and-weighting-guide (last accessed Feb. 23, 2026). 
+
+[10] J. Bedard, “How to create SPL reports in Smaart,” Rational Acoustics, https://support.rationalacoustics.com/support/solutions/articles/150000195027-how-to-create-spl-reports-in-smaart (last accessed Feb. 23, 2026). 
+
+[11] J. Bedard, “Measurement 101: Types of measurement,” Rational Acoustics, https://support.rationalacoustics.com/support/solutions/articles/150000190431-measurement-101-types-of-measurement (last accessed Feb. 23, 2026). 
+
+[12] J. Bedard, “IR measurements, part 1: Pre-Smaart Preparation,” Rational Acoustics, https://support.rationalacoustics.com/support/solutions/articles/150000191163-ir-measurements-part-1-pre-smaart-preparation (last accessed Feb. 23, 2026). 
+
 ## Statement of Contributions
 
 Each team member must contribute meaningfully to the project proposal. In this section, each team member is required to document their individual contributions to the report. One team member may not record another member's contributions on their behalf. By submitting, the team certifies that each member's statement of contributions is accurate.
