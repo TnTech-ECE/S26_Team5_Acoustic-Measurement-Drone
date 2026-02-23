@@ -241,6 +241,20 @@ The broader implications of this project extend beyond technical innovation. The
 
 By aligning system design with established principles in sound-system engineering [1]–[4] and federal regulatory standards [5]–[7], the project advances technological capability while upholding the paramount obligation of engineers: to protect public welfare and serve society responsibly.
 
+[1] D. Davis and E. Patronis, Sound System Engineering, 4th ed. New York, NY, USA: Focal Press, 2013.
+
+[2] G. Ballou, Ed., Handbook for Sound Engineers, 5th ed. New York, NY, USA: Focal Press, 2015.
+
+[3] F. A. Everest and K. Pohlmann, Master Handbook of Acoustics, 6th ed. New York, NY, USA: McGraw-Hill, 2015.
+
+[4] M. Lawrence, Between the Lines: Concepts in Sound System Design and Alignment. Petaluma, CA, USA: Rational Acoustics, 2016.
+
+[5] Federal Aviation Administration, 14 CFR Part 107 – Small Unmanned Aircraft Systems, U.S. Department of Transportation, Washington, DC, USA.
+
+[6] Occupational Safety and Health Administration, Occupational Noise Exposure Standard (29 CFR 1910.95), U.S. Department of Labor, Washington, DC, USA.
+
+[7] Federal Communications Commission, Title 47 CFR Part 15 – Radio Frequency Devices, Washington, DC, USA.
+
 ## References
 
 All sources used in the project proposal that are not common knowledge must be cited. Multiple references are required.
