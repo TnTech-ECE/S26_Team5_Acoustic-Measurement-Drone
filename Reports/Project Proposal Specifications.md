@@ -96,8 +96,6 @@ Explain the implications of solving the problem for the customer. After reading 
 
 ## Broader Implications, Ethics, and Responsibility as Engineers
 
-
-
 The proposed autonomous acoustic-measurement drone system extends beyond a technical solution for venue sound optimization. Its implementation carries broader global, economic, environmental, and societal implications that must be carefully evaluated. As engineers, the project team bears responsibility for ensuring that innovation is pursued in a manner that prioritizes safety, equity, transparency, sustainability, and regulatory compliance.
 
 ### Global and Industry Impacts
@@ -239,7 +237,7 @@ By striving for equitable acoustic performance throughout all seating areas—no
 
 The broader implications of this project extend beyond technical innovation. The autonomous acoustic-measurement system has the potential to improve industry workflows, enhance audience experience, and reduce commissioning time. However, these benefits must be balanced with strict adherence to safety, environmental responsibility, privacy protection, workforce considerations, and regulatory compliance.
 
-By aligning system design with established principles in sound-system engineering [1]–[4] and federal regulatory standards [5]–[7], the project advances technological capability while upholding the paramount obligation of engineers: to protect public welfare and serve society responsibly.
+By aligning system design with established principles in sound-system engineering and federal regulatory standards, the project advances technological capability while upholding the paramount obligation of engineers: to protect public welfare and serve society responsibly.
 
 [1] D. Davis and E. Patronis, Sound System Engineering, 4th ed. New York, NY, USA: Focal Press, 2013.
 
