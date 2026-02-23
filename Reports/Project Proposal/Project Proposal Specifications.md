@@ -301,7 +301,7 @@ Elliot Lovins - Strong background in CAD, control systems, and physical system d
 
 &nbsp; &nbsp; &nbsp; &nbsp; The capstone team has one academic year to design and develop an autonomous acoustic measurement drone. During the first semester, the focus will be on research, system architecture, part selection, and detailed design to ensure all major decisions are finalized before summer. The second semester will concentrate on building, integrating, testing, and refining the prototype. If the team follows the timeline outlined in the Gantt chart, the project will result in a functional and validated prototype by December 2026.
 
-![alt text](Reports\Project Proposal\Gantt_Chart_Team5.png)
+![Gantt Chart](Gantt_Chart_Team5.png)
 
 ## Specific Implications
 
