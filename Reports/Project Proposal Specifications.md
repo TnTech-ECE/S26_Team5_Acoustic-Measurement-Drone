@@ -92,7 +92,6 @@ $$
 - The system shall incorporate protective measures to prevent injury to personnel or damage to venue infrastructure.
 - The system shall include emergency shutdown functionality to ensure safe operation in fault conditions.
 
-
 ## Survey of Existing Solutions
 
 &nbsp; &nbsp; &nbsp; &nbsp;Several research efforts have explored the use of drones for acoustic measurement, noise analysis, and sound localization in different environments. Our team has surveyed existing academic solutions that most closely align with our objective of using a drone-based platform to capture acoustic data while mitigating drone self-noise. Two systems in particular help our design approach: **Urban Traffic Noise Analysis Using a UAV-Based Array of Microphones** and **An Acoustic Source Localization Method Using a Drone-Mounted Phased Microphone Array**.
@@ -249,6 +248,7 @@ Documentation Verification: Ensure clear technical documentation enables replica
 
 
 By meeting these success criteria, the project will demonstrate a reliable, stable, and cost-effective drone system that successfully integrates microcontroller-based control and digital signal processing while maintaining safe operation and expandability for future research and development.
+
 ## Resources
 
 The autonomous acoustic measurement drone will require a complete system-level design encompassing both the physical airframe and the hardware and software architectures that govern flight and data acquisition. This project demands a broad range of technical skills, including embedded systems design, CAD, digital signal processing and filtering, audio engineering, and control systems. Each of these disciplines must function cohesively to produce a platform capable of collecting clean acoustic data while maintaining stable, safe, and autonomous flight. Achieving both high-quality signal acquisition and reliable aerial performance requires careful integration across electrical, mechanical, and software subsystems.
