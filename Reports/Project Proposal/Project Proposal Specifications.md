@@ -502,3 +502,5 @@ By aligning system design with established principles in sound-system engineerin
 ## Statement of Contributions
 
 Each team member must contribute meaningfully to the project proposal. In this section, each team member is required to document their individual contributions to the report. One team member may not record another member's contributions on their behalf. By submitting, the team certifies that each member's statement of contributions is accurate.
+
+Sean: Specific Implications along with its respective references.
