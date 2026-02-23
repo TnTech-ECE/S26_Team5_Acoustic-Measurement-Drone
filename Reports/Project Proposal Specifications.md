@@ -95,6 +95,8 @@ $$
 
 ## Survey of Existing Solutions
 
+## Measures of Success
+
 &nbsp; &nbsp; &nbsp; &nbsp; The success of this project will be evaluated based on the drone system’s ability to achieve precise flight control, maintain operational reliability, and perform accurate acoustic data acquisition during real-world testing and measurement scenarios.The following key performance indicators (KPIs) and verification methodologies will be used to ensure the system meets its control, sensing, safety, and acoustic measurement specifications while operating within defined technical and environmental constraints.
 
 1. Flight Stability and Control Accuracy
@@ -171,13 +173,6 @@ Documentation Verification: Ensure clear technical documentation enables replica
 
 
 By meeting these success criteria, the project will demonstrate a reliable, stable, and cost-effective drone system that successfully integrates microcontroller-based control and digital signal processing while maintaining safe operation and expandability for future research and development.
-
-
-## Measures of Success
-
-Define how the project’s success will be measured. This involves explaining the experiments and methodologies to verify that the system meets its specifications and constraints.
-
-
 ## Resources
 
 The autonomous acoustic measurement drone will require a complete system-level design encompassing both the physical airframe and the hardware and software architectures that govern flight and data acquisition. This project demands a broad range of technical skills, including embedded systems design, CAD, digital signal processing and filtering, audio engineering, and control systems. Each of these disciplines must function cohesively to produce a platform capable of collecting clean acoustic data while maintaining stable, safe, and autonomous flight. Achieving both high-quality signal acquisition and reliable aerial performance requires careful integration across electrical, mechanical, and software subsystems.
