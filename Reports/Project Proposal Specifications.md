@@ -104,7 +104,7 @@ The proposed autonomous acoustic-measurement drone system extends beyond a techn
 
 The live-event industry is a global enterprise encompassing concerts, conferences, houses of worship, sporting venues, and cultural institutions. A system capable of rapidly collecting spatially dense acoustic data may significantly improve sound-system commissioning workflows worldwide. By enabling more comprehensive acoustic characterization, the technology may contribute to improved listener experiences across diverse cultural and geographic contexts. The importance of accurate spatial measurement in achieving consistent system performance is well documented in professional sound engineering literature [1][2].
 
-Automated acoustic mapping may enhance verification procedures by increasing spatial sampling density beyond what is typically feasible with manual workflows [2][4]. However, automation shall not replace professional judgment. The system shall function as a decision-support tool that complements the expertise of trained system engineers.
+Automated acoustic mapping may improve system verification by allowing more measurement locations to be sampled than is typically practical with manual microphone placement methods [2][4]. However, automation shall not replace professional judgment. The system shall function as a decision-support tool that complements the expertise of trained system engineers.
 
 ### Economic Implications
 
