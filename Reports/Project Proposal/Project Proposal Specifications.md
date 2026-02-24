@@ -235,6 +235,7 @@ Maintenance and Durability Analysis: Track component wear, repair frequency, and
 
 Documentation Verification: Ensure clear technical documentation enables replication and future development.
 
+---
 
 &nbsp; &nbsp; &nbsp; &nbsp; By meeting these success criteria, the project will demonstrate a reliable, stable, and cost-effective drone system that successfully integrates microcontroller-based control and digital signal processing while maintaining safe operation and expandability for future research and development.
 
@@ -450,7 +451,7 @@ Each team member shall uphold professional engineering ethics by:
 
 ## Statement of Contributions
 
-Each team member must contribute meaningfully to the project proposal. In this section, each team member is required to document their individual contributions to the report. One team member may not record another member's contributions on their behalf. By submitting, the team certifies that each member's statement of contributions is accurate.
+&nbsp; &nbsp; &nbsp; &nbsp; Each team member must contribute meaningfully to the project proposal. In this section, each team member is required to document their individual contributions to the report. One team member may not record another member's contributions on their behalf. By submitting, the team certifies that each member's statement of contributions is accurate.
 
 Sean: Specific Implications along with its respective references.
 
