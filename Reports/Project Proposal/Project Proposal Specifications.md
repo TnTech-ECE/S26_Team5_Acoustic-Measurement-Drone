@@ -14,6 +14,8 @@ This document provides a comprehensive explanation of what a project proposal sh
 
 ## Formulating the Problem
 
+---
+
 ### Background
 
 &nbsp; &nbsp; &nbsp; &nbsp; Modern live-event production depends on sound reinforcement systems capable of delivering consistent coverage, transparency, and tonal balance across diverse venues. Achieving these outcomes depends on accurately characterizing the propagation of acoustic energy throughout the listening environment. This includes the combined influences of direct sound, reflections, and reverberation. Sound-system engineering relies on heavily accurate acoustic measurements that are essential for properly aligning loudspeakers, applying equalization, and optimizing overall system performance. [1][2].
@@ -155,7 +157,9 @@ $$
 
 &nbsp; &nbsp; &nbsp; &nbsp; The success of this project will be evaluated based on the drone system’s ability to achieve precise flight control, maintain operational reliability, and perform accurate acoustic data acquisition during real-world testing and measurement scenarios.The following key performance indicators (KPIs) and verification methodologies will be used to ensure the system meets its control, sensing, safety, and acoustic measurement specifications while operating within defined technical and environmental constraints.
 
-1. Flight Stability and Control Accuracy
+---
+
+#### Flight Stability and Control Accuracy
 
 Objective: Verify that the drone maintains stable and accurate flight control under varying operating conditions.
 
@@ -169,7 +173,9 @@ Disturbance Rejection: Introduce minor external disturbances (e.g., airflow vari
 
 Sensor Calibration Verification: Validate proper integration and calibration of IMU and onboard sensors for accurate orientation and motion tracking.
 
-2. Autonomous and Signal Processing Performance
+---
+
+#### Autonomous and Signal Processing Performance
 
 Objective: Ensure that the microcontroller and digital signal processing (DSP) components reliably interpret sensor data and execute control algorithms.
 
@@ -183,7 +189,9 @@ Communication Reliability: Verify stable data transmission between onboard modul
 
 Fail-Safe Logic Testing: Simulate signal loss or abnormal inputs to confirm proper autonomous safety responses.
 
-3. System Integration and Hardware Reliability
+---
+
+#### System Integration and Hardware Reliability
 
 Objective: Confirm that all hardware components, including the flight controller, sensors, power system, and communication modules, operate cohesively and reliably.
 
@@ -197,7 +205,9 @@ Power System Evaluation: Monitor voltage levels, current draw, and battery perfo
 
 Connection Integrity Checks: Ensure secure wiring, solder joints, and module interfaces under vibration conditions.
 
-4. Safety and Operational Robustness
+---
+
+#### Safety and Operational Robustness
 
 Objective: Verify that the drone operates safely and maintains controlled behavior in both normal and abnormal scenarios.
 
@@ -211,7 +221,9 @@ Thermal Monitoring: Assess operating temperatures of critical electronics to pre
 
 Flight Boundary Testing: Ensure the drone maintains stable operation within defined operational limits.
 
-5. Cost Efficiency and Expandability
+---
+
+#### Cost Efficiency and Expandability
 
 Objective: Demonstrate that the drone system remains cost-effective while supporting future enhancements in control, sensing, and DSP capabilities.
 
@@ -436,8 +448,11 @@ Each team member shall uphold professional engineering ethics by:
 
 [12] J. Bedard, “IR measurements, part 1: Pre-Smaart Preparation,” Rational Acoustics, https://support.rationalacoustics.com/support/solutions/articles/150000191163-ir-measurements-part-1-pre-smaart-preparation (last accessed Feb. 23, 2026). 
 
+[13] OpenAI, GPT-5, ChatGPT, San Francisco, CA, USA, 2025. [Online]. Available: https://chat.openai.com/. [Accessed: Feb. 23, 2026].
+
 ## Statement of Contributions
 
 Each team member must contribute meaningfully to the project proposal. In this section, each team member is required to document their individual contributions to the report. One team member may not record another member's contributions on their behalf. By submitting, the team certifies that each member's statement of contributions is accurate.
 
 Sean: Specific Implications along with its respective references.
+Bernie: Introduction, Background, Measures of Success, Resources, Final Review
