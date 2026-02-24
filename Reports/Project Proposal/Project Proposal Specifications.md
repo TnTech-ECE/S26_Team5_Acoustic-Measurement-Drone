@@ -14,8 +14,6 @@ This document provides a comprehensive explanation of what a project proposal sh
 
 ## Formulating the Problem
 
----
-
 ### Background
 
 &nbsp; &nbsp; &nbsp; &nbsp; Modern live-event production depends on sound reinforcement systems capable of delivering consistent coverage, transparency, and tonal balance across diverse venues. Achieving these outcomes depends on accurately characterizing the propagation of acoustic energy throughout the listening environment. This includes the combined influences of direct sound, reflections, and reverberation. Sound-system engineering relies on heavily accurate acoustic measurements that are essential for properly aligning loudspeakers, applying equalization, and optimizing overall system performance. [1][2].
@@ -455,4 +453,5 @@ Each team member shall uphold professional engineering ethics by:
 Each team member must contribute meaningfully to the project proposal. In this section, each team member is required to document their individual contributions to the report. One team member may not record another member's contributions on their behalf. By submitting, the team certifies that each member's statement of contributions is accurate.
 
 Sean: Specific Implications along with its respective references.
+
 Bernie: Introduction, Background, Measures of Success, Resources, Final Review
