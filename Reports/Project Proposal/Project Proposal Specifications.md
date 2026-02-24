@@ -455,4 +455,4 @@ Each team member shall uphold professional engineering ethics by:
 
 Sean: Specific Implications along with its respective references.
 
-Bernie: Introduction, Background, Measures of Success, Resources, Final Review
+Bernie: Introduction, Background, Measures of Success, References, Final Review
