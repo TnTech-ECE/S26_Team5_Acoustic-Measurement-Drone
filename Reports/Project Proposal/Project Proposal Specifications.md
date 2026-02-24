@@ -449,6 +449,12 @@ Each team member shall uphold professional engineering ethics by:
 
 [13] OpenAI, GPT-5, ChatGPT, San Francisco, CA, USA, 2025. [Online]. Available: https://chat.openai.com/. [Accessed: Feb. 23, 2026].
 
+[14] M. Martellotta, A. Romano, M. D’Orazio, and F. Scamoni, “Urban traffic noise analysis using a UAV-based array of microphones,” Sensors, vol. 23, no. 4, p. 1912, 2023.
+https://doi.org/10.3390/s23041912
+
+[15] Y. Go and J. Choi, “An acoustic source localization method using a drone-mounted phased microphone array,” Drones, vol. 5, no. 3, p. 75, 2021.
+https://doi.org/10.3390/drones5030075
+
 ## Statement of Contributions
 
 &nbsp; &nbsp; &nbsp; &nbsp; Each team member must contribute meaningfully to the project proposal. In this section, each team member is required to document their individual contributions to the report. One team member may not record another member's contributions on their behalf. By submitting, the team certifies that each member's statement of contributions is accurate.
@@ -456,3 +462,5 @@ Each team member shall uphold professional engineering ethics by:
 Sean: Specific Implications along with its respective references.
 
 Bernie: Introduction, Background, Measures of Success, References, Final Review
+
+Jackson: Survey of Existing Solutions
