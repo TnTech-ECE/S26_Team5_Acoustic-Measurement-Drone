@@ -459,8 +459,10 @@ https://doi.org/10.3390/drones5030075
 
 &nbsp; &nbsp; &nbsp; &nbsp; Each team member must contribute meaningfully to the project proposal. In this section, each team member is required to document their individual contributions to the report. One team member may not record another member's contributions on their behalf. By submitting, the team certifies that each member's statement of contributions is accurate.
 
-Sean: Specific Implications along with its respective references.
+Sean: Specific Implications along with its respective references
 
 Bernie: Introduction, Background, Measures of Success, References, Final Review
 
 Jackson: Survey of Existing Solutions
+
+Elliot: Resources including budget, personnel, timeline, and the Gantt Chart. 
