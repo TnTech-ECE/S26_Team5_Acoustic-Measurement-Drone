@@ -4,13 +4,13 @@ This document provides a comprehensive explanation of what a project proposal sh
 
 ## Introduction
 
-&nbsp; &nbsp; &nbsp; &nbsp; Have you ever been in a large stadium or venue where the sound was loud and clear, but something felt slightly off depending on where you were sitting? Sometimes music or speech can seem a little late, uneven, or less clear in certain areas. These issues often come from timing misalignment between speakers or from incomplete acoustic measurements of the space.
+&nbsp; &nbsp; &nbsp; &nbsp; In large stadiums and performance venues, sound systems are designed to provide clear and consistent audio coverage across wide audience areas. However, listeners often experience variations in clarity, timing, or tonal balance depending on their seating location. Music or speech may appear slightly delayed, uneven, or less intelligible in certain regions of the venue. These issues commonly arise from timing misalignment between distributed loudspeaker systems or from incomplete acoustic measurements during system tuning.
 
-&nbsp; &nbsp; &nbsp; &nbsp; This project focuses not only on aligning delay towers, but also on improving overall acoustic measurement accuracy across the entire sound system. By using acoustic measurement tools and system-tuning software, we aim to create a practical, repeatable workflow for measuring system performance, making adjustments, and verifying results.
+&nbsp; &nbsp; &nbsp; &nbsp; This project addresses these challenges by focusing not only on the alignment of delay towers, but also on improving the overall accuracy and spatial coverage of acoustic measurements across the entire sound system. Using acoustic measurement tools and system-tuning software, the project aims to develop a practical and repeatable workflow for evaluating system performance, implementing adjustments, and verifying the results.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The goal is to ensure that speaker timing, coverage, and tonal balance are optimized throughout the venue, not just in one location. By improving how measurements are taken and applied, the project seeks to deliver clearer, more consistent sound for the entire audience.
+&nbsp; &nbsp; &nbsp; &nbsp; The objective is to optimize loudspeaker timing, coverage, and tonal balance throughout the venue rather than at isolated measurement locations. By improving how acoustic data is collected and applied during system tuning, the proposed workflow seeks to support clearer, more consistent sound reproduction for the entire audience area.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The remainder of this proposal outlines the project goals, technical background, methodology, implementation plan, and the metrics used to evaluate overall system performance.
+&nbsp; &nbsp; &nbsp; &nbsp; The remainder of this proposal outlines the project objectives, technical background, proposed methodology, implementation plan, and the performance metrics used to evaluate system effectiveness.
 
 ## Formulating the Problem
 
@@ -153,91 +153,112 @@ $$
 
 ## Measures of Success
 
-&nbsp; &nbsp; &nbsp; &nbsp; The success of this project will be evaluated based on the drone system’s ability to achieve precise flight control, maintain operational reliability, and perform accurate acoustic data acquisition during real-world testing and measurement scenarios.The following key performance indicators (KPIs) and verification methodologies will be used to ensure the system meets its control, sensing, safety, and acoustic measurement specifications while operating within defined technical and environmental constraints.
+&nbsp; &nbsp; &nbsp; &nbsp; The success of this project will be evaluated based on the drone system’s ability to safely perform autonomous acoustic measurements while maintaining stable flight control, positional accuracy, and measurement fidelity comparable to current manual acoustic measurement workflows used in live sound system tuning. Particular emphasis will be placed on flight stability, spatial positioning accuracy, acoustic measurement precision, and operational efficiency. The following key performance indicators (KPIs) and verification methodologies will be used to ensure the system meets its control, sensing, safety, and acoustic measurement requirements.
 
 ---
 
-#### Flight Stability and Control Accuracy
+#### Flight Control Stability and Reliability
 
-Objective: Verify that the drone maintains stable and accurate flight control under varying operating conditions.
+Objective:
+Verify that the drone maintains stable and controllable flight while carrying the acoustic measurement payload and operating within indoor venue environments.
 
-Methodology:
+Acceptance Criteria:
 
-Hover Stability Testing: Conduct repeated hover trials to measure positional drift and stability over fixed time intervals.
+- Hover stability maintained within ±0.3 m horizontal drift during a 10-second stationary measurement period.
+- Altitude stability maintained within ±0.2 m during acoustic data collection.
+- Successful completion of 7 consecutive waypoint measurements without loss of control or system instability.
 
-Control Response Evaluation: Measure the drone’s response time and accuracy to pilot or programmed control inputs.
+Verification Methodology:
 
-Disturbance Rejection: Introduce minor external disturbances (e.g., airflow variations) to evaluate stabilization performance.
-
-Sensor Calibration Verification: Validate proper integration and calibration of IMU and onboard sensors for accurate orientation and motion tracking.
-
----
-
-#### Autonomous and Signal Processing Performance
-
-Objective: Ensure that the microcontroller and digital signal processing (DSP) components reliably interpret sensor data and execute control algorithms.
-
-Methodology:
-
-Data Processing Latency: Measure the time between sensor input acquisition and control output execution.
-
-Algorithm Validation: Test filtering and control algorithms for consistency and noise reduction in sensor readings.
-
-Communication Reliability: Verify stable data transmission between onboard modules and control interfaces.
-
-Fail-Safe Logic Testing: Simulate signal loss or abnormal inputs to confirm proper autonomous safety responses.
+- Controlled indoor hover tests using onboard positioning sensors.
+- Repeated waypoint navigation trials simulating measurement positions across a venue.
 
 ---
 
-#### System Integration and Hardware Reliability
+#### Positional Accuracy for Measurement Locations
 
-Objective: Confirm that all hardware components, including the flight controller, sensors, power system, and communication modules, operate cohesively and reliably.
+Objective:
+Ensure that the drone can reach and maintain designated measurement positions with sufficient spatial accuracy for acoustic analysis.
 
-Methodology:
+Acceptance Criteria:
 
-End-to-End System Testing: Perform full-flight trials to validate coordinated subsystem operation.
+- Positioning accuracy within ±0.5 m of each target measurement coordinate.
+- Measurement position repeatability within ±0.25 m across repeated trials.
 
-Component Stress Testing: Evaluate system performance under extended operation to identify overheating or instability.
+Verification Methodology:
 
-Power System Evaluation: Monitor voltage levels, current draw, and battery performance during various flight modes.
-
-Connection Integrity Checks: Ensure secure wiring, solder joints, and module interfaces under vibration conditions.
-
----
-
-#### Safety and Operational Robustness
-
-Objective: Verify that the drone operates safely and maintains controlled behavior in both normal and abnormal scenarios.
-
-Methodology:
-
-Emergency Shutdown Testing: Confirm reliable activation of kill-switch or emergency stop mechanisms.
-
-Controlled Landing Trials: Evaluate the system’s ability to execute safe landings during low power or signal interruption.
-
-Thermal Monitoring: Assess operating temperatures of critical electronics to prevent overheating risks.
-
-Flight Boundary Testing: Ensure the drone maintains stable operation within defined operational limits.
+- Comparison of recorded drone position data with known reference positions.
+- Multiple waypoint navigation tests to verify consistent positioning accuracy.
 
 ---
 
-#### Cost Efficiency and Expandability
+#### Acoustic Measurement Accuracy Compared to Current Industry Methods
 
-Objective: Demonstrate that the drone system remains cost-effective while supporting future enhancements in control, sensing, and DSP capabilities.
+Objective:
+Verify that acoustic measurements collected by the drone are at least as accurate as measurements obtained using conventional ground-based measurement microphones currently used in venue system tuning.
 
-Methodology:
+Acceptance Criteria:
 
-Budget Assessment: Compare total system cost against initial project constraints and comparable commercial platforms.
+- Frequency response measurements collected by the drone remain within ±2 dB of measurements obtained using a calibrated reference microphone across the 20 Hz – 20 kHz frequency range.
+- Time alignment measurements remain within ±1 ms of reference measurements collected using traditional measurement techniques.
 
-Modular Design Review: Evaluate the ease of integrating additional sensors, DSP modules, or control upgrades.
+Verification Methodology:
 
-Maintenance and Durability Analysis: Track component wear, repair frequency, and long-term usability.
-
-Documentation Verification: Ensure clear technical documentation enables replication and future development.
+- Side-by-side comparison tests between the drone-mounted microphone and a calibrated reference measurement microphone placed at the same location.
+- Transfer-function analysis using identical excitation signals and acoustic measurement software to compare measurement results.
 
 ---
 
-&nbsp; &nbsp; &nbsp; &nbsp; By meeting these success criteria, the project will demonstrate a reliable, stable, and cost-effective drone system that successfully integrates microcontroller-based control and digital signal processing while maintaining safe operation and expandability for future research and development.
+#### Drone Noise and Measurement Contamination
+
+Acceptance Criteria:
+
+- The drone’s self-generated noise floor shall remain at least 10 dB below the measured acoustic signal level during measurement collection.
+- Drone-generated noise shall not introduce frequency response deviations greater than ±1 dB when compared to measurements collected using a stationary reference microphone.
+
+Verification Methodology:
+
+- Conduct baseline measurements with the drone powered off to establish a reference acoustic response.
+- Repeat measurements with the drone hovering at the same position and compare frequency response and noise floor levels.
+- Perform spectral analysis to identify and quantify motor or propeller noise contributions within the measurement bandwidth.
+
+---
+
+#### Measurement Efficiency
+
+Objective:
+Demonstrate that the drone-based measurement workflow reduces the time required to collect acoustic measurements compared to traditional manual measurement methods.
+
+Acceptance Criteria:
+
+- The drone system completes a 7-point measurement grid at least 30% faster than manual microphone repositioning.
+- Average time between measurement positions remains less than 20 seconds.
+
+Verification Methodology:
+
+- Time trials comparing manual measurement workflows with drone-based measurement procedures under similar conditions.- Review of operational procedures to ensure compliance with venue safety requirements.
+
+---
+
+#### Safety and Operational Compliance
+
+Objective:
+Ensure that the drone system operates safely within venue environments and adheres to applicable drone safety practices.
+
+Acceptance Criteria:
+
+- The system includes fail-safe mechanisms, such as emergency stop capability and controlled landing procedures.
+- Operational flight speed remains ≤1.5 m/s during measurement operations.
+- Propeller guards or equivalent protective components are installed to reduce potential safety risks.
+- System operation follows established venue safety guidelines and UAV operational best practices.
+
+Verification Methodology:
+
+- Safety system validation tests including simulated signal loss and emergency shutdown trials.
+
+---
+
+&nbsp; &nbsp; &nbsp; &nbsp; The project will be considered successful if the drone system demonstrates stable and safe flight control, achieves the required positional accuracy for measurement locations, produces acoustic measurements that match the accuracy of current industry measurement workflows, and collects measurement data more efficiently than traditional manual methods. Meeting these criteria will demonstrate that the system provides a viable and effective method for autonomous acoustic measurement in performance venues.
 
 ## Resources
 
