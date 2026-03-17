@@ -28,12 +28,70 @@ With these guidelines, each team is expected to create a suitable document to ac
 
 ## Introduction
 
-The introduction is intended to reintroduce the fully formulated problem. 
+&nbsp; &nbsp; &nbsp; &nbsp; In large stadiums and performance venues, sound systems are designed to provide clear and consistent audio coverage across wide audience areas. However, listeners often experience variations in clarity, timing, or tonal balance depending on their seating location. Music or speech may appear slightly delayed, uneven, or less intelligible in certain regions of the venue. These issues commonly arise from timing misalignment between distributed loudspeaker systems or from incomplete acoustic measurements during system tuning.
 
+&nbsp; &nbsp; &nbsp; &nbsp; This project addresses these challenges by focusing not only on the alignment of delay towers, but also on improving the overall accuracy and spatial coverage of acoustic measurements across the entire sound system. Using acoustic measurement tools and system-tuning software, the project aims to develop a practical and repeatable workflow for evaluating system performance, implementing adjustments, and verifying the results.
+
+&nbsp; &nbsp; &nbsp; &nbsp; The objective is to optimize loudspeaker timing, coverage, and tonal balance throughout the venue rather than at isolated measurement locations. By improving how acoustic data is collected and applied during system tuning, the proposed workflow seeks to support clearer, more consistent sound reproduction for the entire audience area.
 
 ## Restating the Fully Formulated Problem
 
-The fully formulated problem is the overall objective and scope complete with the set of shall statements. This was part of the project proposal. However, it may be that the scope has changed. So, state the fully formulated problem in the introduction of the conceptual design and planning document. For each of the constraints, explain the origin of the constraint (customer specification, standards, ethical concern, broader implication concern, etc).
+&nbsp; &nbsp; &nbsp; &nbsp; Modern live-event production depends on sound reinforcement systems capable of delivering consistent coverage, transparency, and tonal balance across diverse venues. Achieving these outcomes depends on accurately characterizing the propagation of acoustic energy throughout the listening environment. This includes the combined influences of direct sound, reflections, and reverberation. Sound-system engineering relies on heavily accurate acoustic measurements that are essential for properly aligning loudspeakers, applying equalization, and optimizing overall system performance. [1][2].
+
+&nbsp; &nbsp; &nbsp; &nbsp; In current professional workflows, calibrated microphones are manually relocated throughout the audience space to gather measurement data. The data is then used to inform equalization, time alignment, and level optimization decisions. Although this methodology is well established and widely accepted, manually repositioning microphones limits how many measurement locations can realistically be sampled during the tight setup windows common in live-event production. As a result, the spatial resolution of the collected acoustic data is often limited, particularly in large, architecturally complex, or multi-tiered venues.
+
+&nbsp; &nbsp; &nbsp; &nbsp; Using measurement-based system optimization (microphones and software to measure how a sound system actually performs in a room, then adjusting the speakers and settings to make it sound as clear, even, and balanced as possible) is commonly conducted using transfer-function and impulse-response techniques that quantify the relationship between the excitation signal produced by a loudspeaker system and the signal received at a measurement microphone. Industry-standard software such as Smaart is widely used in this process to capture, analyze, and interpret these measurements in real time.
+
+&nbsp; &nbsp; &nbsp; &nbsp; The measured response at any given listener position reflects the combined influence of both the loudspeaker system and the acoustic environment. Consequently, spatial sampling across multiple listening positions is necessary to accurately characterize overall venue performance [1]. Because each acoustic measurement represents a localized response influenced by nearby boundaries and reflections, distributed measurement positions are required to evaluate coverage uniformity and system consistency throughout the audience area [2].
+
+&nbsp; &nbsp; &nbsp; &nbsp; The acoustic response at a listener position may be modeled as the convolution of the excitation signal x(t) with the acoustic impulse response h(t) of the environment, producing the measured signal y(t):
+
+$$
+y(t)=x(t)∗h(t) \quad (1)
+$$ 
+
+&nbsp; &nbsp; &nbsp; &nbsp; Accurate estimation of h(t) across numerous spatial coordinates is therefore essential for developing reliable representations of venue acoustic behavior and achieving consistent system performance throughout the listening area. Spatial variations in reflections, room geometry, boundary conditions, and audience loading can produce measurable differences in response between nearby listener positions, underscoring the importance of spatially distributed measurement techniques [3].
+
+&nbsp; &nbsp; &nbsp; &nbsp; Modern transfer-function measurement platforms provide highly accurate tools for analyzing magnitude, phase, and impulse-response characteristics of sound systems [4]. However, these tools remain dependent on manual microphone placement and therefore inherit practical limitations related to labor, accessibility, and time constraints. Large venues frequently include seating regions that are difficult to access, elevated balcony sections, or architectural features that limit measurement coverage. In such cases, engineers may be required to approximate acoustic performance in unmeasured areas, potentially resulting in uneven system optimization or additional adjustment time. These operational limitations motivate the exploration of automated measurement approaches capable of collecting spatially dense acoustic data in a more efficient and repeatable manner than traditional manual workflows.
+
+### Specifications
+
+**System Capabilities**
+
+- The system shall autonomously navigate a defined measurement region within an indoor or outdoor performance venue.
+- The system shall carry at least one calibrated measurement microphone capable of capturing impulse response, frequency response, and sound pressure level data.
+- The system shall transmit collected acoustic data to a ground-station computer for real-time or post-measurement analysis.
+- The system shall support synchronized excitation signals generated by the venue loudspeaker system for transfer-function measurement.
+- The system shall include onboard processing hardware capable of managing sensor acquisition, navigation control, and data logging.
+
+**Modularity and Expandability**
+
+- The system shall allow replacement of sensing modules and processing components.
+- The system may support additional environmental sensors, such as temperature or humidity sensors, to enable future acoustic-environment modeling.
+- The system shall provide accessible data interfaces to support integration with external analysis platforms.
+
+**Physical Reliability**
+
+- The system shall maintain stable operation within typical indoor venue airflow conditions.
+- The system shall include protective structures to safeguard sensing equipment during operation and transport.
+- The system shall be capable of safe landing or shutdown in the event of communication or navigation failure.
+
+### Constraints
+
+**Regulatory Compliance**
+
+- The system shall comply with applicable aviation and indoor drone operation regulations within the deployment region.
+- Wireless communication systems shall operate within approved frequency allocations for unlicensed devices.
+
+**Operational Guidelines**
+
+- The system shall operate only within controlled environments approved for autonomous flight testing.
+- The system shall not interfere with venue audio systems or measurement signals during operation.
+
+**Safety and Environmental Guidelines**
+
+- The system shall incorporate protective measures to prevent injury to personnel or damage to venue infrastructure.
+- The system shall include emergency shutdown functionality to ensure safe operation in fault conditions.
 
 
 ## Comparative Analysis of Potential Solutions
