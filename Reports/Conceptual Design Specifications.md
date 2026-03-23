@@ -36,9 +36,109 @@ The introduction is intended to reintroduce the fully formulated problem.
 The fully formulated problem is the overall objective and scope complete with the set of shall statements. This was part of the project proposal. However, it may be that the scope has changed. So, state the fully formulated problem in the introduction of the conceptual design and planning document. For each of the constraints, explain the origin of the constraint (customer specification, standards, ethical concern, broader implication concern, etc).
 
 
+
+
+
 ## Comparative Analysis of Potential Solutions
 
-In this section, various potential solutions are hypothesized, design considerations are discussed, and factors influencing the selection of a solution are outlined. The chosen solution is then identified with justifications for its selection.
+
+
+### Compute / Controller Architecture
+
+#### Options Considered
+
+##### **1. Flight Controller (FC)**
+- Examples: Pixhawk 6C, Matek H743  
+- Integrated IMU, barometer, and flight firmware (PX4 / ArduPilot)
+
+**Pros**
+- built-in stabilization and control loops  
+- integrated sensors (IMU, barometer)  
+- fast development using proven firmware  
+- reliable and widely used in industry  
+
+**Cons**
+- limited low-level control  
+- less flexibility for custom processing  
+- dependent on existing firmware architecture  
+
+---
+
+##### **2. Custom Microcontroller**
+- Example: STM32 (F303K8)  
+
+**Pros**
+- complete control over system design  
+- highly customizable  
+- lightweight and low power  
+
+**Cons**
+- must implement control algorithms from scratch  
+- must develop sensor fusion (IMU, filtering, etc.)  
+- significantly higher development time and complexity  
+
+---
+
+##### **3. Flight Controller + Companion Microcontroller**
+- FC handles low-level control  
+- MCU handles high-level / mission-specific tasks  
+
+**Pros**
+- combines reliability of FC with flexibility of MCU  
+- reduces development time for control system  
+- enables custom mission processing (e.g., audio sensing)  
+- scalable for more advanced autonomy  
+
+**Cons**
+- increased system complexity  
+- requires communication between systems (UART / MAVLink)  
+- slightly higher power consumption  
+
+---
+
+#### Selected Architecture
+
+- **Flight Controller + Companion Microcontroller**
+
+
+
+
+
+
+### State Estimation
+
+- IMU
+- magnetometer
+
+### Altitude Sensing
+- barometer
+- ToF sensor
+- ultrasonic
+
+### Obstacle Detection
+- ToF
+- ultrasonic
+- camera
+
+### Localization
+- optical flow
+- VIO
+- UWB
+
+### Mission Sensing
+- microphone
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## High-Level Solution
