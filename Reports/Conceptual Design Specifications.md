@@ -45,57 +45,28 @@ The fully formulated problem is the overall objective and scope complete with th
 
 ### Compute / Controller Architecture
 
+
 #### Options Considered
 
-##### **1. Flight Controller (FC)**
+**1. Flight Controller (FC)**  
 - Examples: Pixhawk 6C, Matek H743  
-- Integrated IMU, barometer, and flight firmware (PX4 / ArduPilot)
+- Integrated IMU, barometer, flight firmware (PX4 / ArduPilot)  
+- Pros: built-in stabilization, integrated sensors, fast development, reliable  
+- Cons: limited low-level control, less flexibility, firmware-dependent  
 
-**Pros**
-- built-in stabilization and control loops  
-- integrated sensors (IMU, barometer)  
-- fast development using proven firmware  
-- reliable and widely used in industry  
-
-**Cons**
-- limited low-level control  
-- less flexibility for custom processing  
-- dependent on existing firmware architecture  
-
-
-##### **2. Custom Microcontroller**
+**2. Custom Microcontroller**  
 - Example: STM32 (F303K8)  
+- Pros: full control, highly customizable, lightweight  
+- Cons: must build control + sensor fusion, high development time  
 
-**Pros**
-- complete control over system design  
-- highly customizable  
-- lightweight and low power  
-
-**Cons**
-- must implement control algorithms from scratch  
-- must develop sensor fusion (IMU, filtering, etc.)  
-- significantly higher development time and complexity  
-
-
-##### **3. Flight Controller + Companion Microcontroller**
-- FC handles low-level control  
-- MCU handles high-level / mission-specific tasks  
-
-**Pros**
-- combines reliability of FC with flexibility of MCU  
-- reduces development time for control system  
-- enables custom mission processing (e.g., audio sensing)  
-- scalable for more advanced autonomy  
-
-**Cons**
-- increased system complexity  
-- requires communication between systems (UART / MAVLink)  
-- slightly higher power consumption  
+**3. Flight Controller + Companion Microcontroller**  
+- FC → low-level control  
+- MCU → mission-specific tasks  
+- Pros: combines reliability + flexibility, supports custom processing, scalable  
+- Cons: added complexity, communication required, higher power  
 
 #### Selected Architecture
-
-- **Flight Controller + Companion Microcontroller**
-
+- Flight Controller + Companion Microcontroller
 ---
 
 
