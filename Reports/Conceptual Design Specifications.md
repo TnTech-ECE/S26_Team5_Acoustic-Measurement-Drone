@@ -42,9 +42,7 @@ The fully formulated problem is the overall objective and scope complete with th
 ## Comparative Analysis of Potential Solutions
 
 
-
-### Compute / Controller Architecture
-
+### Computing Architecture
 
 #### Options Considered
 
@@ -52,24 +50,60 @@ The fully formulated problem is the overall objective and scope complete with th
 - Examples: Pixhawk 6C, Matek H743  
 - Integrated IMU, barometer, flight firmware (PX4 / ArduPilot)  
 - Pros: built-in stabilization, integrated sensors, fast development, reliable  
-- Cons: limited low-level control, less flexibility, firmware-dependent  
+- Cons: limited low-level control, less flexibility, firmware-dependent, higher cost ($80–$200)  
 
 **2. Custom Microcontroller**  
-- Example: STM32 (F303K8)  
-- Pros: full control, highly customizable, lightweight  
+- Example: STM32, Raspberry Pi
+- Pros: full control, highly customizable, lightweight, very low cost ($10–$30)  
 - Cons: must build control + sensor fusion, high development time  
 
 **3. Flight Controller + Companion Microcontroller**  
 - FC → low-level control  
 - MCU → mission-specific tasks  
 - Pros: combines reliability + flexibility, supports custom processing, scalable  
-- Cons: added complexity, communication required, higher power  
+- Cons: added complexity, communication required, higher power, highest total cost ($100–$250)  
 
 #### Selected Architecture
 - Flight Controller + Companion Microcontroller
 ---
 
+#### Flight Controller Selection
 
+**Options Considered**
+- Pixhawk 6C (Holybro)  
+- Matek H743  
+
+**Comparison**
+
+- **Price & Positioning**  
+  Pixhawk 6C: ~$180–$220 (higher-end, research-grade)  
+  Matek H743: ~$60–$100 (budget-friendly, hobby-oriented)  
+
+- **Firmware Support**  
+  Pixhawk 6C: PX4, ArduPilot (full support, industry standard)  
+  Matek H743: ArduPilot, Betaflight (less standardized for autonomy)  
+
+- **Onboard Sensors**  
+  Pixhawk 6C: dual IMUs + dual barometers (redundant)  
+  Matek H743: single IMU + single barometer  
+
+- **Connectivity**  
+  Pixhawk 6C: multiple UART, I2C, CAN → strong expandability  
+  Matek H743: fewer ports → more limited expansion  
+
+- **Reliability / Use Case**  
+  Pixhawk 6C: designed for autonomous systems, higher fault tolerance  
+  Matek H743: more suited for hobby and lightweight builds  
+
+**Selected**
+- Pixhawk 6C  
+
+**Justification**
+- stronger firmware ecosystem for autonomous flight  
+- redundant sensors increase reliability  
+- better connectivity for system expansion  
+
+---
 
 
 ### State Estimation
