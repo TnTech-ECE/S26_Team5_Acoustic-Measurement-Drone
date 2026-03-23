@@ -62,7 +62,6 @@ The fully formulated problem is the overall objective and scope complete with th
 - less flexibility for custom processing  
 - dependent on existing firmware architecture  
 
----
 
 ##### **2. Custom Microcontroller**
 - Example: STM32 (F303K8)  
@@ -77,7 +76,6 @@ The fully formulated problem is the overall objective and scope complete with th
 - must develop sensor fusion (IMU, filtering, etc.)  
 - significantly higher development time and complexity  
 
----
 
 ##### **3. Flight Controller + Companion Microcontroller**
 - FC handles low-level control  
@@ -94,13 +92,11 @@ The fully formulated problem is the overall objective and scope complete with th
 - requires communication between systems (UART / MAVLink)  
 - slightly higher power consumption  
 
----
-
 #### Selected Architecture
 
 - **Flight Controller + Companion Microcontroller**
 
-
+---
 
 
 
