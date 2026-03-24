@@ -38,7 +38,119 @@ The fully formulated problem is the overall objective and scope complete with th
 
 ## Comparative Analysis of Potential Solutions
 
-In this section, various potential solutions are hypothesized, design considerations are discussed, and factors influencing the selection of a solution are outlined. The chosen solution is then identified with justifications for its selection.
+### **Hypothesized Solutions**
+
+&nbsp; &nbsp; &nbsp; &nbsp;The literature suggests three primary solution paths for implementing acoustic measurement on a drone platform:
+
+#### **1. Large Microphone Array with Beamforming**
+- Uses many synchronized microphones
+- Applies beamforming to determine sound direction and intensity
+- Utilizes spectral subtraction or adaptive filtering to reduce drone noise
+
+**Source basis:**  
+- Urban UAV noise study (multi-mic array + FPGA + LMS filtering)  
+- Drone-mounted phased array localization study (32-mic array + beamforming)
+
+---
+
+#### **2. Adaptive Noise Cancellation with Reference Microphones**
+- Uses additional microphones positioned near motors/propellers
+- Captures drone noise separately
+- Applies adaptive filtering to remove it from the main signal
+
+**Source basis:**  
+- Urban traffic UAV study (reference microphones + Least Mean Square filtering)  
+- Localization study (multi-band spectral subtraction)
+
+---
+
+#### **3. Single Measurement Microphone with Physical Isolation**
+- Uses a single calibrated microphone for accurate SPL measurement
+- Relies on physical separation below the drone instead of heavy DSP
+- Minimizes noise at the source rather than removing it digitally
+
+**Source basis:**
+- Neither paper uses this approach directly, but both reveal limitations of onboard arrays and heavy DSP
+- Motivated by the need for accurate point measurements, not just detection or mapping
+
+---
+
+## **Design Considerations**
+
+&nbsp; &nbsp; &nbsp; &nbsp;Several key factors influence the selection of the final solution:
+
+### **1. Drone Self-Noise**
+- Both sources show that propeller and motor noise overlap with the desired signal
+- Noise is broadband and difficult to remove using simple filters
+- DSP-based solutions reduce noise but do not eliminate it completely
+
+---
+
+### **2. Measurement Accuracy vs. Complexity**
+- Microphone arrays provide spatial awareness but require:
+  - A complicated synchronizing process
+  - high processing power
+  - large hardware space
+- For soundcheck applications, accurate point measurements are more valuable than directional estimation
+
+---
+
+### **3. System Weight and Power Consumption**
+- Large arrays and FPGA systems increase:
+  - weight
+  - power draw
+  - cost
+- This reduces flight time and system practicality
+
+---
+
+### **4. Stability and Repeatability**
+- Accurate acoustic measurements require:
+  - stable hover
+  - minimal vibration
+- Sensor fusion (optical flow, IMU) improves repeatability
+
+---
+
+## **Selected Solution**
+
+&nbsp; &nbsp; &nbsp; &nbsp;Based on the above considerations, the selected solution is a **hybrid approach combining physical noise mitigation with simplified signal processing**.
+
+### **Chosen Architecture**
+- **Single calibrated measurement microphone**, mounted below the drone via a tether or suspension system  
+- **Standard drone propulsion system** optimized for stable hover   
+- **Stable flight control using Pixhawk + optical flow sensor**
+
+---
+
+## **Justification for Selection**
+
+### **1. Improved Measurement Accuracy**
+- Physical separation reduces drone noise at the source
+- Avoids distortion introduced by aggressive filtering
+- Enables more accurate SPL measurements for tools like Smaart
+
+---
+
+### **2. Reduced System Complexity**
+- Eliminates need for large microphone arrays and FPGA processing
+- Reduces synchronization and calibration challenges
+- Simplifies system integration
+
+---
+
+### **3. Lower Weight and Power Requirements**
+- Fewer sensors and processing components
+- Longer flight time
+- Increased payload margin for microphone stabilization
+
+---
+
+### **4. Alignment with Project Goals**
+- The project focuses on **soundcheck and acoustic measurement**, not source localization
+- A single high-quality measurement point is more valuable than directional mapping
+- The design prioritizes **accuracy, simplicity, and practicality**
+
 
 
 ## High-Level Solution
@@ -62,19 +174,146 @@ Similar to a block diagram, the flow chart aims to specify the system, but from 
 
 ## Atomic Subsystem Specifications
 
-Based on the high-level design, provide a comprehensive description of the functions each subsection will perform.
+## **External Components and Power Subsystem**
 
-Inclued a description of the interfaces between this subsystem and other subsystems:
-- Give the type of signal (e.g. power, analog signal, serial communication, wireless communication, etc).
-- Clearly define the direction of the signal (input or output).
-- Document the communication protocols used.
-- Specifying what data will be sent and what will be received.
+### **Subsystem Description**
 
-Detail the operation of the subsystem:
-- Illustrate the expected user interface, if applicable.
-- Include functional flowcharts that capture the major sequential steps needed to achieve the desired functionalities.
+The External Components and Power Subsystem shall store electrical energy, distribute power to the necessary hardware, and generate the thrust required for takeoff, hover, maneuvering, and landing. This subsystem includes the battery, power distribution path, electronic speed controller (ESC), motors, propellers, and associated external mounting and wiring interfaces.
 
-For all subsystems, formulate detailed "shall" statements. Ensure these statements are comprehensive enough so that an engineer who is unfamiliar with your project can design the subsystem based on your specifications. Assume the role of the customer in this context to provide clear and precise requirements.
+For this design, the subsystem is based on a **6S 8000 mAh Li-ion battery** with a nominal voltage of **22.2 V**, providing **177.6 Wh** of energy. The propulsion system consists of **T-Motor Velox V3120 motors** paired with **APC 10x4.5 propellers**, driven by a **Hobbywing XRotor G2 65A 4-in-1 ESC**. The subsystem interfaces with the **Holybro Pixhawk 6C flight controller**, which requires regulated low-voltage input.
+
+---
+
+## **Subsystem Functional Breakdown**
+
+### **Battery**
+The battery subsection shall store and supply electrical energy to the system.
+
+**Functions:**
+- Provide primary DC power (22.2 V nominal)
+- Support required mission duration
+- Deliver high current to propulsion system
+- Enable safe connection/disconnection
+
+---
+
+### **Power Distribution and Regulation**
+This subsection shall distribute power from the battery to propulsion and avionics systems.
+
+**Functions:**
+- Route high-current power to ESC
+- Provide low-voltage power to Pixhawk 6C and sensors
+- Maintain common/ground across all subsystems
+- Prevent voltage drops and unsafe current conditions
+
+---
+
+### **ESC**
+The ESC subsection shall convert DC battery power into controlled three-phase motor drive signals.
+
+**Functions:**
+- Receive digital throttle commands from Pixhawk
+- Drive four motors using three-phase outputs
+- Support DShot300/600 communication
+- Provide voltage, current, and RPM if necessary
+
+---
+
+### **Motors**
+The motor section shall convert electrical power into mechanical rotation.
+
+**Functions:**
+- Receive three-phase signals from ESC
+- Rotate propellers to generate thrust
+- Provide lift and control torques
+- Operate efficiently under hover conditions
+
+---
+
+### **Propellers**
+The propeller subsection shall convert motor rotation into thrust.
+
+**Functions:**
+- Generate lift for flight
+- Provide control authority for roll, pitch, and yaw
+- Operate efficiently at moderate RPM
+- Minimize vibration through proper balance
+
+---
+
+### **Sensors**
+This subsection shall support externally mounted avionics components.
+
+**Functions:**
+- Provide mounting and power for optical flow sensor
+- Enable stable hover by improved positioning feedback
+- Route sensor wiring safely
+
+---
+
+## **Interfaces**
+
+### **Interface with Flight Controller (Pixhawk 6C)**
+
+- **Signal Types:**  
+  - Regulated DC power  
+  - Digital motor control 
+
+- **Direction:**  
+  - Power: External subsystem to Pixhawk  
+  - Control: Pixhawk to ESC   
+
+- **Protocols:**  
+  - DShot300/600 (motor control)  
+  - Regulated DC power input  
+
+- **Data Sent:**  
+  - Motor throttle commands  
+  - Arm and disarm signals  
+
+- **Data Received:**    
+  - Status feedback  
+
+---
+
+### **Interface with Sensor Subsystem**
+
+- **Signal Types:** Power and sensor data  
+- **Direction:**  
+  - Power: External subsystem to sensors  
+  - Data: Sensors to Pixhawk  
+
+- **Protocols:**  
+  - Sensor-specific interface (handled by avionics subsystem)
+
+- **Data:**  
+  - Optical flow motion data  
+
+---
+
+### **Interface with Acoustic Payload**
+
+- **Signal Types:** Mechanical and optional power  
+- **Direction:**  
+  - External subsystem → payload: support and power  
+  - Payload → external subsystem: mass and placement constraints  
+
+---
+
+### **Interface with User**
+
+- **Signal Type:** Physical interaction  
+- **Direction:** Bidirectional  
+
+**User Actions:**
+- Install and remove battery  
+- Inspect motors and propellers  
+- Connect and disconnect power  
+
+---
+
+## **Power Distribution Architecture**
+
 
 
 ## Ethical, Professional, and Standards Considerations
