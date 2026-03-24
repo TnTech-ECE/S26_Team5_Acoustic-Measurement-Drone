@@ -36,11 +36,11 @@ With these guidelines, each team is expected to create a suitable document to ac
 
 ## Restating the Fully Formulated Problem
 
-&nbsp; &nbsp; &nbsp; &nbsp; Modern live-event production depends on sound reinforcement systems capable of delivering consistent coverage, transparency, and tonal balance across diverse venues. Achieving these outcomes depends on accurately characterizing the propagation of acoustic energy throughout the listening environment. This includes the combined influences of direct sound, reflections, and reverberation. Sound-system engineering relies on heavily accurate acoustic measurements that are essential for properly aligning loudspeakers, applying equalization, and optimizing overall system performance. [1][2].
+&nbsp; &nbsp; &nbsp; &nbsp; Modern live-event production depends on sound reinforcement systems capable of delivering consistent coverage, clarity, and tonal balance across diverse venues. Achieving these outcomes requires accurate characterization of acoustic energy propagation throughout the listening environment, including the combined effects of direct sound, reflections, and reverberation. Sound-system engineering relies heavily on objective acoustic measurements to support loudspeaker alignment, equalization, and overall system optimization [1][2].
 
-&nbsp; &nbsp; &nbsp; &nbsp; In current professional workflows, calibrated microphones are manually relocated throughout the audience space to gather measurement data. The data is then used to inform equalization, time alignment, and level optimization decisions. Although this methodology is well established and widely accepted, manually repositioning microphones limits how many measurement locations can realistically be sampled during the tight setup windows common in live-event production. As a result, the spatial resolution of the collected acoustic data is often limited, particularly in large, architecturally complex, or multi-tiered venues.
+&nbsp; &nbsp; &nbsp; &nbsp; In current professional workflows, microphones are manually repositioned throughout the audience space to collect measurement data. This data is used to inform equalization, time alignment, and level optimization decisions. Although this methodology is well established and widely accepted, manual microphone placement limits the number of measurement locations that can realistically be sampled within the tight setup windows typical of live-event production. As a result, the spatial resolution of collected acoustic data is often limited, particularly in large, architecturally complex, or multi-tiered venues.
 
-&nbsp; &nbsp; &nbsp; &nbsp; Using measurement-based system optimization (microphones and software to measure how a sound system actually performs in a room, then adjusting the speakers and settings to make it sound as clear, even, and balanced as possible) is commonly conducted using transfer-function and impulse-response techniques that quantify the relationship between the excitation signal produced by a loudspeaker system and the signal received at a measurement microphone. Industry-standard software such as Smaart is widely used in this process to capture, analyze, and interpret these measurements in real time.
+&nbsp; &nbsp; &nbsp; &nbsp; Measurement-based system optimization is commonly performed using transfer-function and impulse-response techniques, which quantify the relationship between the excitation signal produced by a loudspeaker system and the signal received at a measurement microphone. Industry-standard software such as Smaart is widely used to capture, analyze, and interpret these measurements in real time.
 
 &nbsp; &nbsp; &nbsp; &nbsp; The measured response at any given listener position reflects the combined influence of both the loudspeaker system and the acoustic environment. Consequently, spatial sampling across multiple listening positions is necessary to accurately characterize overall venue performance [1]. Because each acoustic measurement represents a localized response influenced by nearby boundaries and reflections, distributed measurement positions are required to evaluate coverage uniformity and system consistency throughout the audience area [2].
 
@@ -52,30 +52,31 @@ $$
 
 &nbsp; &nbsp; &nbsp; &nbsp; Accurate estimation of h(t) across numerous spatial coordinates is therefore essential for developing reliable representations of venue acoustic behavior and achieving consistent system performance throughout the listening area. Spatial variations in reflections, room geometry, boundary conditions, and audience loading can produce measurable differences in response between nearby listener positions, underscoring the importance of spatially distributed measurement techniques [3].
 
-&nbsp; &nbsp; &nbsp; &nbsp; Modern transfer-function measurement platforms provide highly accurate tools for analyzing magnitude, phase, and impulse-response characteristics of sound systems [4]. However, these tools remain dependent on manual microphone placement and therefore inherit practical limitations related to labor, accessibility, and time constraints. Large venues frequently include seating regions that are difficult to access, elevated balcony sections, or architectural features that limit measurement coverage. In such cases, engineers may be required to approximate acoustic performance in unmeasured areas, potentially resulting in uneven system optimization or additional adjustment time. These operational limitations motivate the exploration of automated measurement approaches capable of collecting spatially dense acoustic data in a more efficient and repeatable manner than traditional manual workflows.
+&nbsp; &nbsp; &nbsp; &nbsp; Modern transfer-function measurement platforms provide highly accurate tools for analyzing magnitude, phase, and impulse-response characteristics of sound systems [4]. However, these tools remain dependent on manual microphone placement and therefore inherit practical limitations related to labor, accessibility, and time constraints. Large venues frequently include seating regions that are difficult to access, elevated balcony sections, or architectural features that limit measurement coverage. In such cases, engineers may be required to approximate acoustic performance in unmeasured areas, potentially resulting in uneven system optimization or increased tuning time. These operational limitations motivate the development of automated measurement approaches capable of collecting spatially dense acoustic data in a more efficient and repeatable manner than traditional workflows.
 
 ### Specifications
 
 **System Capabilities**
-
 - The system shall autonomously navigate a defined measurement region within an indoor or outdoor performance venue.
-- The system shall carry at least one calibrated measurement microphone capable of capturing impulse response, frequency response, and sound pressure level data.
+- The system shall carry a lightweight microphone system capable of capturing acoustically meaningful data for comparative analysis of frequency response, timing, and sound pressure level trends.
 - The system shall transmit collected acoustic data to a ground-station computer for real-time or post-measurement analysis.
-- The system shall support synchronized excitation signals generated by the venue loudspeaker system for transfer-function measurement.
-- The system shall include onboard processing hardware capable of managing sensor acquisition, navigation control, and data logging.
-
+- The system shall support synchronized excitation signals generated by the venue loudspeaker system for transfer-function-based measurements.
+- The system shall capture acoustic data in discrete measurement windows at defined spatial locations.
+- The system shall associate each measurement with corresponding position and timing metadata for spatial analysis.
+- The system shall include onboard processing hardware capable of managing sensor acquisition, signal conditioning, and communication with the ground station.
+  
 **Modularity and Expandability**
 
-- The system shall allow replacement of sensing modules and processing components.
-- The system may support additional environmental sensors, such as temperature or humidity sensors, to enable future acoustic-environment modeling.
+- The system shall allow replacement or modification of sensing modules and processing components.
+- The system may support additional environmental sensors, such as temperature or humidity, for future acoustic-environment modeling.
 - The system shall provide accessible data interfaces to support integration with external analysis platforms.
-
+  
 **Physical Reliability**
 
 - The system shall maintain stable operation within typical indoor venue airflow conditions.
-- The system shall include protective structures to safeguard sensing equipment during operation and transport.
+- The system shall include protective structures to safeguard sensing and electronic components during operation and transport.
 - The system shall be capable of safe landing or shutdown in the event of communication or navigation failure.
-
+  
 ### Constraints
 
 **Regulatory Compliance**
@@ -101,24 +102,23 @@ In this section, various potential solutions are hypothesized, design considerat
 
 ## High-Level Solution
 
-&nbsp; &nbsp; &nbsp; &nbsp; The proposed solution is an autonomous aerial acoustic measurement system designed to improve the efficiency, accuracy, and spatial resolution of sound system analysis in performance venues. The system integrates a multirotor drone platform with acoustic sensing hardware, onboard processing, and wireless communication to automate the collection of spatial acoustic data. This approach addresses the limitations of traditional manual measurement workflows by enabling repeatable, high-density sampling across large and complex environments.
+&nbsp; &nbsp; &nbsp; &nbsp; The proposed solution is an autonomous aerial acoustic measurement system designed to improve the efficiency, consistency, and spatial resolution of sound system analysis in performance venues. The system integrates a multirotor drone platform with acoustic sensing hardware, onboard signal conditioning, and wireless communication to automate the collection of spatial acoustic data. This approach addresses the limitations of traditional manual measurement workflows by enabling repeatable, high-density sampling across large and complex environments.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The system operates by executing a predefined set of measurement waypoints distributed throughout the venue. At each location, the drone stabilizes and collects acoustic data generated by the loudspeaker system. These measurements are synchronized with positional data and processed using digital signal processing techniques to produce key acoustic metrics, including frequency response, impulse response, and time alignment. The resulting dataset provides a detailed spatial representation of system performance, enabling more accurate and efficient system tuning.
+&nbsp; &nbsp; &nbsp; &nbsp; The system operates by executing a predefined set of measurement waypoints distributed throughout the venue. At each location, the drone stabilizes and initiates a discrete measurement window during which acoustic data generated by the loudspeaker system is captured. The collected audio is transmitted to a ground-station computer, where it is recorded and associated with positional and timing metadata. This data is then analyzed using industry-standard tools to evaluate system performance, including relative frequency response, timing behavior, and spatial consistency.
 
-&nbsp; &nbsp; &nbsp; &nbsp; To satisfy stakeholder requirements, the design prioritizes measurement accuracy, operational efficiency, and safety. Measurement accuracy is achieved through the use of a electret microphone, synchronized excitation signals, and validated signal processing methods. The system is designed to produce acoustic measurements comparable to current industry-standard workflows, ensuring that automation does not compromise data quality. Additionally, design considerations such as vibration isolation and noise-aware signal processing are implemented to minimize contamination from drone-generated noise.
+&nbsp; &nbsp; &nbsp; &nbsp; To satisfy stakeholder requirements, the design prioritizes measurement usefulness, operational efficiency, and safety. Measurement usefulness is achieved through the use of a lightweight electret microphone system, synchronized excitation signals, and front-end signal conditioning techniques that reduce predictable drone-induced noise prior to transmission. While the system does not rely on a laboratory-calibrated measurement microphone, it is designed to produce acoustically meaningful data that supports comparative analysis across spatial locations, ensuring that automation improves workflow efficiency without eliminating practical measurement value.
 
-&nbsp; &nbsp; &nbsp; &nbsp; Operational efficiency is improved through autonomous navigation and repeatable measurement sequences. By eliminating the need for manual microphone repositioning, the system reduces the time required to collect measurements across multiple locations while enabling increased spatial sampling density. This allows for more comprehensive acoustic characterization within the limited time windows typical of live-event production environments.
+&nbsp; &nbsp; &nbsp; &nbsp; Operational efficiency is improved through autonomous navigation and repeatable measurement sequences. By eliminating the need for manual microphone repositioning, the system reduces the time required to collect measurements across multiple locations while enabling increased spatial sampling density. This allows for more comprehensive acoustic characterization within the limited time constraints typical of live-event production environments.
 
-&nbsp; &nbsp; &nbsp; &nbsp; Safety and regulatory compliance are addressed through controlled flight behavior, reduced operating speeds, and the inclusion of fail-safe mechanisms such as emergency shutdown and controlled landing procedures. The system is designed to operate within controlled indoor environments while minimizing risk to personnel and venue infrastructure.
+&nbsp; &nbsp; &nbsp; &nbsp; Safety and regulatory compliance are addressed through controlled flight behavior, reduced operating speeds, and the inclusion of fail-safe mechanisms such as emergency shutdown and controlled landing procedures. The system is intended to operate within controlled indoor environments while minimizing risk to personnel and venue infrastructure.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The solution is decomposed into five primary subsystems: the drone frame, external components, internal components, control and autonomy software, and acoustic signal processing. Each subsystem performs a distinct function and is designed with clearly defined interfaces to ensure reliable integration. This modular architecture supports parallel development, simplifies troubleshooting, and allows for future system expansion.
+&nbsp; &nbsp; &nbsp; &nbsp; The solution is decomposed into five primary subsystems: the drone frame, external components, internal components, control and autonomy software, and acoustic signal processing. Each subsystem performs a distinct function and is designed with clearly defined interfaces to ensure reliable integration. In particular, the flight control subsystem manages navigation and stabilization, the acoustic subsystem performs signal conditioning and measurement coordination, and the ground-station system performs data recording, metadata association, and acoustic analysis. This modular architecture supports parallel development, simplifies troubleshooting, and allows for future system expansion.
 
-&nbsp; &nbsp; &nbsp; &nbsp; Risks associated with the system, including positional inaccuracies, communication delays, and acoustic measurement contamination from drone noise, are mitigated through design strategies such as waypoint validation, synchronized data acquisition, and signal processing techniques for noise reduction. These measures ensure that the system maintains reliable performance under realistic operating conditions.
+&nbsp; &nbsp; &nbsp; &nbsp; Risks associated with the system, including positional inaccuracies, communication delays, and acoustic measurement contamination from drone noise, are mitigated through design strategies such as waypoint validation, discrete measurement windows, synchronized data acquisition, and targeted signal conditioning. These measures ensure that the system maintains reliable performance under realistic operating conditions.
 
-&nbsp; &nbsp; &nbsp; &nbsp; Finally, the design optimizes resource utilization by leveraging commercially available hardware, open-source flight control systems, and established acoustic measurement techniques. This approach reduces development complexity and cost while maintaining flexibility and scalability.
+&nbsp; &nbsp; &nbsp; &nbsp; Finally, the design optimizes resource utilization by leveraging commercially available drone platforms, wireless audio systems, and established acoustic measurement software. This approach reduces development complexity and cost while maintaining flexibility and compatibility with existing industry workflows.
 
-&nbsp; &nbsp; &nbsp; &nbsp; Overall, the proposed solution provides a practical and technically feasible method for autonomous acoustic measurement, enabling improved data collection, reduced labor requirements, and enhanced sound system optimization in real-world venue environments.
-
+&nbsp; &nbsp; &nbsp; &nbsp; Overall, the proposed solution provides a practical and technically feasible method for autonomous acoustic measurement, enabling improved data collection, reduced labor requirements, and enhanced sound system evaluation in real-world venue environments.
 
 ### Hardware Block Diagram
 
@@ -140,142 +140,145 @@ Similar to a block diagram, the flow chart aims to specify the system, but from 
 
 **Functional Description**
 
-&nbsp; &nbsp; &nbsp; &nbsp; The acoustic signal processing subsystem is responsible for acquiring, conditioning, and processing audio signals collected by a lightweight microphone system mounted on the drone. The subsystem converts raw acoustic data into usable metrics for evaluating sound system performance across a venue.
+&nbsp; &nbsp; &nbsp; &nbsp; The acoustic signal processing subsystem is responsible for acquiring, conditioning, and coordinating the capture of audio signals collected by a lightweight microphone system mounted on the drone. The subsystem performs front-end signal conditioning and supports synchronized measurement collection for evaluating sound system performance across a venue.
 
 &nbsp; &nbsp; &nbsp; &nbsp; Due to payload, power, and safety constraints, the subsystem utilizes a compact electret microphone paired with a wireless transmission system rather than a traditional phantom-powered measurement microphone. This design prioritizes integration with the aerial platform while maintaining sufficient signal fidelity for comparative acoustic analysis.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The subsystem processes the received audio to extract key acoustic characteristics such as relative frequency response, time alignment, and signal level trends. These measurements are used to evaluate spatial variations in system performance and support the overall goal of improving acoustic measurement coverage and efficiency.
+&nbsp; &nbsp; &nbsp; &nbsp; The subsystem applies simple digital signal processing techniques, such as filtering and signal conditioning, to reduce predictable drone-induced noise prior to wireless transmission. Acoustic measurements are captured as discrete time-windowed recordings at each waypoint and are processed and analyzed at the ground station using external software tools.
+
+**Design Justification**
+
+&nbsp; &nbsp; &nbsp; &nbsp; The selection of a lightweight electret microphone and wireless transmission system represents a design tradeoff between measurement accuracy and system feasibility. Traditional acoustic measurement systems rely on calibrated condenser microphones requiring phantom power; however, these systems introduce significant weight, power consumption, and integration complexity, making them impractical for use on a small aerial platform.
+
+&nbsp; &nbsp; &nbsp; &nbsp; The proposed design instead utilizes a compact electret microphone paired with a Shure wireless transmission system to enable real-time audio transfer from the drone to the ground station. This approach significantly reduces payload weight, simplifies power requirements, and improves overall system reliability during flight operations.
+
+&nbsp; &nbsp; &nbsp; &nbsp; While this configuration does not provide laboratory-grade measurement accuracy, it enables sufficient signal fidelity for comparative acoustic analysis, including spatial variations in sound pressure level, timing differences, and general frequency response trends. These metrics are sufficient to demonstrate the feasibility and effectiveness of autonomous acoustic measurement.
+
+&nbsp; &nbsp; &nbsp; &nbsp; Additionally, performing front-end signal conditioning on the Teensy prior to wireless transmission allows the system to reduce predictable drone-induced noise, such as low-frequency rotor and vibration artifacts. This improves the usability of the transmitted signal without requiring complex or computationally intensive onboard processing.
+
+&nbsp; &nbsp; &nbsp; &nbsp; The decision to perform detailed acoustic analysis at the ground station rather than onboard the drone further reduces system complexity and computational load. By leveraging external software tools such as Smaart, the system maintains compatibility with existing industry workflows while avoiding the need for high-performance embedded processing hardware.
+
+&nbsp; &nbsp; &nbsp; &nbsp; Overall, the selected design balances performance, weight, power consumption, and implementation complexity, resulting in a practical and achievable solution.
 
 **Subsystem Objectives**
 
 The acoustic signal processing subsystem shall:
 - acquire audio using a lightweight electret microphone suitable for airborne operation
-- support wireless transmission of audio data from the drone to the processing system
-- process received signals to extract meaningful acoustic metrics
-- provide measurements suitable for relative comparison across spatial locations
-- minimize the impact of drone-generated noise and wireless signal artifacts
-- associate each measurement with corresponding positional and timing data
+- apply front-end digital filtering to reduce low-frequency vibration and drone noise
+- support wireless transmission of conditioned audio to the ground station
+- coordinate discrete measurement windows based on waypoint readiness signals
+- enable audio capture suitable for relative spatial comparison across measurement locations
+- interface with the control subsystem to synchronize measurement timing
 
 **External Components Interface**
-| Interface                    | Signal Type         |              Direction | Protocol / Format                               | Data                     |
-| ---------------------------- | ------------------- | ---------------------: | ----------------------------------------------- | ------------------------ |
-| Electret microphone          | Analog audio        | Input (to transmitter) | Mic-level analog                                | Acoustic pressure signal |
-| Wireless transmitter (Shure) | RF wireless         |    Output (from drone) | Analog FM / digital wireless (system-dependent) | Audio signal             |
-| Wireless receiver            | Analog audio output |  Input (to DSP system) | Line-level analog                               | Received audio signal    |
+| Interface                  | Signal Type         |         Direction | Protocol / Format                  | Data                     |
+| -------------------------- | ------------------- | ----------------: | ---------------------------------- | ------------------------ |
+| Electret microphone        | Analog audio        | Input (to Teensy) | Mic-level analog                   | Acoustic pressure signal |
+| Teensy → Shure transmitter | Analog audio        |            Output | Conditioned mic-level / line-level | Filtered audio signal    |
+| Wireless transmitter       | RF wireless         |            Output | Shure wireless system              | Audio signal             |
+| Wireless receiver          | Analog audio output | Input (to laptop) | Line-level analog                  | Received audio signal    |
 
-**Internal Components Interface**
-| Interface                          | Signal Type             | Direction | Protocol                     | Data                      |
-| ---------------------------------- | ----------------------- | --------: | ---------------------------- | ------------------------- |
-| Audio input (receiver → processor) | Analog or digital audio |     Input | ADC / USB audio / line-in    | Audio samples             |
-| Data logging                       | Digital                 |    Output | SD / USB / memory            | Recorded measurement data |
-| Timing reference                   | Digital                 |     Input | System clock / software sync | Timestamp                 |
+**Internal Components Interface (Teensy)**
+| Interface        | Signal Type            | Direction | Protocol           | Data               |
+| ---------------- | ---------------------- | --------: | ------------------ | ------------------ |
+| Microphone input | Analog / digital audio |     Input | ADC / audio shield | Raw audio samples  |
+| Audio output     | Analog audio           |    Output | DAC / audio output | Filtered audio     |
+| Timing reference | Digital                |     Input | System clock       | Measurement timing |
 
 **Control & Autonomy Interface**
-| Interface            | Signal Type | Direction | Protocol                | Data                      |
-| -------------------- | ----------- | --------: | ----------------------- | ------------------------- |
-| Measurement trigger  | Digital     |     Input | UART / software message | Start recording           |
-| Measurement complete | Digital     |    Output | UART / software message | Done signal               |
-| Position data        | Digital     |     Input | MAVLink / serial        | Coordinates + waypoint ID |
+| Interface             | Signal Type | Direction | Protocol                | Data                          |
+| --------------------- | ----------- | --------: | ----------------------- | ----------------------------- |
+| Waypoint ready signal | Digital     |     Input | UART / MAVLink / serial | Waypoint ID + stable flag     |
+| Measurement status    | Digital     |    Output | UART / serial           | Measurement active / complete |
 
 **Ground Station Interface**
-| Interface     | Signal Type | Direction | Protocol    | Data                      |
-| ------------- | ----------- | --------: | ----------- | ------------------------- |
-| Data transfer | Digital     |    Output | USB / Wi-Fi | Audio + processed results |
-| Configuration | Digital     |     Input | Software UI | Sample rate, duration     |
+| Interface      | Signal Type  |         Direction | Protocol          | Data                     |
+| -------------- | ------------ | ----------------: | ----------------- | ------------------------ |
+| Audio stream   | Analog audio | Input (to laptop) | Audio interface   | Measurement audio        |
+| Telemetry data | Digital      | Input (to laptop) | Serial / wireless | Position + waypoint data |
+| Data logging   | Digital      |            Output | File system       | Audio + metadata         |
 
 **Detailed Operation**
 
-&nbsp; &nbsp; &nbsp; &nbsp; At each waypoint, the control subsystem issues a measurement trigger. The acoustic subsystem records the received wireless audio signal corresponding to the loudspeaker excitation signal.
+&nbsp; &nbsp; &nbsp; &nbsp; At each waypoint, the flight control subsystem determines when the drone has reached the desired position and achieved sufficient stability. A waypoint-ready signal is then transmitted to the acoustic subsystem or directly to the ground station.
 
-The recorded signal is digitized and processed to extract:
-- relative frequency response characteristics
-- time delay between measurement positions
-- signal level variations across the venue
+&nbsp; &nbsp; &nbsp; &nbsp; The Teensy-based subsystem continuously conditions the microphone signal using simple digital filtering techniques. When a measurement trigger condition is met, the system initiates a discrete measurement window, during which the filtered audio signal is transmitted through the wireless system to the ground station.
 
-&nbsp; &nbsp; &nbsp; &nbsp; Filtering may be applied to reduce low-frequency vibration noise and isolate the frequency range of interest. After processing, the data is tagged with positional metadata and stored or transmitted for further analysis.
+&nbsp; &nbsp; &nbsp; &nbsp; The ground station records a short-duration audio snippet corresponding to the measurement window. Simultaneously, position and waypoint metadata from the flight controller are logged and associated with the recorded audio. This allows each measurement to be mapped to a specific spatial location within the venue.
+
+&nbsp; &nbsp; &nbsp; &nbsp; The process repeats for each waypoint, enabling efficient spatial sampling of the acoustic environment.
 
 **Functional Flowchart**
 
 **Performance Specifications**
 
-The acoustic signal processing subsystem shall satisfy the following performance requirements:
-- The subsystem shall support an acoustic analysis bandwidth of at least 20 Hz to 20 kHz.
-- The subsystem shall measure frequency response within ±2 dB of a calibrated reference microphone measurement across the specified analysis range.
-- The subsystem shall determine time alignment or delay within ±1 ms of the reference measurement process.
-- The subsystem shall support a sampling rate sufficient for professional acoustic analysis, with a minimum sampling rate of 44.1 kHz.
-- The subsystem shall maintain a signal-to-noise ratio adequate for venue acoustic measurements under expected operating conditions.
-- The subsystem shall ensure that drone self-noise remains at least 10 dB below the measured acoustic signal level during valid measurements.
-- The subsystem shall support acquisition durations long enough to capture impulse-response and transfer-function information at each waypoint.
-- The subsystem shall tag every measurement record with corresponding waypoint and timing metadata.
-Constraints
+The acoustic signal processing subsystem shall satisfy the following:
+- Frequency analysis range: 100 Hz to 10 kHz (practical usable band)
+- Relative frequency response agreement within ±3 dB compared to reference measurement
+- Time alignment estimation within ±2 ms
+- Sampling rate ≥ 44.1 kHz
+- Measurement duration: 1–3 seconds per waypoint
+- Drone noise level at least 10 dB below measured signal during valid measurements
+- Repeatability within ±3 dB across identical measurement positions
 
 The subsystem is subject to the following constraints:
-- onboard processing power may be limited by weight, power, and hardware selection
-- rotor noise and airflow may contaminate the microphone signal
-- vibration from the airframe may introduce low-frequency measurement artifacts
-- wireless bandwidth may not support full-rate real-time streaming of raw audio,
-- the subsystem must operate within the overall power budget of the drone platform,
-- the subsystem must remain compatible with the project’s safety and timing requirements.
-
+- Microphone system is not a laboratory-calibrated measurement microphone
+- Wireless transmission may introduce:
+  - bandwidth limitations
+  - latency
+  - dynamic range compression
+- Drone-generated noise and airflow may affect measurements
+- Limited onboard processing capability (Teensy)
+- Power and payload constraints of aerial platform
+  
 ### Detailed Shall Statements
 
 **Functional Requirements**
 
-- The acoustic signal processing subsystem shall acquire audio from at least one calibrated measurement microphone mounted on the drone.
-- The subsystem shall digitize the microphone signal using an audio interface or ADC suitable for acoustic measurement applications.
-- The subsystem shall process the acquired signal to generate acoustic analysis outputs including frequency response, impulse response, and time-delay information.
-- The subsystem shall associate each acoustic measurement with the corresponding waypoint identifier, spatial position, and timestamp.
-- The subsystem shall support either onboard processing, post-processing, or a hybrid approach depending on available computational resources.
-- The subsystem shall export raw and/or processed acoustic data to another subsystem or operator interface for analysis and validation.
-- The subsystem shall provide a measurement-complete indication to the control and autonomy subsystem after data acquisition and processing are complete.
-
+- The subsystem shall acquire audio using a lightweight electret microphone integrated with the drone platform.
+- The subsystem shall apply simple digital filtering to reduce predictable drone-induced noise prior to transmission.
+- The subsystem shall support discrete measurement windows triggered by waypoint readiness conditions.
+- The subsystem shall transmit conditioned audio to a ground-based system for recording and analysis.
+- The subsystem shall coordinate measurement timing with the control and autonomy subsystem.
+  
 **Signal Integrity Requirements**
 
-- The subsystem shall preserve the amplitude and timing fidelity of the microphone signal sufficiently to support venue acoustic analysis.
-- The subsystem shall include filtering, isolation support, or contamination-reduction methods to reduce the impact of rotor noise and mechanical vibration.
-- The subsystem shall not introduce frequency-response deviations greater than ±1 dB due to internal signal-conditioning circuitry within the primary analysis band.
-- The subsystem shall maintain synchronization between acoustic data and position metadata throughout the measurement sequence.
-
+- The subsystem shall preserve sufficient signal fidelity to enable comparative acoustic analysis across measurement locations.
+- The subsystem shall reduce low-frequency vibration and rotor noise through filtering techniques.
+- The subsystem shall not introduce excessive distortion that prevents meaningful comparison between measurement positions.
+  
 **Interface Requirements**
 
-- The subsystem shall accept analog microphone input signals from the external components subsystem.
-- The subsystem shall accept digital trigger and measurement-control commands from the control and autonomy subsystem.
-- The subsystem shall output processed acoustic data and subsystem status to the internal components subsystem and/or ground station interface.
-- The subsystem shall communicate digital data using documented protocols supported by the final hardware implementation.
-- The subsystem shall support at least one method of data logging for recovery of measurements in the event of wireless communication failure.
-
+- The subsystem shall accept waypoint readiness signals from the flight controller via a serial communication interface.
+- The subsystem shall output conditioned audio to the wireless transmission system.
+- The subsystem shall communicate measurement status signals to the control subsystem or ground station.
+  
 **Reliability Requirements**
 
-- The subsystem shall complete repeated measurements at each waypoint without requiring manual reset during normal operation.
-- The subsystem shall detect and report invalid or incomplete measurements when signal quality falls below a defined threshold.
-- The subsystem shall continue to preserve recorded measurement data in the event of temporary telemetry interruption.
-- The subsystem shall operate within the thermal and electrical limits imposed by the drone platform.
-
+- The subsystem shall support repeated measurement cycles without manual reset.
+- The subsystem shall operate continuously during multi-point measurement sequences.
+- The subsystem shall maintain stable operation within the electrical and thermal limits of the drone platform.
+  
 **Validation Requirements**
 
-- The subsystem shall produce measurements that are comparable to the current manual venue measurement process using a stationary calibrated microphone.
-- The subsystem shall support side-by-side comparison testing against reference measurement equipment.
-- The subsystem shall allow measurement quality to be evaluated using metrics such as frequency-response deviation, delay error, and contamination level.
-
+- The subsystem shall produce measurements that allow relative comparison of acoustic behavior across spatial positions.
+- The subsystem shall demonstrate reasonable agreement with traditional measurement methods for timing and level trends.
+- The subsystem shall support side-by-side comparison testing with reference measurement equipment.
+  
 **Major Data Elements**
 
 The subsystem shall send and receive the following data as applicable:
 
 Received Data:
-- measurement trigger,
-- waypoint identifier,
-- position coordinates,altitude,
-- timestamp or synchronization signal,
-- subsystem configuration parameters.
-
+- waypoint identifier
+- position coordinates
+- stability flag
+- measurement trigger condition
+  
 Sent Data:
-- raw microphone samples or buffered audio,
-- processed frequency-response data,
-- impulse-response data,
-- time-alignment / delay values,
-- contamination or quality flags,
-- subsystem health / ready / complete status.
-
+- filtered audio signal (via wireless link)
+- measurement status (start/complete)
+- associated metadata handled at ground station
 
 ## Ethical, Professional, and Standards Considerations
 
