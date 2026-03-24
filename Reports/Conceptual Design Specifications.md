@@ -276,7 +276,7 @@ This subsection shall support externally mounted avionics components.
 
 ---
 
-### **Interface with Sensor Subsystem**
+### **Interface with Sensor**
 
 - **Signal Types:** Power and sensor data  
 - **Direction:**  
@@ -311,10 +311,6 @@ This subsection shall support externally mounted avionics components.
 - Connect and disconnect power  
 
 ---
-
-## **Power Distribution Architecture**
-
-
 
 ## Ethical, Professional, and Standards Considerations
 
