@@ -99,62 +99,50 @@ The fully formulated problem is the overall objective and scope complete with th
 - reduces cost and avoids unnecessary expansion capability  
 - simplifies overall system design while maintaining reliability
 
+
+
+
+
 ---
 
 
 ### State Estimation (Pose Estimation)
 
-The state estimation subsystem is responsible for determining the drone’s orientation and relative motion during flight. This information is used by the flight controller to maintain stability and execute control commands.
+The state estimation subsystem determines the drone’s orientation and relative motion during flight using the onboard sensors of the Pixhawk 6C Mini.
 
 #### IMU
-- Integrated within the selected flight controller  
-- Sensors: ICM-42688-P and BMI088  
-
-- Function:
-  - measures angular velocity  
-  - measures linear acceleration  
-  - supports estimation of roll, pitch, and yaw  
-
-- Reason for Selection:
-  - directly supported by flight controller firmware  
-  - redundant IMUs improve reliability  
-  - avoids additional wiring and integration complexity  
+- Sensors: ICM-42688-P and BMI055 (dual accel/gyro)
+- Provides angular velocity and linear acceleration used to estimate roll, pitch, and yaw
+- High update rate enables real-time stabilization, while dual IMUs improve reliability
+- Subject to drift over time and requires vibration isolation for accurate measurements
 
 #### Magnetometer
-- External magnetometer integrated with GPS module  
-
-- Function:
-  - provides heading reference for yaw estimation  
-
-- Reason for Selection:
-  - improves heading accuracy  
-  - reduces magnetic interference from onboard electronics and power wiring  
-  - common UAV practice for outdoor navigation  
+- Sensor: IST8310 (onboard)
+- Provides heading reference to correct yaw drift from the IMU
+- Improves directional stability during navigation between measurement points
+- Sensitive to magnetic interference from motors, wiring, and environment
 
 #### Barometer
-- Integrated within the selected flight controller  
-
-- Function:
-  - estimates relative altitude  
-  - supports vertical state estimation and altitude hold  
-
-- Reason for Selection:
-  - already integrated with the flight controller  
-  - directly used by autopilot firmware  
-  - avoids need for additional altitude sensing hardware for basic flight stabilization  
+- Sensor: MS5611 (onboard)
+- Provides relative altitude estimation for vertical control and level transitions
+- Lightweight and directly integrated with flight controller firmware
+- Affected by pressure variation and airflow, limiting precision at small height changes
 
 #### Optical Flow / VIO
-- Optional subsystem depending on final operating environment  
+- Considered as an optional addition for relative horizontal motion estimation
+- Can improve short-range position hold and reduce drift during hover
+- Adds additional hardware and integration complexity, and performance depends on surface texture and lighting
+- Not included in the baseline system, as global positioning and onboard sensors are expected to meet current requirements
 
-- Function:
-  - estimates relative horizontal motion  
-  - improves position hold when GPS is weak or unavailable  
+#### Selected Configuration
+- Integrated IMU (ICM-42688-P, BMI055)
+- Onboard magnetometer (IST8310)
+- Barometer (MS5611)
 
-- Reason for Consideration:
-  - optical flow may improve short-range motion estimation in GPS-denied areas  
-  - VIO may provide stronger localization performance, but adds significant processing and integration complexity  
-  - final implementation depends on indoor/outdoor requirements and available compute resources  
-
+#### Justification
+- Provides sufficient orientation and relative motion estimation for stable flight and control
+- Fully supported by flight controller firmware with minimal additional integration
+- Optical flow / VIO was considered as a potential enhancement for improving local position hold, but was not included due to added system complexity and reduced reliability in environments with varying elevation and inconsistent surfaces (e.g., seating areas and multiple levels)
 
 ---
 
