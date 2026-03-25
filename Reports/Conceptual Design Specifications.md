@@ -36,103 +36,96 @@ The introduction is intended to reintroduce the fully formulated problem.
 The fully formulated problem is the overall objective and scope complete with the set of shall statements. This was part of the project proposal. However, it may be that the scope has changed. So, state the fully formulated problem in the introduction of the conceptual design and planning document. For each of the constraints, explain the origin of the constraint (customer specification, standards, ethical concern, broader implication concern, etc).
 
 
-
-
-
 ## Comparative Analysis of Potential Solutions
 
+---
 
 ### Computing Architecture
 
 #### Options Considered
 
-**1. Flight Controller (FC)**  
-- Examples: Pixhawk 6C, Matek H743  
-- Integrated IMU, barometer, flight firmware (PX4 / ArduPilot)  
-- Pros: built-in stabilization, integrated sensors, fast development, reliable  
-- Cons: limited low-level control, less flexibility, firmware-dependent, higher cost ($80–$200)  
+**1. Flight Controller (FC)**
+- Examples: Pixhawk 6C, Matek H743
+- Integrated IMU, barometer, flight firmware (PX4 / ArduPilot)
+- Pros: built-in stabilization, integrated sensors, fast development, reliable
+- Cons: limited low-level control, less flexibility, firmware-dependent, higher cost ($80–$200)
 
-**2. Custom Microcontroller**  
+**2. Custom Microcontroller**
 - Example: STM32, Raspberry Pi
-- Pros: full control, highly customizable, lightweight, very low cost ($10–$30)  
-- Cons: must build control + sensor fusion, high development time  
+- Pros: full control, highly customizable, lightweight, very low cost ($10–$30)
+- Cons: must build control + sensor fusion, high development time
 
-**3. Flight Controller + Companion Microcontroller**  
-- FC → low-level control  
-- MCU → mission-specific tasks  
-- Pros: combines reliability + flexibility, supports custom processing, scalable  
-- Cons: added complexity, communication required, higher power, highest total cost ($100–$250)  
+**3. Flight Controller + Companion Microcontroller**
+- FC → low-level control
+- MCU → mission-specific tasks
+- Pros: combines reliability + flexibility, supports custom processing, scalable
+- Cons: added complexity, communication required, higher power, highest total cost ($100–$250)
 
 #### Selected Architecture
-- Flight Controller + Companion Microcontroller
+Flight Controller + Companion Microcontroller
+
+#### Justification
+Combines the reliability of a dedicated flight controller with the flexibility of a companion microcontroller for mission-specific processing.
+
 ---
 
 ### Flight Controller Selection
 
-**Options Considered**
-- Pixhawk 6C (Holybro)  
-- Pixhawk 6C Mini (Holybro)  
+#### Options Considered
 
-**Comparison**
+**1. Pixhawk 6C (Holybro)**
+- Price: ~$180–$220 (higher-end, expanded capability)
+- Processor: STM32H743
+- Sensors: redundant IMUs, onboard barometer and magnetometer
+- Connectivity: multiple telemetry ports, dual power inputs — higher expandability and redundancy
+- Integration: easier for complex or expanding systems
 
-- **Price & Positioning**  
-  Pixhawk 6C: ~$180–$220 (higher-end, expanded capability)  
-  Pixhawk 6C Mini: ~$120–$150 (cost-effective, compact design)  
+**2. Pixhawk 6C Mini (Holybro)**
+- Price: ~$120–$150 (cost-effective, compact design)
+- Processor: STM32H743
+- Sensors: redundant IMUs, onboard barometer and magnetometer (identical to 6C)
+- Connectivity: reduced port availability, single power input — more constrained system design
+- Integration: sufficient for fixed, well-defined systems; less flexible for future expansion
 
-- **Processing & Sensors**  
-  Both controllers utilize the STM32H743 processor and identical sensor suites, including redundant IMUs and onboard barometer and magnetometer  
+#### Selected Flight Controller
+Pixhawk 6C Mini
 
-- **Connectivity & Expandability**  
-  Pixhawk 6C: additional ports (e.g., multiple telemetry ports, dual power inputs) enabling higher system expandability and redundancy  
-  Pixhawk 6C Mini: reduced port availability and single power input, requiring more constrained system design  
-
-- **System Integration**  
-  Pixhawk 6C: easier integration for complex or expanding systems  
-  Pixhawk 6C Mini: sufficient for fixed, well-defined systems but less flexible for future expansion  
-
-**Selected Flight Controller**
-- Pixhawk 6C Mini  
-
-**Justification**
-- provides identical processing and sensing performance to the Pixhawk 6C  
-- meets all required connectivity needs for the system  
-- reduces cost and avoids unnecessary expansion capability  
-- simplifies overall system design while maintaining reliability
-
-
-
-
+#### Justification
+- Provides identical processing and sensing performance to the Pixhawk 6C
+- Meets all required connectivity needs for the system
+- Reduces cost and avoids unnecessary expansion capability
+- Simplifies overall system design while maintaining reliability
 
 ---
 
-
 ### State Estimation (Pose Estimation)
 
-The state estimation subsystem determines the drone’s orientation and relative motion during flight using the onboard sensors of the Pixhawk 6C Mini.
+The state estimation subsystem determines the drone's orientation and relative motion during flight using the onboard sensors of the Pixhawk 6C Mini.
 
-#### IMU
+#### Options Considered
+
+**IMU**
 - Sensors: ICM-42688-P and BMI055 (dual accel/gyro)
 - Provides angular velocity and linear acceleration used to estimate roll, pitch, and yaw
-- High update rate enables real-time stabilization, while dual IMUs improve reliability
+- High update rate enables real-time stabilization; dual IMUs improve reliability
 - Subject to drift over time and requires vibration isolation for accurate measurements
 
-#### Magnetometer
+**Magnetometer**
 - Sensor: IST8310 (onboard)
 - Provides heading reference to correct yaw drift from the IMU
 - Improves directional stability during navigation between measurement points
 - Sensitive to magnetic interference from motors, wiring, and environment
 
-#### Barometer
+**Barometer**
 - Sensor: MS5611 (onboard)
 - Provides relative altitude estimation for vertical control and level transitions
 - Lightweight and directly integrated with flight controller firmware
 - Affected by pressure variation and airflow, limiting precision at small height changes
 
-#### Optical Flow / VIO
+**Optical Flow / VIO**
 - Considered as an optional addition for relative horizontal motion estimation
 - Can improve short-range position hold and reduce drift during hover
-- Adds additional hardware and integration complexity, and performance depends on surface texture and lighting
-- Not included in the baseline system, as global positioning and onboard sensors are expected to meet current requirements
+- Adds additional hardware and integration complexity; performance depends on surface texture and lighting
 
 #### Selected Configuration
 - Integrated IMU (ICM-42688-P, BMI055)
@@ -144,7 +137,7 @@ The state estimation subsystem determines the drone’s orientation and relative
 - Fully supported by flight controller firmware with minimal additional integration
 - Optical flow / VIO was considered as a potential enhancement for improving local position hold, but was not included due to added system complexity and reduced reliability in environments with varying elevation and inconsistent surfaces (e.g., seating areas and multiple levels)
 
----
+
 
 
 ### Localization (Global Position)
