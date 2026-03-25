@@ -79,50 +79,56 @@ For all subsystems, formulate detailed "shall" statements. Ensure these statemen
 
 ## Ethical, Professional, and Standards Considerations
 
+Ethical, Professional, and Standards Considerations
+
 The design and implementation of the Autonomous Acoustic Measurement Drone are influenced by ethical responsibilities, professional engineering standards, and regulatory requirements. These considerations directly impose constraints on system design, operation, and data handling to ensure safety, compliance, and responsible engineering practice.
 
 ### Public Safety and FAA Regulations
 
-The operation of the Autonomous Acoustic Measurement Drone is subject to federal aviation regulations established by the Federal Aviation Administration under Title 14 of the Code of Federal Regulations (14 CFR) Part 107 – Small Unmanned Aircraft Systems (sUAS). These regulations impose strict operational and safety constraints that directly influence the system design and testing procedures.
+The operation of the Autonomous Acoustic Measurement Drone is subject to federal aviation regulations established by the Federal Aviation Administration under Title 14 of the Code of Federal Regulations (14 CFR) Part 107 – Small Unmanned Aircraft Systems (sUAS) [1]. These regulations impose strict operational and safety constraints that directly influence the system design and testing procedures.
 
-Applicable FAA Regulations (14 CFR Part 107)
+### Applicable FAA Regulations (14 CFR Part 107)
 
 The system shall comply with the following key FAA requirements:
 
 §107.12 – Remote Pilot Certification
-The drone shall be operated by a certified remote pilot or under the direct supervision of one.
+The drone shall be operated by a certified remote pilot or under the direct supervision of one [1].
 
 §107.15 – Condition for Safe Operation
-The system shall be in a safe and airworthy condition prior to each flight, requiring pre-flight inspection procedures.
+The system shall be in a safe and airworthy condition prior to each flight, requiring pre-flight inspection procedures [1].
 
 §107.23 – Hazardous Operation
-The drone shall not be operated in a careless or reckless manner that could endanger life or property.
+The drone shall not be operated in a careless or reckless manner that could endanger life or property [1].
 
 §107.31 – Visual Line of Sight (VLOS)
-The drone shall remain within the visual line of sight of the operator at all times.
+The drone shall remain within the visual line of sight of the operator at all times [1].
 
 §107.35 – Operation of Multiple Aircraft
-The operator shall not control multiple drones simultaneously, ensuring full attention to one system.
+The operator shall not control multiple drones simultaneously, ensuring full attention to one system [1].
 
 §107.39 – Operation Over Human Beings
-The drone shall not operate over people unless it meets specific safety categories (which this system does not), therefore all testing must occur in controlled environments.
+The drone shall not operate over people unless it meets specific safety categories (which this system does not), therefore all testing must occur in controlled environments [1].
 
 §107.41 – Operation in Controlled Airspace
-The drone shall not operate in controlled airspace without authorization, requiring approval (e.g., LAANC) if near airports.
+The drone shall not operate in controlled airspace without authorization, requiring approval (e.g., LAANC) if near airports [1].
 
 §107.49 – Preflight Familiarization, Inspection, and Actions
+
 The operator shall perform a preflight inspection, including checks of:
+
 control systems
 battery levels
 communication links
-structural integrity
+structural integrity [1]
 
 §107.51 – Operating Limitations for Small UAS
 The system shall operate within the following limits:
+
 Maximum altitude: 400 feet above ground level (AGL)
 Maximum groundspeed: 100 mph (87 knots)
-Daylight or civil twilight operations only (unless equipped for night operations)
-Design Constraints Derived from FAA Regulations
+Daylight or civil twilight operations only (unless equipped for night operations) [1]
+
+### Design Constraints Derived from FAA Regulations
 
 These regulations impose direct constraints on the system design:
 
@@ -131,7 +137,6 @@ The drone shall maintain stable flight under normal operating conditions
 A reliable flight controller (e.g., ArduPilot/Pixhawk) shall be used to ensure controlled operation
 
 2. Fail-Safe Mechanisms
-
 To comply with §107.23 (hazardous operation), the system shall include:
 
 Return-to-home (RTH) in case of signal loss
@@ -149,26 +154,17 @@ Indoor or isolated outdoor testing environments shall be prioritized
 5. Operator Visibility and Control
 The system shall support manual override via remote controller
 The drone shall remain visible to the operator without reliance solely on FPV systems
-Remote Identification (Remote ID) Requirement
 
-### Under FAA rules, most drones are required to comply with Remote Identification (Remote ID) regulations.
+### Remote Identification (Remote ID) Requirement
+
+Under FAA rules, most drones are required to comply with Remote Identification (Remote ID) regulations [2].
 
 The drone shall either include a Remote ID broadcast module or operate within a FAA-recognized identification area (FRIA)
-The system shall transmit identification and location information during flight, if required
+The system shall transmit identification and location information during flight, if required [2]
 
 This requirement influences:
-
 communication system design
 onboard electronics integration
-Impact on Design Decisions
-
-These regulatory constraints directly influenced the conceptual design:
-
-Selection of a stable multirotor platform (quadcopter/hexacopter)
-Use of reliable flight control systems with fail-safe features
-Implementation of preflight and operational safety procedures
-Restriction of system use to controlled and safe environments
-
 
 
 ### Ethical Responsibility: Safety of Users and Bystanders
@@ -177,14 +173,12 @@ As engineers, there is an ethical obligation to prioritize human safety and mini
 
 To mitigate these risks:
 
-* The system shall include propeller guards or protective design considerations**
-* The drone shall not operate directly above individuals during testing
-* Pre-flight checks shall be required before each operation
-* The system shall include manual override capability for emergency intervention
+The system shall include propeller guards or protective design considerations
+The drone shall not operate directly above individuals during testing
+Pre-flight checks shall be required before each operation
+The system shall include manual override capability for emergency intervention
 
-These requirements ensure that the design aligns with the fundamental engineering principle of public safety first.
-
-
+These requirements ensure that the design aligns with the fundamental engineering principle of public safety first [3].
 
 ### Privacy and Data Ethics
 
@@ -192,67 +186,58 @@ The use of onboard sensors, including microphones and cameras, introduces privac
 
 To address ethical data use:
 
-* The system shall only collect acoustic data relevant to the experiment
-* The system shall not record or store personally identifiable information (PII)
-* Any recorded data shall be stored securely and used strictly for academic purposes
-* The drone shall be operated with transparency, informing stakeholders when data collection is occurring
+The system shall only collect acoustic data relevant to the experiment
+The system shall not record or store personally identifiable information (PII)
+Any recorded data shall be stored securely and used strictly for academic purposes
+The drone shall be operated with transparency, informing stakeholders when data collection is occurring
 
-These constraints influenced the decision to limit sensing to controlled test signals and acoustic measurements, rather than continuous environmental recording.
-
+These considerations align with ethical data handling practices in engineering systems [3].
 
 ### Professional Engineering Standards
 
-The project adheres to the ethical principles outlined by the Institute of Electrical and Electronics Engineers Code of Ethics, which emphasizes:
+The project adheres to the ethical principles outlined by the Institute of Electrical and Electronics Engineers Code of Ethics [3], which emphasizes:
 
-* safety, health, and welfare of the public
-* honesty and transparency in data reporting
-* responsible use of technology
+safety, health, and welfare of the public
+honesty and transparency in data reporting
+responsible use of technology
 
 To align with these standards:
 
-* The system hall produce accurate and reliable acoustic measurements
-* All results shall be documented truthfully without manipulation
-* The design shall be reviewed and tested to ensure functionality and safety
-
-
-
-### Industry and Technical Standards
+The system shall produce accurate and reliable acoustic measurements
+All results shall be documented truthfully without manipulation
+The design shall be reviewed and tested to ensure functionality and safety
+Industry and Technical Standards
 
 The system design is also influenced by relevant technical and industry standards, including:
 
-* Radio Technical Commission for Aeronautics guidelines for UAV communication and reliability
-* International Organization for Standardization standards for safety, quality, and risk management
+Radio Technical Commission for Aeronautics (RTCA) guidelines for UAV communication and reliability [4]
+International Organization for Standardization (ISO) standards for safety, quality, and risk management [5]
 
-Additionally, acoustic measurement practices are informed by established methods used in professional audio engineering tools such as Smaart.
+Additionally, acoustic measurement practices are informed by established methods used in professional audio engineering tools such as Smaart [6].
 
 To comply with these:
 
-* The system shall use calibrated sensors where possible
-* The system shall maintain signal integrity for accurate measurements**
-* Communication systems shall be reliable and resistant to interference
-
+The system shall use calibrated sensors where possible
+The system shall maintain signal integrity for accurate measurements
+Communication systems shall be reliable and resistant to interference
 
 
 ### Environmental and Sustainability Considerations
 
 The environmental impact of the system is minimal but still considered:
 
-* The drone shall use rechargeable battery systems** to reduce waste
-* The system shall minimize energy consumption during operation
-* Materials used in the frame (e.g., carbon fiber, polymers) shall be selected for durability to reduce frequent replacement
-
-
-
-### Economic and Societal Impact
+The drone shall use rechargeable battery systems to reduce waste
+The system shall minimize energy consumption during operation
+Materials used in the frame (e.g., carbon fiber, polymers) shall be selected for durability to reduce frequent replacement
+Economic and Societal Impact
 
 This project has the potential to reduce the cost and time associated with acoustic measurements in large venues. However, it also raises considerations regarding workforce impact.
 
-* The system shall be designed as an assistive tool**, not a full replacement for skilled engineers
-* The technology shall aim to improve efficiency while maintaining human oversight**
+The system shall be designed as an assistive tool, not a full replacement for skilled engineers
+The technology shall aim to improve efficiency while maintaining human oversight
 
 
-
-## Summary of Design Constraints Imposed
+###  Summary of Design Constraints Imposed
 
 As a result of these ethical, professional, and standards considerations, the system must:
 
@@ -262,6 +247,19 @@ As a result of these ethical, professional, and standards considerations, the sy
 * adhere to IEEE ethical standards
 * follow established acoustic measurement practices
 * maintain reliable and accurate system performance
+
+
+### References 
+
+[1] Federal Aviation Administration, 14 CFR Part 107 – Small Unmanned Aircraft Systems, 2024.
+[2] Federal Aviation Administration, Remote Identification of Unmanned Aircraft Final Rule, 2021.
+[3] IEEE, IEEE Code of Ethics, 2020.
+[4] RTCA, Minimum Operational Performance Standards for UAS, 2022.
+[5] ISO, ISO 9001: Quality Management Systems, 2015.
+[6] Rational Acoustics, Smaart Acoustic Measurement Software Documentation, 2023.
+
+
+
 
 
 
