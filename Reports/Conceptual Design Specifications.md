@@ -67,73 +67,111 @@ The fully formulated problem is the overall objective and scope complete with th
 - Flight Controller + Companion Microcontroller
 ---
 
-#### Flight Controller Selection
+### Flight Controller Selection
 
 **Options Considered**
 - Pixhawk 6C (Holybro)  
-- Matek H743  
+- Pixhawk 6C Mini (Holybro)  
 
 **Comparison**
 
 - **Price & Positioning**  
-  Pixhawk 6C: ~$180–$220 (higher-end, research-grade)  
-  Matek H743: ~$60–$100 (budget-friendly, hobby-oriented)  
+  Pixhawk 6C: ~$180–$220 (higher-end, expanded capability)  
+  Pixhawk 6C Mini: ~$120–$150 (cost-effective, compact design)  
 
-- **Firmware Support**  
-  Pixhawk 6C: PX4, ArduPilot (full support, industry standard)  
-  Matek H743: ArduPilot, Betaflight (less standardized for autonomy)  
+- **Processing & Sensors**  
+  Both controllers utilize the STM32H743 processor and identical sensor suites, including redundant IMUs and onboard barometer and magnetometer  
 
-- **Onboard Sensors**  
-  Pixhawk 6C: dual IMUs + dual barometers (redundant)  
-  Matek H743: single IMU + single barometer  
+- **Connectivity & Expandability**  
+  Pixhawk 6C: additional ports (e.g., multiple telemetry ports, dual power inputs) enabling higher system expandability and redundancy  
+  Pixhawk 6C Mini: reduced port availability and single power input, requiring more constrained system design  
 
-- **Connectivity**  
-  Pixhawk 6C: multiple UART, I2C, CAN → strong expandability  
-  Matek H743: fewer ports → more limited expansion  
+- **System Integration**  
+  Pixhawk 6C: easier integration for complex or expanding systems  
+  Pixhawk 6C Mini: sufficient for fixed, well-defined systems but less flexible for future expansion  
 
-- **Reliability / Use Case**  
-  Pixhawk 6C: designed for autonomous systems, higher fault tolerance  
-  Matek H743: more suited for hobby and lightweight builds  
-
-**Selected**
-- Pixhawk 6C  
+**Selected Flight Controller**
+- Pixhawk 6C Mini  
 
 **Justification**
-- stronger firmware ecosystem for autonomous flight  
-- redundant sensors increase reliability  
-- better connectivity for system expansion  
+- provides identical processing and sensing performance to the Pixhawk 6C  
+- meets all required connectivity needs for the system  
+- reduces cost and avoids unnecessary expansion capability  
+- simplifies overall system design while maintaining reliability
 
 ---
 
 
-### State Estimation
+### State Estimation (Pose Estimation)
 
-- IMU
-- magnetometer
+The state estimation subsystem is responsible for determining the drone’s orientation and relative motion during flight. This information is used by the flight controller to maintain stability and execute control commands.
 
-### Altitude Sensing
-- barometer
-- ToF sensor
-- ultrasonic
+#### IMU
+- Integrated within the selected flight controller  
+- Sensors: ICM-42688-P and BMI088  
 
-### Obstacle Detection
-- ToF
-- ultrasonic
-- camera
+- Function:
+  - measures angular velocity  
+  - measures linear acceleration  
+  - supports estimation of roll, pitch, and yaw  
 
-### Localization
-- optical flow
-- VIO
-- UWB
+- Reason for Selection:
+  - directly supported by flight controller firmware  
+  - redundant IMUs improve reliability  
+  - avoids additional wiring and integration complexity  
 
-### Mission Sensing
-- microphone
+#### Magnetometer
+- External magnetometer integrated with GPS module  
+
+- Function:
+  - provides heading reference for yaw estimation  
+
+- Reason for Selection:
+  - improves heading accuracy  
+  - reduces magnetic interference from onboard electronics and power wiring  
+  - common UAV practice for outdoor navigation  
+
+#### Barometer
+- Integrated within the selected flight controller  
+
+- Function:
+  - estimates relative altitude  
+  - supports vertical state estimation and altitude hold  
+
+- Reason for Selection:
+  - already integrated with the flight controller  
+  - directly used by autopilot firmware  
+  - avoids need for additional altitude sensing hardware for basic flight stabilization  
+
+#### Optical Flow / VIO
+- Optional subsystem depending on final operating environment  
+
+- Function:
+  - estimates relative horizontal motion  
+  - improves position hold when GPS is weak or unavailable  
+
+- Reason for Consideration:
+  - optical flow may improve short-range motion estimation in GPS-denied areas  
+  - VIO may provide stronger localization performance, but adds significant processing and integration complexity  
+  - final implementation depends on indoor/outdoor requirements and available compute resources  
 
 
+---
 
 
+### Localization (Global Position)
+- GPS  
+- UWB (if used)  
+
+---
+
+### Environment Perception (Obstacle Detection)
+- ToF sensor  
+- ultrasonic  
+- camera  
 
 
+---
 
 
 
