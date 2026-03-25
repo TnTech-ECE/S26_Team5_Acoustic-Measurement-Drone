@@ -160,7 +160,7 @@ This section presents a comprehensive, high-level solution aimed at efficiently 
 
 ### Hardware Block Diagram
 
-![Alt text](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Jackson's-Branch/Reports/Hardware_Block_Diagram_Ext_Comp.png)
+![Alt text](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Jackson's-Branch/Reports/Images/Hardware_Block_Diagram_Ext_Comp.png)
 
 ### Operational Flow Chart
 
