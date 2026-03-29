@@ -141,7 +141,7 @@ The state estimation subsystem determines the drone's orientation and relative m
 
 ### Localization
 
-The localization subsystem estimates the drone's horizontal position and altitude during autonomous indoor flight to support stable hover and waypoint execution.
+The localization subsystem estimates the drone's position across the horizontal plane and altitude during autonomous indoor flight to support stable hover and waypoint execution.
 
 #### Options Considered
 
@@ -171,10 +171,35 @@ GPS is unsuitable for indoor use. UWB offers accuracy but requires anchor instal
 
 ---
 
-### Environment Perception (Obstacle Detection)
-- ToF sensor  
-- ultrasonic  
-- camera  
+### Obstacle Detection
+
+The obstacle detection subsystem is responsible for identifying objects within the drone's flight path during navigation between waypoints to prevent collisions and ensure safe operation.
+
+#### Options Considered
+
+**1. Ultrasonic Sensors**
+- Examples: HC-SR04, MaxSonar EZ series
+- Emit sound pulses and measure return time to estimate distance
+- Pros: very low cost, simple integration
+- Cons: narrow detection cone, slow update rate, susceptible to interference from drone motor noise and acoustic reflections in venue environments
+
+**2. Single-Point ToF Sensor**
+- Examples: Benewake TFMini, VL53L1X
+- Single-axis distance measurement using time-of-flight
+- Pros: lightweight, inexpensive, UART/I2C compatible
+- Cons: extremely narrow field of view (~2-3°); multiple units required for adequate coverage, increasing wiring complexity
+
+**3. 2D Scanning LiDAR**
+- Example: SLAMTEC RPLIDAR C1
+- Rotating laser scanner providing continuous 360° horizontal distance measurements
+- Pros: full horizontal coverage with no blind spots, 12m range, 5KHz sample rate, TTL UART interface, lightweight at 110g, IP54 rated
+- Cons: detects obstacles only in the horizontal plane; does not cover above or below the drone
+
+#### Selected Sensor
+SLAMTEC RPLIDAR C1
+
+#### Justification
+Ultrasonic sensors are susceptible to motor noise and provide insufficient coverage. Single-point ToF sensors require multiple units for adequate coverage, adding cost and payload weight. The RPLIDAR C1 provides full 360° coverage in a single lightweight unit, interfaces directly with the Pixhawk 6C Mini via TTL UART, and comfortably meets the demands of a low-speed waypoint mission.
 
 
 ---
