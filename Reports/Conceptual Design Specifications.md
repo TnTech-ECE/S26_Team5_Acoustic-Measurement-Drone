@@ -38,7 +38,6 @@ The fully formulated problem is the overall objective and scope complete with th
 
 ## Comparative Analysis of Potential Solutions
 
----
 
 ### Computing Architecture
 
@@ -138,11 +137,37 @@ The state estimation subsystem determines the drone's orientation and relative m
 - Optical flow / VIO was considered as a potential enhancement for improving local position hold, but was not included due to added system complexity and reduced reliability in environments with varying elevation and inconsistent surfaces (e.g., seating areas and multiple levels)
 
 
+---
 
+### Localization
 
-### Localization (Global Position)
-- GPS  
-- UWB (if used)  
+The localization subsystem estimates the drone's horizontal position and altitude during autonomous indoor flight to support stable hover and waypoint execution.
+
+#### Options Considered
+
+**1. GPS**
+- Examples: Here3+, u-blox M9N
+- Standard satellite-based localization
+- Pros: globally accurate, well supported by ArduPilot/PX4, no additional hardware
+- Cons: unreliable indoors due to signal obstruction and multipath interference
+
+**2. Ultra-Wideband (UWB)**
+- Examples: Pozyx, Marvelmind
+- RF time-of-flight ranging between fixed anchors and a drone-mounted tag
+- Pros: centimeter-level indoor accuracy
+- Cons: requires pre-installed anchor infrastructure throughout the venue; high setup overhead and cost
+
+**3. Optical Flow + Downward Distance Sensor**
+- Example: Holybro H-Flow
+- Tracks surface features beneath the drone for horizontal velocity estimation; downward distance sensor provides altitude hold
+- Pros: self-contained, no external infrastructure, lightweight, low cost, native ArduPilot/PX4 support
+- Cons: drift over long distances; performance dependent on surface texture and lighting
+
+#### Selected Localization Method
+Optical Flow + Downward Distance Sensor (Holybro H-Flow)
+
+#### Justification
+GPS is unsuitable for indoor use. UWB offers accuracy but requires anchor installation incompatible with live-event time constraints. Optical flow requires no external infrastructure, integrates natively with the Pixhawk 6C Mini, and provides sufficient stability for a low-speed preset waypoint mission in a flat-box venue.
 
 ---
 
