@@ -43,8 +43,8 @@ The fully formulated problem is the overall objective and scope complete with th
 
 #### Options Considered
 
-**1. Flight Controller (FC)**
-- Examples: Pixhawk 6C [[1](#References)]
+**1. Flight Controller (FC)** [[1](#References)]
+- Examples: Pixhawk 6C
 - Integrated IMU, barometer, flight firmware (PX4 / ArduPilot)
 - Pros: built-in stabilization, integrated sensors, fast development, reliable
 - Cons: limited low-level control, less flexibility, firmware-dependent, higher cost ($80–$200)
@@ -79,7 +79,7 @@ Given the simplified mission scope — preset waypoints in a flat-box venue — 
 - Connectivity: multiple telemetry ports, dual power inputs — higher expandability and redundancy
 - Integration: easier for complex or expanding systems
 
-**2. Pixhawk 6C Mini (Holybro)** [[1](#References)]
+**2. Pixhawk 6C Mini (Holybro)** [[2](#References)]
 - Price: ~$120–$150 (cost-effective, compact design)
 - Processor: STM32H743
 - Sensors: redundant IMUs, onboard barometer and magnetometer (identical to 6C)
@@ -89,6 +89,10 @@ Given the simplified mission scope — preset waypoints in a flat-box venue — 
 #### Selected Flight Controller
 Pixhawk 6C Mini
 
+<p align="center">
+  <img src="Reports\Conceptual Design Specifications\Photos\6cmini.png" alt="Pixhawk 6C Mini" width="400"/>
+</p>
+
 #### Justification
 - Provides identical processing and sensing performance to the Pixhawk 6C
 - Meets all required connectivity needs for the system
@@ -97,25 +101,26 @@ Pixhawk 6C Mini
 
 ---
 
+
 ### State Estimation (Pose Estimation)
 
 The state estimation subsystem determines the drone's orientation and relative motion during flight using the onboard sensors of the Pixhawk 6C Mini.
 
 #### Options Considered
 
-**IMU**
+**IMU** [[2](#References)]
 - Sensors: ICM-42688-P and BMI055 (dual accel/gyro)
 - Provides angular velocity and linear acceleration used to estimate roll, pitch, and yaw
 - High update rate enables real-time stabilization; dual IMUs improve reliability
 - Subject to drift over time and requires vibration isolation for accurate measurements
 
-**Magnetometer**
+**Magnetometer** [[2](#References)]
 - Sensor: IST8310 (onboard)
 - Provides heading reference to correct yaw drift from the IMU
 - Improves directional stability during navigation between measurement points
 - Sensitive to magnetic interference from motors, wiring, and environment
 
-**Barometer**
+**Barometer** [[2](#References)]
 - Sensor: MS5611 (onboard)
 - Provides relative altitude estimation for vertical control and level transitions
 - Lightweight and directly integrated with flight controller firmware
@@ -129,12 +134,13 @@ The state estimation subsystem determines the drone's orientation and relative m
 #### Selected Configuration
 - Onboard IMUs (ICM-42688-P, BMI055)
 - Onboard magnetometer (IST8310)
-- Onboard Barometer (MS5611)
+- Onboard barometer (MS5611)
 
 #### Justification
 - Provides sufficient orientation and relative motion estimation for stable flight and control
 - Fully supported by flight controller firmware with minimal additional integration
 - Optical flow was evaluated for state estimation but is instead implemented as a dedicated localization sensor, covered in the Localization subsection.
+
 ---
 
 ### Localization
@@ -143,19 +149,19 @@ The localization subsystem estimates the drone's position across the horizontal 
 
 #### Options Considered
 
-**1. GPS**
+**1. GPS** [[3](#References)]
 - Examples: Here3+, u-blox M9N
 - Standard satellite-based localization
 - Pros: globally accurate, well supported by ArduPilot/PX4, no additional hardware
 - Cons: unreliable indoors due to signal obstruction and multipath interference
 
-**2. Ultra-Wideband (UWB)**
+**2. Ultra-Wideband (UWB)** [[3](#References)]
 - Examples: Pozyx, Marvelmind
 - RF time-of-flight ranging between fixed anchors and a drone-mounted tag
 - Pros: centimeter-level indoor accuracy
 - Cons: requires pre-installed anchor infrastructure throughout the venue; high setup overhead and cost
 
-**3. Optical Flow + Downward Distance Sensor**
+**3. Optical Flow + Downward Distance Sensor** [[4](#References)]
 - Example: Holybro H-Flow
 - Tracks surface features beneath the drone for horizontal velocity estimation; downward distance sensor provides altitude hold
 - Pros: self-contained, no external infrastructure, lightweight, low cost, native ArduPilot/PX4 support
@@ -175,19 +181,19 @@ The obstacle detection subsystem is responsible for identifying objects within t
 
 #### Options Considered
 
-**1. Ultrasonic Sensors**
+**1. Ultrasonic Sensors** [[5](#References)]
 - Examples: HC-SR04, MaxSonar EZ series
 - Emit sound pulses and measure return time to estimate distance
 - Pros: very low cost, simple integration
 - Cons: narrow detection cone, slow update rate, susceptible to interference from drone motor noise and acoustic reflections in venue environments
 
-**2. Single-Point ToF Sensor**
+**2. Single-Point ToF Sensor** [[6](#References)]
 - Examples: Benewake TFMini, VL53L1X
 - Single-axis distance measurement using time-of-flight
 - Pros: lightweight, inexpensive, UART/I2C compatible
 - Cons: extremely narrow field of view (~2-3°); multiple units required for adequate coverage, increasing wiring complexity
 
-**3. 2D Scanning LiDAR**
+**3. 2D Scanning LiDAR** [[7](#References)]
 - Example: SLAMTEC RPLIDAR C1
 - Rotating laser scanner providing continuous 360° horizontal distance measurements
 - Pros: full horizontal coverage with no blind spots, 12m range, 5KHz sample rate, TTL UART interface, lightweight at 110g, IP54 rated
@@ -269,12 +275,19 @@ Revise the detailed timeline (Gantt chart) you created in the project proposal. 
 
 ## References
 
-[1] Holybro. "Pixhawk 6C Mini." Holybro, 2024. [Online]. Available: https://holybro.com/collections/flight-controllers/products/pixhawk-6c-mini
+[1] Holybro. "Pixhawk 6C." Holybro, 2024. [Online]. Available: https://holybro.com/collections/flight-controllers/products/pixhawk-6c
 
-[2] Holybro. "H-Flow Optical Flow and Distance Sensor Module." Holybro, 2024. [Online]. Available: https://holybro.com/products/h-flow
+[2] Holybro. "Pixhawk 6C Mini." Holybro, 2024. [Online]. Available: https://holybro.com/collections/flight-controllers/products/pixhawk-6c-mini
 
-[3] SLAMTEC. "RPLIDAR C1 – Fusion DTOF Laser Scanner." SLAMTEC, 2024. [Online]. Available: https://www.slamtec.com/en/c1
+[3] NeedCode. "UWB vs GPS: When Ultra-Wideband Technology is the Superior Tracking Option." NeedCode, 2024. [Online]. Available: https://needcode.io/uwb-vs-gps-when-ultra-wideband-technology-is-the-superior-tracking-option/
 
+[4] Holybro. "H-Flow Optical Flow and Distance Sensor Module." Holybro, 2024. [Online]. Available: https://holybro.com/products/h-flow
+
+[5] Matha Electronics. "What is Ultrasonic Sensor? How to Use Ultrasonic Sensor?" Matha Electronics, 2022. [Online]. Available: https://www.mathaelectronics.com/a-brief-introduction-on-ultrasonic-sensorworkingapplications/
+
+[6] Meskernel. "LiDAR Sensor vs Distance Sensor: Key Differences & Best Uses." Meskernel, 2024. [Online]. Available: https://meskernel.net/en/lidar-sensor-vs-distance-sensor/
+
+[7] SLAMTEC. "RPLIDAR C1 – Fusion DTOF Laser Scanner." SLAMTEC, 2024. [Online]. Available: https://www.slamtec.com/en/c1
 
 ## Statement of Contributions
 
