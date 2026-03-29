@@ -44,7 +44,7 @@ The fully formulated problem is the overall objective and scope complete with th
 #### Options Considered
 
 **1. Flight Controller (FC)**
-- Examples: Pixhawk 6C, Matek H743
+- Examples: Pixhawk 6C [[1](#References)]
 - Integrated IMU, barometer, flight firmware (PX4 / ArduPilot)
 - Pros: built-in stabilization, integrated sensors, fast development, reliable
 - Cons: limited low-level control, less flexibility, firmware-dependent, higher cost ($80–$200)
@@ -61,10 +61,10 @@ The fully formulated problem is the overall objective and scope complete with th
 - Cons: added complexity, communication required, higher power, highest total cost ($100–$250)
 
 #### Selected Architecture
-Flight Controller + Companion Microcontroller
+Flight Controller Only
 
 #### Justification
-Combines the reliability of a dedicated flight controller with the flexibility of a companion microcontroller for mission-specific processing.
+Given the simplified mission scope — preset waypoints in a flat-box venue — a standalone flight controller provides sufficient processing capability. Flight controller firmware natively handles stabilization, waypoint navigation, sensor integration, and obstacle avoidance responses without requiring a companion microcontroller. This reduces system complexity, weight, and cost.
 
 ---
 
@@ -72,14 +72,14 @@ Combines the reliability of a dedicated flight controller with the flexibility o
 
 #### Options Considered
 
-**1. Pixhawk 6C (Holybro)**
+**1. Pixhawk 6C (Holybro)** [[1](#References)]
 - Price: ~$180–$220 (higher-end, expanded capability)
 - Processor: STM32H743
 - Sensors: redundant IMUs, onboard barometer and magnetometer
 - Connectivity: multiple telemetry ports, dual power inputs — higher expandability and redundancy
 - Integration: easier for complex or expanding systems
 
-**2. Pixhawk 6C Mini (Holybro)**
+**2. Pixhawk 6C Mini (Holybro)** [[1](#References)]
 - Price: ~$120–$150 (cost-effective, compact design)
 - Processor: STM32H743
 - Sensors: redundant IMUs, onboard barometer and magnetometer (identical to 6C)
@@ -127,16 +127,14 @@ The state estimation subsystem determines the drone's orientation and relative m
 - Adds additional hardware and integration complexity; performance depends on surface texture and lighting
 
 #### Selected Configuration
-- Integrated IMU (ICM-42688-P, BMI055)
+- Onboard IMUs (ICM-42688-P, BMI055)
 - Onboard magnetometer (IST8310)
-- Barometer (MS5611)
+- Onboard Barometer (MS5611)
 
 #### Justification
 - Provides sufficient orientation and relative motion estimation for stable flight and control
 - Fully supported by flight controller firmware with minimal additional integration
-- Optical flow / VIO was considered as a potential enhancement for improving local position hold, but was not included due to added system complexity and reduced reliability in environments with varying elevation and inconsistent surfaces (e.g., seating areas and multiple levels)
-
-
+- Optical flow was evaluated for state estimation but is instead implemented as a dedicated localization sensor, covered in the Localization subsection.
 ---
 
 ### Localization
@@ -271,7 +269,11 @@ Revise the detailed timeline (Gantt chart) you created in the project proposal. 
 
 ## References
 
-All sources utilized in the conceptual design that are not considered common knowledge must be properly cited. Multiple references should be included.
+[1] Holybro. "Pixhawk 6C Mini." Holybro, 2024. [Online]. Available: https://holybro.com/collections/flight-controllers/products/pixhawk-6c-mini
+
+[2] Holybro. "H-Flow Optical Flow and Distance Sensor Module." Holybro, 2024. [Online]. Available: https://holybro.com/products/h-flow
+
+[3] SLAMTEC. "RPLIDAR C1 – Fusion DTOF Laser Scanner." SLAMTEC, 2024. [Online]. Available: https://www.slamtec.com/en/c1
 
 
 ## Statement of Contributions
