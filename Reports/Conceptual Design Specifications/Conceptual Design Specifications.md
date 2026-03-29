@@ -168,6 +168,8 @@ The localization subsystem estimates the drone's position across the horizontal 
 #### Selected Localization Method
 Optical Flow + Downward Distance Sensor (Holybro H-Flow)
 
+![Holybro H-Flow](Photos/hflow.png)
+
 #### Justification
 GPS is unsuitable for indoor use. UWB offers accuracy but requires anchor installation incompatible with live-event time constraints. Optical flow requires no external infrastructure, integrates natively with the Pixhawk 6C Mini, and provides sufficient stability for a low-speed preset waypoint mission in a flat-box venue.
 
@@ -199,6 +201,8 @@ The obstacle detection subsystem is responsible for identifying objects within t
 
 #### Selected Sensor
 SLAMTEC RPLIDAR C1
+
+![SLAMTEC RPLIDAR C1](Photos/rplidarc1.png)
 
 #### Justification
 Ultrasonic sensors are susceptible to motor noise and provide insufficient coverage. Single-point ToF sensors require multiple units for adequate coverage, adding cost and payload weight. The RPLIDAR C1 provides full 360° coverage in a single lightweight unit, interfaces directly with the Pixhawk 6C Mini via TTL UART, and comfortably meets the demands of a low-speed waypoint mission.
