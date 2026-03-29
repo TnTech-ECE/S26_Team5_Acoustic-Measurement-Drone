@@ -169,143 +169,120 @@ Similar to a block diagram, the flow chart aims to specify the system, but from 
 
 ## Atomic Subsystem Specifications
 
-## **External Components and Power Subsystem**
+### Power and Propulsion Subsystem
 
-### **Subsystem Description**
-
-The External Components and Power Subsystem shall store electrical energy, distribute power to the necessary hardware, and generate the thrust required for takeoff, hover, maneuvering, and landing. This subsystem includes the battery, power distribution path, electronic speed controller (ESC), motors, propellers, and associated external mounting and wiring interfaces.
-
-For this design, the subsystem is based on a **6S 8000 mAh Li-ion battery** with a nominal voltage of **22.2 V**, providing **177.6 Wh** of energy. The propulsion system consists of **T-Motor Velox V3120 motors** paired with **APC 10x4.5 propellers**, driven by a **Hobbywing XRotor G2 65A 4-in-1 ESC**. The subsystem interfaces with the **Holybro Pixhawk 6C flight controller**, which requires regulated low-voltage input.
+#### 1. Subsystem Overview
+The Power and Propulsion Subsystem is responsible for storing electrical energy, distributing power to propulsion components, and generating thrust for flight. It consists of the battery, electronic speed controllers (ESCs), brushless motors, and propellers. This subsystem directly determines total aircraft weight, thrust capability, and flight endurance.
 
 ---
 
-## **Subsystem Functional Breakdown**
+#### 2. Component Functions and Specifications
 
-### **Battery**
-The battery subsection shall store and supply electrical energy to the system.
+##### 2.1 Battery
+**Component:** iFlight Fullsend 6S 8000 mAh Li-Ion  
+- **Voltage:** 22.2 V (nominal)  
+- **Capacity:** 8000 mAh  
+- **Energy:** 177.6 Wh  
+- **Weight:** 840 g  
 
-**Functions:**
-- Provide primary DC power (22.2 V nominal)
-- Support required mission duration
-- Deliver high current to propulsion system
-- Enable safe connection/disconnection
+**Function:**  
+The battery serves as the primary energy source for the entire aircraft. It supplies high-voltage DC power to the propulsion system and, through regulation, powers onboard electronics. It is the dominant factor in flight endurance and one of the largest contributors to total mass.
 
----
+##### 2.2 Electronic Speed Controllers (ESCs)
+**Component:** 4 × HobbyWing XRotor 40A 2–6S ESC  
+- **Continuous Current:** 40 A  
+- **Peak Current:** 60 A  
+- **Voltage Range:** 2–6S  
+- **Weight:** 32 g each (128 g total)  
 
-### **Power Distribution and Regulation**
-This subsection shall distribute power from the battery to propulsion and avionics systems.
+**Function:**  
+Each ESC regulates power delivered from the battery to a motor. It converts DC voltage into controlled three-phase signals to precisely adjust motor speed. ESCs enable real-time thrust control for stabilization and maneuvering.
 
-**Functions:**
-- Route high-current power to ESC
-- Provide low-voltage power to Pixhawk 6C and sensors
-- Maintain common/ground across all subsystems
-- Prevent voltage drops and unsafe current conditions
+##### 2.3 Motors
+**Component:** 4 × Tarot 4112 300KV Brushless Motors  
+- **KV Rating:** 300 KV  
+- **Max Power:** 500 W per motor  
+- **Weight:** 152 g each (608 g total)  
 
----
+**Function:**  
+Motors convert electrical energy into rotational motion. They generate torque to spin the propellers and produce lift. Low-KV motors are selected to improve efficiency and support stable, long-duration flight.
 
-### **ESC**
-The ESC subsection shall convert DC battery power into controlled three-phase motor drive signals.
+##### 2.4 Propellers
+**Component:** APC 12×4.5 Multirotor Propellers (×4)  
 
-**Functions:**
-- Receive digital throttle commands from Pixhawk
-- Drive four motors using three-phase outputs
-- Support DShot300/600 communication
-- Provide voltage, current, and RPM if necessary
-
----
-
-### **Motors**
-The motor section shall convert electrical power into mechanical rotation.
-
-**Functions:**
-- Receive three-phase signals from ESC
-- Rotate propellers to generate thrust
-- Provide lift and control torques
-- Operate efficiently under hover conditions
+**Function:**  
+Propellers convert motor rotation into thrust. Their diameter and pitch determine lift efficiency, power consumption, and flight stability. A larger diameter, low-pitch configuration is selected to maximize hover efficiency for mapping operations.
 
 ---
 
-### **Propellers**
-The propeller subsection shall convert motor rotation into thrust.
+#### 3. Weight Distribution
 
-**Functions:**
-- Generate lift for flight
-- Provide control authority for roll, pitch, and yaw
-- Operate efficiently at moderate RPM
-- Minimize vibration through proper balance
+##### 3.1 Estimated Non-Propulsion Mass
+- **Flight Controller:** 46.8 g  
+- **HFlow Sensor:** 15.2 g  
+- **LiDAR (RPLIDAR C1):** 110 g  
+- **DSP/Teensy:** 50 g  
+- **Frame:** 500 g  
 
----
+**Subtotal:** **722 g**
 
-### **Sensors**
-This subsection shall support externally mounted avionics components.
+##### 3.2 Propulsion Subsystem Mass
+- **Battery:** 840 g  
+- **Motors (×4):** 608 g  
+- **ESCs (×4):** 128 g  
+- **Propellers (×4):** ~60 g (estimated)  
 
-**Functions:**
-- Provide mounting and power for optical flow sensor
-- Enable stable hover by improved positioning feedback
-- Route sensor wiring safely
+**Subtotal:** **1636 g**
 
----
+##### 3.3 Total Estimated Weight
+**Total Mass ≈ 722 g + 1636 g = 2358 g (~2.36 kg)**
 
-## **Interfaces**
+This estimate does not include wiring, mounting hardware, or additional sensors. A realistic final weight is expected to be:
 
-### **Interface with Flight Controller (Pixhawk 6C)**
-
-- **Signal Types:**  
-  - Regulated DC power  
-  - Digital motor control 
-
-- **Direction:**  
-  - Power: External subsystem to Pixhawk  
-  - Control: Pixhawk to ESC   
-
-- **Protocols:**  
-  - DShot300/600 (motor control)  
-  - Regulated DC power input  
-
-- **Data Sent:**  
-  - Motor throttle commands  
-  - Arm and disarm signals  
-
-- **Data Received:**    
-  - Status feedback  
+**2.4–2.5 kg**
 
 ---
 
-### **Interface with Sensor**
+#### 4. Power Distribution
 
-- **Signal Types:** Power and sensor data  
-- **Direction:**  
-  - Power: External subsystem to sensors  
-  - Data: Sensors to Pixhawk  
+##### 4.1 System Architecture
+Power is distributed from the battery into two primary paths:
 
-- **Protocols:**  
-  - Sensor-specific interface (handled by avionics subsystem)
+**1. Propulsion Path (High Power)**  
+- Battery → ESCs → Motors → Propellers  
+- Dominates total power consumption  
 
-- **Data:**  
-  - Optical flow motion data  
+**2. Avionics Path (Low Power)**  
+- Battery → Voltage Regulation → Flight controller, sensors, DSP  
+
+##### 4.2 Propulsion Power Capability
+- **Max motor power:** 500 W × 4 = **2000 W total**  
+- **ESC capacity:** 40 A per channel  
+- **System voltage:** 22.2 V  
+
+**Theoretical max current per motor:**  
+500 W / 22.2 V ≈ **22.5 A**
+
+This is within ESC limits, providing operating margin.
+
+##### 4.3 Expected Operating Power
+The system will not operate at maximum power continuously. During hover and mapping flight:
+
+- **Typical thrust required per motor:** 550–650 g  
+- **Expected operating power:** **400–800 W total system power**
+
+##### 4.4 Battery Capability Check
+- **Max continuous current:**  
+  8 Ah × 17.5C = **140 A**
+
+This is sufficient to support:
+- Estimated hover current (~20–35 A total)
+- Moderate maneuvering loads
 
 ---
 
-### **Interface with Acoustic Payload**
-
-- **Signal Types:** Mechanical and optional power  
-- **Direction:**  
-  - External subsystem → payload: support and power  
-  - Payload → external subsystem: mass and placement constraints  
-
----
-
-### **Interface with User**
-
-- **Signal Type:** Physical interaction  
-- **Direction:** Bidirectional  
-
-**User Actions:**
-- Install and remove battery  
-- Inspect motors and propellers  
-- Connect and disconnect power  
-
----
+#### 5. Summary
+The propulsion subsystem contributes the majority of system mass and nearly all power consumption. The selected 6S battery provides sufficient energy density for extended flight time, while the motor and propeller combination prioritizes efficiency over peak thrust. The ESCs provide adequate current capacity and control authority, supporting stable and responsive operation.
 
 ## Ethical, Professional, and Standards Considerations
 
