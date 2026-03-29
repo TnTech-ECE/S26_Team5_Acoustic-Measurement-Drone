@@ -89,9 +89,7 @@ Given the simplified mission scope — preset waypoints in a flat-box venue — 
 #### Selected Flight Controller
 Pixhawk 6C Mini
 
-<p align="center">
-  <img src="Reports\Conceptual Design Specifications\Photos\6cmini.png" alt="Pixhawk 6C Mini" width="400"/>
-</p>
+![Pixhawk 6C Mini](Reports\Conceptual Design Specifications\Photos\6cmini.png)
 
 #### Justification
 - Provides identical processing and sensing performance to the Pixhawk 6C
