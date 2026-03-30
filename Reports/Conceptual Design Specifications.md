@@ -205,19 +205,7 @@ The power and propulsion subsystem shall:
 
 **Functional Flowchart**
 
-Battery connected  
-↓  
-Battery supplies power to propulsion system  
-↓  
-ESCs receive power and motor control signals  
-↓  
-ESCs regulate power to brushless motors  
-↓  
-Motors rotate propellers  
-↓  
-Propellers generate lift and control thrust  
-↓  
-Aircraft performs takeoff, hover, mapping flight, and landing  
+![Alt text]()  
 
 **Performance Specifications**
 
