@@ -510,17 +510,6 @@ As a result of these ethical, professional, and standards considerations, the sy
 * follow established acoustic measurement practices
 * maintain reliable and accurate system performance
 
-
-### References 
-
-[1] Federal Aviation Administration, 14 CFR Part 107 – Small Unmanned Aircraft Systems, 2024.
-[2] Federal Aviation Administration, Remote Identification of Unmanned Aircraft Final Rule, 2021.
-[3] IEEE, IEEE Code of Ethics, 2020.
-[4] RTCA, Minimum Operational Performance Standards for UAS, 2022.
-[5] ISO, ISO 9001: Quality Management Systems, 2015.
-[6] Rational Acoustics, Smaart Acoustic Measurement Software Documentation, 2023.
-
-
 ## Resources
 
 You have already estimated the resources needed to complete the solution. Now, let's refine those estimates.
@@ -540,7 +529,12 @@ Revise the detailed timeline (Gantt chart) you created in the project proposal. 
 
 ## References
 
-All sources utilized in the conceptual design that are not considered common knowledge must be properly cited. Multiple references should be included.
+[1] Federal Aviation Administration, 14 CFR Part 107 – Small Unmanned Aircraft Systems, 2024.
+[2] Federal Aviation Administration, Remote Identification of Unmanned Aircraft Final Rule, 2021.
+[3] IEEE, IEEE Code of Ethics, 2020.
+[4] RTCA, Minimum Operational Performance Standards for UAS, 2022.
+[5] ISO, ISO 9001: Quality Management Systems, 2015.
+[6] Rational Acoustics, Smaart Acoustic Measurement Software Documentation, 2023.
 
 
 ## Statement of Contributions
