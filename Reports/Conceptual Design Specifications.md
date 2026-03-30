@@ -205,7 +205,7 @@ The power and propulsion subsystem shall:
 
 **Functional Flowchart**
 
-![Alt text]()  
+![Alt text](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Jackson's-Branch/Reports/Images/Power%20Distribution%20Flow%20Chart.png)  
 
 **Performance Specifications**
 
