@@ -98,6 +98,7 @@ $$
 ## Comparative Analysis of Potential Solutions
 
 ### Power and Propulsion Subsystem Design Considerations
+
 **Potential Solutions**
 
 &nbsp; &nbsp; &nbsp; &nbsp; Several configurations were considered for the power and propulsion subsystem, focusing on battery type, motor selection, propeller size, and electronic speed controller (ESC) configuration.
@@ -178,8 +179,6 @@ Flight Controller Only
 
 #### Justification
 Given the simplified mission scope — preset waypoints in a flat-box venue — a standalone flight controller provides sufficient processing capability. Flight controller firmware natively handles stabilization, waypoint navigation, sensor integration, and obstacle avoidance responses without requiring a companion microcontroller. This reduces system complexity, weight, and cost.
-
----
 
 ### Flight Controller Selection
 
