@@ -433,7 +433,7 @@ As stated in our teams project proposal, each team members respective skills are
 
 With these skills in mind, Team 5 has unanimously decided that the division of labor for each described subsystem along with their respective operatives as well as their reasonings are as stated below:
 
-|**SubSystem**|**Description**|**Assigned Operative**|**Reasoning**|
+|**Subsystem**|**Description**|**Assigned Operative**|**Reasoning**|
 |-------------|---------------|----------------------|-------------|
 |**Drone Frame**|This subsystem consists of drone frame configuration, Materials used to construct frame, compartment design for different subsystems, etc. |Mashoud Modi|Chosen for their general skills for the project to visualize the physical compartments for each respective system on the drone.|
 |**Internal Components**|This subsystem consists of flight controller selection and configuration, sensor selection and implementation, etc.|Elliot Lovins|Chosen for their experience with robotics and control systems to construct a smart autonomous drone.|
