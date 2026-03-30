@@ -38,118 +38,66 @@ The fully formulated problem is the overall objective and scope complete with th
 
 ## Comparative Analysis of Potential Solutions
 
-### **Hypothesized Solutions**
+### Power and Propulsion Subsystem Design Considerations
 
-&nbsp; &nbsp; &nbsp; &nbsp;The literature suggests three primary solution paths for implementing acoustic measurement on a drone platform:
+**Potential Solutions**
 
-#### **1. Large Microphone Array with Beamforming**
-- Uses many synchronized microphones
-- Applies beamforming to determine sound direction and intensity
-- Utilizes spectral subtraction or adaptive filtering to reduce drone noise
+&nbsp; &nbsp; &nbsp; &nbsp; Several configurations were considered for the power and propulsion subsystem, focusing on battery type, motor selection, propeller size, and electronic speed controller (ESC) configuration.
 
-**Source basis:**  
-- Urban UAV noise study (multi-mic array + FPGA + LMS filtering)  
-- Drone-mounted phased array localization study (32-mic array + beamforming)
+&nbsp; &nbsp; &nbsp; &nbsp; For the battery, both lithium-polymer (LiPo) and lithium-ion (Li-Ion) options were evaluated. LiPo batteries provide higher discharge rates and are commonly used in high-performance drones, while Li-Ion batteries offer higher energy density and improved endurance.
 
----
+&nbsp; &nbsp; &nbsp; &nbsp; For motor selection, two primary approaches were considered. The first involved larger, low-KV motors such as the Tarot 4112 300KV, which are typically paired with larger propellers (15–16 inches) for maximum efficiency. The second approach involved smaller, lighter motors such as the SunnySky V4008 380KV, which are better suited for mid-sized propellers (12–13 inches) and reduced overall system weight.
 
-#### **2. Adaptive Noise Cancellation with Reference Microphones**
-- Uses additional microphones positioned near motors/propellers
-- Captures drone noise separately
-- Applies adaptive filtering to remove it from the main signal
+&nbsp; &nbsp; &nbsp; &nbsp; Propeller sizes ranging from 12-inch to 15-inch were evaluated. Larger propellers provide higher efficiency and thrust at lower RPMs but require a larger frame and increase system size. Smaller propellers allow for a more compact design but may reduce efficiency and increase power consumption.
 
-**Source basis:**  
-- Urban traffic UAV study (reference microphones + Least Mean Square filtering)  
-- Localization study (multi-band spectral subtraction)
+&nbsp; &nbsp; &nbsp; &nbsp; For ESC configuration, both 4-in-1 ESCs and individual ESCs were considered. A 4-in-1 ESC offers compact integration and reduced wiring, while individual ESCs provide better thermal distribution, easier replacement, and greater flexibility in larger custom frames.
 
 ---
 
-#### **3. Single Measurement Microphone with Physical Isolation**
-- Uses a single calibrated microphone for accurate SPL measurement
-- Relies on physical separation below the drone instead of heavy DSP
-- Minimizes noise at the source rather than removing it digitally
+**Design Considerations**
 
-**Source basis:**
-- Neither paper uses this approach directly, but both reveal limitations of onboard arrays and heavy DSP
-- Motivated by the need for accurate point measurements, not just detection or mapping
+&nbsp; &nbsp; &nbsp; &nbsp; The design process was influenced by several key factors:
 
----
-
-## **Design Considerations**
-
-&nbsp; &nbsp; &nbsp; &nbsp;Several key factors influence the selection of the final solution:
-
-### **1. Drone Self-Noise**
-- Both sources show that propeller and motor noise overlap with the desired signal
-- Noise is broadband and difficult to remove using simple filters
-- DSP-based solutions reduce noise but do not eliminate it completely
+- **Endurance Requirements:** The system must support extended flight time for mapping operations, prioritizing efficiency over speed.
+- **Weight Constraints:** Reducing total aircraft mass is critical for improving flight time and reducing required thrust.
+- **Frame Size Limitations:** The selected 16 in × 16 in frame restricts the maximum propeller size that can be used.
+- **Power Efficiency:** The propulsion system must operate efficiently at hover and low-speed cruise conditions.
+- **Component Compatibility:** All components must support a 6S power system and operate within safe electrical limits.
+- **Thermal and Reliability Considerations:** ESC and motor selection must ensure safe operation under continuous load conditions.
+- **Integration Simplicity:** The design should allow for straightforward integration with the flight controller and payload systems.
 
 ---
 
-### **2. Measurement Accuracy vs. Complexity**
-- Microphone arrays provide spatial awareness but require:
-  - A complicated synchronizing process
-  - high processing power
-  - large hardware space
-- For soundcheck applications, accurate point measurements are more valuable than directional estimation
+**Factors Influencing Final Selection**
+
+&nbsp; &nbsp; &nbsp; &nbsp; The final configuration was selected based on a balance between efficiency, weight, and compatibility with the frame and mission requirements.
+
+- The **Li-Ion battery** was chosen over LiPo due to its higher energy density, enabling longer flight times.
+- The **SunnySky V4008 380KV motors** were selected instead of heavier alternatives to reduce total system weight while maintaining sufficient thrust capability.
+- The **13-inch propellers** were selected as a compromise between efficiency and frame constraints, providing improved performance over 12-inch props while remaining compatible with the existing frame.
+- **Individual ESCs** were selected instead of a 4-in-1 configuration to improve thermal performance and simplify integration within the larger frame.
 
 ---
 
-### **3. System Weight and Power Consumption**
-- Large arrays and FPGA systems increase:
-  - weight
-  - power draw
-  - cost
-- This reduces flight time and system practicality
+**Final Design Selection**
+
+&nbsp; &nbsp; &nbsp; &nbsp; The final power and propulsion subsystem configuration consists of:
+
+- 6S 8000 mAh Li-Ion battery  
+- SunnySky V4008 380KV brushless motors (×4)  
+- HobbyWing XRotor 40A ESCs (×4)  
+- APC 13×4.5 multirotor propellers (×4)  
+- 16 in × 16 in 3D-printed H-frame  
+
+&nbsp; &nbsp; &nbsp; &nbsp; This configuration provides a balanced solution that meets the endurance requirements of the project while maintaining compatibility with the mechanical design. The selected components reduce unnecessary weight, improve efficiency during hover, and allow the system to achieve an estimated flight time near 20 minutes under optimized operating conditions.
 
 ---
 
-### **4. Stability and Repeatability**
-- Accurate acoustic measurements require:
-  - stable hover
-  - minimal vibration
-- Sensor fusion (optical flow, IMU) improves repeatability
+**Justification Summary**
 
----
+&nbsp; &nbsp; &nbsp; &nbsp; The chosen design represents a compromise between competing design constraints. While larger propellers and motors could improve efficiency, they would require a larger frame and increase system complexity. Conversely, smaller components would reduce size but negatively impact endurance. The selected configuration achieves an effective balance by maximizing efficiency within the constraints of the existing frame and mission requirements.
 
-## **Selected Solution**
-
-&nbsp; &nbsp; &nbsp; &nbsp;Based on the above considerations, the selected solution is a **hybrid approach combining physical noise mitigation with simplified signal processing**.
-
-### **Chosen Architecture**
-- **Single calibrated measurement microphone**, mounted below the drone via a tether or suspension system  
-- **Standard drone propulsion system** optimized for stable hover   
-- **Stable flight control using Pixhawk + optical flow sensor**
-
----
-
-## **Justification for Selection**
-
-### **1. Improved Measurement Accuracy**
-- Physical separation reduces drone noise at the source
-- Avoids distortion introduced by aggressive filtering
-- Enables more accurate SPL measurements for tools like Smaart
-
----
-
-### **2. Reduced System Complexity**
-- Eliminates need for large microphone arrays and FPGA processing
-- Reduces synchronization and calibration challenges
-- Simplifies system integration
-
----
-
-### **3. Lower Weight and Power Requirements**
-- Fewer sensors and processing components
-- Longer flight time
-- Increased payload margin for microphone stabilization
-
----
-
-### **4. Alignment with Project Goals**
-- The project focuses on **soundcheck and acoustic measurement**, not source localization
-- A single high-quality measurement point is more valuable than directional mapping
-- The design prioritizes **accuracy, simplicity, and practicality**
+&nbsp; &nbsp; &nbsp; &nbsp; Overall, the final design supports stable, efficient, and reliable autonomous mapping operation while remaining practical for implementation and integration.
 
 
 
