@@ -111,8 +111,6 @@ $$
 
 &nbsp; &nbsp; &nbsp; &nbsp; For ESC configuration, both 4-in-1 ESCs and individual ESCs were considered. A 4-in-1 ESC offers compact integration and reduced wiring, while individual ESCs provide better thermal distribution, easier replacement, and greater flexibility in larger custom frames.
 
----
-
 **Design Considerations**
 
 &nbsp; &nbsp; &nbsp; &nbsp; The design process was influenced by several key factors:
@@ -125,7 +123,6 @@ $$
 - **Thermal and Reliability Considerations:** ESC and motor selection must ensure safe operation under continuous load conditions.
 - **Integration Simplicity:** The design should allow for straightforward integration with the flight controller and payload systems.
 
----
 
 **Factors Influencing Final Selection**
 
@@ -136,7 +133,6 @@ $$
 - The **13-inch propellers** were selected as a compromise between efficiency and frame constraints, providing improved performance over 12-inch props while remaining compatible with the existing frame.
 - **Individual ESCs** were selected instead of a 4-in-1 configuration to improve thermal performance and simplify integration within the larger frame.
 
----
 
 **Final Design Selection**
 
@@ -150,7 +146,6 @@ $$
 
 &nbsp; &nbsp; &nbsp; &nbsp; This configuration provides a balanced solution that meets the endurance requirements of the project while maintaining compatibility with the mechanical design. The selected components reduce unnecessary weight, improve efficiency during hover, and allow the system to achieve an estimated flight time near 20 minutes under optimized operating conditions.
 
----
 
 **Justification Summary**
 
@@ -257,22 +252,7 @@ $$
 
 Similar to a block diagram, the flow chart aims to specify the system, but from the user's point of view rather than illustrating the arrangement of each subsystem. It outlines the steps a user needs to perform to use the device and the screens/interfaces they will encounter. A diagram should be drawn to represent this process. Each step should be represented in the diagram to visually depict the sequence of actions and corresponding screens/interfaces the user will encounter while using the device.
 
-
 ## Atomic Subsystem Specifications
-
-Based on the high-level design, provide a comprehensive description of the functions each subsection will perform.
-
-Inclued a description of the interfaces between this subsystem and other subsystems:
-- Give the type of signal (e.g. power, analog signal, serial communication, wireless communication, etc).
-- Clearly define the direction of the signal (input or output).
-- Document the communication protocols used.
-- Specifying what data will be sent and what will be received.
-
-Detail the operation of the subsystem:
-- Illustrate the expected user interface, if applicable.
-- Include functional flowcharts that capture the major sequential steps needed to achieve the desired functionalities.
-
-For all subsystems, formulate detailed "shall" statements. Ensure these statements are comprehensive enough so that an engineer who is unfamiliar with your project can design the subsystem based on your specifications. Assume the role of the customer in this context to provide clear and precise requirements.
 
 
 ## Ethical, Professional, and Standards Considerations
