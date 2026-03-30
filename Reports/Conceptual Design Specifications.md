@@ -266,7 +266,16 @@ You have already estimated the resources needed to complete the solution. Now, l
 
 ### Budget
 
-Develop a budget proposal with justifications for expenses associated with each subsystem. Note that the total of this budget proposal can also serve as a specification for each subsystem. After creating the budgets for individual subsystems, merge them to create a comprehensive budget for the entire solution.
+| **Item**                         | **Description**                                         | **Estimated Cost**      |
+|----------------------------------|---------------------------------------------------------|--------------------------|
+| **Battery (6S 8000mAh Li-Ion)** | High energy-density battery for long endurance flight   | $99 – $115               |
+| **Motors (4x SunnySky V4008)**  | Brushless motors optimized for 13-inch propellers       | $219.96 (4 × $54.99)     |
+| **Electronic Speed Controllers (ESCs)** | HobbyWing XRotor 40A ESCs (4x)               | $71.96 (4 × $17.99)      |
+| **Propellers (13x4.5 + Spares)**| APC multirotor propellers (4–6 total)                   | $23 – $35                |
+| **Power Distribution / Wiring** | Power distribution, connectors, and integration hardware| $25 – $50                |
+| **Mounting Hardware**           | Motor mounts, fasteners, and structural integration     | $15 – $40                |
+
+Estimated total power and propulsion subsystem cost: ≈ $454 – $532
 
 ### Division of Labor
 
