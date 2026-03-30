@@ -94,7 +94,6 @@ Hybrid Carbon Fiber + 3D-Printed Parts
 ### Justification
 This hybrid approach provides the structural advantages of carbon fiber while preserving the flexibility of additive manufacturing. Carbon-fiber arms and primary structural members provide the stiffness and low weight needed for efficient and stable flight. 3D-printed parts enable easy customization of microphone mounts, electronics brackets, and experimental sensor placements during development. This combination supports both structural performance and iterative design capability.
 
----
 
 ## 3D Printing Filament
 
@@ -162,6 +161,7 @@ The end result should present a comprehensive view of a well-defined system, del
 ### Operational Flow Chart
 
 Similar to a block diagram, the flow chart aims to specify the system, but from the user's point of view rather than illustrating the arrangement of each subsystem. It outlines the steps a user needs to perform to use the device and the screens/interfaces they will encounter. A diagram should be drawn to represent this process. Each step should be represented in the diagram to visually depict the sequence of actions and corresponding screens/interfaces the user will encounter while using the device.
+
 
 
 ## Atomic Subsystem Specifications
