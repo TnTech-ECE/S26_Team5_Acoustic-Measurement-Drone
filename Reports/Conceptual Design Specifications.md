@@ -97,7 +97,67 @@ $$
 
 ## Comparative Analysis of Potential Solutions
 
-In this section, various potential solutions are hypothesized, design considerations are discussed, and factors influencing the selection of a solution are outlined. The chosen solution is then identified with justifications for its selection.
+### Power and Propulsion Subsystem Design Considerations
+
+**Potential Solutions**
+
+&nbsp; &nbsp; &nbsp; &nbsp; Several configurations were considered for the power and propulsion subsystem, focusing on battery type, motor selection, propeller size, and electronic speed controller (ESC) configuration.
+
+&nbsp; &nbsp; &nbsp; &nbsp; For the battery, both lithium-polymer (LiPo) and lithium-ion (Li-Ion) options were evaluated. LiPo batteries provide higher discharge rates and are commonly used in high-performance drones, while Li-Ion batteries offer higher energy density and improved endurance.
+
+&nbsp; &nbsp; &nbsp; &nbsp; For motor selection, two primary approaches were considered. The first involved larger, low-KV motors such as the Tarot 4112 300KV, which are typically paired with larger propellers (15–16 inches) for maximum efficiency. The second approach involved smaller, lighter motors such as the SunnySky V4008 380KV, which are better suited for mid-sized propellers (12–13 inches) and reduced overall system weight.
+
+&nbsp; &nbsp; &nbsp; &nbsp; Propeller sizes ranging from 12-inch to 15-inch were evaluated. Larger propellers provide higher efficiency and thrust at lower RPMs but require a larger frame and increase system size. Smaller propellers allow for a more compact design but may reduce efficiency and increase power consumption.
+
+&nbsp; &nbsp; &nbsp; &nbsp; For ESC configuration, both 4-in-1 ESCs and individual ESCs were considered. A 4-in-1 ESC offers compact integration and reduced wiring, while individual ESCs provide better thermal distribution, easier replacement, and greater flexibility in larger custom frames.
+
+---
+
+**Design Considerations**
+
+&nbsp; &nbsp; &nbsp; &nbsp; The design process was influenced by several key factors:
+
+- **Endurance Requirements:** The system must support extended flight time for mapping operations, prioritizing efficiency over speed.
+- **Weight Constraints:** Reducing total aircraft mass is critical for improving flight time and reducing required thrust.
+- **Frame Size Limitations:** The selected 16 in × 16 in frame restricts the maximum propeller size that can be used.
+- **Power Efficiency:** The propulsion system must operate efficiently at hover and low-speed cruise conditions.
+- **Component Compatibility:** All components must support a 6S power system and operate within safe electrical limits.
+- **Thermal and Reliability Considerations:** ESC and motor selection must ensure safe operation under continuous load conditions.
+- **Integration Simplicity:** The design should allow for straightforward integration with the flight controller and payload systems.
+
+---
+
+**Factors Influencing Final Selection**
+
+&nbsp; &nbsp; &nbsp; &nbsp; The final configuration was selected based on a balance between efficiency, weight, and compatibility with the frame and mission requirements.
+
+- The **Li-Ion battery** was chosen over LiPo due to its higher energy density, enabling longer flight times.
+- The **SunnySky V4008 380KV motors** were selected instead of heavier alternatives to reduce total system weight while maintaining sufficient thrust capability.
+- The **13-inch propellers** were selected as a compromise between efficiency and frame constraints, providing improved performance over 12-inch props while remaining compatible with the existing frame.
+- **Individual ESCs** were selected instead of a 4-in-1 configuration to improve thermal performance and simplify integration within the larger frame.
+
+---
+
+**Final Design Selection**
+
+&nbsp; &nbsp; &nbsp; &nbsp; The final power and propulsion subsystem configuration consists of:
+
+- 6S 8000 mAh Li-Ion battery  
+- SunnySky V4008 380KV brushless motors (×4)  
+- HobbyWing XRotor 40A ESCs (×4)  
+- APC 13×4.5 multirotor propellers (×4)  
+- 16 in × 16 in 3D-printed H-frame  
+
+&nbsp; &nbsp; &nbsp; &nbsp; This configuration provides a balanced solution that meets the endurance requirements of the project while maintaining compatibility with the mechanical design. The selected components reduce unnecessary weight, improve efficiency during hover, and allow the system to achieve an estimated flight time near 20 minutes under optimized operating conditions.
+
+---
+
+**Justification Summary**
+
+&nbsp; &nbsp; &nbsp; &nbsp; The chosen design represents a compromise between competing design constraints. While larger propellers and motors could improve efficiency, they would require a larger frame and increase system complexity. Conversely, smaller components would reduce size but negatively impact endurance. The selected configuration achieves an effective balance by maximizing efficiency within the constraints of the existing frame and mission requirements.
+
+&nbsp; &nbsp; &nbsp; &nbsp; Overall, the final design supports stable, efficient, and reliable autonomous mapping operation while remaining practical for implementation and integration.
+
 
 ## **Acoustic Signal Processing Subsystem**
 
@@ -193,13 +253,6 @@ In this section, various potential solutions are hypothesized, design considerat
 
 ### Hardware Block Diagram
 
-Block diagrams are an excellent way to provide an overarching understanding of a system and the relationships among its individual components. Generally, block diagrams draw from visual modeling languages like the Universal Modeling Language (UML). Each block represents a subsystem, and each connection indicates a relationship between the connected blocks. Typically, the relationship in a system diagram denotes an input-output interaction.
-
-In the block diagram, each subsystem should be depicted by a single block. For each block, there should be a brief explanation of its functional expectations and associated constraints. Similarly, each connection should have a concise description of the relationship it represents, including the nature of the connection (such as power, analog signal, serial communication, or wireless communication) and any relevant constraints.
-
-The end result should present a comprehensive view of a well-defined system, delegating all atomic responsibilities necessary to accomplish the project scope to their respective subsystems.
-
-
 ### Operational Flow Chart
 
 Similar to a block diagram, the flow chart aims to specify the system, but from the user's point of view rather than illustrating the arrangement of each subsystem. It outlines the steps a user needs to perform to use the device and the screens/interfaces they will encounter. A diagram should be drawn to represent this process. Each step should be represented in the diagram to visually depict the sequence of actions and corresponding screens/interfaces the user will encounter while using the device.
@@ -207,138 +260,20 @@ Similar to a block diagram, the flow chart aims to specify the system, but from 
 
 ## Atomic Subsystem Specifications
 
-### Acoustic Signal Processing Subsystem
+Based on the high-level design, provide a comprehensive description of the functions each subsection will perform.
 
-**Functional Description**
+Inclued a description of the interfaces between this subsystem and other subsystems:
+- Give the type of signal (e.g. power, analog signal, serial communication, wireless communication, etc).
+- Clearly define the direction of the signal (input or output).
+- Document the communication protocols used.
+- Specifying what data will be sent and what will be received.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The acoustic signal processing subsystem is responsible for acquiring, conditioning, and processing audio signals collected by a lightweight microphone system mounted on the drone. The subsystem provides a continuous, real-time audio signal suitable for acoustic analysis using Smaart at the ground station.
+Detail the operation of the subsystem:
+- Illustrate the expected user interface, if applicable.
+- Include functional flowcharts that capture the major sequential steps needed to achieve the desired functionalities.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The subsystem utilizes a compact electret microphone interfaced through a custom-designed analog front-end circuit. This front-end provides microphone biasing, AC coupling, and low-noise preamplification to convert the raw microphone signal into a conditioned analog signal suitable for digitization.
+For all subsystems, formulate detailed "shall" statements. Ensure these statements are comprehensive enough so that an engineer who is unfamiliar with your project can design the subsystem based on your specifications. Assume the role of the customer in this context to provide clear and precise requirements.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The conditioned signal is digitized and processed by a Teensy-based embedded digital signal processing platform, where real-time filtering is applied to reduce predictable drone-induced noise such as rotor and vibration artifacts. The processed signal is continuously output as an analog signal.
-
-&nbsp; &nbsp; &nbsp; &nbsp; The analog output is passed through an output conditioning stage and transmitted via a Shure wireless system to the ground station. The received signal is then analyzed using Smaart, where the system operator selects appropriate moments to capture measurements based on signal quality and stability.
-
-**Design Justification**
-
-&nbsp; &nbsp; &nbsp; &nbsp; The selection of a lightweight electret microphone and wireless transmission system represents a design tradeoff between measurement accuracy and system feasibility. Traditional acoustic measurement systems rely on calibrated condenser microphones requiring phantom power; however, these systems introduce significant weight, power consumption, and integration complexity, making them impractical for use on an aerial platform.
-
-&nbsp; &nbsp; &nbsp; &nbsp; The proposed design utilizes a Countryman B6 electret microphone combined with a custom analog front-end circuit, allowing precise control over biasing, gain structure, and signal conditioning prior to digital processing. This approach enables improved signal integrity compared to directly interfacing the microphone with a wireless transmitter.
-
-&nbsp; &nbsp; &nbsp; &nbsp; Onboard digital signal processing using the Teensy platform allows the subsystem to reduce predictable drone-induced noise before wireless transmission. Performing this processing at the source improves the usability of the transmitted signal and reduces reliance on post-processing.
-
-&nbsp; &nbsp; &nbsp; &nbsp; The system provides a continuous audio stream rather than discrete measurement capture. This design aligns with professional measurement workflows, where the operator uses Smaart to evaluate signal quality, coherence, and environmental conditions before capturing measurement data.
-
-&nbsp; &nbsp; &nbsp; &nbsp; While the system does not achieve laboratory-grade measurement accuracy, it provides sufficient fidelity for comparative acoustic analysis, including spatial variations in level, timing, and general frequency response behavior. This approach improves system robustness by maintaining a human-in-the-loop measurement process, reducing the risk of capturing invalid or noisy data.
-
-**Subsystem Objectives**
-
-The acoustic signal processing subsystem shall:
-- acquire audio using a lightweight electret microphone suitable for airborne operation
-- implement a custom analog front-end including biasing, AC coupling, and preamplification
-- digitize and process the microphone signal using onboard DSP
-- apply real-time digital filtering to reduce predictable drone-induced noise
-- provide a continuous real-time audio output suitable for analysis using Smaart
-- support wireless transmission of conditioned audio to the ground station
-- maintain compatibility with industry-standard acoustic measurement workflows
-
-**External Components Interface**
-| Interface                | Signal Type        |            Direction | Protocol / Format      | Data                     |
-| ------------------------ | ------------------ | -------------------: | ---------------------- | ------------------------ |
-| B6 microphone            | Analog (mic-level) |                Input | Electret biased analog | Acoustic pressure signal |
-| Front-end → Teensy       | Analog             |                Input | Line-level analog      | Conditioned signal       |
-| Teensy → transmitter     | Analog             |               Output | Conditioned line-level | Processed audio          |
-| Wireless transmitter     | RF                 |               Output | Shure wireless system  | Audio signal             |
-| Wireless receiver        | Analog             | Input (to interface) | Line-level             | Received audio           |
-| Audio interface → Smaart | Digital            |                Input | USB / audio driver     | Measurement signal       |
-
-**Internal Components Interface**
-| Interface            | Signal Type | Direction | Protocol           | Data                 |
-| -------------------- | ----------- | --------: | ------------------ | -------------------- |
-| Mic front-end output | Analog      |     Input | ADC (audio shield) | Conditioned signal   |
-| DSP processing       | Digital     |  Internal | Audio library      | Filtered samples     |
-| Audio output         | Analog      |    Output | DAC                | Processed audio      |
-| System timing        | Digital     |     Input | Clock              | DSP timing reference |
-
-**Detailed Operation**
-
-&nbsp; &nbsp; &nbsp; &nbsp; The acoustic signal processing subsystem operates as a continuous onboard audio conditioning and transmission chain. Its purpose is to acquire the acoustic signal at the drone, improve signal quality through analog conditioning and digital filtering, and deliver a real-time audio stream to the ground station for analysis.
-
-&nbsp; &nbsp; &nbsp; &nbsp; During operation, the Countryman B6 microphone converts acoustic pressure into a low-level electrical signal. This signal is routed into a custom analog front-end, which provides microphone biasing, removes DC components through AC coupling, and amplifies the signal using a low-noise preamplifier to a level suitable for digitization.
-
-&nbsp; &nbsp; &nbsp; &nbsp; The conditioned signal is then digitized by the Teensy audio system and processed in real time. The primary objective of this processing stage is to reduce predictable drone-induced noise, such as low-frequency rotor and vibration artifacts, while preserving the integrity of the acoustic signal.
-
-&nbsp; &nbsp; &nbsp; &nbsp; Following processing, the signal is converted back to analog and passed through an output conditioning stage. This stage prepares the signal for compatibility with the Shure wireless transmitter by providing appropriate DC blocking, signal level control, and electrical interfacing.
-
-&nbsp; &nbsp; &nbsp; &nbsp; The processed audio is transmitted continuously to the ground station, where it is received and analyzed using Smaart. Measurement capture is not controlled by the onboard system; instead, the operator monitors the live signal and determines when conditions are suitable for taking measurements. This allows for human verification of signal quality, coherence, and environmental conditions before accepting data.
-
-&nbsp; &nbsp; &nbsp; &nbsp; Overall, the subsystem functions as a real-time signal conditioning and transmission path, enabling the drone to act as a mobile acoustic measurement platform while relying on external tools and operator judgment for analysis and data collection.
-
-**Functional Flowchart**
-
-**Performance Specifications**
-
-The acoustic signal processing subsystem shall satisfy the following:
-- Frequency analysis range: 20 Hz to 20 kHz (practical usable band)
-- Relative frequency response consistency within ±3 dB across repeated measurements
-- Sampling rate: ≥ 44.1 kHz
-- Continuous real-time audio output suitable for analysis using Smaart
-- Signal-to-noise ratio sufficient to allow meaningful analysis in typical venue conditions
-- Drone-induced noise reduced such that it does not dominate the measurement signal within the usable frequency band
-- Repeatability within ±3 dB across identical spatial positions under similar conditions
-
-The subsystem is subject to the following constraints:
-- The microphone system (Countryman B6) is not a laboratory-calibrated measurement microphone
-- Wireless transmission may introduce:
-  - bandwidth limitations
-  - latency
-  - dynamic range compression
-- Drone-generated noise, airflow, and movement may affect measurements
-- Onboard processing is limited by the computational capability of the Teensy platform
-- Power and payload constraints of the aerial platform limit hardware complexity
-
-### Detailed Shall Statements
-
-**Functional Requirements**
-
-- The subsystem shall acquire audio using a lightweight electret microphone integrated with the drone platform.
-- The subsystem shall implement a custom analog front-end including biasing, AC coupling, and preamplification.
-- The subsystem shall digitize and process the audio signal using onboard DSP.
-- The subsystem shall apply real-time filtering to reduce predictable drone-induced noise prior to transmission.
-- The subsystem shall output a continuous conditioned audio signal for external acoustic analysis.
-- The subsystem shall transmit processed audio to the ground station via a wireless audio link.
-
-**Signal Integrity Requirements**
-
-- The subsystem shall preserve sufficient signal fidelity to enable comparative acoustic analysis across spatial positions.
-- The subsystem shall reduce low-frequency vibration and rotor noise through filtering techniques.
-- The subsystem shall maintain stable gain and frequency response during operation.
-- The subsystem shall minimize distortion introduced by analog and digital processing stages.
-- The subsystem shall avoid time-varying artifacts that negatively impact real-time acoustic analysis.
-  
-**Interface Requirements**
-
-- The subsystem shall accept the microphone signal through the custom analog front-end.
-- The subsystem shall provide a conditioned analog output compatible with the Shure wireless transmitter.
-- The subsystem shall provide a continuous audio signal suitable for use with Smaart at the ground station.
-- The subsystem shall not require communication with the control or autonomy subsystem for normal operation. 
-
-**Reliability Requirements**
-
-- The subsystem shall operate continuously during flight without requiring manual reset.
-- The subsystem shall maintain stable operation under vibration and motion conditions.
-- The subsystem shall function within the electrical and thermal limits of the drone platform.
-  
-**Validation Requirements**
-
-- The subsystem shall produce audio suitable for real-time acoustic analysis using Smaart.
-- The subsystem shall demonstrate repeatable signal behavior at identical spatial positions.
-- The subsystem shall allow comparison with traditional measurement workflows and reference equipment.
-
-**Major Data Elements**
-
-Sent Data:
-- continuous processed audio signal (via wireless link)
 
 ## Ethical, Professional, and Standards Considerations
 
@@ -516,7 +451,16 @@ You have already estimated the resources needed to complete the solution. Now, l
 
 ### Budget
 
-Develop a budget proposal with justifications for expenses associated with each subsystem. Note that the total of this budget proposal can also serve as a specification for each subsystem. After creating the budgets for individual subsystems, merge them to create a comprehensive budget for the entire solution.
+| **Item**                         | **Description**                                         | **Estimated Cost**      |
+|----------------------------------|---------------------------------------------------------|--------------------------|
+| **Battery (6S 8000mAh Li-Ion)** | High energy-density battery for long endurance flight   | $99 – $115               |
+| **Motors (4x SunnySky V4008)**  | Brushless motors optimized for 13-inch propellers       | $219.96 (4 × $54.99)     |
+| **Electronic Speed Controllers (ESCs)** | HobbyWing XRotor 40A ESCs (4x)               | $71.96 (4 × $17.99)      |
+| **Propellers (13x4.5 + Spares)**| APC multirotor propellers (4–6 total)                   | $23 – $35                |
+| **Power Distribution / Wiring** | Power distribution, connectors, and integration hardware| $25 – $50                |
+| **Mounting Hardware**           | Motor mounts, fasteners, and structural integration     | $15 – $40                |
+
+Estimated total power and propulsion subsystem cost: ≈ $454 – $532
 
 ### Division of Labor
 
@@ -529,15 +473,10 @@ Revise the detailed timeline (Gantt chart) you created in the project proposal. 
 
 ## References
 
-[1] Federal Aviation Administration, 14 CFR Part 107 – Small Unmanned Aircraft Systems, 2024.
-[2] Federal Aviation Administration, Remote Identification of Unmanned Aircraft Final Rule, 2021.
-[3] IEEE, IEEE Code of Ethics, 2020.
-[4] RTCA, Minimum Operational Performance Standards for UAS, 2022.
-[5] ISO, ISO 9001: Quality Management Systems, 2015.
-[6] Rational Acoustics, Smaart Acoustic Measurement Software Documentation, 2023.
+All sources utilized in the conceptual design that are not considered common knowledge must be properly cited. Multiple references should be included.
 
 
 ## Statement of Contributions
 
-Each team member is required to make a meaningful contribution to the project proposal. In this section, each team member is required to document their individual contributions to the report. One team member may not record another member's contributions on their behalf. By submitting, the team certifies that each member's statement of contributions is accurate.
+Jackson Phillips - Power and Propulsion System(Comparative Anlysis, Atomic Subsystem Specifications, Budget), Hardware Block Diagram, Timeline
 
