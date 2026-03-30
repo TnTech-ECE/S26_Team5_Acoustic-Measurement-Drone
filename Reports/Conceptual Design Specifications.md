@@ -68,7 +68,6 @@ H-Frame
 ### Justification
 The H-frame best matches the project's functional priorities for an acoustic measurement drone. Unlike racing-oriented layouts, this drone requires adequate room for microphone placement, acoustic electronics, onboard processor (Raspberry Pi), battery and wiring, and vibration-isolation mounts. The wider central body reduces packaging constraints and improves sensor placement flexibility. The slight increase in bulk is an acceptable tradeoff for stability, mounting space, and structural practicality.
 
----
 
 ## Frame Material
 
