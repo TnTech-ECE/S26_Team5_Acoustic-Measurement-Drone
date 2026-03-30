@@ -97,298 +97,109 @@ $$
 
 ## Comparative Analysis of Potential Solutions
 
-### Power and Propulsion Subsystem Design Considerations
+In this section, various potential solutions are hypothesized, design considerations are discussed, and factors influencing the selection of a solution are outlined. The chosen solution is then identified with justifications for its selection.
 
-**Potential Solutions**
+### Coding Subsystem
 
-&nbsp; &nbsp; &nbsp; &nbsp; Several configurations were considered for the power and propulsion subsystem, focusing on battery type, motor selection, propeller size, and electronic speed controller (ESC) configuration.
+The coding subsystem is the central control architecture for the autonomous acoustics measurement drone. It is responsible for executing the preset mission path, coordinating with onboard flight and sensing hardware, maintaining communication with the custom handheld controller, supporting immediate manual override during emergencies, and triggering the transfer of audio measurement information to a separate laptop running audio-processing software such as SMAART. Because this subsystem connects mission autonomy, operator supervision, safety response, and measurement coordination, several possible implementation approaches can be considered. This section outlines candidate solutions, discusses the main design considerations, and identifies the selected solution with justification.
 
-&nbsp; &nbsp; &nbsp; &nbsp; For the battery, both lithium-polymer (LiPo) and lithium-ion (Li-Ion) options were evaluated. LiPo batteries provide higher discharge rates and are commonly used in high-performance drones, while Li-Ion batteries offer higher energy density and improved endurance.
+#### Potential Solution 1: Fully Manual Control with Operator-Triggered Measurements
 
-&nbsp; &nbsp; &nbsp; &nbsp; For motor selection, two primary approaches were considered. The first involved larger, low-KV motors such as the Tarot 4112 300KV, which are typically paired with larger propellers (15–16 inches) for maximum efficiency. The second approach involved smaller, lighter motors such as the SunnySky V4008 380KV, which are better suited for mid-sized propellers (12–13 inches) and reduced overall system weight.
+The first possible solution is a fully manual flight architecture in which the operator pilots the drone at all times using the handheld controller and manually positions the drone at each measurement location. Once the drone reaches a desired point, the operator triggers or allows the measurement to be transmitted to the laptop for audio processing.
 
-&nbsp; &nbsp; &nbsp; &nbsp; Propeller sizes ranging from 12-inch to 15-inch were evaluated. Larger propellers provide higher efficiency and thrust at lower RPMs but require a larger frame and increase system size. Smaller propellers allow for a more compact design but may reduce efficiency and increase power consumption.
+This solution offers the advantage of simplicity. It avoids the complexity of autonomous path execution, waypoint management, and mission-resume logic. It also gives the operator complete control over drone movement at all times, which may appear safer during early prototyping because the pilot can respond directly to unexpected behavior.
 
-&nbsp; &nbsp; &nbsp; &nbsp; For ESC configuration, both 4-in-1 ESCs and individual ESCs were considered. A 4-in-1 ESC offers compact integration and reduced wiring, while individual ESCs provide better thermal distribution, easier replacement, and greater flexibility in larger custom frames.
+However, this approach does not align well with the primary goal of the project, which is to create a fully autonomous acoustics measurement system. Manual operation introduces inconsistency in point placement, hover time, and measurement repeatability. It also increases pilot workload and makes measurements more dependent on operator skill. Since repeatability is important for comparing sound behavior across locations, a fully manual solution would reduce the technical value of the system. For this reason, it may be useful only as an early backup mode, not as the primary coding subsystem design.
 
-**Design Considerations**
+#### Potential Solution 2: Fully Autonomous Drone with No Manual Override
 
-&nbsp; &nbsp; &nbsp; &nbsp; The design process was influenced by several key factors:
+A second possible solution is a fully autonomous architecture in which the drone executes a preset path from start to finish without any operator ability to interrupt mission control except through a full shutdown or mission abort. In this case, the handheld device would function mainly as a passive monitor rather than an active supervisory controller.
 
-- **Endurance Requirements:** The system must support extended flight time for mapping operations, prioritizing efficiency over speed.
-- **Weight Constraints:** Reducing total aircraft mass is critical for improving flight time and reducing required thrust.
-- **Frame Size Limitations:** The selected 16 in × 16 in frame restricts the maximum propeller size that can be used.
-- **Power Efficiency:** The propulsion system must operate efficiently at hover and low-speed cruise conditions.
-- **Component Compatibility:** All components must support a 6S power system and operate within safe electrical limits.
-- **Thermal and Reliability Considerations:** ESC and motor selection must ensure safe operation under continuous load conditions.
-- **Integration Simplicity:** The design should allow for straightforward integration with the flight controller and payload systems.
+This solution has the advantage of clean automation logic. The coding subsystem can focus entirely on mission execution, navigation through preset points, point-based measurement triggering, and automatic return-to-land behavior. Since the operator is not expected to intervene except in extreme cases, the control logic can be simpler than systems that switch between autonomy and manual authority.
 
+The major disadvantage is that this design conflicts with the intended role of the custom handheld controller. Your concept clearly requires the controller to act as the main mission supervision system and to provide an autonomy kill switch that allows immediate takeover whenever needed. Removing that functionality would weaken safety, reduce operator confidence, and make the system less practical in real testing. It would also make future expansion harder, since supervisory control is one of the most valuable long-term features of the platform. As a result, this option is too rigid for the project goals.
 
-**Factors Influencing Final Selection**
+#### Potential Solution 3: Autonomous Preset Path with Handheld Supervisory Controller and Manual Override
 
-&nbsp; &nbsp; &nbsp; &nbsp; The final configuration was selected based on a balance between efficiency, weight, and compatibility with the frame and mission requirements.
+A third solution is a supervised autonomy architecture in which the drone normally flies a preset autonomous path, but the operator continuously oversees the mission through the custom handheld controller. The controller provides drone vitals, mission progress, mode indication, and an immediate autonomy kill switch. If an issue occurs, the operator can disable autonomy, assume manual control, resolve the issue, and then either resume the mission, command a return, or land the drone.
 
-- The **Li-Ion battery** was chosen over LiPo due to its higher energy density, enabling longer flight times.
-- The **SunnySky V4008 380KV motors** were selected instead of heavier alternatives to reduce total system weight while maintaining sufficient thrust capability.
-- The **13-inch propellers** were selected as a compromise between efficiency and frame constraints, providing improved performance over 12-inch props while remaining compatible with the existing frame.
-- **Individual ESCs** were selected instead of a 4-in-1 configuration to improve thermal performance and simplify integration within the larger frame.
+This solution directly matches the intended vision of the project. It combines the repeatability and reduced workload of automation with the flexibility and safety of human oversight. The drone can reliably move between predefined measurement points while the operator remains ready to intervene if needed. This approach is especially appropriate for a first implementation in a controlled environment such as a football field, where the mission is simple and predefined but still benefits from an emergency fallback.
 
+Its main challenge is that the software must manage mode transitions correctly. The subsystem must switch cleanly between autonomous and manual flight authority, preserve mission state during interruption, and verify whether it is safe to resume autonomy afterward. Even though this adds complexity, it is a worthwhile tradeoff because it reflects both the practical needs of field testing and the long-term usefulness of the system.
 
-**Final Design Selection**
+#### Potential Solution 4: Autonomous Preset Path with Laptop as the Primary Control Interface
 
-&nbsp; &nbsp; &nbsp; &nbsp; The final power and propulsion subsystem configuration consists of:
+Another possible solution is to make the laptop the central mission-control interface. In this design, the laptop would manage mission initiation, show drone status, supervise mission progress, and perhaps even allow manual override, while also receiving measurement data for SMAART or related software.
 
-- 6S 8000 mAh Li-Ion battery  
-- SunnySky V4008 380KV brushless motors (×4)  
-- HobbyWing XRotor 40A ESCs (×4)  
-- APC 13×4.5 multirotor propellers (×4)  
-- 16 in × 16 in 3D-printed H-frame  
+This solution may appear attractive because the laptop already participates in the measurement process and can support a larger interface with more visual information. It could simplify development by consolidating mission setup, data monitoring, and audio-processing visibility into a single device.
 
-&nbsp; &nbsp; &nbsp; &nbsp; This configuration provides a balanced solution that meets the endurance requirements of the project while maintaining compatibility with the mechanical design. The selected components reduce unnecessary weight, improve efficiency during hover, and allow the system to achieve an estimated flight time near 20 minutes under optimized operating conditions.
+Despite that advantage, this approach is not ideal for your project. Your concept clearly places the custom handheld controller at the center of operational control. The laptop’s main job is to receive and process the audio measurement information, not to function as the pilot or mission-supervision console. Combining these roles would blur the system architecture and reduce the clarity of the separate communications design. It would also make the platform less portable and less aligned with your vision of a dedicated handheld control device. Therefore, this solution is less suitable than one centered on the handheld controller.
 
+#### Potential Solution 5: Integrated Single-Link Control and Audio Transmission Architecture
 
-**Justification Summary**
+A fifth option is to design the coding subsystem so that both drone control/telemetry and audio measurement transfer share the same communication channel. This could reduce the number of radio interfaces and simplify some hardware integration choices.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The chosen design represents a compromise between competing design constraints. While larger propellers and motors could improve efficiency, they would require a larger frame and increase system complexity. Conversely, smaller components would reduce size but negatively impact endurance. The selected configuration achieves an effective balance by maximizing efficiency within the constraints of the existing frame and mission requirements.
+The main advantage of this approach is reduced hardware complexity. Fewer links may lower cost, reduce wiring, and make initial integration easier.
 
-&nbsp; &nbsp; &nbsp; &nbsp; Overall, the final design supports stable, efficient, and reliable autonomous mapping operation while remaining practical for implementation and integration.
+However, this solution does not fit the architecture you described. Your vision uses separate transmitter/receiver paths: one for handheld controller communication with the drone and another for measurement data sent to the laptop. Keeping these communication roles separate improves system clarity and reduces the chance that heavy measurement-data transfer interferes with control and safety communication. Since supervisory control and emergency intervention are critical, combining them with measurement transport would create unnecessary risk and reduce modularity. For these reasons, the single-link approach is less desirable than a separated-link solution.
 
-### Computing Architecture
+### Design Considerations
 
-#### Options Considered
+Several factors strongly influence the selection of the coding subsystem architecture.
 
-**1. Flight Controller (FC)** [[1](#References)]
-- Examples: Pixhawk 6C
-- Integrated IMU, barometer, flight firmware (PX4 / ArduPilot)
-- Pros: built-in stabilization, integrated sensors, fast development, reliable
-- Cons: limited low-level control, less flexibility, firmware-dependent, higher cost ($80–$200)
+#### Mission Repeatability
 
-**2. Custom Microcontroller**
-- Example: STM32, Raspberry Pi
-- Pros: full control, highly customizable, lightweight, very low cost ($10–$30)
-- Cons: must build control + sensor fusion, high development time
+A major purpose of the system is to gather measurements at predefined locations in a consistent way. This means the coding subsystem should support autonomous movement to preset points and stable measurement triggering rather than depending on operator piloting skill.
 
-**3. Flight Controller + Companion Microcontroller**
-- FC → low-level control
-- MCU → mission-specific tasks
-- Pros: combines reliability + flexibility, supports custom processing, scalable
-- Cons: added complexity, communication required, higher power, highest total cost ($100–$250)
+#### Safety and Human Oversight
 
-#### Selected Architecture
-Flight Controller Only
+Even though the mission is autonomous, the system must allow immediate operator intervention. The handheld controller is intended to serve as the primary control center, so manual takeover, autonomy cancellation, and controlled mission resumption are critical design features.
 
-#### Justification
-Given the simplified mission scope — preset waypoints in a flat-box venue — a standalone flight controller provides sufficient processing capability. Flight controller firmware natively handles stabilization, waypoint navigation, sensor integration, and obstacle avoidance responses without requiring a companion microcontroller. This reduces system complexity, weight, and cost.
+#### Controlled Initial Environment
 
-### Flight Controller Selection
+The initial implementation assumes a relatively simple testing environment, such as a football field with minimal expected obstacles. This means the first version does not need the most complex adaptive path-planning architecture, but it should still be structured for future expansion.
 
-#### Options Considered
+#### Separation of Communication Roles
 
-**1. Pixhawk 6C (Holybro)** [[1](#References)]
-- Price: ~$180–$220 (higher-end, expanded capability)
-- Processor: STM32H743
-- Sensors: redundant IMUs, onboard barometer and magnetometer
-- Connectivity: multiple telemetry ports, dual power inputs — higher expandability and redundancy
-- Integration: easier for complex or expanding systems
+The project intentionally separates the control/telemetry link from the audio-data link. This separation should be preserved in the coding subsystem so that flight supervision and emergency control remain independent from audio measurement transport.
 
-**2. Pixhawk 6C Mini (Holybro)** [[2](#References)]
-- Price: ~$120–$150 (cost-effective, compact design)
-- Processor: STM32H743
-- Sensors: redundant IMUs, onboard barometer and magnetometer (identical to 6C)
-- Connectivity: reduced port availability, single power input — more constrained system design
-- Integration: sufficient for fixed, well-defined systems; less flexible for future expansion
+#### Expandability
 
-#### Selected Flight Controller
-Pixhawk 6C Mini
+The coding subsystem should support future growth. Improvements such as more advanced obstacle handling, more dynamic mission planning, additional telemetry features, or more sophisticated measurement coordination should be possible without replacing the whole architecture.
 
-![Pixhawk 6C Mini](Photos/6cmini.png)
+#### Operator Usability
 
-#### Justification
-- Provides identical processing and sensing performance to the Pixhawk 6C
-- Meets all required connectivity needs for the system
-- Reduces cost and avoids unnecessary expansion capability
-- Simplifies overall system design while maintaining reliability
+The handheld controller must provide a clear and practical interface for monitoring drone vitals, mission progress, current mode, and emergency options. The software should therefore be structured around quick supervisory awareness rather than around a complex desktop-style interface.
 
----
+### Comparative Summary
 
+The fully manual solution is simple, but it fails to deliver the autonomy and repeatability that make the project valuable. The fully autonomous solution without override improves automation purity, but it does not satisfy the need for manual intervention and supervisory control. The laptop-centered control solution does not match the intended role of the handheld controller. The single-link communication solution reduces hardware complexity, but it weakens the clean separation between mission control and audio transport.
 
-### State Estimation (Pose Estimation)
+The strongest solution is the one that combines preset-path autonomy, continuous supervision through the custom handheld controller, manual takeover capability, and separate communication handling for control and audio data. This solution best matches the intended operating concept and provides the best balance of repeatability, safety, and future expandability.
 
-The state estimation subsystem determines the drone's orientation and relative motion during flight using the onboard sensors of the Pixhawk 6C Mini.
+### Chosen Solution
 
-#### Options Considered
+The selected solution for the coding subsystem is a supervised autonomous mission architecture with manual override and separate audio-data transport.
 
-**IMU** [[2](#References)]
-- Sensors: ICM-42688-P and BMI055 (dual accel/gyro)
-- Provides angular velocity and linear acceleration used to estimate roll, pitch, and yaw
-- High update rate enables real-time stabilization; dual IMUs improve reliability
-- Subject to drift over time and requires vibration isolation for accurate measurements
+Under this approach, the drone executes a preset autonomous path to predefined measurement points using onboard mission logic. The custom handheld controller acts as the primary supervisory interface and allows the operator to monitor drone vitals, view mission progress, disable autonomy instantly, manually control the drone when required, and resume autonomous operation when safe. Measurement events are triggered at preset points, and audio information is sent through a separate transmission path to a laptop running SMAART.
 
-**Magnetometer** [[2](#References)]
-- Sensor: IST8310 (onboard)
-- Provides heading reference to correct yaw drift from the IMU
-- Improves directional stability during navigation between measurement points
-- Sensitive to magnetic interference from motors, wiring, and environment
+### Justification for Selection
 
-**Barometer** [[2](#References)]
-- Sensor: MS5611 (onboard)
-- Provides relative altitude estimation for vertical control and level transitions
-- Lightweight and directly integrated with flight controller firmware
-- Affected by pressure variation and airflow, limiting precision at small height changes
+This solution was selected because it most accurately reflects the intended project vision while also offering the best engineering balance.
 
-**Optical Flow / VIO**
-- Considered as an optional addition for relative horizontal motion estimation
-- Can improve short-range position hold and reduce drift during hover
-- Adds additional hardware and integration complexity; performance depends on surface texture and lighting
+First, it supports the project’s primary goal of autonomous measurement collection. The drone can fly to repeatable preset points and perform measurement actions without requiring constant manual piloting.
 
-#### Selected Configuration
-- Onboard IMUs (ICM-42688-P, BMI055)
-- Onboard magnetometer (IST8310)
-- Onboard barometer (MS5611)
+Second, it preserves operator authority and safety. The handheld controller remains the main operational interface, and the operator can interrupt autonomy at any time. This is especially important during testing, where manual takeover provides a practical layer of protection.
 
-#### Justification
-- Provides sufficient orientation and relative motion estimation for stable flight and control
-- Fully supported by flight controller firmware with minimal additional integration
-- Optical flow was evaluated for state estimation but is instead implemented as a dedicated localization sensor, covered in the Localization subsection.
+Third, it preserves the separation between control functions and measurement transport. By keeping the controller link separate from the audio-data link, the system architecture remains cleaner and more robust.
 
----
+Fourth, it supports future development. The same architecture can later be extended to more advanced environments, smarter mission logic, additional sensing, or more capable controller features without changing the fundamental structure of the coding subsystem.
 
-### Localization
+Finally, it matches the real intended use of the system better than the alternatives. The coding subsystem is not just an autopilot, and it is not just a data logger. It is the core coordination layer that connects autonomous mission execution, emergency operator control, and measurement-system interaction into one practical field-ready workflow.
 
-The localization subsystem estimates the drone's position across the horizontal plane and altitude during autonomous indoor flight to support stable hover and waypoint execution.
+### Final Conclusion
 
-#### Options Considered
-
-**1. GPS** [[3](#References)]
-- Examples: Here3+, u-blox M9N
-- Standard satellite-based localization
-- Pros: globally accurate, well supported by ArduPilot/PX4, no additional hardware
-- Cons: unreliable indoors due to signal obstruction and multipath interference
-
-**2. Ultra-Wideband (UWB)** [[3](#References)]
-- Examples: Pozyx, Marvelmind
-- RF time-of-flight ranging between fixed anchors and a drone-mounted tag
-- Pros: centimeter-level indoor accuracy
-- Cons: requires pre-installed anchor infrastructure throughout the venue; high setup overhead and cost
-
-**3. Optical Flow + Downward Distance Sensor** [[4](#References)]
-- Example: Holybro H-Flow
-- Tracks surface features beneath the drone for horizontal velocity estimation; downward distance sensor provides altitude hold
-- Pros: self-contained, no external infrastructure, lightweight, low cost, native ArduPilot/PX4 support
-- Cons: drift over long distances; performance dependent on surface texture and lighting
-
-#### Selected Localization Method
-Optical Flow + Downward Distance Sensor (Holybro H-Flow)
-
-![Holybro H-Flow](Photos/hflow.png)
-
-#### Justification
-GPS is unsuitable for indoor use. UWB offers accuracy but requires anchor installation incompatible with live-event time constraints. Optical flow requires no external infrastructure, integrates natively with the Pixhawk 6C Mini, and provides sufficient stability for a low-speed preset waypoint mission in a flat-box venue.
-
----
-
-### Obstacle Detection
-
-The obstacle detection subsystem is responsible for identifying objects within the drone's flight path during navigation between waypoints to prevent collisions and ensure safe operation.
-
-#### Options Considered
-
-**1. Ultrasonic Sensors** [[5](#References)]
-- Examples: HC-SR04, MaxSonar EZ series
-- Emit sound pulses and measure return time to estimate distance
-- Pros: very low cost, simple integration
-- Cons: narrow detection cone, slow update rate, susceptible to interference from drone motor noise and acoustic reflections in venue environments
-
-**2. Single-Point ToF Sensor** [[6](#References)]
-- Examples: Benewake TFMini, VL53L1X
-- Single-axis distance measurement using time-of-flight
-- Pros: lightweight, inexpensive, UART/I2C compatible
-- Cons: extremely narrow field of view (~2-3°); multiple units required for adequate coverage, increasing wiring complexity
-
-**3. 2D Scanning LiDAR** [[7](#References)]
-- Example: SLAMTEC RPLIDAR C1
-- Rotating laser scanner providing continuous 360° horizontal distance measurements
-- Pros: full horizontal coverage with no blind spots, 12m range, 5KHz sample rate, TTL UART interface, lightweight at 110g, IP54 rated
-- Cons: detects obstacles only in the horizontal plane; does not cover above or below the drone
-
-#### Selected Sensor
-SLAMTEC RPLIDAR C1
-
-![SLAMTEC RPLIDAR C1](Photos/rplidarc1.png)
-
-#### Justification
-Ultrasonic sensors are susceptible to motor noise and provide insufficient coverage. Single-point ToF sensors require multiple units for adequate coverage, adding cost and payload weight. The RPLIDAR C1 provides full 360° coverage in a single lightweight unit, interfaces directly with the Pixhawk 6C Mini via TTL UART, and comfortably meets the demands of a low-speed waypoint mission.
-
-
-## **Acoustic Signal Processing Subsystem**
-
-&nbsp; &nbsp; &nbsp; &nbsp; Designing the acoustic signal processing subsystem requires careful consideration of measurement quality, system weight, integration complexity, and compatibility with real-world audio workflows. Multiple approaches exist for microphone selection, signal conditioning, processing, and transmission, each presenting tradeoffs between accuracy, practicality, and system feasibility. The following approaches are evaluated to determine a solution that balances performance with the constraints of an airborne measurement platform.
-
-### **Microphone Selection**
-
-**Measurement Microphone Approach**
-
-&nbsp; &nbsp; &nbsp; &nbsp; One potential solution is the use of a laboratory-grade measurement microphone such as the Earthworks M30. These microphones are designed to provide highly accurate and flat frequency response across a wide bandwidth, making them ideal for precision acoustic measurements. When paired with appropriate preamplification and phantom power, they can deliver highly reliable data for transfer-function and impulse-response analysis.
-
-&nbsp; &nbsp; &nbsp; &nbsp; However, this approach introduces significant challenges when applied to an aerial system. Measurement microphones typically require 48 V phantom power, increasing power consumption and necessitating additional power conversion hardware. They are also physically larger and heavier, which negatively impacts drone payload capacity and flight stability. Integration complexity is increased due to the need for balanced XLR connections and external preamplifiers. As a result, while this approach offers the highest measurement accuracy, it is not well suited for a compact, lightweight, and mobile platform.
-
-**Prosumer Lavalier Microphone Approach**
-
-&nbsp; &nbsp; &nbsp; &nbsp; Another option is the use of a consumer or prosumer lavalier microphone such as the Rode Lavalier GO. These microphones are lightweight, inexpensive, and easy to integrate with systems that support standard 3.5 mm TRS inputs. They operate using plug-in power and can be directly connected to many embedded audio systems without additional circuitry.
-
-&nbsp; &nbsp; &nbsp; &nbsp; This approach simplifies implementation and reduces development time; however, it provides limited control over signal conditioning and typically offers lower durability and consistency compared to professional-grade microphones. Additionally, the electrical interface may not be ideal for integration with custom analog front-end circuitry, and performance may vary depending on the specific input configuration. While this solution improves ease of use, it sacrifices robustness and flexibility in system design.
-
-**Professional Lavalier Microphone with Custom Front-End Approach (Selected)**
-
-&nbsp; &nbsp; &nbsp; &nbsp; The selected solution utilizes a professional lavalier microphone, specifically the Countryman B6, combined with a custom-designed analog front-end. The B6 provides an extremely small form factor, low weight, and high durability, making it well suited for aerial deployment. Unlike consumer lavalier microphones, it is designed for professional audio environments and offers improved reliability and consistency.
-
-&nbsp; &nbsp; &nbsp; &nbsp; The use of a custom analog front-end allows for precise control over microphone biasing, AC coupling, and signal amplification. This ensures that the microphone signal is properly conditioned before being digitized, improving overall signal quality and enabling effective downstream processing. While this approach introduces additional design complexity, it provides a balance between performance, integration flexibility, and system feasibility. The selected configuration sacrifices absolute measurement accuracy in favor of portability and practical implementation while still producing acoustically meaningful data for comparative analysis
-
-### **Embedded Processing**
-
-&nbsp; &nbsp; &nbsp; &nbsp; Processing the microphone signal requires consideration of computational capability, power consumption, and system complexity. Multiple approaches were evaluated for implementing signal conditioning and noise reduction.
-
-**No Onboard Processing Approach**
-
-&nbsp; &nbsp; &nbsp; &nbsp; One option is to transmit the raw microphone signal directly to the ground station without any onboard processing. This approach minimizes system complexity and reduces onboard computational requirements. All filtering and analysis could then be performed externally.
-
-&nbsp; &nbsp; &nbsp; &nbsp; While simple, this method allows drone-induced noise, such as rotor and vibration artifacts, to remain embedded in the transmitted signal. This can degrade measurement quality and reduce the usability of the data, particularly in noisy environments. As a result, this approach does not fully address the challenges associated with airborne acoustic measurement.
-
-**High-Performance Embedded System Approach**
-
-&nbsp; &nbsp; &nbsp; &nbsp; Another option is the use of a high-performance embedded system such as the Raspberry Pi 4. This platform provides significant computational power and supports advanced signal processing techniques, including complex filtering and data handling.
-
-&nbsp; &nbsp; &nbsp; &nbsp; However, this approach introduces increased power consumption, system complexity, and potential reliability concerns in real-time operation. Boot time, operating system overhead, and increased integration complexity make this solution less desirable for a lightweight, embedded application requiring deterministic real-time performance.
-
-**Microcontroller-Based DSP Approach (Selected)**
-
-&nbsp; &nbsp; &nbsp; &nbsp; The selected solution utilizes a microcontroller-based platform, specifically the Teensy 4.1 with an audio interface. This platform provides sufficient real-time processing capability to implement filtering techniques while maintaining low power consumption and a compact form factor.
-
-&nbsp; &nbsp; &nbsp; &nbsp; The Teensy platform supports deterministic real-time operation and integrates well with embedded audio systems, making it suitable for continuous signal processing. It allows the implementation of targeted filtering to reduce predictable drone-induced noise prior to transmission. This approach provides a balance between performance and system simplicity while avoiding the overhead associated with more complex embedded systems.
-
-### **Wireless Transmission**
-
-&nbsp; &nbsp; &nbsp; &nbsp; The transmission of the processed audio signal from the drone to the ground station must be reliable, low-latency, and compatible with existing measurement workflows.
-
-**Digital Wireless / Streaming Approach**
-
-&nbsp; &nbsp; &nbsp; &nbsp; One potential solution is to use digital wireless transmission or network-based audio streaming. This approach offers flexibility and the ability to transmit high-quality audio data over modern communication protocols.
-
-&nbsp; &nbsp; &nbsp; &nbsp; However, digital systems may introduce latency, synchronization challenges, and increased implementation complexity. Integration with existing measurement tools may also require additional hardware or software configuration.
-
-**Wired Transmission Approach**
-
-&nbsp; &nbsp; &nbsp; &nbsp; A wired connection would provide the highest signal integrity and eliminate concerns related to wireless interference or compression.
-
-&nbsp; &nbsp; &nbsp; &nbsp; This approach is impractical for a mobile aerial system, as it restricts movement and introduces safety risks associated with tethering.
-
-**Analog Wireless System Approach (Selected)**
-
-&nbsp; &nbsp; &nbsp; &nbsp; The selected solution utilizes an analog wireless system, specifically the Shure ULX. This system provides reliable, low-latency audio transmission and is widely used in professional audio environments.
-
-&nbsp; &nbsp; &nbsp; &nbsp; An additional factor influencing this decision is the availability of the system. The team already has access to the Shure ULX platform, reducing cost and enabling rapid integration and testing. Familiarity with the system also simplifies troubleshooting and deployment.
-
-&nbsp; &nbsp; &nbsp; &nbsp; While analog wireless transmission may introduce some bandwidth limitations and signal coloration, these effects are acceptable for comparative acoustic analysis. The benefits of reliability, simplicity, and compatibility with industry workflows outweigh these limitations.
+After comparing several possible coding subsystem approaches, the most appropriate solution is a supervised autonomous architecture centered around a preset flight path, a custom handheld control center, immediate manual override capability, and a separate communication path for audio measurement delivery to the laptop. This approach best satisfies the project’s goals of autonomous operation, repeatable measurement collection, operator safety, and future expandability.
 
 ## High-Level Solution
 
@@ -420,330 +231,20 @@ Similar to a block diagram, the flow chart aims to specify the system, but from 
 
 ## Atomic Subsystem Specifications
 
-### Power and Propulsion Subsystem
+Based on the high-level design, provide a comprehensive description of the functions each subsection will perform.
 
-**Functional Description**
+Inclued a description of the interfaces between this subsystem and other subsystems:
+- Give the type of signal (e.g. power, analog signal, serial communication, wireless communication, etc).
+- Clearly define the direction of the signal (input or output).
+- Document the communication protocols used.
+- Specifying what data will be sent and what will be received.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The power and propulsion subsystem is responsible for storing electrical energy, distributing that energy to the propulsion hardware, and generating the thrust required for takeoff, hover, maneuvering, and landing. The subsystem consists of a 6S lithium-ion battery, four electronic speed controllers, four brushless motors, and four multirotor propellers.
+Detail the operation of the subsystem:
+- Illustrate the expected user interface, if applicable.
+- Include functional flowcharts that capture the major sequential steps needed to achieve the desired functionalities.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The battery serves as the primary onboard energy source. Electrical power from the battery is delivered to the ESCs, which regulate power to each motor. The motors convert electrical energy into rotational motion, and the propellers convert that rotational motion into thrust. Together, these components provide the lift and control authority needed for stable autonomous mapping flight.
+For all subsystems, formulate detailed "shall" statements. Ensure these statements are comprehensive enough so that an engineer who is unfamiliar with your project can design the subsystem based on your specifications. Assume the role of the customer in this context to provide clear and precise requirements.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The updated propulsion configuration uses the iFlight Fullsend 6S 8000 mAh Li-Ion battery, HobbyWing XRotor 40A ESCs, SunnySky V4008 380KV motors, and APC 13x4.5 multirotor propellers. This updated selection reduces propulsion weight compared to the previous motor choice while maintaining sufficient power capability for the expected aircraft mass.
-**Design Justification**
-
-&nbsp; &nbsp; &nbsp; &nbsp; The selected components prioritize endurance, efficiency, and compatibility with the custom 16 in × 16 in frame. The 6S 8000 mAh battery was selected because it provides high energy density while keeping system mass lower than a comparable high-capacity LiPo pack. The SunnySky V4008 380KV motors were selected in place of heavier alternatives because they better match the 13-inch propeller size and reduce total aircraft weight, improving flight time potential.
-
-&nbsp; &nbsp; &nbsp; &nbsp; The APC 13x4.5 propellers provide a practical compromise between efficiency and frame size. They fit the existing frame geometry while still offering better hover efficiency than smaller propellers. The HobbyWing XRotor 40A ESCs provide sufficient current capacity and 6S compatibility for the selected motor and battery combination.
-
-&nbsp; &nbsp; &nbsp; &nbsp; Overall, the updated configuration is better aligned with the mission objective of stable, long-duration autonomous mapping flight. The design emphasizes efficient hover and moderate cruise performance rather than maximum speed or aggressive maneuverability.
-
-**Subsystem Objectives**
-
-The power and propulsion subsystem shall:
-- store and distribute electrical energy for the aircraft
-- provide sufficient thrust for takeoff, hover, maneuvering, and landing
-- support stable and efficient autonomous mapping flight
-- reduce total propulsion weight while maintaining adequate thrust margin
-- operate from a 6S battery architecture
-- provide an estimated flight time near 20 minutes under endurance-focused flight conditions
-
-**Detailed Operation**
-
-&nbsp; &nbsp; &nbsp; &nbsp; During operation, the battery supplies DC power to the propulsion system. Each ESC receives battery power and a control signal from the flight controller, then regulates the three-phase output delivered to its corresponding motor. Each motor rotates its propeller at the speed commanded by the flight controller. By varying motor speed across the four motors, the aircraft produces the thrust and control moments required for stable flight.
-
-&nbsp; &nbsp; &nbsp; &nbsp; The lighter V4008 motors reduce total propulsion mass and improve the expected endurance of the aircraft. During hover and mapping flight, the propulsion subsystem is expected to operate well below maximum rated power. This allows the system to maintain safe electrical and thermal margins while supporting extended flight duration.
-
-**Functional Flowchart**
-
-![Alt text](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Jackson's-Branch/Reports/Images/Power%20Distribution%20Flow%20Chart.png)  
-
-**Performance Specifications**
-
-The power and propulsion subsystem shall satisfy the following:
-- Battery voltage: 22.2 V nominal
-- Battery capacity: 8000 mAh
-- Battery energy: 177.6 Wh
-- Battery weight: 840 g
-- Motor quantity: 4
-- Motor KV: 380KV
-- Motor maximum continuous power: 500 W each
-- Motor weight: 105 g each
-- ESC quantity: 4
-- ESC current rating: 40 A continuous, 60 A peak
-- ESC voltage compatibility: 2S–6S
-- ESC weight: 26 g each
-- Propeller size: 13 × 4.5 in
-- Propeller weight: 24.1 g each
-- Estimated propulsion subsystem mass: 1460.4 g
-- Estimated total aircraft mass: 2182.4 g before additional wiring and mounting hardware
-- Estimated realistic flight mass: approximately 2.2–2.3 kg
-- Estimated usable battery energy: 142–151 Wh assuming 80–85% usable capacity
-- Estimated average flight power for endurance operation: approximately 350–500 W
-- Estimated flight time: approximately 17–26 minutes
-- Realistic mission planning estimate: approximately 18–22 minutes
-
-**Weight Breakdown**
-
-Known non-propulsion mass:
-- Flight controller: 46.8 g
-- HFlow sensor: 15.2 g
-- RPLIDAR C1: 110 g
-- DSP/Teensy subsystem: 50 g
-- 3D-printed carbon-fiber-reinforced nylon H-frame: 500 g
-
-Non-propulsion subtotal:
-- 722.0 g
-
-Propulsion subsystem mass:
-- Battery: 840 g
-- Motors: 4 × 105 g = 420 g
-- ESCs: 4 × 26 g = 104 g
-- Propellers: 4 × 24.1 g = 96.4 g
-
-Propulsion subtotal:
-- 1460.4 g
-
-Estimated total mass:
-- 722.0 g + 1460.4 g = 2182.4 g
-
-**Flight Time Calculation**
-
-Battery energy:
-- 22.2 V × 8.0 Ah = 177.6 Wh
-
-Usable battery energy:
-- 80% usable: 177.6 × 0.80 = 142.1 Wh
-- 85% usable: 177.6 × 0.85 = 151.0 Wh
-
-Estimated flight time:
-- At 350 W average power: 142.1/350 to 151.0/350 = 24.4 to 25.9 minutes
-- At 425 W average power: 142.1/425 to 151.0/425 = 20.1 to 21.3 minutes
-- At 500 W average power: 142.1/500 to 151.0/500 = 17.1 to 18.1 minutes
-
-This indicates that a flight time near 20 minutes is achievable if the aircraft maintains an average power draw of approximately 425–450 W during mapping flight.
-
-### Detailed Shall Statements
-
-**Functional Requirements**
-- The subsystem shall provide electrical power for all propulsion components.
-- The subsystem shall include one main battery, four ESCs, four motors, and four propellers.
-- The subsystem shall generate sufficient thrust for takeoff, hover, maneuvering, and landing.
-- The subsystem shall support endurance-focused autonomous mapping flight.
-
-**Weight and Efficiency Requirements**
-- The subsystem shall minimize propulsion mass while maintaining adequate thrust margin.
-- The subsystem shall use a motor and propeller combination matched to a 16 in × 16 in frame.
-- The subsystem shall target a total aircraft mass near 2.2 kg before final integration hardware.
-- The subsystem shall support a realistic flight time of at least 18 minutes under normal mission conditions.
-- The subsystem shall support a target flight time near 20 minutes under endurance-focused operation.
-
-**Electrical Requirements**
-- The subsystem shall operate from a 6S battery architecture.
-- The subsystem shall use ESCs rated for at least 40 A continuous current.
-- The subsystem shall use motors compatible with 6S operation.
-- The subsystem shall operate within the rated voltage, current, and power limits of the selected components.
-
-**Validation Requirements**
-- The subsystem shall be verified through total weight measurement after integration.
-- The subsystem shall be validated through hover and endurance flight testing.
-- The subsystem shall demonstrate stable operation without exceeding motor or ESC thermal limits.
-- The subsystem shall demonstrate sufficient endurance for mapping operations.
-
-**Major Data Elements**
-
-Calculated values:
-- total propulsion mass
-- total estimated aircraft mass
-- usable battery energy
-- expected average power draw
-- estimated flight time range
-
-### Internal Components Subsystem
-
-
-#### Connections
-
-
-
-The Pixhawk 6C Mini flight controller serves as the central hub of the internal components subsystem, interfacing with all onboard sensors. The Holybro H-Flow optical flow and distance sensor module connects to the Pixhawk 6C Mini via the CAN1 or CAN2 port using the DroneCAN protocol, providing horizontal velocity estimation and altitude data as digital output to the flight controller. The SLAMTEC RPLIDAR C1 2D lidar connects to the Pixhawk 6C Mini via the TELEM2 port using TTL UART serial communication, providing continuous 360° obstacle distance data as digital output to the flight controller. Both sensors receive power directly through their respective connection ports on the Pixhawk 6C Mini, with the flight controller itself powered through the external components subsystem.
-
-#### Specifications
-
-The Pixhawk 6C Mini shall serve as the central flight controller, managing stabilization, waypoint navigation, and sensor integration.
-The flight controller shall navigate to each predefined waypoint with a positional accuracy of ±0.5 meters.
-The flight controller shall maintain stable hover at each measurement waypoint within the venue.
-The flight controller shall execute a predefined waypoint mission without requiring manual input during flight.
-The flight controller shall actively maneuver the drone to maintain a minimum safe distance of 3 meters from any detected obstacle in the horizontal plane at all times.
-The H-Flow sensor shall provide continuous optical flow and altitude data to the flight controller via DroneCAN protocol.
-The H-Flow sensor shall support indoor position hold without reliance on GPS.
-The RPLIDAR C1 shall perform continuous 360° horizontal scanning and transmit distance data to the flight controller via TTL UART.
-The RPLIDAR C1 shall detect obstacles within a minimum range of 6 meters.
-The RPLIDAR C1 shall be mounted with a fixed forward reference aligned to the drone's heading axis to enable directional obstacle response.
-The internal components subsystem shall have a combined weight not exceeding 200g.
-
-#### Description
-
-The internal components subsystem integrates the flight controller, localization sensor, and obstacle detection sensor into a unified system responsible for autonomous navigation, position estimation, and collision avoidance during the acoustic measurement mission.
-
-The Pixhawk 6C Mini serves as the central processing unit for all flight operations. It receives sensor data from the H-Flow and RPLIDAR C1, executes the predefined waypoint mission, and manages stabilization throughout flight. Upon arriving at each waypoint, the Pixhawk holds position while the acoustic measurement subsystem captures data, then proceeds to the next waypoint.
-
-The Holybro H-Flow module provides continuous optical flow and downward distance data to the Pixhawk via DroneCAN, enabling stable indoor position hold without GPS. The sensor tracks surface features beneath the drone to estimate horizontal velocity and uses a time-of-flight distance sensor for altitude hold.
-
-The SLAMTEC RPLIDAR C1 performs continuous 360° horizontal scanning and transmits angle and distance data to the Pixhawk via TTL UART. The flight controller monitors incoming scan data and actively maneuvers the drone to maintain a minimum safe distance of 3 meters from any detected obstacle in any horizontal direction at all times. The RPLIDAR C1 is mounted with a fixed forward reference aligned to the drone's heading axis, allowing the flight controller to map scan angles to real-world directions for accurate directional response.
-
-#### Functional Flowchart
-
-![Internal Components Flowchart](Photos/internal_components_flowchart_v3.png)
-
-#### Applicable Standards
-
-- **FAA Part 107:** Regulates autonomous drone operation under U.S. federal law, including maximum altitude, weight limits, and operational safety requirements. [[8](#References)]
-
-#### Implementation & Compliance
-
-- The Pixhawk 6C Mini firmware enforces altitude and speed limits in accordance with FAA Part 107 operational requirements.
-- Emergency failsafe behaviors including controlled landing and return-to-home are configured within the flight controller firmware to ensure safe operation in fault conditions.
-- The RPLIDAR C1 operates within Class 1 laser safety standards, posing no risk to personnel during venue operation.
-
-#### Design Considerations
-
-- The RPLIDAR C1 must be mounted with a consistent forward reference relative to the drone's heading axis to ensure accurate directional obstacle response.
-- Vibration isolation should be considered for the Pixhawk 6C Mini to maintain accurate IMU measurements during flight.
-- The H-Flow sensor must be mounted facing downward with an unobstructed view of the floor surface to ensure reliable optical flow performance.
-- Surface texture and lighting conditions within the venue may affect H-Flow performance and should be evaluated during testing.
-
-### Acoustic Signal Processing Subsystem
-
-**Functional Description**
-
-&nbsp; &nbsp; &nbsp; &nbsp; The acoustic signal processing subsystem is responsible for acquiring, conditioning, and processing audio signals collected by a lightweight microphone system mounted on the drone. The subsystem provides a continuous, real-time audio signal suitable for acoustic analysis using Smaart at the ground station.
-
-&nbsp; &nbsp; &nbsp; &nbsp; The subsystem utilizes a compact electret microphone interfaced through a custom-designed analog front-end circuit. This front-end provides microphone biasing, AC coupling, and low-noise preamplification to convert the raw microphone signal into a conditioned analog signal suitable for digitization.
-
-&nbsp; &nbsp; &nbsp; &nbsp; The conditioned signal is digitized and processed by a Teensy-based embedded digital signal processing platform, where real-time filtering is applied to reduce predictable drone-induced noise such as rotor and vibration artifacts. The processed signal is continuously output as an analog signal.
-
-&nbsp; &nbsp; &nbsp; &nbsp; The analog output is passed through an output conditioning stage and transmitted via a Shure wireless system to the ground station. The received signal is then analyzed using Smaart, where the system operator selects appropriate moments to capture measurements based on signal quality and stability.
-
-**Design Justification**
-
-&nbsp; &nbsp; &nbsp; &nbsp; The selection of a lightweight electret microphone and wireless transmission system represents a design tradeoff between measurement accuracy and system feasibility. Traditional acoustic measurement systems rely on calibrated condenser microphones requiring phantom power; however, these systems introduce significant weight, power consumption, and integration complexity, making them impractical for use on an aerial platform.
-
-&nbsp; &nbsp; &nbsp; &nbsp; The proposed design utilizes a Countryman B6 electret microphone combined with a custom analog front-end circuit, allowing precise control over biasing, gain structure, and signal conditioning prior to digital processing. This approach enables improved signal integrity compared to directly interfacing the microphone with a wireless transmitter.
-
-&nbsp; &nbsp; &nbsp; &nbsp; Onboard digital signal processing using the Teensy platform allows the subsystem to reduce predictable drone-induced noise before wireless transmission. Performing this processing at the source improves the usability of the transmitted signal and reduces reliance on post-processing.
-
-&nbsp; &nbsp; &nbsp; &nbsp; The system provides a continuous audio stream rather than discrete measurement capture. This design aligns with professional measurement workflows, where the operator uses Smaart to evaluate signal quality, coherence, and environmental conditions before capturing measurement data.
-
-&nbsp; &nbsp; &nbsp; &nbsp; While the system does not achieve laboratory-grade measurement accuracy, it provides sufficient fidelity for comparative acoustic analysis, including spatial variations in level, timing, and general frequency response behavior. This approach improves system robustness by maintaining a human-in-the-loop measurement process, reducing the risk of capturing invalid or noisy data.
-
-**Subsystem Objectives**
-
-The acoustic signal processing subsystem shall:
-- acquire audio using a lightweight electret microphone suitable for airborne operation
-- implement a custom analog front-end including biasing, AC coupling, and preamplification
-- digitize and process the microphone signal using onboard DSP
-- apply real-time digital filtering to reduce predictable drone-induced noise
-- provide a continuous real-time audio output suitable for analysis using Smaart
-- support wireless transmission of conditioned audio to the ground station
-- maintain compatibility with industry-standard acoustic measurement workflows
-
-**External Components Interface**
-| Interface                | Signal Type        |            Direction | Protocol / Format      | Data                     |
-| ------------------------ | ------------------ | -------------------: | ---------------------- | ------------------------ |
-| B6 microphone            | Analog (mic-level) |                Input | Electret biased analog | Acoustic pressure signal |
-| Front-end → Teensy       | Analog             |                Input | Line-level analog      | Conditioned signal       |
-| Teensy → transmitter     | Analog             |               Output | Conditioned line-level | Processed audio          |
-| Wireless transmitter     | RF                 |               Output | Shure wireless system  | Audio signal             |
-| Wireless receiver        | Analog             | Input (to interface) | Line-level             | Received audio           |
-| Audio interface → Smaart | Digital            |                Input | USB / audio driver     | Measurement signal       |
-
-**Internal Components Interface**
-| Interface            | Signal Type | Direction | Protocol           | Data                 |
-| -------------------- | ----------- | --------: | ------------------ | -------------------- |
-| Mic front-end output | Analog      |     Input | ADC (audio shield) | Conditioned signal   |
-| DSP processing       | Digital     |  Internal | Audio library      | Filtered samples     |
-| Audio output         | Analog      |    Output | DAC                | Processed audio      |
-| System timing        | Digital     |     Input | Clock              | DSP timing reference |
-
-**Detailed Operation**
-
-&nbsp; &nbsp; &nbsp; &nbsp; The acoustic signal processing subsystem operates as a continuous onboard audio conditioning and transmission chain. Its purpose is to acquire the acoustic signal at the drone, improve signal quality through analog conditioning and digital filtering, and deliver a real-time audio stream to the ground station for analysis.
-
-&nbsp; &nbsp; &nbsp; &nbsp; During operation, the Countryman B6 microphone converts acoustic pressure into a low-level electrical signal. This signal is routed into a custom analog front-end, which provides microphone biasing, removes DC components through AC coupling, and amplifies the signal using a low-noise preamplifier to a level suitable for digitization.
-
-&nbsp; &nbsp; &nbsp; &nbsp; The conditioned signal is then digitized by the Teensy audio system and processed in real time. The primary objective of this processing stage is to reduce predictable drone-induced noise, such as low-frequency rotor and vibration artifacts, while preserving the integrity of the acoustic signal.
-
-&nbsp; &nbsp; &nbsp; &nbsp; Following processing, the signal is converted back to analog and passed through an output conditioning stage. This stage prepares the signal for compatibility with the Shure wireless transmitter by providing appropriate DC blocking, signal level control, and electrical interfacing.
-
-&nbsp; &nbsp; &nbsp; &nbsp; The processed audio is transmitted continuously to the ground station, where it is received and analyzed using Smaart. Measurement capture is not controlled by the onboard system; instead, the operator monitors the live signal and determines when conditions are suitable for taking measurements. This allows for human verification of signal quality, coherence, and environmental conditions before accepting data.
-
-&nbsp; &nbsp; &nbsp; &nbsp; Overall, the subsystem functions as a real-time signal conditioning and transmission path, enabling the drone to act as a mobile acoustic measurement platform while relying on external tools and operator judgment for analysis and data collection.
-
-**Functional Flowchart**
-
-**Performance Specifications**
-
-The acoustic signal processing subsystem shall satisfy the following:
-- Frequency analysis range: 20 Hz to 20 kHz (practical usable band)
-- Relative frequency response consistency within ±3 dB across repeated measurements
-- Sampling rate: ≥ 44.1 kHz
-- Continuous real-time audio output suitable for analysis using Smaart
-- Signal-to-noise ratio sufficient to allow meaningful analysis in typical venue conditions
-- Drone-induced noise reduced such that it does not dominate the measurement signal within the usable frequency band
-- Repeatability within ±3 dB across identical spatial positions under similar conditions
-
-The subsystem is subject to the following constraints:
-- The microphone system (Countryman B6) is not a laboratory-calibrated measurement microphone
-- Wireless transmission may introduce:
-  - bandwidth limitations
-  - latency
-  - dynamic range compression
-- Drone-generated noise, airflow, and movement may affect measurements
-- Onboard processing is limited by the computational capability of the Teensy platform
-- Power and payload constraints of the aerial platform limit hardware complexity
-
-### Detailed Shall Statements
-
-**Functional Requirements**
-
-- The subsystem shall acquire audio using a lightweight electret microphone integrated with the drone platform.
-- The subsystem shall implement a custom analog front-end including biasing, AC coupling, and preamplification.
-- The subsystem shall digitize and process the audio signal using onboard DSP.
-- The subsystem shall apply real-time filtering to reduce predictable drone-induced noise prior to transmission.
-- The subsystem shall output a continuous conditioned audio signal for external acoustic analysis.
-- The subsystem shall transmit processed audio to the ground station via a wireless audio link.
-
-**Signal Integrity Requirements**
-
-- The subsystem shall preserve sufficient signal fidelity to enable comparative acoustic analysis across spatial positions.
-- The subsystem shall reduce low-frequency vibration and rotor noise through filtering techniques.
-- The subsystem shall maintain stable gain and frequency response during operation.
-- The subsystem shall minimize distortion introduced by analog and digital processing stages.
-- The subsystem shall avoid time-varying artifacts that negatively impact real-time acoustic analysis.
-  
-**Interface Requirements**
-
-- The subsystem shall accept the microphone signal through the custom analog front-end.
-- The subsystem shall provide a conditioned analog output compatible with the Shure wireless transmitter.
-- The subsystem shall provide a continuous audio signal suitable for use with Smaart at the ground station.
-- The subsystem shall not require communication with the control or autonomy subsystem for normal operation. 
-
-**Reliability Requirements**
-
-- The subsystem shall operate continuously during flight without requiring manual reset.
-- The subsystem shall maintain stable operation under vibration and motion conditions.
-- The subsystem shall function within the electrical and thermal limits of the drone platform.
-  
-**Validation Requirements**
-
-- The subsystem shall produce audio suitable for real-time acoustic analysis using Smaart.
-- The subsystem shall demonstrate repeatable signal behavior at identical spatial positions.
-- The subsystem shall allow comparison with traditional measurement workflows and reference equipment.
-
-**Major Data Elements**
-
-Sent Data:
-- continuous processed audio signal (via wireless link)
 
 ## Ethical, Professional, and Standards Considerations
 
@@ -965,6 +466,28 @@ Estimated total power and propulsion subsystem cost: ≈ $454 – $532
 ### Division of Labor
 
 First, conduct a thorough analysis of the skills currently available within the team, and then compare these skills to the specific requirements of each subsystem. Based on this analysis, appoint a team member to take the specifications for each subsystem and generate a corresponding solution (i.e. detailed design). If there are more team members than subsystems, consider further subdividing the solutions into smaller tasks or components, thereby allowing each team member the opportunity to design a subsystem.
+
+As stated in our teams project proposal, each team members respective skills are listed as follows:
+
+- Bernie Friesel - Experience in power systems, controls, and digital signal processing, supported by coursework and laboratory experience. Strong background in circuit design and construction. Proficient in C/C++ and MATLAB programming, with experience in digital system design, microcontrollers, and microprocessors.
+
+- Jackson Phillips - Strong background in FPGA and microcontroller programming, supported by coursework in digital system design and computer architecture. Experience in signals and telecommunications with familiarity in DSP concepts. Proficient in C, C++, and VHDL, with foundational knowledge in power systems.
+
+- Sean Ike - Strong background in CAD, FPGA development, and microcontroller-based systems. Experience in circuit design and construction, supported by coursework in power systems. Proficient in C, C++, and VHDL, with working knowledge of MATLAB and foundational experience in DSP through signals and telecommunications.
+
+- Mashoud Modi - Strong background in embedded systems, microcontrollers, and digital system design. Coursework includes Signals and Systems, Digital System Design, Microcontrollers, PLCs, and Control Systems with lab experience focused on system modeling and implementation. Proficient in C programming and experienced in hardware/software integration and debugging.
+
+- Elliot Lovins - Strong background in CAD, control systems, and physical system design. Competitive robotics experience has strengthened skills in system integration and troubleshooting. Proficient in C/C++ and MATLAB, with coursework in control systems, signals, and telecommunications. Hands-on experience with microcontrollers through robotics and project development.
+
+With these skills in mind, Team 5 has unanimously decided that the division of labor for each described subsystem along with their respective operatives as well as their reasonings are as stated below:
+
+|**Subsystem**|**Description**|**Assigned Operative**|**Reasoning**|
+|-------------|---------------|----------------------|-------------|
+|**Drone Frame**|This subsystem consists of drone frame configuration, Materials used to construct frame, compartment design for different subsystems, etc. |Mashoud Modi|Chosen for their general skills for the project to visualize the physical compartments for each respective system on the drone.|
+|**Internal Components**|This subsystem consists of flight controller selection and configuration, sensor selection and implementation, etc.|Elliot Lovins|Chosen for their experience with robotics and control systems to construct a smart autonomous drone.|
+|**External Components**|This subsystem consists of battery calculations and selection, motor calculations and selection, ESC (Electronic Speed Controllers) selection and configuration, etc.|Jackson Phillips|Chosen for their experience in power systems and circuitry to power and drive the drone with its many loads.|
+|**Code**|This subsystem consists of autonomous code, handheld controller for emergency situations, flightpath control, etc. |Sean Ike|Chosen for their experience in coding and computer engineering to bring all the subsystems together in cooperation.|
+|**DSP (Digital Signal Processing)**|This subsystem consists of a microcontroller for the DSP system, choice of microphone, configuration of digital filtering, etc.|Bernie Friesel|Chosen for their experience in signal processing and audio industry to provide clean, filtered audio data to the audio team for processing.|
 
 ### Timeline
 
