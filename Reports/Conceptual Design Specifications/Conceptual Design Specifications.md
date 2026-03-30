@@ -314,7 +314,29 @@ You have already estimated the resources needed to complete the solution. Now, l
 
 ### Budget
 
-Develop a budget proposal with justifications for expenses associated with each subsystem. Note that the total of this budget proposal can also serve as a specification for each subsystem. After creating the budgets for individual subsystems, merge them to create a comprehensive budget for the entire solution.
+| **Item** | **Subsystem** | **Description** | **Qty** | **Estimated Cost** |
+|---|---|---|---|---|
+| **Pixhawk 6C Mini (w/ PM02 V3)** | Internal Components | Central flight controller with battery regulation module | 1 | $150 |
+| **Holybro H-Flow** | Internal Components | Optical flow and distance sensor for indoor positioning | 1 | $125 |
+| **SLAMTEC RPLIDAR C1** | Internal Components | 360° 2D scanning lidar for obstacle detection | 1 | $69 |
+| **Internal Components Total** | | | | **$344** |
+| | | | | |
+| **PA6-CF Filament** | Frame | Carbon fiber reinforced nylon filament for drone frame fabrication | 1 kg | $80 |
+| **Frame Total** | | | | **$80** |
+| | | | | |
+| **Battery** | External Components | TBD | TBD | TBD |
+| **Motors (4x)** | External Components | TBD | 4 | TBD |
+| **ESCs (4x)** | External Components | TBD | 4 | TBD |
+| **External Components Total** | | | | **TBD** |
+| | | | | |
+| **Microcontroller** | DSP | TBD | TBD | TBD |
+| **Microphone** | DSP | TBD | TBD | TBD |
+| **Pre-amp** | DSP | TBD | TBD | TBD |
+| **DSP Total** | | | | **TBD** |
+| | | | | |
+| **Code** | Code | No hardware costs — software only | — | $0 |
+| | | | | |
+| **PROJECT TOTAL** | | | | **$424 + TBD** |
 
 ### Division of Labor
 
