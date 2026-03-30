@@ -99,6 +99,76 @@ $$
 
 In this section, various potential solutions are hypothesized, design considerations are discussed, and factors influencing the selection of a solution are outlined. The chosen solution is then identified with justifications for its selection.
 
+## **Acoustic Signal Processing Subsystem**
+
+&nbsp; &nbsp; &nbsp; &nbsp; Designing the acoustic signal processing subsystem requires careful consideration of measurement quality, system weight, integration complexity, and compatibility with real-world audio workflows. Multiple approaches exist for microphone selection, signal conditioning, processing, and transmission, each presenting tradeoffs between accuracy, practicality, and system feasibility. The following approaches are evaluated to determine a solution that balances performance with the constraints of an airborne measurement platform.
+
+### **Microphone Selection**
+
+**Measurement Microphone Approach**
+
+&nbsp; &nbsp; &nbsp; &nbsp; One potential solution is the use of a laboratory-grade measurement microphone such as the Earthworks M30. These microphones are designed to provide highly accurate and flat frequency response across a wide bandwidth, making them ideal for precision acoustic measurements. When paired with appropriate preamplification and phantom power, they can deliver highly reliable data for transfer-function and impulse-response analysis.
+
+&nbsp; &nbsp; &nbsp; &nbsp; However, this approach introduces significant challenges when applied to an aerial system. Measurement microphones typically require 48 V phantom power, increasing power consumption and necessitating additional power conversion hardware. They are also physically larger and heavier, which negatively impacts drone payload capacity and flight stability. Integration complexity is increased due to the need for balanced XLR connections and external preamplifiers. As a result, while this approach offers the highest measurement accuracy, it is not well suited for a compact, lightweight, and mobile platform.
+
+**Prosumer Lavalier Microphone Approach**
+
+&nbsp; &nbsp; &nbsp; &nbsp; Another option is the use of a consumer or prosumer lavalier microphone such as the Rode Lavalier GO. These microphones are lightweight, inexpensive, and easy to integrate with systems that support standard 3.5 mm TRS inputs. They operate using plug-in power and can be directly connected to many embedded audio systems without additional circuitry.
+
+&nbsp; &nbsp; &nbsp; &nbsp; This approach simplifies implementation and reduces development time; however, it provides limited control over signal conditioning and typically offers lower durability and consistency compared to professional-grade microphones. Additionally, the electrical interface may not be ideal for integration with custom analog front-end circuitry, and performance may vary depending on the specific input configuration. While this solution improves ease of use, it sacrifices robustness and flexibility in system design.
+
+**Professional Lavalier Microphone with Custom Front-End Approach (Selected)**
+
+&nbsp; &nbsp; &nbsp; &nbsp; The selected solution utilizes a professional lavalier microphone, specifically the Countryman B6, combined with a custom-designed analog front-end. The B6 provides an extremely small form factor, low weight, and high durability, making it well suited for aerial deployment. Unlike consumer lavalier microphones, it is designed for professional audio environments and offers improved reliability and consistency.
+
+&nbsp; &nbsp; &nbsp; &nbsp; The use of a custom analog front-end allows for precise control over microphone biasing, AC coupling, and signal amplification. This ensures that the microphone signal is properly conditioned before being digitized, improving overall signal quality and enabling effective downstream processing. While this approach introduces additional design complexity, it provides a balance between performance, integration flexibility, and system feasibility. The selected configuration sacrifices absolute measurement accuracy in favor of portability and practical implementation while still producing acoustically meaningful data for comparative analysis
+
+### **Embedded Processing**
+
+&nbsp; &nbsp; &nbsp; &nbsp; Processing the microphone signal requires consideration of computational capability, power consumption, and system complexity. Multiple approaches were evaluated for implementing signal conditioning and noise reduction.
+
+**No Onboard Processing Approach**
+
+&nbsp; &nbsp; &nbsp; &nbsp; One option is to transmit the raw microphone signal directly to the ground station without any onboard processing. This approach minimizes system complexity and reduces onboard computational requirements. All filtering and analysis could then be performed externally.
+
+&nbsp; &nbsp; &nbsp; &nbsp; While simple, this method allows drone-induced noise, such as rotor and vibration artifacts, to remain embedded in the transmitted signal. This can degrade measurement quality and reduce the usability of the data, particularly in noisy environments. As a result, this approach does not fully address the challenges associated with airborne acoustic measurement.
+
+**High-Performance Embedded System Approach**
+
+&nbsp; &nbsp; &nbsp; &nbsp; Another option is the use of a high-performance embedded system such as the Raspberry Pi 4. This platform provides significant computational power and supports advanced signal processing techniques, including complex filtering and data handling.
+
+&nbsp; &nbsp; &nbsp; &nbsp; However, this approach introduces increased power consumption, system complexity, and potential reliability concerns in real-time operation. Boot time, operating system overhead, and increased integration complexity make this solution less desirable for a lightweight, embedded application requiring deterministic real-time performance.
+
+**Microcontroller-Based DSP Approach (Selected)**
+
+&nbsp; &nbsp; &nbsp; &nbsp; The selected solution utilizes a microcontroller-based platform, specifically the Teensy 4.1 with an audio interface. This platform provides sufficient real-time processing capability to implement filtering techniques while maintaining low power consumption and a compact form factor.
+
+&nbsp; &nbsp; &nbsp; &nbsp; The Teensy platform supports deterministic real-time operation and integrates well with embedded audio systems, making it suitable for continuous signal processing. It allows the implementation of targeted filtering to reduce predictable drone-induced noise prior to transmission. This approach provides a balance between performance and system simplicity while avoiding the overhead associated with more complex embedded systems.
+
+### **Wireless Transmission**
+
+&nbsp; &nbsp; &nbsp; &nbsp; The transmission of the processed audio signal from the drone to the ground station must be reliable, low-latency, and compatible with existing measurement workflows.
+
+**Digital Wireless / Streaming Approach**
+
+&nbsp; &nbsp; &nbsp; &nbsp; One potential solution is to use digital wireless transmission or network-based audio streaming. This approach offers flexibility and the ability to transmit high-quality audio data over modern communication protocols.
+
+&nbsp; &nbsp; &nbsp; &nbsp; However, digital systems may introduce latency, synchronization challenges, and increased implementation complexity. Integration with existing measurement tools may also require additional hardware or software configuration.
+
+**Wired Transmission Approach**
+
+&nbsp; &nbsp; &nbsp; &nbsp; A wired connection would provide the highest signal integrity and eliminate concerns related to wireless interference or compression.
+
+&nbsp; &nbsp; &nbsp; &nbsp; This approach is impractical for a mobile aerial system, as it restricts movement and introduces safety risks associated with tethering.
+
+**Analog Wireless System Approach (Selected)**
+
+&nbsp; &nbsp; &nbsp; &nbsp; The selected solution utilizes an analog wireless system, specifically the Shure ULX. This system provides reliable, low-latency audio transmission and is widely used in professional audio environments.
+
+&nbsp; &nbsp; &nbsp; &nbsp; An additional factor influencing this decision is the availability of the system. The team already has access to the Shure ULX platform, reducing cost and enabling rapid integration and testing. Familiarity with the system also simplifies troubleshooting and deployment.
+
+&nbsp; &nbsp; &nbsp; &nbsp; While analog wireless transmission may introduce some bandwidth limitations and signal coloration, these effects are acceptable for comparative acoustic analysis. The benefits of reliability, simplicity, and compatibility with industry workflows outweigh these limitations.
+
 ### Coding Subsystem
 
 The coding subsystem is the central control architecture for the autonomous acoustics measurement drone. It is responsible for executing the preset mission path, coordinating with onboard flight and sensing hardware, maintaining communication with the custom handheld controller, supporting immediate manual override during emergencies, and triggering the transfer of audio measurement information to a separate laptop running audio-processing software such as SMAART. Because this subsystem connects mission autonomy, operator supervision, safety response, and measurement coordination, several possible implementation approaches can be considered. This section outlines candidate solutions, discusses the main design considerations, and identifies the selected solution with justification.
@@ -231,19 +301,138 @@ Similar to a block diagram, the flow chart aims to specify the system, but from 
 
 ## Atomic Subsystem Specifications
 
-Based on the high-level design, provide a comprehensive description of the functions each subsection will perform.
+### Acoustic Signal Processing Subsystem
 
-Inclued a description of the interfaces between this subsystem and other subsystems:
-- Give the type of signal (e.g. power, analog signal, serial communication, wireless communication, etc).
-- Clearly define the direction of the signal (input or output).
-- Document the communication protocols used.
-- Specifying what data will be sent and what will be received.
+**Functional Description**
 
-Detail the operation of the subsystem:
-- Illustrate the expected user interface, if applicable.
-- Include functional flowcharts that capture the major sequential steps needed to achieve the desired functionalities.
+&nbsp; &nbsp; &nbsp; &nbsp; The acoustic signal processing subsystem is responsible for acquiring, conditioning, and processing audio signals collected by a lightweight microphone system mounted on the drone. The subsystem provides a continuous, real-time audio signal suitable for acoustic analysis using Smaart at the ground station.
 
-For all subsystems, formulate detailed "shall" statements. Ensure these statements are comprehensive enough so that an engineer who is unfamiliar with your project can design the subsystem based on your specifications. Assume the role of the customer in this context to provide clear and precise requirements.
+&nbsp; &nbsp; &nbsp; &nbsp; The subsystem utilizes a compact electret microphone interfaced through a custom-designed analog front-end circuit. This front-end provides microphone biasing, AC coupling, and low-noise preamplification to convert the raw microphone signal into a conditioned analog signal suitable for digitization.
+
+&nbsp; &nbsp; &nbsp; &nbsp; The conditioned signal is digitized and processed by a Teensy-based embedded digital signal processing platform, where real-time filtering is applied to reduce predictable drone-induced noise such as rotor and vibration artifacts. The processed signal is continuously output as an analog signal.
+
+&nbsp; &nbsp; &nbsp; &nbsp; The analog output is passed through an output conditioning stage and transmitted via a Shure wireless system to the ground station. The received signal is then analyzed using Smaart, where the system operator selects appropriate moments to capture measurements based on signal quality and stability.
+
+**Design Justification**
+
+&nbsp; &nbsp; &nbsp; &nbsp; The selection of a lightweight electret microphone and wireless transmission system represents a design tradeoff between measurement accuracy and system feasibility. Traditional acoustic measurement systems rely on calibrated condenser microphones requiring phantom power; however, these systems introduce significant weight, power consumption, and integration complexity, making them impractical for use on an aerial platform.
+
+&nbsp; &nbsp; &nbsp; &nbsp; The proposed design utilizes a Countryman B6 electret microphone combined with a custom analog front-end circuit, allowing precise control over biasing, gain structure, and signal conditioning prior to digital processing. This approach enables improved signal integrity compared to directly interfacing the microphone with a wireless transmitter.
+
+&nbsp; &nbsp; &nbsp; &nbsp; Onboard digital signal processing using the Teensy platform allows the subsystem to reduce predictable drone-induced noise before wireless transmission. Performing this processing at the source improves the usability of the transmitted signal and reduces reliance on post-processing.
+
+&nbsp; &nbsp; &nbsp; &nbsp; The system provides a continuous audio stream rather than discrete measurement capture. This design aligns with professional measurement workflows, where the operator uses Smaart to evaluate signal quality, coherence, and environmental conditions before capturing measurement data.
+
+&nbsp; &nbsp; &nbsp; &nbsp; While the system does not achieve laboratory-grade measurement accuracy, it provides sufficient fidelity for comparative acoustic analysis, including spatial variations in level, timing, and general frequency response behavior. This approach improves system robustness by maintaining a human-in-the-loop measurement process, reducing the risk of capturing invalid or noisy data.
+
+**Subsystem Objectives**
+
+The acoustic signal processing subsystem shall:
+- acquire audio using a lightweight electret microphone suitable for airborne operation
+- implement a custom analog front-end including biasing, AC coupling, and preamplification
+- digitize and process the microphone signal using onboard DSP
+- apply real-time digital filtering to reduce predictable drone-induced noise
+- provide a continuous real-time audio output suitable for analysis using Smaart
+- support wireless transmission of conditioned audio to the ground station
+- maintain compatibility with industry-standard acoustic measurement workflows
+
+**External Components Interface**
+| Interface                | Signal Type        |            Direction | Protocol / Format      | Data                     |
+| ------------------------ | ------------------ | -------------------: | ---------------------- | ------------------------ |
+| B6 microphone            | Analog (mic-level) |                Input | Electret biased analog | Acoustic pressure signal |
+| Front-end → Teensy       | Analog             |                Input | Line-level analog      | Conditioned signal       |
+| Teensy → transmitter     | Analog             |               Output | Conditioned line-level | Processed audio          |
+| Wireless transmitter     | RF                 |               Output | Shure wireless system  | Audio signal             |
+| Wireless receiver        | Analog             | Input (to interface) | Line-level             | Received audio           |
+| Audio interface → Smaart | Digital            |                Input | USB / audio driver     | Measurement signal       |
+
+**Internal Components Interface**
+| Interface            | Signal Type | Direction | Protocol           | Data                 |
+| -------------------- | ----------- | --------: | ------------------ | -------------------- |
+| Mic front-end output | Analog      |     Input | ADC (audio shield) | Conditioned signal   |
+| DSP processing       | Digital     |  Internal | Audio library      | Filtered samples     |
+| Audio output         | Analog      |    Output | DAC                | Processed audio      |
+| System timing        | Digital     |     Input | Clock              | DSP timing reference |
+
+**Detailed Operation**
+
+&nbsp; &nbsp; &nbsp; &nbsp; The acoustic signal processing subsystem operates as a continuous onboard audio conditioning and transmission chain. Its purpose is to acquire the acoustic signal at the drone, improve signal quality through analog conditioning and digital filtering, and deliver a real-time audio stream to the ground station for analysis.
+
+&nbsp; &nbsp; &nbsp; &nbsp; During operation, the Countryman B6 microphone converts acoustic pressure into a low-level electrical signal. This signal is routed into a custom analog front-end, which provides microphone biasing, removes DC components through AC coupling, and amplifies the signal using a low-noise preamplifier to a level suitable for digitization.
+
+&nbsp; &nbsp; &nbsp; &nbsp; The conditioned signal is then digitized by the Teensy audio system and processed in real time. The primary objective of this processing stage is to reduce predictable drone-induced noise, such as low-frequency rotor and vibration artifacts, while preserving the integrity of the acoustic signal.
+
+&nbsp; &nbsp; &nbsp; &nbsp; Following processing, the signal is converted back to analog and passed through an output conditioning stage. This stage prepares the signal for compatibility with the Shure wireless transmitter by providing appropriate DC blocking, signal level control, and electrical interfacing.
+
+&nbsp; &nbsp; &nbsp; &nbsp; The processed audio is transmitted continuously to the ground station, where it is received and analyzed using Smaart. Measurement capture is not controlled by the onboard system; instead, the operator monitors the live signal and determines when conditions are suitable for taking measurements. This allows for human verification of signal quality, coherence, and environmental conditions before accepting data.
+
+&nbsp; &nbsp; &nbsp; &nbsp; Overall, the subsystem functions as a real-time signal conditioning and transmission path, enabling the drone to act as a mobile acoustic measurement platform while relying on external tools and operator judgment for analysis and data collection.
+
+**Functional Flowchart**
+
+**Performance Specifications**
+
+The acoustic signal processing subsystem shall satisfy the following:
+- Frequency analysis range: 20 Hz to 20 kHz (practical usable band)
+- Relative frequency response consistency within ±3 dB across repeated measurements
+- Sampling rate: ≥ 44.1 kHz
+- Continuous real-time audio output suitable for analysis using Smaart
+- Signal-to-noise ratio sufficient to allow meaningful analysis in typical venue conditions
+- Drone-induced noise reduced such that it does not dominate the measurement signal within the usable frequency band
+- Repeatability within ±3 dB across identical spatial positions under similar conditions
+
+The subsystem is subject to the following constraints:
+- The microphone system (Countryman B6) is not a laboratory-calibrated measurement microphone
+- Wireless transmission may introduce:
+  - bandwidth limitations
+  - latency
+  - dynamic range compression
+- Drone-generated noise, airflow, and movement may affect measurements
+- Onboard processing is limited by the computational capability of the Teensy platform
+- Power and payload constraints of the aerial platform limit hardware complexity
+
+### Detailed Shall Statements
+
+**Functional Requirements**
+
+- The subsystem shall acquire audio using a lightweight electret microphone integrated with the drone platform.
+- The subsystem shall implement a custom analog front-end including biasing, AC coupling, and preamplification.
+- The subsystem shall digitize and process the audio signal using onboard DSP.
+- The subsystem shall apply real-time filtering to reduce predictable drone-induced noise prior to transmission.
+- The subsystem shall output a continuous conditioned audio signal for external acoustic analysis.
+- The subsystem shall transmit processed audio to the ground station via a wireless audio link.
+
+**Signal Integrity Requirements**
+
+- The subsystem shall preserve sufficient signal fidelity to enable comparative acoustic analysis across spatial positions.
+- The subsystem shall reduce low-frequency vibration and rotor noise through filtering techniques.
+- The subsystem shall maintain stable gain and frequency response during operation.
+- The subsystem shall minimize distortion introduced by analog and digital processing stages.
+- The subsystem shall avoid time-varying artifacts that negatively impact real-time acoustic analysis.
+  
+**Interface Requirements**
+
+- The subsystem shall accept the microphone signal through the custom analog front-end.
+- The subsystem shall provide a conditioned analog output compatible with the Shure wireless transmitter.
+- The subsystem shall provide a continuous audio signal suitable for use with Smaart at the ground station.
+- The subsystem shall not require communication with the control or autonomy subsystem for normal operation. 
+
+**Reliability Requirements**
+
+- The subsystem shall operate continuously during flight without requiring manual reset.
+- The subsystem shall maintain stable operation under vibration and motion conditions.
+- The subsystem shall function within the electrical and thermal limits of the drone platform.
+  
+**Validation Requirements**
+
+- The subsystem shall produce audio suitable for real-time acoustic analysis using Smaart.
+- The subsystem shall demonstrate repeatable signal behavior at identical spatial positions.
+- The subsystem shall allow comparison with traditional measurement workflows and reference equipment.
+
+**Major Data Elements**
+
+Sent Data:
+- continuous processed audio signal (via wireless link)
 
 
 ## Ethical, Professional, and Standards Considerations
