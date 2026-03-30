@@ -243,7 +243,6 @@ Similar to a block diagram, the flow chart aims to specify the system, but from 
 
 ### Internal Components Subsystem
 
-![Internal Components Flowchart](Photos/flowchart.svg)
 
 #### Connections
 
@@ -274,6 +273,10 @@ The Pixhawk 6C Mini serves as the central processing unit for all flight operati
 The Holybro H-Flow module provides continuous optical flow and downward distance data to the Pixhawk via DroneCAN, enabling stable indoor position hold without GPS. The sensor tracks surface features beneath the drone to estimate horizontal velocity and uses a time-of-flight distance sensor for altitude hold.
 
 The SLAMTEC RPLIDAR C1 performs continuous 360° horizontal scanning and transmits angle and distance data to the Pixhawk via TTL UART. The flight controller monitors incoming scan data and actively maneuvers the drone to maintain a minimum safe distance of 3 meters from any detected obstacle in any horizontal direction at all times. The RPLIDAR C1 is mounted with a fixed forward reference aligned to the drone's heading axis, allowing the flight controller to map scan angles to real-world directions for accurate directional response.
+
+#### Functional Flowchart
+
+![Internal Components Flowchart](Photos/internal_components_flowchart_v3.png)
 
 #### Applicable Standards
 
