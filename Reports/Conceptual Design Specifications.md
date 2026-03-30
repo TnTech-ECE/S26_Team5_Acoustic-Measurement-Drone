@@ -288,10 +288,24 @@ Revise the detailed timeline (Gantt chart) you created in the project proposal. 
 
 ## References
 
-All sources utilized in the conceptual design that are not considered common knowledge must be properly cited. Multiple references should be included.
+## References
+
+[1] iFlight, *Fullsend 6S 8000mAh Li-Ion Battery*, Available: https://shop.iflight.com/Fullsend-6S-8000mAh-Li-Ion-Battery-Pro1914  
+
+[2] SunnySky USA, *V4008 Brushless Motor Specifications*, Available: https://sunnyskyusa.com/products/sunnysky-v4008-motors  
+
+[3] HobbyWing, *XRotor 40A ESC Product Page*, Available: https://www.hobbywingdirect.com/products/xrotor-40a-esc  
+
+[4] APC Propellers, *13x4.5 Multirotor Propeller Specifications*, Available: https://www.apcprop.com/product/13x4-5mr-b4/   
+
+[5] APC Propellers, *General Multirotor Propeller Guidelines*, Available: https://www.apcprop.com/technical-information/  
+
+[6] SunnySky, *Motor Selection and Propeller Compatibility Data*, Available: https://sunnyskyusa.com  
+
+[7] HobbyWing, *ESC Specifications and Application Notes*, Available: https://www.hobbywingdirect.com  
 
 
 ## Statement of Contributions
 
-Each team member is required to make a meaningful contribution to the project proposal. In this section, each team member is required to document their individual contributions to the report. One team member may not record another member's contributions on their behalf. By submitting, the team certifies that each member's statement of contributions is accurate.
+Jackson Phillips - Power and Propulsion System(Comparative Anlysis, Atomic Subsystem Specifications, Budget), Hardware Block Diagram, Timeline
 
