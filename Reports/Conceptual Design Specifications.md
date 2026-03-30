@@ -242,8 +242,7 @@ The technology shall aim to improve efficiency while maintaining human oversight
 As a result of these ethical, professional, and standards considerations, the system must:
 
 * comply with FAA flight regulations
-* ensure safe operation in all testing scenarios
-* protect user and public privacy
+* ensure safe operation in all testing scenarios* protect user and public privacy
 * adhere to IEEE ethical standards
 * follow established acoustic measurement practices
 * maintain reliable and accurate system performance
@@ -257,12 +256,6 @@ As a result of these ethical, professional, and standards considerations, the sy
 [4] RTCA, Minimum Operational Performance Standards for UAS, 2022.
 [5] ISO, ISO 9001: Quality Management Systems, 2015.
 [6] Rational Acoustics, Smaart Acoustic Measurement Software Documentation, 2023.
-
-
-
-
-
-
 
 
 ## Resources
