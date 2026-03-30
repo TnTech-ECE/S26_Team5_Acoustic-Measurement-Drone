@@ -98,6 +98,111 @@ $$
 ## Comparative Analysis of Potential Solutions
 
 In this section, various potential solutions are hypothesized, design considerations are discussed, and factors influencing the selection of a solution are outlined. The chosen solution is then identified with justifications for its selection.
+
+## Frame Configuration
+
+### Options Considered
+
+**1. X-Frame**
+- Most common quadcopter layout with symmetrical geometry
+- Pros: balanced and symmetrical layout, good maneuverability and control response, widely used with abundant replacement parts and design knowledge
+- Cons: less central space for payload mounting, harder to isolate sensors from propulsion-related vibration, optimized for agility over instrument carrying
+- Estimated Price: $30–$150 (carbon-fiber kits)
+
+**2. H-Frame**
+- Wider center body with extended arms creating larger middle section for electronics and payload
+- Pros: larger center area for electronics and sensors, easier to mount payloads and custom hardware, better suited for research and experimental platforms, convenient for battery placement and vibration isolation
+- Cons: slightly bulkier than X-frame, creates somewhat more drag, less agile than racing-focused frames
+- Estimated Price: $30–$80 (hobby-grade carbon-fiber)
+
+**3. Deadcat Frame**
+- Front arms moved outward to keep propellers out of forward camera view
+- Pros: keeps front propellers out of camera view, decent center space for components, useful for forward-facing imaging
+- Cons: less symmetrical layout, not ideal for balanced sensor placement, more beneficial for video than acoustic work
+- Estimated Price: $40–$90 (carbon-fiber kits)
+
+### Selected Configuration
+H-Frame
+
+### Justification
+The H-frame best matches the project's functional priorities for an acoustic measurement drone. Unlike racing-oriented layouts, this drone requires adequate room for microphone placement, acoustic electronics, onboard processor (Raspberry Pi), battery and wiring, and vibration-isolation mounts. The wider central body reduces packaging constraints and improves sensor placement flexibility. The slight increase in bulk is an acceptable tradeoff for stability, mounting space, and structural practicality.
+
+
+## Frame Material
+
+### Options Considered
+
+**1. Carbon Fiber**
+- Widely used in drone structures for high stiffness and low weight
+- Pros: very high strength-to-weight ratio, stiff and lightweight, common in drone frame construction, maintains structural rigidity in flight
+- Cons: more expensive than plastic, harder to machine and repair, damaged parts need replacement rather than reshaping
+
+**2. Aluminum**
+- Durable and easy to machine, useful for prototypes and support brackets
+- Pros: durable, easy to machine, readily available, good for brackets and support pieces
+- Cons: heavier than carbon fiber, transmits more vibration, less ideal where low mass is critical
+
+**3. 3D-Printed Plastic**
+- Useful for prototypes, custom brackets, and sensor mounts
+- Pros: inexpensive, easy to prototype and customize, good for sensor holders and non-critical mounts
+- Cons: weaker than carbon fiber or aluminum for primary load-bearing structure, can deform or crack under repeated stress, not ideal for full structural arms
+
+### Selected Material
+Hybrid Carbon Fiber + 3D-Printed Parts
+
+### Justification
+This hybrid approach provides the structural advantages of carbon fiber while preserving the flexibility of additive manufacturing. Carbon-fiber arms and primary structural members provide the stiffness and low weight needed for efficient and stable flight. 3D-printed parts enable easy customization of microphone mounts, electronics brackets, and experimental sensor placements during development. This combination supports both structural performance and iterative design capability.
+
+---
+
+## 3D Printing Filament
+
+### Options Considered
+
+**1. PLA**
+- Standard entry-level 3D printing filament
+- Pros: easy to print, inexpensive, good for quick prototypes
+- Cons: brittle, lower heat resistance, not ideal for load-bearing or long-term drone parts
+- Estimated Price: ~$20–$25 per 1 kg spool
+
+**2. PETG**
+- Tougher and more heat-resistant than PLA
+- Pros: tougher than PLA, better heat resistance, easier to print than nylon, good layer adhesion, suitable for indoor/outdoor parts
+- Cons: not as stiff as carbon-fiber reinforced materials, less ideal than engineering nylon for high-performance brackets
+- Estimated Price: ~$20–$30 per 1 kg spool
+
+**3. Nylon**
+- Strong and impact resistant engineering material
+- Pros: strong and impact resistant, better for functional parts than PLA, more durable under mechanical stress
+- Cons: harder to print, absorbs moisture, more demanding storage and print setup requirements
+- Estimated Price: ~$30–$50 per 1 kg spool
+
+**4. Carbon-Fiber Reinforced Nylon**
+- Example: MatterHackers NylonX (PA12 nylon with ~20% chopped carbon fiber)
+- Pros: strong and stiff, better suited for engineering parts, useful for final brackets where rigidity matters
+- Cons: expensive, requires better printer capability and filament handling, more difficult than PETG
+- Estimated Price: ~$60–$70 per 0.5 kg spool
+
+### Selected Filament
+PETG for Prototyping, Carbon-Fiber Reinforced Nylon for Final Mounts
+
+### Justification
+PETG is selected for early prototypes because it is easier to print, durable, and reasonably priced. Carbon-fiber reinforced nylon is selected as the preferred final material for high-performance custom brackets and sensor mounts because it offers greater stiffness and strength. PLA is not selected for critical parts due to its brittleness and unsuitability for mechanically stressed drone components.
+
+---
+
+## Final Frame Design Summary
+
+| Aspect | Selection |
+|--------|-----------|
+| Frame Configuration | H-Frame |
+| Primary Structure | Carbon fiber |
+| Custom Mounts | 3D-printed (PETG for prototyping, CF-reinforced nylon for final) |
+
+### Justification
+This design provides the optimal balance of stability, payload space, low weight, structural strength, and custom sensor integration. The H-frame configuration is especially well suited for an acoustic measurement drone because the larger central section improves packaging and simplifies microphone placement and vibration isolation—critical factors for acoustic measurement quality. Carbon fiber supports efficient and rigid flight, while 3D-printed custom parts allow the system to adapt during testing and refinement.
+
+
 ### Power and Propulsion Subsystem Design Considerations
 
 **Potential Solutions**
