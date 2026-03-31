@@ -1137,85 +1137,95 @@ The physical controls should include two analog sticks, a dedicated autonomy kil
 
 This section is reserved for insertion of the formal controller-subsystem flowcharts in the final report.
 
-#### 9. Detailed “shall” statements
+#### 9. Detailed shall statements
 
 The following are customer-style requirements for the controller subsystem.
 
-A. General function
-The controller subsystem shall serve as the primary operator control and supervision interface for the autonomous acoustics measurement drone.
-The controller subsystem shall support both autonomous mission supervision and emergency manual flight takeover.
-The controller subsystem shall be implemented around a Raspberry Pi Zero 2 W or an equivalent platform that meets the same functional requirements for compute capability, display output, and GPIO expansion.
-The controller subsystem shall include an integrated display-based user interface.
-The controller subsystem shall include physical manual-control inputs suitable for emergency aircraft control.
-The controller subsystem shall support future software expansion without requiring replacement of the core controller hardware architecture.
-B. Selected hardware architecture
-The controller subsystem shall use a 5-inch class touch display compatible with the selected compute platform’s video output.
-The controller subsystem shall use an external ADC to acquire analog joystick inputs.
-The controller subsystem shall use a dedicated long-range radio subsystem separate from the laptop audio-data path.
-The controller subsystem shall use a battery-backed handheld power architecture capable of supporting the controller computer, display, radio hardware, and local I/O hardware simultaneously.
-The controller subsystem shall be housed in a custom 3D-printed enclosure.
-The controller enclosure shall be designed for manufacture using the same selected filament family used by the project’s frame subsystem.
-C. User interface and operator awareness
-The controller subsystem shall display the current aircraft mode, including at minimum autonomous, manual, paused, return, landing, and fault states.
-The controller subsystem shall display aircraft battery information during operation.
-The controller subsystem shall display controller battery or power status during operation.
-The controller subsystem shall display wireless-link status during operation.
-The controller subsystem shall display mission progress during autonomous operation.
-The controller subsystem shall present critical warnings in a manner visually distinguishable from advisory messages.
-The controller subsystem shall provide a user-accessible manual override interface at all times during flight.
-The controller subsystem shall provide a clear indication whenever autonomy has been disabled.
-The controller subsystem shall provide a clear indication whenever autonomy has been restored.
-The controller subsystem shall support a screen structure that allows the operator to access system overview, mission status, manual override, and fault information.
-D. Manual controls and safety
-The controller subsystem shall include at least two analog joystick axes per flight stick set as required by the final manual control scheme.
-The controller subsystem shall include a dedicated autonomy kill-switch or dedicated equivalent input with priority over normal mission-control commands.
-The controller subsystem shall prioritize manual takeover commands over routine supervisory commands.
-The controller subsystem shall continue to present fault and status information while manual control is active.
-The controller subsystem shall allow the operator to request return-to-land or equivalent safe recovery behavior after manual takeover.
-The controller subsystem shall not indicate that autonomous resume is available unless the drone-side system reports that resume conditions are valid.
-E. Wireless communication
-The controller subsystem shall communicate with the aircraft using the selected 915 MHz controller radio link.
-The controller subsystem shall support bidirectional exchange of operator commands and aircraft telemetry.
-The controller subsystem shall maintain separation between the controller radio link and the separate audio-data transmission path used by the DSP subsystem.
-The controller subsystem shall detect and report loss or degradation of the controller-to-aircraft link.
-The controller subsystem shall log or otherwise record loss-of-link events if logging is enabled in the final software build.
-The controller subsystem shall not route raw DSP audio through the controller as the primary measurement transport path.
-F. Interfaces to the drone’s internal components subsystem
-The controller subsystem shall transmit manual control inputs, supervisory commands, and mode requests to the drone’s internal control electronics through the selected radio architecture.
-The controller subsystem shall receive flight-mode status, mission status, aircraft battery telemetry, and subsystem-fault data from the drone’s internal control electronics.
-The controller subsystem shall support the selected control/telemetry architecture’s required serial and protocol compatibility on the controller side.
-The controller subsystem shall be configurable to work with the selected drone-side receiver output mode required by the aircraft control implementation.
-G. Analog and digital input acquisition
-The controller subsystem shall sample analog joystick inputs through the selected ADC interface.
-The controller subsystem shall provide enough analog input channels for the full set of planned joystick controls and at least one reasonable expansion margin.
-The controller subsystem shall debounce or otherwise condition digital button and switch inputs before use by the controller software.
-The controller subsystem shall continuously monitor the kill-switch input whenever the controller is powered and flight supervision is active.
-H. Power and battery subsystem requirements
-The controller subsystem shall operate from an onboard rechargeable battery system rather than requiring tethered wall power during normal use.
-The controller subsystem shall provide regulated power suitable for the compute platform and attached controller electronics.
-The controller subsystem shall provide sufficient runtime for a normal mission session as defined during detailed design verification.
-The controller subsystem shall support safe charging behavior appropriate to the selected battery configuration.
-The controller subsystem shall support battery-state monitoring visible to the operator, either directly or through controller software integration.
-The controller subsystem shall be designed so that the selected loose-cell battery arrangement can be installed and serviced safely within the enclosure.
-I. Mechanical and packaging requirements
-The controller subsystem shall be mechanically packaged for one-handed or two-handed handheld use, as required by the final ergonomic design.
-The controller subsystem shall secure the display, Pi, radio hardware, power hardware, and I/O hardware against loosening during normal transport and operation.
-The controller subsystem shall provide accessible openings or covers for charging, maintenance, and replacement of serviceable internal parts.
-The controller subsystem shall support antenna placement that minimizes shielding by the enclosure and the operator’s hands.
-The controller subsystem shall provide sufficient internal space and cable routing to prevent strain on the display, power, and radio connections.
-J. Software behavior
-The controller subsystem shall boot into a recognizable system state that allows the operator to determine readiness.
-The controller subsystem shall perform local initialization checks on critical controller hardware during startup.
-The controller subsystem shall not present the system as mission-ready when required controller hardware has failed initialization.
-The controller subsystem shall support a mission-supervision mode during autonomous flight.
-The controller subsystem shall support a manual-control mode during operator takeover.
-The controller subsystem shall support a fault/alert presentation mode whenever abnormal conditions are detected.
-The controller subsystem shall preserve configuration and calibration values needed for normal operation across power cycles, subject to the final software design.
-K. Integration with the larger project
-The controller subsystem shall operate as the operator-facing branch of the project’s broader coding subsystem.
-The controller subsystem shall interface cleanly with the drone’s internal components subsystem without requiring direct electrical connection to the aircraft’s propulsion hardware.
-The controller subsystem shall support supervisory interaction with the DSP subsystem through status and coordination data without replacing the DSP-to-laptop audio path.
-The controller subsystem shall be designed so that an engineer unfamiliar with the project can integrate it into the larger autonomous acoustic measurement system using the interfaces defined in this specification.
+**A. General function**
+- The controller subsystem shall serve as the primary operator control and supervision interface for the autonomous acoustics measurement drone.
+- The controller subsystem shall support both autonomous mission supervision and emergency manual flight takeover.
+- The controller subsystem shall be implemented around a Raspberry Pi Zero 2 W or an equivalent platform that meets the same functional requirements for compute capability, display output, and GPIO expansion.
+- The controller subsystem shall include an integrated display-based user interface.
+- The controller subsystem shall include physical manual-control inputs suitable for emergency aircraft control.
+- The controller subsystem shall support future software expansion without requiring replacement of the core controller hardware architecture.
+
+**B. Selected hardware architecture**
+- The controller subsystem shall use a 5-inch class touch display compatible with the selected compute platform’s video output.
+- The controller subsystem shall use an external ADC to acquire analog joystick inputs.
+- The controller subsystem shall use a dedicated long-range radio subsystem separate from the laptop audio-data path.
+- The controller subsystem shall use a battery-backed handheld power architecture capable of supporting the controller computer, display, radio hardware, and local I/O hardware simultaneously.
+- The controller subsystem shall be housed in a custom 3D-printed enclosure.
+- The controller enclosure shall be designed for manufacture using the same selected filament family used by the project’s frame subsystem.
+
+**C. User interface and operator awareness**
+- The controller subsystem shall display the current aircraft mode, including at minimum autonomous, manual, paused, return, landing, and fault states.
+- The controller subsystem shall display aircraft battery information during operation.
+- The controller subsystem shall display controller battery or power status during operation.
+- The controller subsystem shall display wireless-link status during operation.
+- The controller subsystem shall display mission progress during autonomous operation.
+- The controller subsystem shall present critical warnings in a manner visually distinguishable from advisory messages.
+- The controller subsystem shall provide a user-accessible manual override interface at all times during flight.
+- The controller subsystem shall provide a clear indication whenever autonomy has been disabled.
+- The controller subsystem shall provide a clear indication whenever autonomy has been restored.
+- The controller subsystem shall support a screen structure that allows the operator to access system overview, mission status, manual override, and fault information.
+
+**D. Manual controls and safety**
+- The controller subsystem shall include at least two analog joystick axes per flight stick set as required by the final manual control scheme.
+- The controller subsystem shall include a dedicated autonomy kill-switch or dedicated equivalent input with priority over normal mission-control commands.
+- The controller subsystem shall prioritize manual takeover commands over routine supervisory commands.
+- The controller subsystem shall continue to present fault and status information while manual control is active.
+- The controller subsystem shall allow the operator to request return-to-land or equivalent safe recovery behavior after manual takeover.
+- The controller subsystem shall not indicate that autonomous resume is available unless the drone-side system reports that resume conditions are valid.
+
+**E. Wireless communication**
+- The controller subsystem shall communicate with the aircraft using the selected 915 MHz controller radio link.
+- The controller subsystem shall support bidirectional exchange of operator commands and aircraft telemetry.
+- The controller subsystem shall maintain separation between the controller radio link and the separate audio-data transmission path used by the DSP subsystem.
+- The controller subsystem shall detect and report loss or degradation of the controller-to-aircraft link.
+- The controller subsystem shall log or otherwise record loss-of-link events if logging is enabled in the final software build.
+- The controller subsystem shall not route raw DSP audio through the controller as the primary measurement transport path.
+
+**F. Interfaces to the drone’s internal components subsystem**
+- The controller subsystem shall transmit manual control inputs, supervisory commands, and mode requests to the drone’s internal control electronics through the selected radio architecture.
+- The controller subsystem shall receive flight-mode status, mission status, aircraft battery telemetry, and subsystem-fault data from the drone’s internal control electronics.
+- The controller subsystem shall support the selected control/telemetry architecture’s required serial and protocol compatibility on the controller side.
+- The controller subsystem shall be configurable to work with the selected drone-side receiver output mode required by the aircraft control implementation.
+
+**G. Analog and digital input acquisition**
+- The controller subsystem shall sample analog joystick inputs through the selected ADC interface.
+- The controller subsystem shall provide enough analog input channels for the full set of planned joystick controls and at least one reasonable expansion margin.
+- The controller subsystem shall debounce or otherwise condition digital button and switch inputs before use by the controller software.
+- The controller subsystem shall continuously monitor the kill-switch input whenever the controller is powered and flight supervision is active.
+
+**H. Power and battery subsystem requirements**
+- The controller subsystem shall operate from an onboard rechargeable battery system rather than requiring tethered wall power during normal use.
+- The controller subsystem shall provide regulated power suitable for the compute platform and attached controller electronics.
+- The controller subsystem shall provide sufficient runtime for a normal mission session as defined during detailed design verification.
+- The controller subsystem shall support safe charging behavior appropriate to the selected battery configuration.
+- The controller subsystem shall support battery-state monitoring visible to the operator, either directly or through controller software integration.
+- The controller subsystem shall be designed so that the selected loose-cell battery arrangement can be installed and serviced safely within the enclosure.
+
+**I. Mechanical and packaging requirements**
+- The controller subsystem shall be mechanically packaged for one-handed or two-handed handheld use, as required by the final ergonomic design.
+- The controller subsystem shall secure the display, Pi, radio hardware, power hardware, and I/O hardware against loosening during normal transport and operation.
+- The controller subsystem shall provide accessible openings or covers for charging, maintenance, and replacement of serviceable internal parts.
+- The controller subsystem shall support antenna placement that minimizes shielding by the enclosure and the operator’s hands.
+- The controller subsystem shall provide sufficient internal space and cable routing to prevent strain on the display, power, and radio connections.
+
+**J. Software behavior**
+- The controller subsystem shall boot into a recognizable system state that allows the operator to determine readiness.
+- The controller subsystem shall perform local initialization checks on critical controller hardware during startup.
+- The controller subsystem shall not present the system as mission-ready when required controller hardware has failed initialization.
+- The controller subsystem shall support a mission-supervision mode during autonomous flight.
+- The controller subsystem shall support a manual-control mode during operator takeover.
+- The controller subsystem shall support a fault/alert presentation mode whenever abnormal conditions are detected.
+- The controller subsystem shall preserve configuration and calibration values needed for normal operation across power cycles, subject to the final software design.
+
+**K. Integration with the larger project**
+- The controller subsystem shall operate as the operator-facing branch of the project’s broader coding subsystem.
+- The controller subsystem shall interface cleanly with the drone’s internal components subsystem without requiring direct electrical connection to the aircraft’s propulsion hardware.
+- The controller subsystem shall support supervisory interaction with the DSP subsystem through status and coordination data without replacing the DSP-to-laptop audio path.
+- The controller subsystem shall be designed so that an engineer unfamiliar with the project can integrate it into the larger autonomous acoustic measurement system using the interfaces defined in this specification.
 
 #### 10. Final subsystem summary
 
