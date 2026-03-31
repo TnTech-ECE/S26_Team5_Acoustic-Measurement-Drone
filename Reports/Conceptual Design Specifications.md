@@ -970,17 +970,17 @@ The controller enclosure shall be a custom 3D-printed handheld frame, using the 
 
 At the subsystem level, the controller shall perform six primary functions.
 
-First, it shall provide the human-machine interface for the system. The operator must be able to see the current flight mode, autonomy state, link quality, battery state, mission progress, and fault conditions without requiring a separate ground-station display for core flight supervision.
+1. It shall provide the human-machine interface for the system. The operator must be able to see the current flight mode, autonomy state, link quality, battery state, mission progress, and fault conditions without requiring a separate ground-station display for core flight supervision.
 
-Second, it shall provide the manual input path for emergency intervention. This includes joystick axes, buttons, switches, and a dedicated autonomy kill-switch that can immediately suspend autonomous mission execution and transfer control authority to the operator.
+2. it shall provide the manual input path for emergency intervention. This includes joystick axes, buttons, switches, and a dedicated autonomy kill-switch that can immediately suspend autonomous mission execution and transfer control authority to the operator.
 
-Third, it shall provide the controller-side software interface to the broader coding subsystem. In practical terms, this means the controller software shall display status reported by the drone, send high-level mission commands, and support autonomy resume only when the drone reports that resumption is valid.
+3. It shall provide the controller-side software interface to the broader coding subsystem. In practical terms, this means the controller software shall display status reported by the drone, send high-level mission commands, and support autonomy resume only when the drone reports that resumption is valid.
 
-Fourth, it shall provide the primary wireless supervisory and manual-control link to the aircraft through the selected 915 MHz mLRS radio system. The selected mLRS family is explicitly designed for bidirectional MAVLink serial connection combined with full remote control, and ArduPilot documents that mLRS can provide RC control and MAVLink telemetry together, with receiver outputs usable as SBUS, CRSF, or embedded MAVLink override depending on configuration.
+4. It shall provide the primary wireless supervisory and manual-control link to the aircraft through the selected 915 MHz mLRS radio system. The selected mLRS family is explicitly designed for bidirectional MAVLink serial connection combined with full remote control, and ArduPilot documents that mLRS can provide RC control and MAVLink telemetry together, with receiver outputs usable as SBUS, CRSF, or embedded MAVLink override depending on configuration.
 
-Fifth, it shall provide local controller power management and runtime monitoring. The Waveshare UPS Module 3S supports three 18650 cells in series, simultaneous charge/discharge, stable 5 V and 3.3 V outputs, and I2C output for battery-related monitoring data. The chosen Samsung 35E cells are flat-top, unprotected 18650 cells rated around 3500 mAh nominal capacity and 8 A continuous discharge, which is appropriate for a moderate-load handheld controller.
+5. It shall provide local controller power management and runtime monitoring. The Waveshare UPS Module 3S supports three 18650 cells in series, simultaneous charge/discharge, stable 5 V and 3.3 V outputs, and I2C output for battery-related monitoring data. The chosen Samsung 35E cells are flat-top, unprotected 18650 cells rated around 3500 mAh nominal capacity and 8 A continuous discharge, which is appropriate for a moderate-load handheld controller.
 
-Sixth, it shall support future expansion. The selected Pi/display/radio architecture leaves room for later additions such as controller-side logs, configuration pages, preflight checklists, richer fault screens, or more advanced mission control workflows without requiring the subsystem to be redesigned from scratch.
+6. It shall support future expansion. The selected Pi/display/radio architecture leaves room for later additions such as controller-side logs, configuration pages, preflight checklists, richer fault screens, or more advanced mission control workflows without requiring the subsystem to be redesigned from scratch.
 
 #### 3. Controller subsystem internal architecture
 
@@ -1015,11 +1015,11 @@ From a system-integration standpoint, the controller indirectly depends on the f
 
 This is the most important subsystem interface. The controller communicates with the drone’s internal components subsystem through the airborne mR900-30 receiver and the drone’s flight/control electronics. Matek documents the receiver as supporting bidirectional serial MAVLink on TX1/RX1 and RC output on TX2 as CRSF or SBUS; ArduPilot documents that mLRS can provide RC control and MAVLink telemetry and that RC controls can be delivered in SBUS or CRSF or by MAVLink override over the telemetry connection. The mLRS documentation also describes using the transmitter’s serial/MAVLink stream for ground-station functions and recommends MAVLink mode when that stream is used.
 
-Signal type: wireless digital communication over 915 MHz between controller TX and drone RX; serial digital communication on the aircraft side between receiver and internal control electronics
-Direction: bidirectional
-Protocol: mLRS wireless link carrying MAVLink telemetry/supervisory data and RC-control data; aircraft-side interface configured around MAVLink plus CRSF or SBUS as required by detailed implementation
-Data sent by controller: manual stick commands, mode-change requests, autonomy start, pause, abort, return, land, and resume requests, UI-originated acknowledgments, and kill-switch state
-Data received by controller: flight mode, autonomy state, waypoint/mission progress, battery telemetry, link quality, warnings, faults, localization status, and any available subsystem-health telemetry
+- Signal type: wireless digital communication over 915 MHz between controller TX and drone RX; serial digital communication on the aircraft side between receiver and internal control electronics
+- Direction: bidirectional
+- Protocol: mLRS wireless link carrying MAVLink telemetry/supervisory data and RC-control data; aircraft-side interface configured around MAVLink plus CRSF or SBUS as required by detailed implementation
+- Data sent by controller: manual stick commands, mode-change requests, autonomy start, pause, abort, return, land, and resume requests, UI-originated acknowledgments, and kill-switch state
+- Data received by controller: flight mode, autonomy state, waypoint/mission progress, battery telemetry, link quality, warnings, faults, localization status, and any available subsystem-health telemetry
 
 This interface is what makes the controller the operator-facing branch of the broader coding subsystem. The controller does not replace the drone’s onboard autonomy logic; it supervises and overrides it when necessary.
 
@@ -1227,9 +1227,7 @@ The following are customer-style requirements for the controller subsystem.
 - The controller subsystem shall support supervisory interaction with the DSP subsystem through status and coordination data without replacing the DSP-to-laptop audio path.
 - The controller subsystem shall be designed so that an engineer unfamiliar with the project can integrate it into the larger autonomous acoustic measurement system using the interfaces defined in this specification.
 
-#### 10. Final subsystem summary
 
-The controller subsystem is a custom handheld supervisory control unit built around the Raspberry Pi Zero 2 W, a 5-inch touch display, external analog-input hardware, a 915 MHz mLRS control/telemetry link, and a 3×18650 power system. Its purpose is to give the operator a reliable, expandable, and safety-focused interface for monitoring the autonomous drone, interrupting autonomy instantly when needed, and coordinating with the rest of the system without interfering with the separate DSP audio path.
 
 ## Ethical, Professional, and Standards Considerations
 
