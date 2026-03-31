@@ -1172,7 +1172,7 @@ The physical controls should include two analog sticks, a dedicated autonomy kil
 
 #### 8. Functional flowchart section
 
-![Controller Subsystem Flowchart](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Rough_Draft_Project/Reports/Images/Controller%20Subsystem%20Flowchart%20-%20Sean%20Ike.pdf)
+![Alt text](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Rough_Draft_Project/Reports/Images/Controller%20Subsystem%20Flowchart%20-%20Sean%20Ike.pdf)
 
 
 #### 9. Detailed shall statements
