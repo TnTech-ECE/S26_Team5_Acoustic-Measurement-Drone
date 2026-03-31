@@ -95,101 +95,98 @@ $$
 - The system shall incorporate protective measures to prevent injury to personnel or damage to venue infrastructure.
 - The system shall include emergency shutdown functionality to ensure safe operation in fault conditions.
 
-## Comparative Analysis of Potential Solutions
 
-In this section, various potential solutions are hypothesized, design considerations are discussed, and factors influencing the selection of a solution are outlined. The chosen solution is then identified with justifications for its selection.
+# Comparative Analysis of Potential Solutions
+
 
 ## Frame Configuration
 
-### Options Considered
+**Options Considered**
 
 **1. X-Frame**
-- Most common quadcopter layout with symmetrical geometry
+Most common quadcopter layout with symmetrical geometry.
 - Pros: balanced and symmetrical layout, good maneuverability and control response, widely used with abundant replacement parts and design knowledge
 - Cons: less central space for payload mounting, harder to isolate sensors from propulsion-related vibration, optimized for agility over instrument carrying
 - Estimated Price: $30–$150 (carbon-fiber kits)
 
 **2. H-Frame**
-- Wider center body with extended arms creating larger middle section for electronics and payload
+Wider center body with extended arms creating a larger middle section for electronics and payload.
 - Pros: larger center area for electronics and sensors, easier to mount payloads and custom hardware, better suited for research and experimental platforms, convenient for battery placement and vibration isolation
 - Cons: slightly bulkier than X-frame, creates somewhat more drag, less agile than racing-focused frames
 - Estimated Price: $30–$80 (hobby-grade carbon-fiber)
 
 **3. Deadcat Frame**
-- Front arms moved outward to keep propellers out of forward camera view
+Front arms moved outward to keep propellers out of the forward camera view.
 - Pros: keeps front propellers out of camera view, decent center space for components, useful for forward-facing imaging
 - Cons: less symmetrical layout, not ideal for balanced sensor placement, more beneficial for video than acoustic work
 - Estimated Price: $40–$90 (carbon-fiber kits)
 
-### Selected Configuration
-H-Frame
+**Selected Configuration:** H-Frame
 
-### Justification
+**Justification**
 The H-frame best matches the project's functional priorities for an acoustic measurement drone. Unlike racing-oriented layouts, this drone requires adequate room for microphone placement, acoustic electronics, onboard processor (Raspberry Pi), battery and wiring, and vibration-isolation mounts. The wider central body reduces packaging constraints and improves sensor placement flexibility. The slight increase in bulk is an acceptable tradeoff for stability, mounting space, and structural practicality.
+
 
 
 ## Frame Material
 
-### Options Considered
+**Options Considered**
 
 **1. Carbon Fiber**
-- Widely used in drone structures for high stiffness and low weight
+Widely used in drone structures for high stiffness and low weight.
 - Pros: very high strength-to-weight ratio, stiff and lightweight, common in drone frame construction, maintains structural rigidity in flight
 - Cons: more expensive than plastic, harder to machine and repair, damaged parts need replacement rather than reshaping
 
 **2. Aluminum**
-- Durable and easy to machine, useful for prototypes and support brackets
+Durable and easy to machine, useful for prototypes and support brackets.
 - Pros: durable, easy to machine, readily available, good for brackets and support pieces
 - Cons: heavier than carbon fiber, transmits more vibration, less ideal where low mass is critical
 
 **3. 3D-Printed Plastic**
-- Useful for prototypes, custom brackets, and sensor mounts
+Useful for prototypes, custom brackets, and sensor mounts.
 - Pros: inexpensive, easy to prototype and customize, good for sensor holders and non-critical mounts
 - Cons: weaker than carbon fiber or aluminum for primary load-bearing structure, can deform or crack under repeated stress, not ideal for full structural arms
 
-### Selected Material
-Hybrid Carbon Fiber + 3D-Printed Parts
+**Selected Material:** Hybrid Carbon Fiber + 3D-Printed Parts
 
-### Justification
+**Justification**
 This hybrid approach provides the structural advantages of carbon fiber while preserving the flexibility of additive manufacturing. Carbon-fiber arms and primary structural members provide the stiffness and low weight needed for efficient and stable flight. 3D-printed parts enable easy customization of microphone mounts, electronics brackets, and experimental sensor placements during development. This combination supports both structural performance and iterative design capability.
 
----
 
 ## 3D Printing Filament
 
-### Options Considered
+**Options Considered**
 
 **1. PLA**
-- Standard entry-level 3D printing filament
+Standard entry-level 3D printing filament.
 - Pros: easy to print, inexpensive, good for quick prototypes
 - Cons: brittle, lower heat resistance, not ideal for load-bearing or long-term drone parts
 - Estimated Price: ~$20–$25 per 1 kg spool
 
 **2. PETG**
-- Tougher and more heat-resistant than PLA
+Tougher and more heat-resistant than PLA.
 - Pros: tougher than PLA, better heat resistance, easier to print than nylon, good layer adhesion, suitable for indoor/outdoor parts
 - Cons: not as stiff as carbon-fiber reinforced materials, less ideal than engineering nylon for high-performance brackets
 - Estimated Price: ~$20–$30 per 1 kg spool
 
 **3. Nylon**
-- Strong and impact resistant engineering material
+Strong and impact-resistant engineering material.
 - Pros: strong and impact resistant, better for functional parts than PLA, more durable under mechanical stress
 - Cons: harder to print, absorbs moisture, more demanding storage and print setup requirements
 - Estimated Price: ~$30–$50 per 1 kg spool
 
 **4. Carbon-Fiber Reinforced Nylon**
-- Example: MatterHackers NylonX (PA12 nylon with ~20% chopped carbon fiber)
+Example: MatterHackers NylonX (PA12 nylon with ~20% chopped carbon fiber).
 - Pros: strong and stiff, better suited for engineering parts, useful for final brackets where rigidity matters
 - Cons: expensive, requires better printer capability and filament handling, more difficult than PETG
 - Estimated Price: ~$60–$70 per 0.5 kg spool
 
-### Selected Filament
-PETG for Prototyping, Carbon-Fiber Reinforced Nylon for Final Mounts
+**Selected Filament:** PETG for Prototyping, Carbon-Fiber Reinforced Nylon for Final Mounts
 
-### Justification
+**Justification**
 PETG is selected for early prototypes because it is easier to print, durable, and reasonably priced. Carbon-fiber reinforced nylon is selected as the preferred final material for high-performance custom brackets and sensor mounts because it offers greater stiffness and strength. PLA is not selected for critical parts due to its brittleness and unsuitability for mechanically stressed drone components.
 
----
+
 
 ## Final Frame Design Summary
 
@@ -199,29 +196,28 @@ PETG is selected for early prototypes because it is easier to print, durable, an
 | Primary Structure | Carbon fiber |
 | Custom Mounts | 3D-printed (PETG for prototyping, CF-reinforced nylon for final) |
 
-### Justification
-This design provides the optimal balance of stability, payload space, low weight, structural strength, and custom sensor integration. The H-frame configuration is especially well suited for an acoustic measurement drone because the larger central section improves packaging and simplifies microphone placement and vibration isolation—critical factors for acoustic measurement quality. Carbon fiber supports efficient and rigid flight, while 3D-printed custom parts allow the system to adapt during testing and refinement.
+**Justification**
+This design provides the optimal balance of stability, payload space, low weight, structural strength, and custom sensor integration. The H-frame configuration is especially well suited for an acoustic measurement drone because the larger central section improves packaging and simplifies microphone placement and vibration isolation — critical factors for acoustic measurement quality. Carbon fiber supports efficient and rigid flight, while 3D-printed custom parts allow the system to adapt during testing and refinement.
 
 
-### Power and Propulsion Subsystem Design Considerations
 
-**Potential Solutions**
+## Power and Propulsion Subsystem
 
-&nbsp; &nbsp; &nbsp; &nbsp; Several configurations were considered for the power and propulsion subsystem, focusing on battery type, motor selection, propeller size, and electronic speed controller (ESC) configuration.
+**Options Considered**
 
-&nbsp; &nbsp; &nbsp; &nbsp; For the battery, both lithium-polymer (LiPo) and lithium-ion (Li-Ion) options were evaluated. LiPo batteries provide higher discharge rates and are commonly used in high-performance drones, while Li-Ion batteries offer higher energy density and improved endurance.
+**Battery**
+Both lithium-polymer (LiPo) and lithium-ion (Li-Ion) options were evaluated. LiPo batteries provide higher discharge rates and are commonly used in high-performance drones, while Li-Ion batteries offer higher energy density and improved endurance.
 
-&nbsp; &nbsp; &nbsp; &nbsp; For motor selection, two primary approaches were considered. The first involved larger, low-KV motors such as the Tarot 4112 300KV, which are typically paired with larger propellers (15–16 inches) for maximum efficiency. The second approach involved smaller, lighter motors such as the SunnySky V4008 380KV, which are better suited for mid-sized propellers (12–13 inches) and reduced overall system weight.
+**Motors**
+Two primary approaches were considered. Larger, low-KV motors such as the Tarot 4112 300KV are typically paired with larger propellers (15–16 inches) for maximum efficiency. Smaller, lighter motors such as the SunnySky V4008 380KV are better suited for mid-sized propellers (12–13 inches) and reduced overall system weight.
 
-&nbsp; &nbsp; &nbsp; &nbsp; Propeller sizes ranging from 12-inch to 15-inch were evaluated. Larger propellers provide higher efficiency and thrust at lower RPMs but require a larger frame and increase system size. Smaller propellers allow for a more compact design but may reduce efficiency and increase power consumption.
+**Propellers**
+Sizes ranging from 12-inch to 15-inch were evaluated. Larger propellers provide higher efficiency and thrust at lower RPMs but require a larger frame and increase system size. Smaller propellers allow for a more compact design but may reduce efficiency and increase power consumption.
 
-&nbsp; &nbsp; &nbsp; &nbsp; For ESC configuration, both 4-in-1 ESCs and individual ESCs were considered. A 4-in-1 ESC offers compact integration and reduced wiring, while individual ESCs provide better thermal distribution, easier replacement, and greater flexibility in larger custom frames.
-
----
+**ESC Configuration**
+Both 4-in-1 ESCs and individual ESCs were considered. A 4-in-1 ESC offers compact integration and reduced wiring, while individual ESCs provide better thermal distribution, easier replacement, and greater flexibility in larger custom frames.
 
 **Design Considerations**
-
-&nbsp; &nbsp; &nbsp; &nbsp; The design process was influenced by several key factors:
 
 - **Endurance Requirements:** The system must support extended flight time for mapping operations, prioritizing efficiency over speed.
 - **Weight Constraints:** Reducing total aircraft mass is critical for improving flight time and reducing required thrust.
@@ -231,391 +227,321 @@ This design provides the optimal balance of stability, payload space, low weight
 - **Thermal and Reliability Considerations:** ESC and motor selection must ensure safe operation under continuous load conditions.
 - **Integration Simplicity:** The design should allow for straightforward integration with the flight controller and payload systems.
 
----
+**Selected Configuration**
 
-**Factors Influencing Final Selection**
+**6S 8000 mAh Li-Ion Battery**
 
-&nbsp; &nbsp; &nbsp; &nbsp; The final configuration was selected based on a balance between efficiency, weight, and compatibility with the frame and mission requirements.
+![6S 8000 mAh Li-Ion Battery](Reports/Images/FullsendBattery.png)
 
-- The **Li-Ion battery** was chosen over LiPo due to its higher energy density, enabling longer flight times.
-- The **SunnySky V4008 380KV motors** were selected instead of heavier alternatives to reduce total system weight while maintaining sufficient thrust capability.
-- The **13-inch propellers** were selected as a compromise between efficiency and frame constraints, providing improved performance over 12-inch props while remaining compatible with the existing frame.
-- **Individual ESCs** were selected instead of a 4-in-1 configuration to improve thermal performance and simplify integration within the larger frame.
+**SunnySky V4008 380KV Brushless Motors (×4)**
 
----
+![SunnySky V4008 380KV Motor](Reports/Images/SunnySkyMotor.png)
 
-**Final Design Selection**
+**HobbyWing XRotor 40A ESCs (×4)**
 
-&nbsp; &nbsp; &nbsp; &nbsp; The final power and propulsion subsystem configuration consists of:
+![HobbyWing XRotor 40A ESC](Reports/Images/HobbyWingESC.png)
 
-- 6S 8000 mAh Li-Ion battery
+**APC 13×4.5 Multirotor Propellers (×4)**
 
-  ![Alt text](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Rough_Draft_Project/Reports/Images/Fullsend%20Battery.png)
-    
-- SunnySky V4008 380KV brushless motors (×4)
+![APC 13×4.5 Propellers](Reports/Images/APCpropellers.png)
 
-   ![Alt text](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Rough_Draft_Project/Reports/Images/SunnySky%20Motor.png)
-  
-- HobbyWing XRotor 40A ESCs (×4)
+**16 in × 16 in 3D-Printed H-Frame**
 
-   ![Alt text](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Rough_Draft_Project/Reports/Images/HobbyWing%20ESC.png)
-  
-- APC 13×4.5 multirotor propellers (×4)
+**Justification**
+- **Battery:** Li-Ion chosen over LiPo for higher energy density, enabling longer flight times.
+- **Motors:** SunnySky V4008 380KV selected over heavier alternatives to reduce total system weight while maintaining sufficient thrust capability.
+- **Propellers:** 13-inch selected as a compromise between efficiency and frame constraints, providing improved performance over 12-inch props while remaining compatible with the existing frame.
+- **ESCs:** Individual ESCs selected over 4-in-1 to improve thermal performance and simplify integration within the larger frame.
 
-    ![Alt text](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Rough_Draft_Project/Reports/Images/APC%20propellers.png)
-  
-- 16 in × 16 in 3D-printed H-frame  
+This configuration provides a balanced solution that meets the endurance requirements of the project while maintaining compatibility with the mechanical design. The selected components reduce unnecessary weight, improve efficiency during hover, and allow the system to achieve an estimated flight time near 20 minutes under optimized operating conditions.
 
-&nbsp; &nbsp; &nbsp; &nbsp; This configuration provides a balanced solution that meets the endurance requirements of the project while maintaining compatibility with the mechanical design. The selected components reduce unnecessary weight, improve efficiency during hover, and allow the system to achieve an estimated flight time near 20 minutes under optimized operating conditions.
 
----
+## Computing Architecture
 
-**Justification Summary**
+**Options Considered**
 
-&nbsp; &nbsp; &nbsp; &nbsp; The chosen design represents a compromise between competing design constraints. While larger propellers and motors could improve efficiency, they would require a larger frame and increase system complexity. Conversely, smaller components would reduce size but negatively impact endurance. The selected configuration achieves an effective balance by maximizing efficiency within the constraints of the existing frame and mission requirements.
-
-&nbsp; &nbsp; &nbsp; &nbsp; Overall, the final design supports stable, efficient, and reliable autonomous mapping operation while remaining practical for implementation and integration.
-
-### Computing Architecture
-
-#### Options Considered
-
-**1. Flight Controller (FC)** [[1](#References)]
-- Examples: Pixhawk 6C
-- Integrated IMU, barometer, flight firmware (PX4 / ArduPilot)
+**1. Flight Controller Only**
+Examples: Pixhawk 6C. Integrated IMU, barometer, and flight firmware (PX4 / ArduPilot).
 - Pros: built-in stabilization, integrated sensors, fast development, reliable
-- Cons: limited low-level control, less flexibility, firmware-dependent, higher cost ($80–$200)
+- Cons: limited low-level control, less flexibility, firmware-dependent
+- Estimated Price: $80–$200
 
 **2. Custom Microcontroller**
-- Example: STM32, Raspberry Pi
-- Pros: full control, highly customizable, lightweight, very low cost ($10–$30)
-- Cons: must build control + sensor fusion, high development time
+Examples: STM32, Raspberry Pi.
+- Pros: full control, highly customizable, lightweight, very low cost
+- Cons: must build control and sensor fusion from scratch, high development time
+- Estimated Price: $10–$30
 
 **3. Flight Controller + Companion Microcontroller**
-- FC → low-level control
-- MCU → mission-specific tasks
-- Pros: combines reliability + flexibility, supports custom processing, scalable
-- Cons: added complexity, communication required, higher power, highest total cost ($100–$250)
+FC handles low-level control; MCU handles mission-specific tasks.
+- Pros: combines reliability and flexibility, supports custom processing, scalable
+- Cons: added complexity, communication overhead required, higher power consumption
+- Estimated Price: $100–$250
 
-#### Selected Architecture
-Flight Controller Only
+**Selected Architecture:** Flight Controller Only
 
-#### Justification
+**Justification**
 Given the simplified mission scope — preset waypoints in a flat-box venue — a standalone flight controller provides sufficient processing capability. Flight controller firmware natively handles stabilization, waypoint navigation, sensor integration, and obstacle avoidance responses without requiring a companion microcontroller. This reduces system complexity, weight, and cost.
 
----
 
-### Flight Controller Selection
 
-#### Options Considered
+## Flight Controller Selection
 
-**1. Pixhawk 6C (Holybro)** [[1](#References)]
-- Price: ~$180–$220 (higher-end, expanded capability)
+**Options Considered**
+
+**1. Pixhawk 6C (Holybro)**
 - Processor: STM32H743
 - Sensors: redundant IMUs, onboard barometer and magnetometer
 - Connectivity: multiple telemetry ports, dual power inputs — higher expandability and redundancy
-- Integration: easier for complex or expanding systems
+- Estimated Price: ~$180–$220
 
-**2. Pixhawk 6C Mini (Holybro)** [[2](#References)]
-- Price: ~$120–$150 (cost-effective, compact design)
+**2. Pixhawk 6C Mini (Holybro)**
 - Processor: STM32H743
 - Sensors: redundant IMUs, onboard barometer and magnetometer (identical to 6C)
-- Connectivity: reduced port availability, single power input — more constrained system design
-- Integration: sufficient for fixed, well-defined systems; less flexible for future expansion
+- Connectivity: reduced port availability, single power input — more constrained but sufficient for a fixed, well-defined system
+- Estimated Price: ~$120–$150
 
-#### Selected Flight Controller
-Pixhawk 6C Mini
+**Selected Flight Controller:** Pixhawk 6C Mini
 
 ![Pixhawk 6C Mini](Images/6cmini.png)
 
-#### Justification
-- Provides identical processing and sensing performance to the Pixhawk 6C
-- Meets all required connectivity needs for the system
-- Reduces cost and avoids unnecessary expansion capability
-- Simplifies overall system design while maintaining reliability
-
----
+**Justification**
+The Pixhawk 6C Mini provides identical processing and sensing performance to the full 6C while reducing cost and avoiding unnecessary expansion capability. It meets all required connectivity needs for the system and simplifies overall system design without sacrificing reliability.
 
 
-### State Estimation (Pose Estimation)
+## State Estimation
 
 The state estimation subsystem determines the drone's orientation and relative motion during flight using the onboard sensors of the Pixhawk 6C Mini.
 
-#### Options Considered
+**Options Considered**
 
-**IMU** [[2](#References)]
-- Sensors: ICM-42688-P and BMI055 (dual accel/gyro)
-- Provides angular velocity and linear acceleration used to estimate roll, pitch, and yaw
-- High update rate enables real-time stabilization; dual IMUs improve reliability
-- Subject to drift over time and requires vibration isolation for accurate measurements
+**IMU — ICM-42688-P and BMI055 (dual accel/gyro)**
+Provides angular velocity and linear acceleration used to estimate roll, pitch, and yaw. High update rate enables real-time stabilization; dual IMUs improve reliability. Subject to drift over time and requires vibration isolation for accurate measurements.
 
-**Magnetometer** [[2](#References)]
-- Sensor: IST8310 (onboard)
-- Provides heading reference to correct yaw drift from the IMU
-- Improves directional stability during navigation between measurement points
-- Sensitive to magnetic interference from motors, wiring, and environment
+**Magnetometer — IST8310 (onboard)**
+Provides heading reference to correct yaw drift from the IMU. Improves directional stability during navigation between measurement points. Sensitive to magnetic interference from motors, wiring, and environment.
 
-**Barometer** [[2](#References)]
-- Sensor: MS5611 (onboard)
-- Provides relative altitude estimation for vertical control and level transitions
-- Lightweight and directly integrated with flight controller firmware
-- Affected by pressure variation and airflow, limiting precision at small height changes
+**Barometer — MS5611 (onboard)**
+Provides relative altitude estimation for vertical control and level transitions. Lightweight and directly integrated with flight controller firmware. Affected by pressure variation and airflow, limiting precision at small height changes.
 
 **Optical Flow / VIO**
-- Considered as an optional addition for relative horizontal motion estimation
-- Can improve short-range position hold and reduce drift during hover
-- Adds additional hardware and integration complexity; performance depends on surface texture and lighting
+Considered as an optional addition for relative horizontal motion estimation. Can improve short-range position hold and reduce drift during hover. Adds additional hardware and integration complexity; performance depends on surface texture and lighting.
 
-#### Selected Configuration
-- Onboard IMUs (ICM-42688-P, BMI055)
-- Onboard magnetometer (IST8310)
-- Onboard barometer (MS5611)
+**Selected Configuration:** Onboard IMUs (ICM-42688-P, BMI055), Onboard Magnetometer (IST8310), Onboard Barometer (MS5611)
 
-#### Justification
-- Provides sufficient orientation and relative motion estimation for stable flight and control
-- Fully supported by flight controller firmware with minimal additional integration
-- Optical flow was evaluated for state estimation but is instead implemented as a dedicated localization sensor, covered in the Localization subsection.
+**Justification**
+The onboard sensor suite provides sufficient orientation and relative motion estimation for stable flight and control, and is fully supported by flight controller firmware with minimal additional integration. Optical flow was evaluated for state estimation but is instead implemented as a dedicated localization sensor, covered in the Localization subsection.
 
----
 
-### Localization
+
+## Localization
 
 The localization subsystem estimates the drone's position across the horizontal plane and altitude during autonomous indoor flight to support stable hover and waypoint execution.
 
-#### Options Considered
+**Options Considered**
 
-**1. GPS** [[3](#References)]
-- Examples: Here3+, u-blox M9N
-- Standard satellite-based localization
+**1. GPS**
+Examples: Here3+, u-blox M9N. Standard satellite-based localization.
 - Pros: globally accurate, well supported by ArduPilot/PX4, no additional hardware
 - Cons: unreliable indoors due to signal obstruction and multipath interference
 
-**2. Ultra-Wideband (UWB)** [[3](#References)]
-- Examples: Pozyx, Marvelmind
-- RF time-of-flight ranging between fixed anchors and a drone-mounted tag
+**2. Ultra-Wideband (UWB)**
+Examples: Pozyx, Marvelmind. RF time-of-flight ranging between fixed anchors and a drone-mounted tag.
 - Pros: centimeter-level indoor accuracy
-- Cons: requires pre-installed anchor infrastructure throughout the venue; high setup overhead and cost
+- Cons: requires pre-installed anchor infrastructure throughout the venue, high setup overhead and cost
 
-**3. Optical Flow + Downward Distance Sensor** [[4](#References)]
-- Example: Holybro H-Flow
-- Tracks surface features beneath the drone for horizontal velocity estimation; downward distance sensor provides altitude hold
+**3. Optical Flow + Downward Distance Sensor**
+Example: Holybro H-Flow. Tracks surface features beneath the drone for horizontal velocity estimation; downward distance sensor provides altitude hold.
 - Pros: self-contained, no external infrastructure, lightweight, low cost, native ArduPilot/PX4 support
-- Cons: drift over long distances; performance dependent on surface texture and lighting
+- Cons: drift over long distances, performance dependent on surface texture and lighting
 
-#### Selected Localization Method
-Optical Flow + Downward Distance Sensor (Holybro H-Flow)
+**Selected Localization Method:** Optical Flow + Downward Distance Sensor (Holybro H-Flow)
 
 ![Holybro H-Flow](Images/hflow.png)
 
-#### Justification
+**Justification**
 GPS is unsuitable for indoor use. UWB offers accuracy but requires anchor installation incompatible with live-event time constraints. Optical flow requires no external infrastructure, integrates natively with the Pixhawk 6C Mini, and provides sufficient stability for a low-speed preset waypoint mission in a flat-box venue.
 
----
 
-### Obstacle Detection
+## Obstacle Detection
 
 The obstacle detection subsystem is responsible for identifying objects within the drone's flight path during navigation between waypoints to prevent collisions and ensure safe operation.
 
-#### Options Considered
+**Options Considered**
 
-**1. Ultrasonic Sensors** [[5](#References)]
-- Examples: HC-SR04, MaxSonar EZ series
-- Emit sound pulses and measure return time to estimate distance
+**1. Ultrasonic Sensors**
+Examples: HC-SR04, MaxSonar EZ series. Emit sound pulses and measure return time to estimate distance.
 - Pros: very low cost, simple integration
 - Cons: narrow detection cone, slow update rate, susceptible to interference from drone motor noise and acoustic reflections in venue environments
 
-**2. Single-Point ToF Sensor** [[6](#References)]
-- Examples: Benewake TFMini, VL53L1X
-- Single-axis distance measurement using time-of-flight
+**2. Single-Point ToF Sensor**
+Examples: Benewake TFMini, VL53L1X. Single-axis distance measurement using time-of-flight.
 - Pros: lightweight, inexpensive, UART/I2C compatible
-- Cons: extremely narrow field of view (~2-3°); multiple units required for adequate coverage, increasing wiring complexity
+- Cons: extremely narrow field of view (~2–3°), multiple units required for adequate coverage, increasing wiring complexity
 
-**3. 2D Scanning LiDAR** [[7](#References)]
-- Example: SLAMTEC RPLIDAR C1
-- Rotating laser scanner providing continuous 360° horizontal distance measurements
+**3. 2D Scanning LiDAR**
+Example: SLAMTEC RPLIDAR C1. Rotating laser scanner providing continuous 360° horizontal distance measurements.
 - Pros: full horizontal coverage with no blind spots, 12m range, 5KHz sample rate, TTL UART interface, lightweight at 110g, IP54 rated
-- Cons: detects obstacles only in the horizontal plane; does not cover above or below the drone
+- Cons: detects obstacles only in the horizontal plane, does not cover above or below the drone
 
-#### Selected Sensor
-SLAMTEC RPLIDAR C1
+**Selected Sensor:** SLAMTEC RPLIDAR C1
 
 ![SLAMTEC RPLIDAR C1](Images/rplidarc1.png)
 
-#### Justification
+**Justification**
 Ultrasonic sensors are susceptible to motor noise and provide insufficient coverage. Single-point ToF sensors require multiple units for adequate coverage, adding cost and payload weight. The RPLIDAR C1 provides full 360° coverage in a single lightweight unit, interfaces directly with the Pixhawk 6C Mini via TTL UART, and comfortably meets the demands of a low-speed waypoint mission.
 
-## **Acoustic Signal Processing Subsystem**
 
-&nbsp; &nbsp; &nbsp; &nbsp; Designing the acoustic signal processing subsystem requires careful consideration of measurement quality, system weight, integration complexity, and compatibility with real-world audio workflows. Multiple approaches exist for microphone selection, signal conditioning, processing, and transmission, each presenting tradeoffs between accuracy, practicality, and system feasibility. The following approaches are evaluated to determine a solution that balances performance with the constraints of an airborne measurement platform.
 
-### **Microphone Selection**
+## Acoustic Signal Processing Subsystem
 
-**Measurement Microphone Approach**
+Designing the acoustic signal processing subsystem requires careful consideration of measurement quality, system weight, integration complexity, and compatibility with real-world audio workflows. Multiple approaches exist for microphone selection, signal conditioning, processing, and transmission, each presenting tradeoffs between accuracy, practicality, and system feasibility. The following approaches are evaluated to determine a solution that balances performance with the constraints of an airborne measurement platform.
 
-&nbsp; &nbsp; &nbsp; &nbsp; One potential solution is the use of a laboratory-grade measurement microphone such as the Earthworks M30. These microphones are designed to provide highly accurate and flat frequency response across a wide bandwidth, making them ideal for precision acoustic measurements. When paired with appropriate preamplification and phantom power, they can deliver highly reliable data for transfer-function and impulse-response analysis.
+### Microphone Selection
 
-&nbsp; &nbsp; &nbsp; &nbsp; However, this approach introduces significant challenges when applied to an aerial system. Measurement microphones typically require 48 V phantom power, increasing power consumption and necessitating additional power conversion hardware. They are also physically larger and heavier, which negatively impacts drone payload capacity and flight stability. Integration complexity is increased due to the need for balanced XLR connections and external preamplifiers. As a result, while this approach offers the highest measurement accuracy, it is not well suited for a compact, lightweight, and mobile platform.
+**Options Considered**
 
-**Prosumer Lavalier Microphone Approach**
+**1. Measurement Microphone**
+Example: Earthworks M30. Laboratory-grade microphone designed for highly accurate and flat frequency response across a wide bandwidth.
+- Pros: highest measurement accuracy, ideal for transfer-function and impulse-response analysis
+- Cons: requires 48V phantom power, physically larger and heavier, requires balanced XLR connections and external preamplifiers — not well suited for a compact, lightweight, mobile platform
 
-&nbsp; &nbsp; &nbsp; &nbsp; Another option is the use of a consumer or prosumer lavalier microphone such as the Rode Lavalier GO. These microphones are lightweight, inexpensive, and easy to integrate with systems that support standard 3.5 mm TRS inputs. They operate using plug-in power and can be directly connected to many embedded audio systems without additional circuitry.
+**2. Prosumer Lavalier Microphone**
+Example: Rode Lavalier GO. Lightweight, inexpensive, and easy to integrate with systems that support standard 3.5 mm TRS inputs.
+- Pros: lightweight, inexpensive, simple integration, operates on plug-in power
+- Cons: limited control over signal conditioning, lower durability and consistency compared to professional-grade options, electrical interface may not be ideal for custom analog front-end circuitry
 
-&nbsp; &nbsp; &nbsp; &nbsp; This approach simplifies implementation and reduces development time; however, it provides limited control over signal conditioning and typically offers lower durability and consistency compared to professional-grade microphones. Additionally, the electrical interface may not be ideal for integration with custom analog front-end circuitry, and performance may vary depending on the specific input configuration. While this solution improves ease of use, it sacrifices robustness and flexibility in system design.
+**3. Professional Lavalier Microphone with Custom Front-End**
+Example: Countryman B6 with custom-designed analog front-end.
+- Pros: extremely small form factor, low weight, high durability, precise control over microphone biasing, AC coupling, and signal amplification via custom front-end, improved reliability and consistency over consumer options
+- Cons: additional design complexity, sacrifices absolute measurement accuracy in favor of portability
 
-**Professional Lavalier Microphone with Custom Front-End Approach (Selected)**
+**Selected Microphone:** Countryman B6 with Custom Analog Front-End
 
-&nbsp; &nbsp; &nbsp; &nbsp; The selected solution utilizes a professional lavalier microphone, specifically the Countryman B6, combined with a custom-designed analog front-end. The B6 provides an extremely small form factor, low weight, and high durability, making it well suited for aerial deployment. Unlike consumer lavalier microphones, it is designed for professional audio environments and offers improved reliability and consistency.
+**Justification**
+The B6 provides an extremely small form factor, low weight, and high durability, making it well suited for aerial deployment. The custom analog front-end allows for precise control over microphone biasing, AC coupling, and signal amplification, ensuring the signal is properly conditioned before digitization. This configuration sacrifices absolute measurement accuracy in favor of portability and practical implementation while still producing acoustically meaningful data for comparative analysis.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The use of a custom analog front-end allows for precise control over microphone biasing, AC coupling, and signal amplification. This ensures that the microphone signal is properly conditioned before being digitized, improving overall signal quality and enabling effective downstream processing. While this approach introduces additional design complexity, it provides a balance between performance, integration flexibility, and system feasibility. The selected configuration sacrifices absolute measurement accuracy in favor of portability and practical implementation while still producing acoustically meaningful data for comparative analysis
 
-### **Embedded Processing**
+### Embedded Processing
 
-&nbsp; &nbsp; &nbsp; &nbsp; Processing the microphone signal requires consideration of computational capability, power consumption, and system complexity. Multiple approaches were evaluated for implementing signal conditioning and noise reduction.
+**Options Considered**
 
-**No Onboard Processing Approach**
+**1. No Onboard Processing**
+Raw microphone signal transmitted directly to the ground station; all filtering and analysis performed externally.
+- Pros: minimizes system complexity, reduces onboard computational requirements
+- Cons: drone-induced noise (rotor and vibration artifacts) remains embedded in the transmitted signal, degrading measurement quality
 
-&nbsp; &nbsp; &nbsp; &nbsp; One option is to transmit the raw microphone signal directly to the ground station without any onboard processing. This approach minimizes system complexity and reduces onboard computational requirements. All filtering and analysis could then be performed externally.
+**2. High-Performance Embedded System**
+Example: Raspberry Pi 4.
+- Pros: significant computational power, supports advanced signal processing and data handling
+- Cons: increased power consumption, OS overhead, boot time concerns, less desirable for lightweight embedded applications requiring deterministic real-time performance
 
-&nbsp; &nbsp; &nbsp; &nbsp; While simple, this method allows drone-induced noise, such as rotor and vibration artifacts, to remain embedded in the transmitted signal. This can degrade measurement quality and reduce the usability of the data, particularly in noisy environments. As a result, this approach does not fully address the challenges associated with airborne acoustic measurement.
+**3. Microcontroller-Based DSP**
+Example: Teensy 4.1 with audio interface.
+- Pros: sufficient real-time processing capability, low power consumption, compact form factor, deterministic real-time operation, integrates well with embedded audio systems
+- Cons: less raw compute than a full embedded system
 
-**High-Performance Embedded System Approach**
+**Selected Processor:** Teensy 4.1 with Audio Interface
 
-&nbsp; &nbsp; &nbsp; &nbsp; Another option is the use of a high-performance embedded system such as the Raspberry Pi 4. This platform provides significant computational power and supports advanced signal processing techniques, including complex filtering and data handling.
+**Justification**
+The Teensy 4.1 provides sufficient real-time processing capability to implement targeted filtering to reduce predictable drone-induced noise prior to transmission. It maintains low power consumption and a compact form factor while avoiding the overhead associated with more complex embedded systems.
 
-&nbsp; &nbsp; &nbsp; &nbsp; However, this approach introduces increased power consumption, system complexity, and potential reliability concerns in real-time operation. Boot time, operating system overhead, and increased integration complexity make this solution less desirable for a lightweight, embedded application requiring deterministic real-time performance.
 
-**Microcontroller-Based DSP Approach (Selected)**
 
-&nbsp; &nbsp; &nbsp; &nbsp; The selected solution utilizes a microcontroller-based platform, specifically the Teensy 4.1 with an audio interface. This platform provides sufficient real-time processing capability to implement filtering techniques while maintaining low power consumption and a compact form factor.
+### Wireless Transmission
 
-&nbsp; &nbsp; &nbsp; &nbsp; The Teensy platform supports deterministic real-time operation and integrates well with embedded audio systems, making it suitable for continuous signal processing. It allows the implementation of targeted filtering to reduce predictable drone-induced noise prior to transmission. This approach provides a balance between performance and system simplicity while avoiding the overhead associated with more complex embedded systems.
+**Options Considered**
 
-### **Wireless Transmission**
+**1. Digital Wireless / Streaming**
+Network-based audio streaming over modern communication protocols.
+- Pros: flexible, high-quality audio transmission
+- Cons: may introduce latency, synchronization challenges, increased implementation complexity, integration with existing measurement tools may require additional hardware or software configuration
 
-&nbsp; &nbsp; &nbsp; &nbsp; The transmission of the processed audio signal from the drone to the ground station must be reliable, low-latency, and compatible with existing measurement workflows.
+**2. Wired Transmission**
+Direct physical connection between drone and ground station.
+- Pros: highest signal integrity, no wireless interference or compression
+- Cons: impractical for a mobile aerial system, restricts movement and introduces safety risks associated with tethering
 
-**Digital Wireless / Streaming Approach**
+**3. Analog Wireless System**
+Example: Shure ULX.
+- Pros: reliable, low-latency audio transmission, widely used in professional audio environments, team already has access to the system reducing cost and enabling rapid integration
+- Cons: some bandwidth limitations and signal coloration, acceptable for comparative acoustic analysis
 
-&nbsp; &nbsp; &nbsp; &nbsp; One potential solution is to use digital wireless transmission or network-based audio streaming. This approach offers flexibility and the ability to transmit high-quality audio data over modern communication protocols.
+**Selected Transmission System:** Shure ULX Analog Wireless System
 
-&nbsp; &nbsp; &nbsp; &nbsp; However, digital systems may introduce latency, synchronization challenges, and increased implementation complexity. Integration with existing measurement tools may also require additional hardware or software configuration.
+**Justification**
+The Shure ULX provides reliable, low-latency audio transmission compatible with professional audio workflows. Team access to the system reduces cost and enables rapid integration and testing. While analog wireless may introduce minor bandwidth limitations, these effects are acceptable for comparative acoustic analysis and the benefits of reliability, simplicity, and workflow compatibility outweigh them.
 
-**Wired Transmission Approach**
 
-&nbsp; &nbsp; &nbsp; &nbsp; A wired connection would provide the highest signal integrity and eliminate concerns related to wireless interference or compression.
 
-&nbsp; &nbsp; &nbsp; &nbsp; This approach is impractical for a mobile aerial system, as it restricts movement and introduces safety risks associated with tethering.
+## Controller Subsystem
 
-**Analog Wireless System Approach (Selected)**
+The controller subsystem serves as the operator-facing control center for the autonomous acoustic measurement drone. Its role is to supervise an autonomous mission, display vehicle status and mission progress, allow emergency manual takeover, and interface with the coding subsystem that executes the drone's preset measurement path. The controller must be compact, packageable into a custom 3D-printed housing, responsive for emergency override, capable of running a graphical interface, compatible with analog joystick inputs, and able to maintain a reliable radio link to the aircraft.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The selected solution utilizes an analog wireless system, specifically the Shure ULX. This system provides reliable, low-latency audio transmission and is widely used in professional audio environments.
+**Options Considered**
 
-&nbsp; &nbsp; &nbsp; &nbsp; An additional factor influencing this decision is the availability of the system. The team already has access to the Shure ULX platform, reducing cost and enabling rapid integration and testing. Familiarity with the system also simplifies troubleshooting and deployment.
+**1. Microcontroller-Centered Controller**
+Example: Raspberry Pi Pico 2 W. Built-in wireless capability, analog input support, and simple embedded architecture.
+- Pros: lightweight, low-power, deterministic, fast to boot, simple real-time input handling
+- Cons: poorly suited for a mission-supervision role requiring screen-based interfaces, telemetry awareness, fault presentation, and future software expansion — better suited as a minimalist transmitter than a handheld mission computer
 
-&nbsp; &nbsp; &nbsp; &nbsp; While analog wireless transmission may introduce some bandwidth limitations and signal coloration, these effects are acceptable for comparative acoustic analysis. The benefits of reliability, simplicity, and compatibility with industry workflows outweigh these limitations.
+**2. Linux-Based Controller Without Touchscreen**
+Example: Raspberry Pi Zero 2 W with minimal or no integrated display.
+- Pros: capable of supporting real interfaces, logs, mission-state handling, and telemetry display; compact form factor
+- Cons: non-touch or minimal display weakens the supervisory user experience and limits future features such as mission selection, fault prompts, and configuration pages
 
-### Controller Subsystem
+**3. Linux-Based Controller with Touch HDMI Display and External ADC**
+Raspberry Pi Zero 2 W paired with a touchscreen and MCP3008 external ADC for analog joystick inputs (Zero 2 W provides no native analog inputs).
+- Pros: preserves Zero 2 W flexibility, solves joystick-input problem directly, touchscreen enables full supervisory interface, aligns with mission-computer role
+- Cons: requires external ADC for joystick inputs, more components than simpler options
 
-The controller subsystem serves as the operator-facing control center for the autonomous acoustics measurement drone. Unlike a conventional hobby radio transmitter, this subsystem is intended to supervise an autonomous mission, display vehicle status and mission progress, allow emergency manual takeover, and interface cleanly with the larger coding subsystem that executes the drone’s preset measurement path. Because of this role, the controller must balance several needs at once: it must be compact, practical to package into a custom 3D-printed frame, responsive enough for emergency override, capable of running a graphical interface, compatible with analog joystick inputs, and able to maintain a reliable radio link to the aircraft. The following analysis compares the main solution paths that were considered, explains the design considerations that affected the decision, and identifies the chosen solution with justification.
+**4. Zero 2 W Controller with ELRS Radio Link**
+ExpressLRS-based 900 MHz or 2.4 GHz radio link paired with the Zero 2 W architecture.
+- Pros: high-performance, low-latency, broad ecosystem support and tooling, large user base
+- Cons: optimized around a traditional RC ecosystem; less naturally aligned with a bidirectional supervisory-communication and telemetry architecture
 
-#### Potential Solutions
+**5. Zero 2 W Controller with mLRS 915 MHz Radio Link**
+Matek mR900-30-TX and mR900-30 receiver. Bidirectional MAVLink serial connection combined with full remote control in 915 MHz FCC operation.
+- Pros: bridges supervisory telemetry and manual RC control in a single radio link, naturally aligned with the project's mission-computer architecture, 915 MHz avoids regional frequency ambiguity
+- Cons: smaller ecosystem than ELRS
 
-##### Potential Solution 1: Microcontroller-Centered Controller
+**6. Power — Zero-Specific UPS HAT**
+Example: Waveshare UPS HAT (C). Purpose-built Zero-series UPS module with a single 803040 1000 mAh 3.7V Li-Po cell.
+- Pros: compact, purpose-built for the Zero form factor
+- Cons: insufficient power budget once touchscreen, radio module, ADC, joysticks, and future expansion are included
 
-The first potential solution is a controller built primarily around a microcontroller-class board, such as the Raspberry Pi Pico 2 W. The Pico 2 W offers built-in wireless capability, support for analog inputs, and a simpler embedded architecture than a Linux-based computer. Raspberry Pi documents the Pico 2 family as microcontroller boards rather than Linux computers, and the Pico 2 W adds 2.4 GHz wireless and Bluetooth 5.2 while exposing GPIO that can be used for ADC input.
+**7. Power — 3S External UPS Module with 18650 Cells**
+Example: Waveshare UPS Module 3S with Samsung 35E flat-top 18650 cells (~3500 mAh, 3.6V nominal, 8A continuous).
+- Pros: more robust power budget, stable regulated output, fits well into a custom 3D-printed enclosure, Samsung 35E cells well-matched to a low-current supervisory load where runtime matters more than discharge performance
+- Cons: larger than a HAT-style solution, requires accommodation in housing design
 
-This approach has several advantages. It is lightweight, low-power, deterministic, and fast to boot. For a controller that only needed to read joysticks, switches, and a few status LEDs, a microcontroller-centered design would be highly attractive. It would also reduce software overhead and simplify some real-time input handling.
+**Design Considerations**
 
-However, this approach is not the best match for the intended mission concept. Your controller is not meant to be only a stick-and-switch device; it is supposed to serve as the main supervision center for the autonomous mission. That means it must support a screen-based interface, mode/status displays, telemetry awareness, fault presentation, and future expansion of controller-side software. A pure microcontroller design can do some of these things, but it becomes less efficient and less flexible once the controller begins to resemble a handheld mission computer rather than a simple transmitter. For that reason, the microcontroller-centered solution was judged to be better as a minimalist alternative or helper-controller concept than as the final primary architecture. This remains especially true because the drone itself is already using a dedicated flight controller, so the handheld device gains more value from UI and supervisory functions than from minimizing compute capability.
+- **Role Definition:** The controller is a mission-supervision device with manual override capability, not a traditional RC handset — favoring a Linux-capable platform over a minimalist transmitter.
+- **Interface Quality:** Operator must monitor autonomy state, mission progress, battery status, and fault conditions — requiring a readable, touch-enabled display. The Waveshare 5-inch HDMI LCD (H) (800×480, capacitive 5-point touch, tempered glass) meets this need and is compatible with the Zero 2 W mini HDMI output.
+- **Analog Input Compatibility:** The Zero 2 W provides no native analog inputs; an external ADC (MCP3008, 8-channel 10-bit SPI) is required to keep conventional joystick hardware in the design.
+- **Radio Architecture:** A radio family natively supporting bidirectional serial/telemetry alongside RC control is more appropriate than one optimized purely for the RC ecosystem, strongly favoring mLRS over ELRS for this project.
+- **Power Margin and Packaging:** The full controller subsystem (Pi, touchscreen, radio, physical controls) requires more power headroom than a Pi-only UPS HAT provides. The 3S module with loose 18650 cells better matches the actual duty and fits the custom 3D-printed housing.
+- **Future Expandability:** The chosen architecture provides room for richer menus, better fault handling, configuration pages, onboard logging, and tighter integration with the coding subsystem.
 
-##### Potential Solution 2: Linux-Based Smart Controller Without Touchscreen Emphasis
+**Selected Configuration**
 
-A second option is a Linux-capable controller built around a Raspberry Pi Zero 2 W, but paired with a very simple non-touch display, or even no integrated display at all. Raspberry Pi’s official Zero 2 W hardware provides a quad-core 1 GHz Cortex-A53 processor, 512 MB RAM, onboard wireless networking, mini HDMI, and the familiar 40-pin GPIO footprint in the 65 mm × 30 mm Zero form factor.
+**Raspberry Pi Zero 2 W** — main controller computer
 
-This option is much more aligned with the project than the pure microcontroller route because the Zero 2 W is powerful enough to support a real handheld interface, logs, mission-state handling, telemetry display, and future UI development. It also fits the physical scale of a custom handheld device well. A stripped-down display strategy could reduce cost and power consumption.
+**Waveshare 5inch HDMI LCD (H)** — touchscreen interface
 
-Even so, this option does not fully satisfy the intended user experience. Since the controller is the main supervisory center, the operator should be able to read mission status quickly, acknowledge warnings, and navigate controller functions without unnecessary external equipment. A non-touch or minimal display weakens that goal. It also limits the usefulness of the controller when future features are added, such as mission selection, controller-side configuration, status pages, or recovery prompts for autonomy resume after a manual override. This made the “Linux controller with minimal display” option a workable intermediate step, but not the strongest final design.
+**MCP3008** — external ADC for analog joystick channels
 
-##### Potential Solution 3: Linux-Based Smart Controller with Touch HDMI Display and External ADC
+**Matek mR900-30-TX and mR900-30** — 915 MHz radio link
 
-The third option is a Linux-based smart controller built around the Raspberry Pi Zero 2 W, paired with a touchscreen and an external analog-to-digital converter for joystick inputs. This addresses one of the main hardware facts of the Zero 2 W platform: it provides digital GPIO, but not onboard analog joystick inputs. That makes an external ADC necessary if conventional analog joystick potentiometers are used. A widely used solution is the MCP3008, which offers 8 analog input channels at 10-bit resolution and is commonly integrated with Raspberry Pi systems over SPI.
+**Waveshare UPS Module 3S** — controller power board
 
-This architecture is significantly stronger than the first two. It preserves the usability and flexibility of the Zero 2 W while solving the joystick-input problem directly. It also aligns well with the role of the controller as a software-rich supervisory device. The touchscreen becomes the main human interface, while the analog controls continue to provide manual flight authority when needed.
+**Samsung 35E flat-top 18650 cells** — controller battery set
 
-Within this category, display selection became an important design choice. The controller needed a display that was readable, compact, and easy to integrate into a custom 3D-printed shell. The Waveshare 5inch HDMI LCD (H) stood out because it provides a 5-inch capacitive touchscreen, 800 × 480 resolution, HDMI video input, USB touch input, tempered glass, and broad Raspberry Pi compatibility. Waveshare’s product and wiki pages describe it as a capacitive 5-inch HDMI display with 5-point touch support and indicate support for Raspberry Pi systems, which is especially relevant because the Zero 2 W exposes mini HDMI rather than a DSI connector.
+**Custom 3D-printed controller housing** — manufactured using the same filament selected in the frame subsystem
 
-This option was strong enough to become the baseline architecture for the final controller, but it still left open one major decision: what radio system should be used between the controller and the drone.
-
-##### Potential Solution 4: Zero 2 W Controller with ELRS-Based Radio Link
-
-The next major solution path paired the Zero 2 W smart controller architecture with an ExpressLRS-based radio link. ExpressLRS is a high-performance open-source radio-control system with broad 900 MHz and 2.4 GHz ecosystem support and an emphasis on low latency and high refresh. The official ExpressLRS documentation describes it as an open radio-control link with broad hardware support in both 900 MHz and 2.4 GHz families.
-
-This made ELRS an attractive candidate because it is a very common and capable ecosystem, with a strong user base, many compatible modules, and mature tooling. From a pure RC ecosystem perspective, it is arguably the most mainstream option considered.
-
-However, the controller in this project is not just a hobby radio substitute. It is intended to act as a supervisory mission device that works closely with the coding subsystem, supports autonomy status awareness, and offers cleaner integration with a drone-side architecture that already thinks in terms of supervisory commands, telemetry, and fallback control. In that context, ELRS is possible, but less naturally aligned with the project’s system philosophy than the alternative below. The issue is not that ELRS is weak; it is that it is optimized around a more traditional RC ecosystem, whereas this project benefits from a radio path that feels more naturally integrated into a controller-plus-mission-computer design.
-
-##### Potential Solution 5: Zero 2 W Controller with mLRS 915 MHz Radio Link
-
-The fifth option, and the one ultimately selected, uses the Zero 2 W smart-controller architecture with Matek’s mLRS 900 MHz family in 915 MHz FCC operation. Matek’s official mLRS pages describe the mLRS RX/TX family as providing a bidirectional MAVLink serial connection combined with full remote control, and the mR900-30-TX product page lists 900 MHz operation with 868 MHz / 915 MHz FCC support and up to 30 dBm output settings.
-
-This radio choice is particularly well matched to the project because it bridges two needs at once. First, it supports the controller’s role as a remote-control device that must allow manual takeover. Second, it aligns well with the project’s broader supervision/telemetry architecture because the mLRS family is explicitly centered on bidirectional MAVLink plus remote control. That makes it especially attractive for a custom Pi-based controller that is meant to act like an intelligent supervisory station rather than a conventional consumer transmitter. The official Matek family page, TX page, and receiver page all reinforce that this system is designed around that hybrid serial-control model.
-
-This option also fits your regional assumption, because you explicitly chose to proceed with the 915 MHz version. That removes one of the major deployment ambiguities and lets the controller design be tuned around a single radio family from the start. For this project, that clarity is valuable.
-
-##### Potential Solution 6: Power Architecture Based on a Small Zero-Specific HAT
-
-Another solution branch involved the power system for the controller. One option was to use a small Zero-specific UPS HAT. Waveshare’s UPS HAT (C) is specifically described as a Zero-series UPS module with path management, voltage boost, and I2C battery monitoring, and its wiki lists it as supporting a single 803040 1000 mAh 3.7 V Li-po battery.
-
-This is a neat and compact option, and it has the benefit of being purpose-built for the Raspberry Pi Zero family. If the controller had been a very low-power or highly minimal build, it would have remained a serious contender.
-
-But for this project, the controller is expected to include a Pi Zero 2 W, touchscreen, radio module, ADC, joysticks, buttons, and additional supervisory functions inside a custom handheld shell. That makes a more substantial power architecture desirable. The goal is not just to power the Pi; it is to power the entire controller subsystem cleanly and with enough margin to avoid brownout-style issues or poor runtime.
-
-##### Potential Solution 7: Power Architecture Based on a 3S External UPS Module
-
-The final power solution uses Waveshare’s UPS Module 3S with loose 18650 cells. Waveshare describes the UPS Module 3S as a 3-cell 18650-in-series UPS module with support for simultaneous charging and output, with up to 5 V / 5 A output. The module wiki also notes stable regulated outputs and monitoring features. Meanwhile, Samsung 35E cells are widely listed by battery retailers as flat-top 18650 cells with roughly 3500 mAh nominal capacity, 3.6 V nominal voltage, and an 8 A continuous discharge rating.
-
-This became the preferred choice because it better matches the controller’s actual duty. It supports a more robust power budget, fits well into a custom enclosure where board shape can be accommodated by the 3D-printed design, and aligns with your explicit statement that loose cells are acceptable. The Samsung 35E cells are especially appropriate here because this controller is not a very high-current load; runtime and practical energy density matter more than extreme discharge performance.
-
-#### Design Considerations That Drove the Final Selection
-
-Several design considerations determined which controller solution was the best fit.
-
-1. Role Definition: The controller is not meant to be a traditional RC handset. It is a mission-supervision device with manual override capability. That immediately favored a Linux-capable platform with a real user interface over a minimalist transmitter architecture.
-
-2. Interface Quality: Because the operator must monitor autonomy state, mission progress, battery status, and fault conditions, the controller needs a screen that is both readable and easy to integrate. That pushed the design toward a compact HDMI touchscreen rather than a no-screen or minimal-screen approach. The Waveshare 5-inch panel met that need well with its capacitive touch interface and embedded-friendly physical style.
-
-3. Analog Input Compatibility: Since the Zero 2 W does not provide native analog inputs, a practical external ADC was required to keep conventional joystick hardware in the design. That made the MCP3008-type solution a necessary support component rather than an optional accessory.
-
-4. Radio Architecture: Because the controller must work closely with the coding subsystem and support both supervisory communication and fallback manual control, a radio family that naturally supports bidirectional serial/telemetry behavior alongside remote control was more attractive than one optimized primarily around a conventional RC ecosystem. That factor strongly favored mLRS over ELRS for this specific project.
-
-5. Power Margin and Packaging: A small, Pi-only UPS board is neat, but the completed controller has broader power needs than the Pi alone. Once the touchscreen, radio, physical controls, and future expandability are considered, the 3S UPS module becomes a better long-term solution. Because the frame will be custom 3D printed using the material selected in the project’s frame subsystem, the design can package a separate UPS module and loose 18650 cells intentionally rather than being constrained by HAT form factors.
-
-6. Future Expandability: The controller subsystem should be able to grow with the project. A Zero 2 W-based controller with touchscreen, external ADC, and robust radio/power architecture gives much more room for future features such as richer menus, better fault handling, configuration pages, onboard logging, or tighter integration with the broader coding subsystem than a very lean transmitter-style design would.
-
-#### Chosen Solution
-
-The chosen controller solution is:
-
-- Raspberry Pi Zero 2 W as the main controller computer
-- Waveshare 5inch HDMI LCD (H) as the touchscreen interface
-- MCP3008 as the external ADC for analog joystick channels
-- Matek mR900-30-TX and mR900-30 as the 915 MHz radio package
-- Waveshare UPS Module 3S as the controller power board
-- Samsung 35E flat-top 18650 cells as the controller battery set
-- A custom 3D-printed controller housing manufactured using the same filament selected in the project’s frame subsystem
-- Justification for the Selected Solution
-
-This solution was selected because it best satisfies the full operating role of the controller subsystem.
-
-It was chosen over a microcontroller-centered design because the project needs a real handheld mission computer, not just a signal generator for joysticks and switches. The Zero 2 W provides enough compute capability and I/O flexibility to support that role in a compact footprint.
-
-It was chosen over a minimal-display or non-touch design because the controller is supposed to be the main operator interface. A touch-enabled 5-inch display improves clarity, expandability, and day-to-day usability without making the handheld unit excessively large.
-
-It was chosen over ELRS because this project benefits more from a radio family whose architecture is naturally aligned with bidirectional supervisory communication plus remote control, which is exactly how Matek presents the mLRS family. For a custom controller that works closely with the project’s coding subsystem, that is a major architectural advantage.
-
-It was chosen over the smaller Zero-specific UPS HAT option because the total controller subsystem needs more power flexibility and more packaging freedom than a very small Pi-only backup board is designed to provide. The 3S UPS module and loose 18650 cells give better headroom for the full handheld build.
-
-Most importantly, it was chosen because it matches the project vision you established: a custom controller that oversees an autonomous drone mission, allows immediate manual takeover, interfaces cleanly with the controller-side branch of the coding subsystem, and can be packaged into a custom 3D-printed housing that fits the rest of the project’s subsystem choices.
+**Justification**
+This solution was selected because it best satisfies the full operating role of the controller subsystem. It was chosen over a microcontroller-centered design because the project needs a real handheld mission computer, not just a signal generator for joysticks and switches. It was chosen over a minimal-display approach because the touch-enabled 5-inch display improves clarity, expandability, and day-to-day usability. It was chosen over ELRS because the mLRS architecture is naturally aligned with bidirectional supervisory communication plus remote control — a major advantage for a custom controller working closely with the coding subsystem. The 3S UPS module and loose 18650 cells were chosen over the smaller HAT-style option to provide sufficient power headroom for the full handheld build.
 
 ## High-Level Solution
 
@@ -640,6 +566,8 @@ Most importantly, it was chosen because it matches the project vision you establ
 &nbsp; &nbsp; &nbsp; &nbsp; Overall, the proposed solution provides a practical and technically feasible method for autonomous acoustic measurement, enabling improved data collection, reduced labor requirements, and enhanced sound system evaluation in real-world venue environments.
 
 ### Hardware Block Diagram
+
+![Hardware Diagram](Reports/Images/hardwareDiagram.png)
 
 ### Operational Flow Chart
 
