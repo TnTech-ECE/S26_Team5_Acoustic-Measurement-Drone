@@ -639,19 +639,29 @@ Similar to a block diagram, the flow chart aims to specify the system, but from 
 
 **Functional Description**
 
-&nbsp; &nbsp; &nbsp; &nbsp; The power and propulsion subsystem is responsible for storing electrical energy, distributing that energy to the propulsion hardware, and generating the thrust required for takeoff, hover, maneuvering, and landing. The subsystem consists of a 6S lithium-ion battery, four electronic speed controllers, four brushless motors, and four multirotor propellers.
+&nbsp; &nbsp; &nbsp; &nbsp; The power and propulsion subsystem is responsible for storing electrical energy, distributing that energy to the propulsion hardware, and generating the thrust required for takeoff, hover, maneuvering, and landing. The subsystem consists of a 6S lithium-ion battery, a power module, four electronic speed controllers, four brushless motors, and four multirotor propellers.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The battery serves as the primary onboard energy source. Electrical power from the battery is delivered to the ESCs, which regulate power to each motor. The motors convert electrical energy into rotational motion, and the propellers convert that rotational motion into thrust. Together, these components provide the lift and control authority needed for stable autonomous mapping flight.
+&nbsp; &nbsp; &nbsp; &nbsp; The battery serves as the primary onboard energy source. Electrical power from the battery is delivered directly to the ESCs for propulsion and to a power module for flight controller operation. The power module steps down the battery voltage to a regulated 5V supply required by the flight controller and provides real-time voltage and current measurements for system monitoring and safety.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The updated propulsion configuration uses the iFlight Fullsend 6S 8000 mAh Li-Ion battery, HobbyWing XRotor 40A ESCs, SunnySky V4008 380KV motors, and APC 13x4.5 multirotor propellers. This updated selection reduces propulsion weight compared to the previous motor choice while maintaining sufficient power capability for the expected aircraft mass.
+&nbsp; &nbsp; &nbsp; &nbsp; The ESCs regulate power delivered to each motor, which convert electrical energy into rotational motion. The propellers then convert this motion into thrust. Together, these components provide the lift and control authority needed for stable autonomous mapping flight.
+
+&nbsp; &nbsp; &nbsp; &nbsp; The propulsion configuration uses the iFlight Fullsend 6S 8000 mAh Li-Ion battery, a Holybro-compatible power module, HobbyWing XRotor 40A ESCs, SunnySky V4008 380KV motors, and APC 13x4.5 multirotor propellers. This configuration reduces overall propulsion weight while maintaining sufficient power capability for the expected aircraft mass.
+
+---
 
 **Design Justification**
 
-&nbsp; &nbsp; &nbsp; &nbsp; The selected components prioritize endurance, efficiency, and compatibility with the custom 16 in × 16 in frame. The 6S 8000 mAh battery was selected because it provides high energy density while keeping system mass lower than a comparable high-capacity LiPo pack. The SunnySky V4008 380KV motors were selected in place of heavier alternatives because they better match the 13-inch propeller size and reduce total aircraft weight, improving flight time potential.
+&nbsp; &nbsp; &nbsp; &nbsp; The selected components prioritize endurance, efficiency, and compatibility with the custom 16 in × 16 in frame. The 6S 8000 mAh Li-Ion battery was selected due to its high energy density, enabling longer flight times compared to equivalent LiPo batteries.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The APC 13x4.5 propellers provide a practical compromise between efficiency and frame size. They fit the existing frame geometry while still offering better hover efficiency than smaller propellers. The HobbyWing XRotor 40A ESCs provide sufficient current capacity and 6S compatibility for the selected motor and battery combination.
+&nbsp; &nbsp; &nbsp; &nbsp; The SunnySky V4008 380KV motors were selected in place of heavier alternatives to better match the 13-inch propeller size and reduce total system weight, improving flight time potential. The APC 13x4.5 propellers provide an effective balance between efficiency and frame constraints, offering improved hover efficiency while remaining compatible with the selected frame.
 
-&nbsp; &nbsp; &nbsp; &nbsp; Overall, the updated configuration is better aligned with the mission objective of stable, long-duration autonomous mapping flight. The design emphasizes efficient hover and moderate cruise performance rather than maximum speed or aggressive maneuverability.
+&nbsp; &nbsp; &nbsp; &nbsp; The HobbyWing XRotor 40A ESCs provide sufficient current capacity and reliable 6S operation. Individual ESCs were selected instead of a 4-in-1 configuration to improve thermal performance, increase system reliability, and simplify integration within the larger frame.
+
+&nbsp; &nbsp; &nbsp; &nbsp; The power module is required to safely power the flight controller by stepping down the battery voltage and enabling real-time power monitoring. This improves system safety and allows the flight controller to implement battery-aware control strategies such as low-voltage failsafes.
+
+&nbsp; &nbsp; &nbsp; &nbsp; Overall, the updated configuration is optimized for stable, long-duration autonomous mapping flight, emphasizing efficiency and reliability over high-speed performance.
+
+---
 
 **Subsystem Objectives**
 
@@ -661,118 +671,138 @@ The power and propulsion subsystem shall:
 - support stable and efficient autonomous mapping flight
 - reduce total propulsion weight while maintaining adequate thrust margin
 - operate from a 6S battery architecture
+- include a power module to regulate voltage and support flight controller operation
 - provide an estimated flight time near 20 minutes under endurance-focused flight conditions
+
+---
 
 **Detailed Operation**
 
-&nbsp; &nbsp; &nbsp; &nbsp; During operation, the battery supplies DC power to the propulsion system. Each ESC receives battery power and a control signal from the flight controller, then regulates the three-phase output delivered to its corresponding motor. Each motor rotates its propeller at the speed commanded by the flight controller. By varying motor speed across the four motors, the aircraft produces the thrust and control moments required for stable flight.
+&nbsp; &nbsp; &nbsp; &nbsp; During operation, the battery supplies DC power to both the propulsion system and the power module. The power module regulates the battery voltage to a stable 5V output used by the flight controller and provides voltage and current feedback for monitoring.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The lighter V4008 motors reduce total propulsion mass and improve the expected endurance of the aircraft. During hover and mapping flight, the propulsion subsystem is expected to operate well below maximum rated power. This allows the system to maintain safe electrical and thermal margins while supporting extended flight duration.
+&nbsp; &nbsp; &nbsp; &nbsp; Each ESC receives battery power and a control signal from the flight controller, then regulates the three-phase output delivered to its corresponding motor. Each motor rotates its propeller at the speed commanded by the flight controller. By varying motor speeds, the system generates the thrust and control forces required for stable flight.
+
+&nbsp; &nbsp; &nbsp; &nbsp; The use of lighter motors reduces total propulsion mass and improves endurance. During hover and mapping flight, the propulsion system operates below maximum power, maintaining safe thermal and electrical margins while supporting extended flight duration.
+
+---
 
 **Functional Flowchart**
 
-![Alt text](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Jackson's-Branch/Reports/Images/Power%20Distribution%20Flow%20Chart.png)  
+![Alt text](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Jackson's-Branch/Reports/Images/Power%20Distribution%20Flow%20Chart.png)
+
+---
 
 **Performance Specifications**
 
 The power and propulsion subsystem shall satisfy the following:
-- Battery voltage: 22.2 V nominal
-- Battery capacity: 8000 mAh
-- Battery energy: 177.6 Wh
-- Battery weight: 840 g
-- Motor quantity: 4
-- Motor KV: 380KV
-- Motor maximum continuous power: 500 W each
-- Motor weight: 105 g each
-- ESC quantity: 4
-- ESC current rating: 40 A continuous, 60 A peak
-- ESC voltage compatibility: 2S–6S
-- ESC weight: 26 g each
-- Propeller size: 13 × 4.5 in
-- Propeller weight: 24.1 g each
-- Estimated propulsion subsystem mass: 1460.4 g
-- Estimated total aircraft mass: 2182.4 g before additional wiring and mounting hardware
-- Estimated realistic flight mass: approximately 2.2–2.3 kg
-- Estimated usable battery energy: 142–151 Wh assuming 80–85% usable capacity
-- Estimated average flight power for endurance operation: approximately 350–500 W
-- Estimated flight time: approximately 17–26 minutes
-- Realistic mission planning estimate: approximately 18–22 minutes
+- Battery voltage: 22.2 V nominal  
+- Battery capacity: 8000 mAh  
+- Battery energy: 177.6 Wh  
+- Battery weight: 840 g  
+
+- Power module input voltage: 2S–12S  
+- Power module output voltage: ~5.2 V regulated  
+- Power module current rating: 60 A continuous  
+- Power module weight: ~24 g  
+
+- Motor quantity: 4  
+- Motor KV: 380KV  
+- Motor maximum continuous power: 500 W each  
+- Motor weight: 105 g each  
+
+- ESC quantity: 4  
+- ESC current rating: 40 A continuous, 60 A peak  
+- ESC voltage compatibility: 2S–6S  
+- ESC weight: 26 g each  
+
+- Propeller size: 13 × 4.5 in  
+- Propeller weight: 24.1 g each  
+
+- Estimated propulsion subsystem mass: 1460.4 g  
+- Estimated total aircraft mass: 2206.4 g before additional hardware  
+- Estimated realistic flight mass: approximately 2.2–2.3 kg  
+
+- Estimated usable battery energy: 142–151 Wh  
+- Estimated average flight power: 350–500 W  
+- Estimated flight time: approximately 17–26 minutes  
+- Realistic mission estimate: approximately 18–22 minutes  
+
+---
 
 **Weight Breakdown**
 
 Known non-propulsion mass:
-- Flight controller: 46.8 g
-- HFlow sensor: 15.2 g
-- RPLIDAR C1: 110 g
-- DSP/Teensy subsystem: 50 g
-- 3D-printed carbon-fiber-reinforced nylon H-frame: 500 g
+- Flight controller: 46.8 g  
+- Power module: 24 g  
+- HFlow sensor: 15.2 g  
+- RPLIDAR C1: 110 g  
+- DSP/Teensy subsystem: 50 g  
+- 3D-printed frame: 500 g  
 
 Non-propulsion subtotal:
-- 722.0 g
+- 746.0 g  
 
 Propulsion subsystem mass:
-- Battery: 840 g
-- Motors: 4 × 105 g = 420 g
-- ESCs: 4 × 26 g = 104 g
-- Propellers: 4 × 24.1 g = 96.4 g
+- Battery: 840 g  
+- Motors: 420 g  
+- ESCs: 104 g  
+- Propellers: 96.4 g  
 
 Propulsion subtotal:
-- 1460.4 g
+- 1460.4 g  
 
 Estimated total mass:
-- 722.0 g + 1460.4 g = 2182.4 g
+- 746.0 g + 1460.4 g = 2206.4 g  
+
+---
 
 **Flight Time Calculation**
 
 Battery energy:
-- 22.2 V × 8.0 Ah = 177.6 Wh
+- 22.2 V × 8.0 Ah = 177.6 Wh  
 
 Usable battery energy:
-- 80% usable: 177.6 × 0.80 = 142.1 Wh
-- 85% usable: 177.6 × 0.85 = 151.0 Wh
+- 80% usable: 142.1 Wh  
+- 85% usable: 151.0 Wh  
 
 Estimated flight time:
-- At 350 W average power: 142.1/350 to 151.0/350 = 24.4 to 25.9 minutes
-- At 425 W average power: 142.1/425 to 151.0/425 = 20.1 to 21.3 minutes
-- At 500 W average power: 142.1/500 to 151.0/500 = 17.1 to 18.1 minutes
+- At 350 W: 24.4–25.9 minutes  
+- At 425 W: 20.1–21.3 minutes  
+- At 500 W: 17.1–18.1 minutes  
 
-This indicates that a flight time near 20 minutes is achievable if the aircraft maintains an average power draw of approximately 425–450 W during mapping flight.
+This indicates that a flight time near 20 minutes is achievable if the system maintains an average power draw of approximately 425–450 W.
+
+---
 
 ### Detailed Shall Statements
 
 **Functional Requirements**
-- The subsystem shall provide electrical power for all propulsion components.
-- The subsystem shall include one main battery, four ESCs, four motors, and four propellers.
-- The subsystem shall generate sufficient thrust for takeoff, hover, maneuvering, and landing.
-- The subsystem shall support endurance-focused autonomous mapping flight.
+- The subsystem shall provide electrical power for propulsion and flight control systems.  
+- The subsystem shall include one battery, one power module, four ESCs, four motors, and four propellers.  
+- The subsystem shall generate sufficient thrust for all flight phases.  
 
 **Weight and Efficiency Requirements**
-- The subsystem shall minimize propulsion mass while maintaining adequate thrust margin.
-- The subsystem shall use a motor and propeller combination matched to a 16 in × 16 in frame.
-- The subsystem shall target a total aircraft mass near 2.2 kg before final integration hardware.
-- The subsystem shall support a realistic flight time of at least 18 minutes under normal mission conditions.
-- The subsystem shall support a target flight time near 20 minutes under endurance-focused operation.
+- The subsystem shall minimize total mass while maintaining performance.  
+- The subsystem shall support a target aircraft mass near 2.2 kg.  
+- The subsystem shall support at least 18 minutes of flight time.  
+- The subsystem shall target a flight time near 20 minutes under optimal conditions.  
 
 **Electrical Requirements**
-- The subsystem shall operate from a 6S battery architecture.
-- The subsystem shall use ESCs rated for at least 40 A continuous current.
-- The subsystem shall use motors compatible with 6S operation.
-- The subsystem shall operate within the rated voltage, current, and power limits of the selected components.
+- The subsystem shall operate from a 6S battery.  
+- The subsystem shall include a power module to regulate voltage for the flight controller.  
+- The subsystem shall operate within safe voltage and current limits.  
 
 **Validation Requirements**
-- The subsystem shall be verified through total weight measurement after integration.
-- The subsystem shall be validated through hover and endurance flight testing.
-- The subsystem shall demonstrate stable operation without exceeding motor or ESC thermal limits.
-- The subsystem shall demonstrate sufficient endurance for mapping operations.
+- The subsystem shall be validated through weight measurement and flight testing.  
+- The subsystem shall demonstrate stable operation without overheating.  
+- The subsystem shall demonstrate sufficient endurance for mapping missions.  
 
 **Major Data Elements**
-
-Calculated values:
-- total propulsion mass
-- total estimated aircraft mass
-- usable battery energy
-- expected average power draw
-- estimated flight time range
+- total propulsion mass  
+- total aircraft mass  
+- usable battery energy  
+- average power consumption  
+- estimated flight time  
 
 ### Internal Components Subsystem
 
