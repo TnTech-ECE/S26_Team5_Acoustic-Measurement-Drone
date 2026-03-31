@@ -231,19 +231,19 @@ Both 4-in-1 ESCs and individual ESCs were considered. A 4-in-1 ESC offers compac
 
 **6S 8000 mAh Li-Ion Battery**
 
-![6S 8000 mAh Li-Ion Battery](Reports/Images/FullsendBattery.png)
+![6S 8000 mAh Li-Ion Battery](Images/FullsendBattery.png)
 
 **SunnySky V4008 380KV Brushless Motors (×4)**
 
-![SunnySky V4008 380KV Motor](Reports/Images/SunnySkyMotor.png)
+![SunnySky V4008 380KV Motor](Images/SunnySkyMotor.png)
 
 **HobbyWing XRotor 40A ESCs (×4)**
 
-![HobbyWing XRotor 40A ESC](Reports/Images/HobbyWingESC.png)
+![HobbyWing XRotor 40A ESC](Images/HobbyWingESC.png)
 
 **APC 13×4.5 Multirotor Propellers (×4)**
 
-![APC 13×4.5 Propellers](Reports/Images/APCpropellers.png)
+![APC 13×4.5 Propellers](Images/APCpropellers.png)
 
 **16 in × 16 in 3D-Printed H-Frame**
 
@@ -315,23 +315,22 @@ The state estimation subsystem determines the drone's orientation and relative m
 
 **Options Considered**
 
-**IMU — ICM-42688-P and BMI055 (dual accel/gyro)**
+**1. IMU — ICM-42688-P and BMI055 (dual accel/gyro)**
 Provides angular velocity and linear acceleration used to estimate roll, pitch, and yaw. High update rate enables real-time stabilization; dual IMUs improve reliability. Subject to drift over time and requires vibration isolation for accurate measurements.
 
-**Magnetometer — IST8310 (onboard)**
+**2. Magnetometer — IST8310 (onboard)**
 Provides heading reference to correct yaw drift from the IMU. Improves directional stability during navigation between measurement points. Sensitive to magnetic interference from motors, wiring, and environment.
 
-**Barometer — MS5611 (onboard)**
+**3. Barometer — MS5611 (onboard)**
 Provides relative altitude estimation for vertical control and level transitions. Lightweight and directly integrated with flight controller firmware. Affected by pressure variation and airflow, limiting precision at small height changes.
 
-**Optical Flow / VIO**
+**4. Optical Flow / VIO**
 Considered as an optional addition for relative horizontal motion estimation. Can improve short-range position hold and reduce drift during hover. Adds additional hardware and integration complexity; performance depends on surface texture and lighting.
 
 **Selected Configuration:** Onboard IMUs (ICM-42688-P, BMI055), Onboard Magnetometer (IST8310), Onboard Barometer (MS5611)
 
 **Justification**
 The onboard sensor suite provides sufficient orientation and relative motion estimation for stable flight and control, and is fully supported by flight controller firmware with minimal additional integration. Optical flow was evaluated for state estimation but is instead implemented as a dedicated localization sensor, covered in the Localization subsection.
-
 
 
 ## Localization
@@ -573,171 +572,130 @@ This solution was selected because it best satisfies the full operating role of 
 
 Similar to a block diagram, the flow chart aims to specify the system, but from the user's point of view rather than illustrating the arrangement of each subsystem. It outlines the steps a user needs to perform to use the device and the screens/interfaces they will encounter. A diagram should be drawn to represent this process. Each step should be represented in the diagram to visually depict the sequence of actions and corresponding screens/interfaces the user will encounter while using the device.
 
-## Atomic Subsystem Specifications
+# Atomic Subsystem Specifications
+
 
 ## Frame Subsystem
 
-### Functional Description
+**Functional Description**
 
-&nbsp; &nbsp; &nbsp; &nbsp; The frame subsystem provides the structural foundation of the aircraft and supports all onboard components, including the propulsion system, power system, sensing subsystem, and onboard processing hardware. The frame maintains the geometric configuration required for stable multirotor flight while ensuring that all components are securely mounted and properly aligned.
+The frame subsystem provides the structural foundation of the aircraft and supports all onboard components, including the propulsion system, power system, sensing subsystem, and onboard processing hardware. The frame maintains the geometric configuration required for stable multirotor flight while ensuring that all components are securely mounted and properly aligned.
 
-&nbsp; &nbsp; &nbsp; &nbsp; In addition to structural support, the frame subsystem is responsible for minimizing vibration transmission from the propulsion system to sensitive acoustic measurement components. This is critical because vibration can introduce noise into microphone signals and degrade measurement accuracy.
+In addition to structural support, the frame subsystem is responsible for minimizing vibration transmission from the propulsion system to sensitive acoustic measurement components. This is critical because vibration can introduce noise into microphone signals and degrade measurement accuracy.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The selected frame is a carbon-fiber H-frame with a nominal size of **16 in × 16 in**, using carbon-fiber structural members and 3D-printed mounts for component integration and vibration isolation.
-
----
-
-### Subsystem Interfaces
-
-The frame subsystem interfaces mechanically with all other subsystems and indirectly affects signal integrity through vibration behavior.
-
-#### 1. Interface with Power and Propulsion Subsystem
-- **Type of Interaction:** Mechanical + Electrical Routing Support  
-- **Signal Type:** Electrical power (DC), PWM motor control signals  
-- **Direction:**  
-  - Input: mechanical loads from motors and propellers  
-  - Output: structural support and alignment  
-- **Description:**  
-  The frame provides mounting points for motors, ESCs, and battery. It also supports routing of power wiring from the battery to ESCs. The structural rigidity of the frame ensures stable thrust generation and proper motor alignment.
+The selected frame is a carbon-fiber H-frame with a nominal size of **16 in × 16 in**, using carbon-fiber structural members and 3D-printed mounts for component integration and vibration isolation.
 
 ---
 
-#### 2. Interface with Control and Processing Subsystem
-- **Type of Interaction:** Mechanical + Signal Stability  
-- **Signal Type:** Digital communication (e.g., UART, I2C, SPI)  
-- **Direction:**  
-  - Input: mounting requirements for flight controller and onboard processor  
-  - Output: vibration-isolated platform for electronics  
-- **Description:**  
-  The frame provides mounting surfaces for the flight controller and onboard computer. It also supports vibration isolation (e.g., dampers) to prevent noise from affecting control signals and sensor readings.
+**Subsystem Connections**
+
+| Interface | Signal Type | Direction | Protocol / Format | Data |
+|-----------|-------------|-----------|-------------------|------|
+| Frame → Power & Propulsion | Mechanical | Output | Physical mounting | Motor, ESC, and battery mount points; power wiring routing support |
+| Frame → Control & Processing | Mechanical | Output | Physical mounting | Vibration-isolated mounting surfaces for flight controller and onboard computer |
+| Frame → Sensing (Acoustic + Navigation) | Mechanical | Output | Physical mounting | Sensor and microphone mount points; vibration isolation for signal integrity |
+| Frame → Communication | Mechanical | Output | Physical mounting | Antenna and communication module mount points |
 
 ---
 
-#### 3. Interface with Sensing Subsystem (Acoustic + Navigation)
-- **Type of Interaction:** Mechanical + Signal Integrity  
-- **Signal Type:** Analog audio signals, digital sensor data  
-- **Direction:**  
-  - Input: sensor mounting requirements  
-  - Output: stable and isolated mounting platform  
-- **Description:**  
-  The frame supports microphone placement and other sensors. It minimizes vibration transmission to ensure accurate acoustic measurements and stable sensor readings.
+**Detailed Operation**
 
----
+During operation, the frame acts as the central structural platform that supports all subsystems. The propulsion system generates thrust forces at the ends of the frame arms, which are transmitted through the carbon-fiber structure. The frame maintains alignment between motors and ensures that thrust is distributed symmetrically.
 
-#### 4. Interface with Communication Subsystem
-- **Type of Interaction:** Mechanical  
-- **Signal Type:** Wireless communication (RF)  
-- **Direction:**  
-  - Input: antenna placement requirements  
-  - Output: structural mounting and positioning  
-- **Description:**  
-  The frame provides mounting points for antennas and communication modules, ensuring proper placement for signal transmission without interference from other components.
+The battery and onboard electronics are mounted near the center of mass to maintain stability and reduce rotational inertia. Sensors, including microphones, are mounted using vibration-isolated brackets to minimize noise interference.
 
----
+The frame also serves as a routing structure for wiring and component integration. Proper spacing and layout reduce electromagnetic interference and improve maintainability.
 
-### Detailed Operation
-
-&nbsp; &nbsp; &nbsp; &nbsp; During operation, the frame acts as the central structural platform that supports all subsystems. The propulsion system generates thrust forces at the ends of the frame arms, which are transmitted through the carbon-fiber structure. The frame maintains alignment between motors and ensures that thrust is distributed symmetrically.
-
-&nbsp; &nbsp; &nbsp; &nbsp; The battery and onboard electronics are mounted near the center of mass to maintain stability and reduce rotational inertia. Sensors, including microphones, are mounted using vibration-isolated brackets to minimize noise interference.
-
-&nbsp; &nbsp; &nbsp; &nbsp; The frame also serves as a routing structure for wiring and component integration. Proper spacing and layout reduce electromagnetic interference and improve maintainability.
-
----
-
-### Functional Flowchart
 
 The frame subsystem does not have a direct user interface; however, its operation within the system can be described as follows:
 
-1. Support component mounting  
-2. Maintain structural integrity during flight  
-3. Distribute loads from propulsion system  
-4. Minimize vibration transmission  
-5. Maintain alignment of all subsystems  
-6. Enable safe landing and structural durability  
+1. Support component mounting
+2. Maintain structural integrity during flight
+3. Distribute loads from propulsion system
+4. Minimize vibration transmission
+5. Maintain alignment of all subsystems
+6. Enable safe landing and structural durability
 
 ---
 
-### Performance Specifications
+**Performance Specifications**
 
-The frame subsystem shall satisfy the following:
-
-- Frame configuration: H-frame  
-- Frame size: **16 in × 16 in**  
-- Frame material: carbon fiber  
-- Secondary materials: PETG or carbon-fiber reinforced nylon  
-- Estimated frame weight: 400–500 g  
-- Structural load capacity: ≥ 2.3 kg total aircraft mass  
-- Vibration isolation capability: reduce transmission of motor-induced vibration to sensors  
-- Mounting capability: support propulsion, power, sensing, and control subsystems  
-- Modularity: allow component removal and replacement  
+- Frame configuration: H-frame
+- Frame size: 16 in × 16 in
+- Frame material: carbon fiber
+- Secondary materials: PETG or carbon-fiber reinforced nylon
+- Estimated frame weight: 400–500 g
+- Structural load capacity: ≥ 2.3 kg total aircraft mass
+- Vibration isolation capability: reduce transmission of motor-induced vibration to sensors
+- Mounting capability: support propulsion, power, sensing, and control subsystems
+- Modularity: allow component removal and replacement
 
 ---
 
-### Detailed Shall Statements
+**Detailed Shall Statements**
 
-#### Functional Requirements
-- The subsystem shall provide structural support for all onboard components.  
-- The subsystem shall maintain geometric alignment required for stable multirotor flight.  
-- The subsystem shall provide mounting interfaces for all subsystems.  
+**Functional Requirements**
+- The subsystem shall provide structural support for all onboard components.
+- The subsystem shall maintain geometric alignment required for stable multirotor flight.
+- The subsystem shall provide mounting interfaces for all subsystems.
 
-#### Mechanical Requirements
-- The subsystem shall use carbon fiber as the primary structural material.  
-- The subsystem shall maintain sufficient stiffness to prevent structural deformation during flight.  
-- The subsystem shall support a minimum total load of 2.3 kg.  
+**Mechanical Requirements**
+- The subsystem shall use carbon fiber as the primary structural material.
+- The subsystem shall maintain sufficient stiffness to prevent structural deformation during flight.
+- The subsystem shall support a minimum total load of 2.3 kg.
 
-#### Interface Requirements
-- The subsystem shall provide mounting points for motors, ESCs, battery, and electronics.  
-- The subsystem shall support routing of electrical wiring between subsystems.  
-- The subsystem shall allow secure mounting of sensors and communication devices.  
+**Interface Requirements**
+- The subsystem shall provide mounting points for motors, ESCs, battery, and electronics.
+- The subsystem shall support routing of electrical wiring between subsystems.
+- The subsystem shall allow secure mounting of sensors and communication devices.
 
-#### Vibration Requirements
-- The subsystem shall minimize vibration transmission to acoustic sensors.  
-- The subsystem shall support vibration isolation mechanisms for sensitive components.  
+**Vibration Requirements**
+- The subsystem shall minimize vibration transmission to acoustic sensors.
+- The subsystem shall support vibration isolation mechanisms for sensitive components.
 
-#### Weight Requirements
-- The subsystem shall minimize structural mass to improve flight efficiency.  
-- The subsystem shall maintain a total frame mass between 400 g and 500 g.  
+**Weight Requirements**
+- The subsystem shall minimize structural mass to improve flight efficiency.
+- The subsystem shall maintain a total frame mass between 400 g and 500 g.
 
-#### Validation Requirements
-- The subsystem shall be validated through structural inspection and load testing.  
-- The subsystem shall be validated through flight testing for stability and vibration performance.  
-- The subsystem shall demonstrate durability under repeated operation.  
+**Validation Requirements**
+- The subsystem shall be validated through structural inspection and load testing.
+- The subsystem shall be validated through flight testing for stability and vibration performance.
+- The subsystem shall demonstrate durability under repeated operation.
 
 ---
 
-### Major Data Elements
+**Major Data Elements**
+- frame mass
+- structural load capacity
+- vibration characteristics
+- mounting geometry
+- subsystem interface locations
 
-- frame mass  
-- structural load capacity  
-- vibration characteristics  
-- mounting geometry  
-- subsystem interface locations  
-### Power and Propulsion Subsystem
+---
+
+## Power and Propulsion Subsystem
 
 **Functional Description**
 
-&nbsp; &nbsp; &nbsp; &nbsp; The power and propulsion subsystem is responsible for storing electrical energy, distributing that energy to the propulsion hardware, and generating the thrust required for takeoff, hover, maneuvering, and landing. The subsystem consists of a 6S lithium-ion battery, a power module, four electronic speed controllers, four brushless motors, and four multirotor propellers.
+The power and propulsion subsystem is responsible for storing electrical energy, distributing that energy to the propulsion hardware, and generating the thrust required for takeoff, hover, maneuvering, and landing. The subsystem consists of a 6S lithium-ion battery, a power module, four electronic speed controllers, four brushless motors, and four multirotor propellers.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The battery serves as the primary onboard energy source. Electrical power from the battery is delivered directly to the ESCs for propulsion and to a power module for flight controller operation. The power module steps down the battery voltage to a regulated 5V supply required by the flight controller and provides real-time voltage and current measurements for system monitoring and safety.
+The battery serves as the primary onboard energy source. Electrical power from the battery is delivered directly to the ESCs for propulsion and to a power module for flight controller operation. The power module steps down the battery voltage to a regulated 5V supply required by the flight controller and provides real-time voltage and current measurements for system monitoring and safety.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The ESCs regulate power delivered to each motor, which convert electrical energy into rotational motion. The propellers then convert this motion into thrust. Together, these components provide the lift and control authority needed for stable autonomous mapping flight.
+The ESCs regulate power delivered to each motor, which convert electrical energy into rotational motion. The propellers then convert this motion into thrust. Together, these components provide the lift and control authority needed for stable autonomous mapping flight.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The propulsion configuration uses the iFlight Fullsend 6S 8000 mAh Li-Ion battery, a Holybro-compatible power module, HobbyWing XRotor 40A ESCs, SunnySky V4008 380KV motors, and APC 13x4.5 multirotor propellers. This configuration reduces overall propulsion weight while maintaining sufficient power capability for the expected aircraft mass.
+The propulsion configuration uses the iFlight Fullsend 6S 8000 mAh Li-Ion battery, a Holybro-compatible power module, HobbyWing XRotor 40A ESCs, SunnySky V4008 380KV motors, and APC 13×4.5 multirotor propellers. This configuration reduces overall propulsion weight while maintaining sufficient power capability for the expected aircraft mass.
 
 ---
 
 **Design Justification**
 
-&nbsp; &nbsp; &nbsp; &nbsp; The selected components prioritize endurance, efficiency, and compatibility with the custom 16 in × 16 in frame. The 6S 8000 mAh Li-Ion battery was selected due to its high energy density, enabling longer flight times compared to equivalent LiPo batteries.
+The selected components prioritize endurance, efficiency, and compatibility with the custom 16 in × 16 in frame. The 6S 8000 mAh Li-Ion battery was selected due to its high energy density, enabling longer flight times compared to equivalent LiPo batteries.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The SunnySky V4008 380KV motors were selected in place of heavier alternatives to better match the 13-inch propeller size and reduce total system weight, improving flight time potential. The APC 13x4.5 propellers provide an effective balance between efficiency and frame constraints, offering improved hover efficiency while remaining compatible with the selected frame.
+The SunnySky V4008 380KV motors were selected in place of heavier alternatives to better match the 13-inch propeller size and reduce total system weight, improving flight time potential. The APC 13×4.5 propellers provide an effective balance between efficiency and frame constraints, offering improved hover efficiency while remaining compatible with the selected frame.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The HobbyWing XRotor 40A ESCs provide sufficient current capacity and reliable 6S operation. Individual ESCs were selected instead of a 4-in-1 configuration to improve thermal performance, increase system reliability, and simplify integration within the larger frame.
+The HobbyWing XRotor 40A ESCs provide sufficient current capacity and reliable 6S operation. Individual ESCs were selected instead of a 4-in-1 configuration to improve thermal performance, increase system reliability, and simplify integration within the larger frame.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The power module is required to safely power the flight controller by stepping down the battery voltage and enabling real-time power monitoring. This improves system safety and allows the flight controller to implement battery-aware control strategies such as low-voltage failsafes.
-
-&nbsp; &nbsp; &nbsp; &nbsp; Overall, the updated configuration is optimized for stable, long-duration autonomous mapping flight, emphasizing efficiency and reliability over high-speed performance.
+The power module is required to safely power the flight controller by stepping down the battery voltage and enabling real-time power monitoring. This improves system safety and allows the flight controller to implement battery-aware control strategies such as low-voltage failsafes.
 
 ---
 
@@ -754,13 +712,27 @@ The power and propulsion subsystem shall:
 
 ---
 
+**Subsystem Connections**
+
+| Interface | Signal Type | Direction | Protocol / Format | Data |
+|-----------|-------------|-----------|-------------------|------|
+| Battery → ESCs | Electrical (DC) | Output | Direct power bus | High-current propulsion power |
+| Battery → Power Module | Electrical (DC) | Output | Direct power bus | Battery voltage and current for regulation and monitoring |
+| Power Module → Flight Controller | Electrical (DC) | Output | Regulated 5V | Stable 5V power supply |
+| Power Module → Flight Controller | Digital | Output | Analog/ADC | Voltage and current telemetry |
+| Flight Controller → ESCs | Digital | Output | PWM | Motor speed commands |
+| ESCs → Motors | Electrical (AC 3-phase) | Output | 3-phase drive | Regulated motor drive current |
+| Motors → Propellers | Mechanical | Output | Direct shaft | Rotational force → thrust |
+
+---
+
 **Detailed Operation**
 
-&nbsp; &nbsp; &nbsp; &nbsp; During operation, the battery supplies DC power to both the propulsion system and the power module. The power module regulates the battery voltage to a stable 5V output used by the flight controller and provides voltage and current feedback for monitoring.
+During operation, the battery supplies DC power to both the propulsion system and the power module. The power module regulates the battery voltage to a stable 5V output used by the flight controller and provides voltage and current feedback for monitoring.
 
-&nbsp; &nbsp; &nbsp; &nbsp; Each ESC receives battery power and a control signal from the flight controller, then regulates the three-phase output delivered to its corresponding motor. Each motor rotates its propeller at the speed commanded by the flight controller. By varying motor speeds, the system generates the thrust and control forces required for stable flight.
+Each ESC receives battery power and a control signal from the flight controller, then regulates the three-phase output delivered to its corresponding motor. Each motor rotates its propeller at the speed commanded by the flight controller. By varying motor speeds, the system generates the thrust and control forces required for stable flight.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The use of lighter motors reduces total propulsion mass and improves endurance. During hover and mapping flight, the propulsion system operates below maximum power, maintaining safe thermal and electrical margins while supporting extended flight duration.
+The use of lighter motors reduces total propulsion mass and improves endurance. During hover and mapping flight, the propulsion system operates below maximum power, maintaining safe thermal and electrical margins while supporting extended flight duration.
 
 ---
 
@@ -772,137 +744,121 @@ The power and propulsion subsystem shall:
 
 **Performance Specifications**
 
-The power and propulsion subsystem shall satisfy the following:
-- Battery voltage: 22.2 V nominal  
-- Battery capacity: 8000 mAh  
-- Battery energy: 177.6 Wh  
-- Battery weight: 840 g  
+Battery:
+- Voltage: 22.2V nominal
+- Capacity: 8000 mAh
+- Energy: 177.6 Wh
+- Weight: 840 g
 
-- Power module input voltage: 2S–12S  
-- Power module output voltage: ~5.2 V regulated  
-- Power module current rating: 60 A continuous  
-- Power module weight: ~24 g  
+Power Module:
+- Input voltage: 2S–12S
+- Output voltage: ~5.2V regulated
+- Current rating: 60A continuous
+- Weight: ~24 g
 
-- Motor quantity: 4  
-- Motor KV: 380KV  
-- Motor maximum continuous power: 500 W each  
-- Motor weight: 105 g each  
+Motors (×4):
+- KV: 380KV
+- Max continuous power: 500W each
+- Weight: 105 g each
 
-- ESC quantity: 4  
-- ESC current rating: 40 A continuous, 60 A peak  
-- ESC voltage compatibility: 2S–6S  
-- ESC weight: 26 g each  
+ESCs (×4):
+- Current rating: 40A continuous, 60A peak
+- Voltage compatibility: 2S–6S
+- Weight: 26 g each
 
-- Propeller size: 13 × 4.5 in  
-- Propeller weight: 24.1 g each  
+Propellers (×4):
+- Size: 13×4.5 in
+- Weight: 24.1 g each
 
-- Estimated propulsion subsystem mass: 1460.4 g  
-- Estimated total aircraft mass: 2206.4 g before additional hardware  
-- Estimated realistic flight mass: approximately 2.2–2.3 kg  
+Mass Summary:
+- Estimated propulsion subsystem mass: 1460.4 g
+- Estimated total aircraft mass: 2206.4 g before additional hardware
+- Estimated realistic flight mass: approximately 2.2–2.3 kg
 
-- Estimated usable battery energy: 142–151 Wh  
-- Estimated average flight power: 350–500 W  
-- Estimated flight time: approximately 17–26 minutes  
-- Realistic mission estimate: approximately 18–22 minutes  
+Flight Time Estimates:
+- Usable battery energy: 142–151 Wh
+- Average flight power: 350–500 W
+- Estimated flight time: approximately 17–26 minutes
+- Realistic mission estimate: approximately 18–22 minutes
 
 ---
 
 **Weight Breakdown**
 
-Known non-propulsion mass:
-- Flight controller: 46.8 g  
-- Power module: 24 g  
-- HFlow sensor: 15.2 g  
-- RPLIDAR C1: 110 g  
-- DSP/Teensy subsystem: 50 g  
-- 3D-printed frame: 500 g  
+Non-propulsion components:
+- Flight controller: 46.8 g
+- Power module: 24 g
+- H-Flow sensor: 15.2 g
+- RPLIDAR C1: 110 g
+- DSP/Teensy subsystem: 50 g
+- 3D-printed frame: 500 g
+- Non-propulsion subtotal: 746.0 g
 
-Non-propulsion subtotal:
-- 746.0 g  
+Propulsion components:
+- Battery: 840 g
+- Motors: 420 g
+- ESCs: 104 g
+- Propellers: 96.4 g
+- Propulsion subtotal: 1460.4 g
 
-Propulsion subsystem mass:
-- Battery: 840 g  
-- Motors: 420 g  
-- ESCs: 104 g  
-- Propellers: 96.4 g  
-
-Propulsion subtotal:
-- 1460.4 g  
-
-Estimated total mass:
-- 746.0 g + 1460.4 g = 2206.4 g  
+Estimated total mass: 746.0 g + 1460.4 g = 2206.4 g
 
 ---
 
 **Flight Time Calculation**
 
-Battery energy:
-- 22.2 V × 8.0 Ah = 177.6 Wh  
+Battery energy: 22.2V × 8.0 Ah = 177.6 Wh
 
 Usable battery energy:
-- 80% usable: 142.1 Wh  
-- 85% usable: 151.0 Wh  
+- 80% usable: 142.1 Wh
+- 85% usable: 151.0 Wh
 
 Estimated flight time:
-- At 350 W: 24.4–25.9 minutes  
-- At 425 W: 20.1–21.3 minutes  
-- At 500 W: 17.1–18.1 minutes  
+- At 350W: 24.4–25.9 minutes
+- At 425W: 20.1–21.3 minutes
+- At 500W: 17.1–18.1 minutes
 
-This indicates that a flight time near 20 minutes is achievable if the system maintains an average power draw of approximately 425–450 W.
+A flight time near 20 minutes is achievable if the system maintains an average power draw of approximately 425–450W.
 
 ---
 
-### Detailed Shall Statements
+**Detailed Shall Statements**
 
 **Functional Requirements**
-- The subsystem shall provide electrical power for propulsion and flight control systems.  
-- The subsystem shall include one battery, one power module, four ESCs, four motors, and four propellers.  
-- The subsystem shall generate sufficient thrust for all flight phases.  
+- The subsystem shall provide electrical power for propulsion and flight control systems.
+- The subsystem shall include one battery, one power module, four ESCs, four motors, and four propellers.
+- The subsystem shall generate sufficient thrust for all flight phases.
 
 **Weight and Efficiency Requirements**
-- The subsystem shall minimize total mass while maintaining performance.  
-- The subsystem shall support a target aircraft mass near 2.2 kg.  
-- The subsystem shall support at least 18 minutes of flight time.  
-- The subsystem shall target a flight time near 20 minutes under optimal conditions.  
+- The subsystem shall minimize total mass while maintaining performance.
+- The subsystem shall support a target aircraft mass near 2.2 kg.
+- The subsystem shall support at least 18 minutes of flight time.
+- The subsystem shall target a flight time near 20 minutes under optimal conditions.
 
 **Electrical Requirements**
-- The subsystem shall operate from a 6S battery.  
-- The subsystem shall include a power module to regulate voltage for the flight controller.  
-- The subsystem shall operate within safe voltage and current limits.  
+- The subsystem shall operate from a 6S battery.
+- The subsystem shall include a power module to regulate voltage for the flight controller.
+- The subsystem shall operate within safe voltage and current limits.
 
 **Validation Requirements**
-- The subsystem shall be validated through weight measurement and flight testing.  
-- The subsystem shall demonstrate stable operation without overheating.  
-- The subsystem shall demonstrate sufficient endurance for mapping missions.  
+- The subsystem shall be validated through weight measurement and flight testing.
+- The subsystem shall demonstrate stable operation without overheating.
+- The subsystem shall demonstrate sufficient endurance for mapping missions.
+
+---
 
 **Major Data Elements**
-- total propulsion mass  
-- total aircraft mass  
-- usable battery energy  
-- average power consumption  
-- estimated flight time  
+- total propulsion mass
+- total aircraft mass
+- usable battery energy
+- average power consumption
+- estimated flight time
 
-### Internal Components Subsystem
+---
 
-#### Connections
+## Internal Components Subsystem
 
-The Pixhawk 6C Mini flight controller serves as the central hub of the internal components subsystem, interfacing with all onboard sensors. The Holybro H-Flow optical flow and distance sensor module connects to the Pixhawk 6C Mini via the CAN1 or CAN2 port using the DroneCAN protocol, providing horizontal velocity estimation and altitude data as digital output to the flight controller. The SLAMTEC RPLIDAR C1 2D lidar connects to the Pixhawk 6C Mini via the TELEM2 port using TTL UART serial communication, providing continuous 360° obstacle distance data as digital output to the flight controller. Both sensors receive power directly through their respective connection ports on the Pixhawk 6C Mini, with the flight controller itself powered through the external components subsystem.
-
-#### Specifications
-
-The Pixhawk 6C Mini shall serve as the central flight controller, managing stabilization, waypoint navigation, and sensor integration.
-The flight controller shall navigate to each predefined waypoint with a positional accuracy of ±0.5 meters.
-The flight controller shall maintain stable hover at each measurement waypoint within the venue.
-The flight controller shall execute a predefined waypoint mission without requiring manual input during flight.
-The flight controller shall actively maneuver the drone to maintain a minimum safe distance of 3 meters from any detected obstacle in the horizontal plane at all times.
-The H-Flow sensor shall provide continuous optical flow and altitude data to the flight controller via DroneCAN protocol.
-The H-Flow sensor shall support indoor position hold without reliance on GPS.
-The RPLIDAR C1 shall perform continuous 360° horizontal scanning and transmit distance data to the flight controller via TTL UART.
-The RPLIDAR C1 shall detect obstacles within a minimum range of 6 meters.
-The RPLIDAR C1 shall be mounted with a fixed forward reference aligned to the drone's heading axis to enable directional obstacle response.
-The internal components subsystem shall have a combined weight not exceeding 200g.
-
-#### Description
+**Functional Description**
 
 The internal components subsystem integrates the flight controller, localization sensor, and obstacle detection sensor into a unified system responsible for autonomous navigation, position estimation, and collision avoidance during the acoustic measurement mission.
 
@@ -912,50 +868,110 @@ The Holybro H-Flow module provides continuous optical flow and downward distance
 
 The SLAMTEC RPLIDAR C1 performs continuous 360° horizontal scanning and transmits angle and distance data to the Pixhawk via TTL UART. The flight controller monitors incoming scan data and actively maneuvers the drone to maintain a minimum safe distance of 3 meters from any detected obstacle in any horizontal direction at all times. The RPLIDAR C1 is mounted with a fixed forward reference aligned to the drone's heading axis, allowing the flight controller to map scan angles to real-world directions for accurate directional response.
 
-#### Functional Flowchart
+---
+
+**Subsystem Connections**
+
+| Interface | Signal Type | Direction | Protocol / Format | Data |
+|-----------|-------------|-----------|-------------------|------|
+| H-Flow → Pixhawk 6C Mini | Digital | Input | DroneCAN (CAN1/CAN2) | Optical flow velocity, downward distance |
+| RPLIDAR C1 → Pixhawk 6C Mini | Digital | Input | TTL UART (TELEM2) | 360° obstacle distance and angle data |
+| Pixhawk 6C Mini → ESCs | Digital | Output | PWM | Motor speed commands |
+| Power Module → Pixhawk 6C Mini | Electrical (DC) | Input | Regulated 5V | Flight controller power |
+| Power Module → Pixhawk 6C Mini | Digital | Input | Analog/ADC | Battery voltage and current telemetry |
+| mLRS Receiver → Pixhawk 6C Mini | Digital | Input | CRSF / SBUS / MAVLink | RC control inputs and supervisory commands |
+| Pixhawk 6C Mini → mLRS Receiver | Digital | Output | MAVLink (serial) | Telemetry, mode state, mission progress, fault data |
+
+---
+
+**Detailed Operation**
+
+The Pixhawk 6C Mini serves as the central flight controller, managing stabilization, waypoint navigation, and sensor integration. The H-Flow sensor provides continuous optical flow and altitude data via DroneCAN, enabling indoor position hold. The RPLIDAR C1 performs 360° horizontal scanning and transmits distance data via TTL UART, allowing the flight controller to detect and respond to obstacles by maintaining a minimum 3-meter clearance in all horizontal directions.
+
+---
+
+**Functional Flowchart**
 
 ![Internal Components Flowchart](Images/internal_components_flowchart_v3.png)
 
-#### Applicable Standards
+---
 
-- **FAA Part 107:** Regulates autonomous drone operation under U.S. federal law, including maximum altitude, weight limits, and operational safety requirements. [[8](#References)]
+**Performance Specifications**
 
-#### Implementation & Compliance
+- Positional accuracy: ±0.5 meters at each waypoint
+- Minimum obstacle clearance: 3 meters in all horizontal directions
+- RPLIDAR C1 detection range: minimum 6 meters
+- H-Flow operation: indoor position hold without GPS
+- Combined subsystem weight: ≤ 200 g
+
+---
+
+**Applicable Standards**
+
+**FAA Part 107** — Regulates autonomous drone operation under U.S. federal law, including maximum altitude, weight limits, and operational safety requirements.
+
+---
+
+**Implementation & Compliance**
 
 - The Pixhawk 6C Mini firmware enforces altitude and speed limits in accordance with FAA Part 107 operational requirements.
 - Emergency failsafe behaviors including controlled landing and return-to-home are configured within the flight controller firmware to ensure safe operation in fault conditions.
 - The RPLIDAR C1 operates within Class 1 laser safety standards, posing no risk to personnel during venue operation.
 
-#### Design Considerations
+---
+
+**Design Considerations**
 
 - The RPLIDAR C1 must be mounted with a consistent forward reference relative to the drone's heading axis to ensure accurate directional obstacle response.
 - Vibration isolation should be considered for the Pixhawk 6C Mini to maintain accurate IMU measurements during flight.
 - The H-Flow sensor must be mounted facing downward with an unobstructed view of the floor surface to ensure reliable optical flow performance.
 - Surface texture and lighting conditions within the venue may affect H-Flow performance and should be evaluated during testing.
 
-### Acoustic Signal Processing Subsystem
+---
+
+**Detailed Shall Statements**
+
+- The Pixhawk 6C Mini shall serve as the central flight controller, managing stabilization, waypoint navigation, and sensor integration.
+- The flight controller shall navigate to each predefined waypoint with a positional accuracy of ±0.5 meters.
+- The flight controller shall maintain stable hover at each measurement waypoint within the venue.
+- The flight controller shall execute a predefined waypoint mission without requiring manual input during flight.
+- The flight controller shall actively maneuver the drone to maintain a minimum safe distance of 3 meters from any detected obstacle in the horizontal plane at all times.
+- The H-Flow sensor shall provide continuous optical flow and altitude data to the flight controller via DroneCAN protocol.
+- The H-Flow sensor shall support indoor position hold without reliance on GPS.
+- The RPLIDAR C1 shall perform continuous 360° horizontal scanning and transmit distance data to the flight controller via TTL UART.
+- The RPLIDAR C1 shall detect obstacles within a minimum range of 6 meters.
+- The RPLIDAR C1 shall be mounted with a fixed forward reference aligned to the drone's heading axis to enable directional obstacle response.
+- The internal components subsystem shall have a combined weight not exceeding 200 g.
+
+---
+
+## Acoustic Signal Processing Subsystem
 
 **Functional Description**
 
-&nbsp; &nbsp; &nbsp; &nbsp; The acoustic signal processing subsystem is responsible for acquiring, conditioning, and processing audio signals collected by a lightweight microphone system mounted on the drone. The subsystem provides a continuous, real-time audio signal suitable for acoustic analysis using Smaart at the ground station.
+The acoustic signal processing subsystem is responsible for acquiring, conditioning, and processing audio signals collected by a lightweight microphone system mounted on the drone. The subsystem provides a continuous, real-time audio signal suitable for acoustic analysis using Smaart at the ground station.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The subsystem utilizes a compact electret microphone interfaced through a custom-designed analog front-end circuit. This front-end provides microphone biasing, AC coupling, and low-noise preamplification to convert the raw microphone signal into a conditioned analog signal suitable for digitization.
+The subsystem utilizes a compact electret microphone interfaced through a custom-designed analog front-end circuit. This front-end provides microphone biasing, AC coupling, and low-noise preamplification to convert the raw microphone signal into a conditioned analog signal suitable for digitization.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The conditioned signal is digitized and processed by a Teensy-based embedded digital signal processing platform, where real-time filtering is applied to reduce predictable drone-induced noise such as rotor and vibration artifacts. The processed signal is continuously output as an analog signal.
+The conditioned signal is digitized and processed by a Teensy-based embedded digital signal processing platform, where real-time filtering is applied to reduce predictable drone-induced noise such as rotor and vibration artifacts. The processed signal is continuously output as an analog signal.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The analog output is passed through an output conditioning stage and transmitted via a Shure wireless system to the ground station. The received signal is then analyzed using Smaart, where the system operator selects appropriate moments to capture measurements based on signal quality and stability.
+The analog output is passed through an output conditioning stage and transmitted via a Shure wireless system to the ground station. The received signal is then analyzed using Smaart, where the system operator selects appropriate moments to capture measurements based on signal quality and stability.
+
+---
 
 **Design Justification**
 
-&nbsp; &nbsp; &nbsp; &nbsp; The selection of a lightweight electret microphone and wireless transmission system represents a design tradeoff between measurement accuracy and system feasibility. Traditional acoustic measurement systems rely on calibrated condenser microphones requiring phantom power; however, these systems introduce significant weight, power consumption, and integration complexity, making them impractical for use on an aerial platform.
+The selection of a lightweight electret microphone and wireless transmission system represents a design tradeoff between measurement accuracy and system feasibility. Traditional acoustic measurement systems rely on calibrated condenser microphones requiring phantom power; however, these systems introduce significant weight, power consumption, and integration complexity, making them impractical for use on an aerial platform.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The proposed design utilizes a Countryman B6 electret microphone combined with a custom analog front-end circuit, allowing precise control over biasing, gain structure, and signal conditioning prior to digital processing. This approach enables improved signal integrity compared to directly interfacing the microphone with a wireless transmitter.
+The proposed design utilizes a Countryman B6 electret microphone combined with a custom analog front-end circuit, allowing precise control over biasing, gain structure, and signal conditioning prior to digital processing. This approach enables improved signal integrity compared to directly interfacing the microphone with a wireless transmitter.
 
-&nbsp; &nbsp; &nbsp; &nbsp; Onboard digital signal processing using the Teensy platform allows the subsystem to reduce predictable drone-induced noise before wireless transmission. Performing this processing at the source improves the usability of the transmitted signal and reduces reliance on post-processing.
+Onboard digital signal processing using the Teensy platform allows the subsystem to reduce predictable drone-induced noise before wireless transmission. Performing this processing at the source improves the usability of the transmitted signal and reduces reliance on post-processing.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The system provides a continuous audio stream rather than discrete measurement capture. This design aligns with professional measurement workflows, where the operator uses Smaart to evaluate signal quality, coherence, and environmental conditions before capturing measurement data.
+The system provides a continuous audio stream rather than discrete measurement capture. This design aligns with professional measurement workflows, where the operator uses Smaart to evaluate signal quality, coherence, and environmental conditions before capturing measurement data.
 
-&nbsp; &nbsp; &nbsp; &nbsp; While the system does not achieve laboratory-grade measurement accuracy, it provides sufficient fidelity for comparative acoustic analysis, including spatial variations in level, timing, and general frequency response behavior. This approach improves system robustness by maintaining a human-in-the-loop measurement process, reducing the risk of capturing invalid or noisy data.
+While the system does not achieve laboratory-grade measurement accuracy, it provides sufficient fidelity for comparative acoustic analysis, including spatial variations in level, timing, and general frequency response behavior. This approach improves system robustness by maintaining a human-in-the-loop measurement process, reducing the risk of capturing invalid or noisy data.
+
+---
 
 **Subsystem Objectives**
 
@@ -968,65 +984,70 @@ The acoustic signal processing subsystem shall:
 - support wireless transmission of conditioned audio to the ground station
 - maintain compatibility with industry-standard acoustic measurement workflows
 
-**External Components Interface**
-| Interface                | Signal Type        |            Direction | Protocol / Format      | Data                     |
-| ------------------------ | ------------------ | -------------------: | ---------------------- | ------------------------ |
-| B6 microphone            | Analog (mic-level) |                Input | Electret biased analog | Acoustic pressure signal |
-| Front-end → Teensy       | Analog             |                Input | Line-level analog      | Conditioned signal       |
-| Teensy → transmitter     | Analog             |               Output | Conditioned line-level | Processed audio          |
-| Wireless transmitter     | RF                 |               Output | Shure wireless system  | Audio signal             |
-| Wireless receiver        | Analog             | Input (to interface) | Line-level             | Received audio           |
-| Audio interface → Smaart | Digital            |                Input | USB / audio driver     | Measurement signal       |
+---
 
-**Internal Components Interface**
-| Interface            | Signal Type | Direction | Protocol           | Data                 |
-| -------------------- | ----------- | --------: | ------------------ | -------------------- |
-| Mic front-end output | Analog      |     Input | ADC (audio shield) | Conditioned signal   |
-| DSP processing       | Digital     |  Internal | Audio library      | Filtered samples     |
-| Audio output         | Analog      |    Output | DAC                | Processed audio      |
-| System timing        | Digital     |     Input | Clock              | DSP timing reference |
+**Subsystem Connections**
+
+**External Interfaces**
+
+| Interface | Signal Type | Direction | Protocol / Format | Data |
+|-----------|-------------|-----------|-------------------|------|
+| B6 Microphone → Front-End | Analog (mic-level) | Input | Electret biased analog | Acoustic pressure signal |
+| Front-End → Teensy | Analog | Input | Line-level analog | Conditioned signal |
+| Teensy → Wireless Transmitter | Analog | Output | Conditioned line-level | Processed audio |
+| Wireless Transmitter → Receiver | RF | Output | Shure wireless system | Audio signal |
+| Wireless Receiver → Audio Interface | Analog | Input | Line-level | Received audio |
+| Audio Interface → Smaart | Digital | Input | USB / audio driver | Measurement signal |
+
+**Internal Interfaces**
+
+| Interface | Signal Type | Direction | Protocol | Data |
+|-----------|-------------|-----------|----------|------|
+| Mic Front-End → Teensy ADC | Analog | Input | ADC (audio shield) | Conditioned signal |
+| DSP Processing (internal) | Digital | Internal | Audio library | Filtered samples |
+| Teensy DAC → Output Stage | Analog | Output | DAC | Processed audio |
+| System Timing | Digital | Input | Clock | DSP timing reference |
+
+---
 
 **Detailed Operation**
 
-&nbsp; &nbsp; &nbsp; &nbsp; The acoustic signal processing subsystem operates as a continuous onboard audio conditioning and transmission chain. Its purpose is to acquire the acoustic signal at the drone, improve signal quality through analog conditioning and digital filtering, and deliver a real-time audio stream to the ground station for analysis.
+The acoustic signal processing subsystem operates as a continuous onboard audio conditioning and transmission chain. During operation, the Countryman B6 microphone converts acoustic pressure into a low-level electrical signal. This signal is routed into a custom analog front-end, which provides microphone biasing, removes DC components through AC coupling, and amplifies the signal using a low-noise preamplifier to a level suitable for digitization.
 
-&nbsp; &nbsp; &nbsp; &nbsp; During operation, the Countryman B6 microphone converts acoustic pressure into a low-level electrical signal. This signal is routed into a custom analog front-end, which provides microphone biasing, removes DC components through AC coupling, and amplifies the signal using a low-noise preamplifier to a level suitable for digitization.
+The conditioned signal is digitized by the Teensy audio system and processed in real time. The primary objective of this processing stage is to reduce predictable drone-induced noise — such as low-frequency rotor and vibration artifacts — while preserving the integrity of the acoustic signal.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The conditioned signal is then digitized by the Teensy audio system and processed in real time. The primary objective of this processing stage is to reduce predictable drone-induced noise, such as low-frequency rotor and vibration artifacts, while preserving the integrity of the acoustic signal.
+Following processing, the signal is converted back to analog and passed through an output conditioning stage. This stage prepares the signal for compatibility with the Shure wireless transmitter by providing appropriate DC blocking, signal level control, and electrical interfacing.
 
-&nbsp; &nbsp; &nbsp; &nbsp; Following processing, the signal is converted back to analog and passed through an output conditioning stage. This stage prepares the signal for compatibility with the Shure wireless transmitter by providing appropriate DC blocking, signal level control, and electrical interfacing.
+The processed audio is transmitted continuously to the ground station, where it is received and analyzed using Smaart. Measurement capture is not controlled by the onboard system; instead, the operator monitors the live signal and determines when conditions are suitable for taking measurements. This allows for human verification of signal quality, coherence, and environmental conditions before accepting data.
 
-&nbsp; &nbsp; &nbsp; &nbsp; The processed audio is transmitted continuously to the ground station, where it is received and analyzed using Smaart. Measurement capture is not controlled by the onboard system; instead, the operator monitors the live signal and determines when conditions are suitable for taking measurements. This allows for human verification of signal quality, coherence, and environmental conditions before accepting data.
-
-&nbsp; &nbsp; &nbsp; &nbsp; Overall, the subsystem functions as a real-time signal conditioning and transmission path, enabling the drone to act as a mobile acoustic measurement platform while relying on external tools and operator judgment for analysis and data collection.
+---
 
 **Functional Flowchart**
 
+---
+
 **Performance Specifications**
 
-The acoustic signal processing subsystem shall satisfy the following:
 - Frequency analysis range: 20 Hz to 20 kHz (practical usable band)
-- Relative frequency response consistency within ±3 dB across repeated measurements
+- Relative frequency response consistency: within ±3 dB across repeated measurements
 - Sampling rate: ≥ 44.1 kHz
 - Continuous real-time audio output suitable for analysis using Smaart
 - Signal-to-noise ratio sufficient to allow meaningful analysis in typical venue conditions
 - Drone-induced noise reduced such that it does not dominate the measurement signal within the usable frequency band
-- Repeatability within ±3 dB across identical spatial positions under similar conditions
+- Repeatability: within ±3 dB across identical spatial positions under similar conditions
 
 The subsystem is subject to the following constraints:
-- The microphone system (Countryman B6) is not a laboratory-calibrated measurement microphone
-- Wireless transmission may introduce:
-  - bandwidth limitations
-  - latency
-  - dynamic range compression
+- The Countryman B6 is not a laboratory-calibrated measurement microphone
+- Wireless transmission may introduce bandwidth limitations, latency, and dynamic range compression
 - Drone-generated noise, airflow, and movement may affect measurements
 - Onboard processing is limited by the computational capability of the Teensy platform
 - Power and payload constraints of the aerial platform limit hardware complexity
 
-### Detailed Shall Statements
+---
+
+**Detailed Shall Statements**
 
 **Functional Requirements**
-
 - The subsystem shall acquire audio using a lightweight electret microphone integrated with the drone platform.
 - The subsystem shall implement a custom analog front-end including biasing, AC coupling, and preamplification.
 - The subsystem shall digitize and process the audio signal using onboard DSP.
@@ -1035,303 +1056,217 @@ The subsystem is subject to the following constraints:
 - The subsystem shall transmit processed audio to the ground station via a wireless audio link.
 
 **Signal Integrity Requirements**
-
 - The subsystem shall preserve sufficient signal fidelity to enable comparative acoustic analysis across spatial positions.
 - The subsystem shall reduce low-frequency vibration and rotor noise through filtering techniques.
 - The subsystem shall maintain stable gain and frequency response during operation.
 - The subsystem shall minimize distortion introduced by analog and digital processing stages.
 - The subsystem shall avoid time-varying artifacts that negatively impact real-time acoustic analysis.
-  
-**Interface Requirements**
 
+**Interface Requirements**
 - The subsystem shall accept the microphone signal through the custom analog front-end.
 - The subsystem shall provide a conditioned analog output compatible with the Shure wireless transmitter.
 - The subsystem shall provide a continuous audio signal suitable for use with Smaart at the ground station.
-- The subsystem shall not require communication with the control or autonomy subsystem for normal operation. 
+- The subsystem shall not require communication with the control or autonomy subsystem for normal operation.
 
 **Reliability Requirements**
-
 - The subsystem shall operate continuously during flight without requiring manual reset.
 - The subsystem shall maintain stable operation under vibration and motion conditions.
 - The subsystem shall function within the electrical and thermal limits of the drone platform.
-  
-**Validation Requirements**
 
+**Validation Requirements**
 - The subsystem shall produce audio suitable for real-time acoustic analysis using Smaart.
 - The subsystem shall demonstrate repeatable signal behavior at identical spatial positions.
 - The subsystem shall allow comparison with traditional measurement workflows and reference equipment.
+
+---
 
 **Major Data Elements**
 
 Sent Data:
 - continuous processed audio signal (via wireless link)
 
-### Controller Subsystem
+---
 
-#### 1. Subsystem purpose and selected implementation
+## Controller Subsystem
 
-The controller subsystem is the operator’s primary command, supervision, and emergency-intervention interface for the autonomous acoustics measurement drone. It is not intended to behave like a conventional hobby transmitter alone. Instead, it functions as a smart handheld ground unit that supervises autonomous flight, displays mission and health status, allows immediate manual takeover, and coordinates with the drone-side control software during mission start, pause, resume, abort, return, and landing events. The selected implementation is based on a Raspberry Pi Zero 2 W, a Waveshare 5-inch HDMI capacitive touch display, an MCP3008 external ADC for analog joystick inputs, a Matek mR900-30-TX / mR900-30 915 MHz mLRS radio pair, and a Waveshare UPS Module 3S powered by three Samsung INR18650-35E flat-top cells. The Pi Zero 2 W provides a 1 GHz quad-core Cortex-A53 CPU, 512 MB RAM, mini HDMI, micro-USB OTG, and a 40-pin GPIO footprint; the chosen display provides a 5-inch 800 × 480 capacitive touch interface; the MCP3008 provides 8 analog input channels over SPI; the selected mLRS family provides bidirectional MAVLink plus remote control capability; and the UPS Module 3S provides regulated 5 V power from three loose 18650 cells with charging/discharging support and I2C monitoring output.
+**Functional Description**
 
-The controller enclosure shall be a custom 3D-printed handheld frame, using the same filament family selected in the project’s frame subsystem, so that the controller package remains consistent with the project’s larger structural/manufacturing strategy. This controller housing is expected to support mounting for the display, joysticks, buttons, kill-switch, Pi, ADC, radio module, battery pack, and power board, while also providing cable routing, operator ergonomics, and reasonable service access for charging, wiring, and module replacement.
+The controller subsystem is the operator's primary command, supervision, and emergency-intervention interface for the autonomous acoustics measurement drone. It functions as a smart handheld ground unit that supervises autonomous flight, displays mission and health status, allows immediate manual takeover, and coordinates with the drone-side control software during mission start, pause, resume, abort, return, and landing events.
 
-#### 2. Functions the controller subsystem shall perform
+The selected implementation is based on a Raspberry Pi Zero 2 W, a Waveshare 5-inch HDMI capacitive touch display, an MCP3008 external ADC for analog joystick inputs, a Matek mR900-30-TX / mR900-30 915 MHz mLRS radio pair, and a Waveshare UPS Module 3S powered by three Samsung INR18650-35E flat-top cells. The controller enclosure is a custom 3D-printed handheld frame using the same filament family selected in the project's frame subsystem.
 
-At the subsystem level, the controller shall perform six primary functions.
+---
 
-1. It shall provide the human-machine interface for the system. The operator must be able to see the current flight mode, autonomy state, link quality, battery state, mission progress, and fault conditions without requiring a separate ground-station display for core flight supervision.
+**Subsystem Connections**
 
-2. it shall provide the manual input path for emergency intervention. This includes joystick axes, buttons, switches, and a dedicated autonomy kill-switch that can immediately suspend autonomous mission execution and transfer control authority to the operator.
+| Interface | Signal Type | Direction | Protocol / Format | Data |
+|-----------|-------------|-----------|-------------------|------|
+| Joysticks → MCP3008 | Analog | Input | Analog voltage | Joystick X/Y axis positions |
+| MCP3008 → Pi Zero 2 W | Digital | Input | SPI | Sampled joystick and analog control values |
+| Buttons / Kill-Switch → Pi Zero 2 W | Digital | Input | GPIO | Button presses, switch states, kill-switch status |
+| Pi Zero 2 W → Touchscreen | Digital | Output | HDMI | Rendered UI, status displays, mission pages |
+| Touchscreen → Pi Zero 2 W | Digital | Input | USB | Touch coordinates and touch events |
+| Pi Zero 2 W → mR900-30-TX | Digital | Output | UART / serial | Operator commands, manual stick values, mode requests |
+| mR900-30-TX → Aircraft (mR900-30 RX) | Wireless (RF) | Output | mLRS 915 MHz | MAVLink supervisory data + RC control |
+| Aircraft (mR900-30 RX) → mR900-30-TX | Wireless (RF) | Input | mLRS 915 MHz | Flight mode, telemetry, mission progress, fault data |
+| mR900-30-TX → Pi Zero 2 W | Digital | Input | UART / serial | Received telemetry, link quality, aircraft state |
+| UPS Module 3S → Pi / Electronics | Electrical (DC) | Output | Regulated 5V | Controller system power |
+| UPS Module 3S → Pi Zero 2 W | Digital | Output | I2C | Battery voltage, current, remaining capacity |
+| Samsung 35E Cells → UPS Module 3S | Electrical (DC) | Input | Direct cell connection | Raw battery power |
 
-3. It shall provide the controller-side software interface to the broader coding subsystem. In practical terms, this means the controller software shall display status reported by the drone, send high-level mission commands, and support autonomy resume only when the drone reports that resumption is valid.
+---
 
-4. It shall provide the primary wireless supervisory and manual-control link to the aircraft through the selected 915 MHz mLRS radio system. The selected mLRS family is explicitly designed for bidirectional MAVLink serial connection combined with full remote control, and ArduPilot documents that mLRS can provide RC control and MAVLink telemetry together, with receiver outputs usable as SBUS, CRSF, or embedded MAVLink override depending on configuration.
+**Internal Architecture**
 
-5. It shall provide local controller power management and runtime monitoring. The Waveshare UPS Module 3S supports three 18650 cells in series, simultaneous charge/discharge, stable 5 V and 3.3 V outputs, and I2C output for battery-related monitoring data. The chosen Samsung 35E cells are flat-top, unprotected 18650 cells rated around 3500 mAh nominal capacity and 8 A continuous discharge, which is appropriate for a moderate-load handheld controller.
+The controller subsystem consists of four cooperating internal blocks.
 
-6. It shall support future expansion. The selected Pi/display/radio architecture leaves room for later additions such as controller-side logs, configuration pages, preflight checklists, richer fault screens, or more advanced mission control workflows without requiring the subsystem to be redesigned from scratch.
+**Compute and UI Block** — The Raspberry Pi Zero 2 W runs the controller software, renders the user interface, processes telemetry and mode/status information, handles mission-control commands, and manages interaction between the operator and the rest of the system.
 
-#### 3. Controller subsystem internal architecture
+**Input Acquisition Block** — Joysticks and analog controls are read through the MCP3008 ADC over SPI. The MCP3008 provides 8 analog input channels at 10-bit resolution, suitable for two-axis sticks and spare analog inputs.
 
-The controller subsystem is best understood as four cooperating internal blocks:
+**Wireless Command/Telemetry Block** — The Matek mR900-30-TX handles 915 MHz mLRS communication. The selected radio family supports bidirectional MAVLink and remote control simultaneously, providing both supervisory telemetry and RC control authority in a single link.
 
-- Compute and UI block.
-The Raspberry Pi Zero 2 W is the main compute element. It runs the controller software, renders the user interface, processes telemetry and mode/status information, handles mission-control commands, and manages interaction between the operator and the rest of the system. The Pi Zero 2 W exposes mini HDMI for display output, USB OTG, Wi-Fi/Bluetooth, and a 40-pin GPIO footprint for local interfacing.
+**Power Block** — The Waveshare UPS Module 3S and three Samsung 35E cells power the full controller subsystem. The UPS module supports simultaneous charge/discharge, stable 5V/3.3V output, and I2C battery monitoring.
 
-- Input acquisition block.
-The joysticks and other analog controls are read through the MCP3008 ADC over SPI because the Pi Zero 2 W does not provide native analog input channels. The MCP3008 is an in-production 8-channel, 10-bit ADC with SPI interface, making it suitable for two-axis sticks and spare analog inputs.
+---
 
-- Wireless command/telemetry block.
-The controller-side radio hardware is the Matek mR900-30-TX kit configured for 915 MHz operation. The selected mLRS family supports bidirectional MAVLink and remote control, and the Matek TX kit includes the TX module, adapter, Bluetooth hardware, and power/cooling provisions. The matching drone-side receiver supports bidirectional serial MAVLink and a separate RC output path configurable as CRSF or SBUS.
+**Subsystem Functions**
 
-- Power block.
-The controller is powered by the UPS Module 3S and three Samsung 35E cells. The UPS Module 3S is intended for 3×18650 series operation and up to 5 V / 5 A output, which gives ample margin over the Pi Zero 2 W’s 5 V, 2.5 A input requirement and helps support the display, radio hardware, and other controller electronics in one handheld package.
+The controller subsystem shall perform six primary functions.
 
-#### 4. Interfaces between the controller subsystem and other subsystems
+1. Provide the human-machine interface — the operator must be able to see flight mode, autonomy state, link quality, battery state, mission progress, and fault conditions without requiring a separate ground-station display for core flight supervision.
+2. Provide the manual input path for emergency intervention — including joystick axes, buttons, switches, and a dedicated autonomy kill-switch that immediately suspends autonomous mission execution and transfers control authority to the operator.
+3. Provide the controller-side software interface to the broader coding subsystem — displaying status reported by the drone, sending high-level mission commands, and supporting autonomy resume only when the drone reports that resumption is valid.
+4. Provide the primary wireless supervisory and manual-control link to the aircraft through the 915 MHz mLRS radio system.
+5. Provide local controller power management and runtime monitoring via the UPS Module 3S and I2C battery monitoring.
+6. Support future software expansion without requiring replacement of the core hardware architecture.
 
-**4.1 Interface to the frame subsystem**
+---
 
-The interface between the controller subsystem and the frame subsystem is primarily mechanical and packaging-related, not a live data interface. There is no direct controller-to-drone-frame data protocol. Instead, the frame subsystem influences controller integration in two ways: first, the project uses a custom 3D-printed controller enclosure that should be manufactured using the same chosen filament family as the frame subsystem; second, the drone frame must provide appropriate mounting, protection, and placement for the airborne radio receiver and antennas so the controller’s radio link remains usable.
+**Interfaces to Other Subsystems**
 
-- Signal type: none for normal operation; mechanical integration only
-- Direction: not applicable as an electrical interface
-- Protocol: none
-- Data sent/received: none directly
+**Frame Subsystem** — Mechanical and packaging only. No live data interface. The controller enclosure uses the same filament family as the frame subsystem. The drone frame must provide appropriate mounting and placement for the airborne radio receiver and antennas.
 
-From a system-integration standpoint, the controller indirectly depends on the frame subsystem because poor antenna placement, excessive shielding, or mechanical vibration transmitted into onboard radio hardware can degrade the control link.
+**Internal Components Subsystem** — Primary data interface. The controller communicates with the drone's internal components subsystem through the airborne mR900-30 receiver. Commands sent include manual stick inputs, mode-change requests, autonomy start/pause/abort/return/resume, and kill-switch state. Data received includes flight mode, autonomy state, waypoint/mission progress, battery telemetry, link quality, warnings, faults, localization status, and subsystem health telemetry.
 
-**4.2 Interface to the internal components subsystem**
+**Power and Propulsion Subsystem** — Indirect supervisory interface only. The controller receives aircraft battery status and propulsion-related warnings through telemetry. No direct electrical connection exists between the controller and the drone's ESCs, motors, or battery.
 
-This is the most important subsystem interface. The controller communicates with the drone’s internal components subsystem through the airborne mR900-30 receiver and the drone’s flight/control electronics. Matek documents the receiver as supporting bidirectional serial MAVLink on TX1/RX1 and RC output on TX2 as CRSF or SBUS; ArduPilot documents that mLRS can provide RC control and MAVLink telemetry and that RC controls can be delivered in SBUS or CRSF or by MAVLink override over the telemetry connection. The mLRS documentation also describes using the transmitter’s serial/MAVLink stream for ground-station functions and recommends MAVLink mode when that stream is used.
+**DSP Subsystem** — Coordination and status only. The controller receives DSP health/status information through system telemetry and may send mission-state information to coordinate measurement readiness. Raw audio does not pass through the controller — the DSP-to-laptop audio path remains separate.
 
-- Signal type: wireless digital communication over 915 MHz between controller TX and drone RX; serial digital communication on the aircraft side between receiver and internal control electronics
-- Direction: bidirectional
-- Protocol: mLRS wireless link carrying MAVLink telemetry/supervisory data and RC-control data; aircraft-side interface configured around MAVLink plus CRSF or SBUS as required by detailed implementation
-- Data sent by controller: manual stick commands, mode-change requests, autonomy start, pause, abort, return, land, and resume requests, UI-originated acknowledgments, and kill-switch state
-- Data received by controller: flight mode, autonomy state, waypoint/mission progress, battery telemetry, link quality, warnings, faults, localization status, and any available subsystem-health telemetry
+---
 
-This interface is what makes the controller the operator-facing branch of the broader coding subsystem. The controller does not replace the drone’s onboard autonomy logic; it supervises and overrides it when necessary.
+**Detailed Operation**
 
-**4.3 Interface to the external components subsystem**
+The controller subsystem operates in five phases.
 
-The controller subsystem has no direct power or motor-control wiring interface to the drone’s battery, ESCs, motors, or propellers. All such actuation remains onboard the aircraft and is mediated by the internal control electronics. However, the controller does have an indirect supervisory interface to the external components subsystem because the controller receives aircraft battery status and propulsion-related warnings through telemetry, and its commands ultimately cause vehicle propulsion changes through the drone’s internal control chain.
+**Phase 1 — Power-up and initialization:** The UPS/power stage energizes the Pi, screen, local controls, and radio hardware. The controller software boots to a system-status page and verifies local subsystem readiness including ADC availability, screen operation, button/kill-switch detection, radio availability, and battery monitoring.
 
-- Signal type: indirect digital telemetry and command data via the internal components subsystem
-- Direction: bidirectional at the system level, but indirect
-- Protocol: same wireless supervisory/control interface as above; no direct controller-to-ESC/motor protocol
-- Data sent by controller: high-level operator commands that indirectly affect thrust and vehicle motion
-- Data received by controller: aircraft battery state, low-voltage/failsafe warnings, propulsion-related fault flags, arming state, and flight-mode status
+**Phase 2 — Link establishment and status acquisition:** The controller establishes communication with the airborne radio and begins receiving telemetry, mode state, and health data from the aircraft. The operator can see whether the drone is connected, armed, autonomous, paused, in manual control, or in a faulted state.
 
-This distinction is important for design clarity: the controller does not directly drive ESC signals, motor PWM, or power-distribution hardware. It commands the autonomy/flight stack, which then controls the external flight hardware.
+**Phase 3 — Mission supervision:** During autonomous operation, the controller displays flight mode, autonomy state, mission progress, current waypoint, aircraft battery level, link health, and critical fault indicators. The operator can command mission start, pause, abort, return, or landing depending on the drone-side software state.
 
-**4.4 Interface to the DSP subsystem**
+**Phase 4 — Manual override:** If the operator activates the autonomy kill-switch or manual takeover control, the controller immediately prioritizes manual authority. Stick inputs become the primary operator commands and the UI clearly indicates that autonomy has been suspended.
 
-The controller subsystem interfaces with the DSP subsystem only at the coordination and status level, not as the primary audio transport path. Based on your high-level design, the DSP subsystem conditions and processes acoustic data onboard and transmits the resulting audio signal to the ground-station laptop running Smaart. The controller is therefore not the main carrier of the audio stream. Instead, it should receive DSP-related health/status information through system telemetry and may send mission-state information that helps coordinate measurements or operator awareness.
+**Phase 5 — Mission continuation or shutdown:** After an override event, the operator may continue manually, command return/land, or request autonomy resume. The controller only offers a normal resume path if the drone-side system reports that resumption is valid.
 
-- Signal type: indirect digital status/coordination data
-- Direction: bidirectional as supervisory metadata; raw audio is not expected to pass through the controller
-- Protocol: supervisory telemetry over the controller-to-drone wireless link; DSP-to-laptop audio path remains separate
-- Data sent by controller: mission start state, pause state, manual override state, mission progress tags if implemented, and operator notifications affecting measurement readiness
-- Data received by controller: DSP online/offline state, audio-link-ready indication if available, fault/warning status associated with the acoustic chain, and optional measurement-state metadata
+---
 
-The controller should therefore be designed to inform the operator about DSP readiness without becoming the bottleneck for the audio data itself.
+**Expected User Interface**
 
-#### 5. Internal controller interfaces
+At minimum the controller shall provide the following screens:
 
-For actual controller implementation, the following internal interfaces are expected.
+- **System Overview** — controller battery state, aircraft battery state, link status, autonomy/manual mode, DSP-ready state, and general health summary
+- **Mission Screen** — mission name or ID, current mission state, current waypoint, mission progress, and operator command buttons (start, pause, return, abort)
+- **Manual Override Screen** — manual-control active state, stick status, takeover confirmation, autonomy-disabled indication, and a clearly visible path to land or return
+- **Faults and Alerts Screen** — critical versus noncritical faults, time-ordered warnings, and operator acknowledgments required
+- **Settings / Maintenance Screen** — reserved for future configuration including calibration, UI settings, controller diagnostics, radio settings, and battery-monitoring options
 
-1. **Pi Zero 2 W ↔ touchscreen**
-- Signal type: digital video plus touch input
-- Direction: Pi output to display for video; display output to Pi for touch
-- Protocol: HDMI for display video; USB touch interface for touch events
-- Data: rendered UI pages, status graphics, icons, text, touch coordinates, touch events
-- The chosen Waveshare display is a 5-inch, 800 × 480 capacitive touchscreen with HDMI input and touch support.
+Physical controls shall include two analog sticks, a dedicated autonomy kill-switch, and sufficient buttons or toggles to support mission navigation and confirmation without relying only on touch input.
 
-2. **Pi Zero 2 W ↔ MCP3008**
-- Signal type: digital serial
-- Direction: bidirectional
-- Protocol: SPI
-- Data: ADC configuration/clocking and sampled analog stick values
-- The MCP3008 is an 8-channel, 10-bit SPI ADC and is the intended analog input stage for the joystick axes.
+---
 
-3. **Joysticks / analog controls ↔ MCP3008**
-- Signal type: analog voltage
-- Direction: input to subsystem
-- Protocol: none beyond analog sampling
-- Data: joystick X/Y voltages and any future analog control voltages
-
-4. **Buttons / switches / kill-switch ↔ Pi or helper input stage**
-- Signal type: digital GPIO or equivalent digital logic
-- Direction: input to subsystem
-- Protocol: none beyond GPIO state reading/debouncing
-- Data: button presses, switch states, kill-switch status, menu controls
-
-5. **Pi Zero 2 W ↔ radio TX module**
-- Signal type: digital serial supervisory/control data
-- Direction: bidirectional
-- Protocol: serial/UART-compatible integration for mLRS supervisory data path, with the airborne side exposing MAVLink/RC-compatible outputs
-- Data: operator commands, manual channel values, telemetry packets, mode status, warning/fault data
-- This specific electrical integration should be finalized in detailed design, but it shall remain compatible with the selected mLRS supervisory-control architecture documented by Matek and ArduPilot.
-
-6. **UPS Module 3S ↔ Pi/controller electronics**
-- Signal type: regulated power plus monitoring data
-- Direction: power output from UPS to controller electronics; monitoring data from UPS to Pi
-- Protocol: 5 V power distribution; I2C for monitoring if implemented
-- Data: battery voltage, current, power, remaining capacity or related monitor values, depending on software integration
-- Waveshare states the UPS Module 3S provides stable 5 V/3.3 V output and supports IIC output for voltage/current/power related parameters.
-
-#### 6. Detailed operation of the controller subsystem
-
-The controller subsystem is expected to operate in five phases.
-
-**Phase 1: power-up and initialization.**
-When powered on, the UPS/power stage shall energize the Pi, screen, local controls, and radio hardware. The controller software shall boot to a system-status page and verify local subsystem readiness, including ADC availability, screen operation, button/kill-switch detection, radio availability, and battery-monitoring availability if implemented.
-
-**Phase 2: link establishment and status acquisition.**
-The controller shall establish communication with the airborne radio and begin receiving telemetry, mode state, and health data from the aircraft. The operator shall be able to see whether the drone is connected, armed, autonomous, paused, in manual control, or in a faulted state.
-
-**Phase 3: mission supervision.**
-During autonomous operation, the controller shall display flight mode, autonomy state, mission progress, current waypoint or segment state, aircraft battery level, link health, and critical fault indicators. The operator shall be able to command mission start, pause, abort, return, or landing, depending on the state of the drone-side software.
-
-**Phase 4: manual override.**
-If the operator activates the autonomy kill-switch or manual takeover control, the controller shall immediately prioritize manual authority. In this state, stick inputs and other relevant controls become the primary operator commands and the controller UI shall clearly indicate that autonomy has been suspended.
-
-**Phase 5: mission continuation or shutdown.**
-After an override event, the operator may continue manually, command return/land, or request autonomy resume. The controller shall only offer a normal resume path if the drone-side system reports that resumption is valid. At shutdown, the controller shall preserve logs or state information as required by the final software design.
-
-#### 7. Expected user interface
-
-The expected interface is a touch-capable handheld UI supported by physical flight controls.
-
-At minimum, the controller should provide these screens:
-
-- System Overview screen - Shows controller battery state, aircraft battery state, link status, autonomy/manual mode, DSP-ready state if available, and general health summary.
-
-- Mission screen - Shows mission name or ID, current mission state, current waypoint or segment, mission progress, and operator command buttons such as start, pause, return, or abort.
-
-- Manual Override screen - Shows manual-control active state, stick status, takeover confirmation, autonomy-disabled indication, and a clearly visible path to land or return.
-
-- Faults and Alerts screen - Shows critical versus noncritical faults, time-ordered warnings, and any operator acknowledgments required.
-
-- Settings / Maintenance screen - Reserved for future configuration such as calibration, UI settings, controller diagnostics, radio settings, or battery-monitoring options.
-
-The physical controls should include two analog sticks, a dedicated autonomy kill-switch, and sufficient buttons or toggles to support mission navigation and confirmation without relying only on touch input.
-
-#### 8. Functional flowchart section
+**Functional Flowchart**
 
 ![Alt text](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Rough_Draft_Project/Reports/Images/Controller%20Subsystem%20Flowchart%20-%20Sean%20Ike.pdf)
 
+---
 
-#### 9. Detailed shall statements
+**Detailed Shall Statements**
 
-The following are customer-style requirements for the controller subsystem.
-
-**A. General function**
+**General Function**
 - The controller subsystem shall serve as the primary operator control and supervision interface for the autonomous acoustics measurement drone.
 - The controller subsystem shall support both autonomous mission supervision and emergency manual flight takeover.
-- The controller subsystem shall be implemented around a Raspberry Pi Zero 2 W or an equivalent platform that meets the same functional requirements for compute capability, display output, and GPIO expansion.
+- The controller subsystem shall be implemented around a Raspberry Pi Zero 2 W or equivalent platform meeting the same functional requirements.
 - The controller subsystem shall include an integrated display-based user interface.
 - The controller subsystem shall include physical manual-control inputs suitable for emergency aircraft control.
 - The controller subsystem shall support future software expansion without requiring replacement of the core controller hardware architecture.
 
-**B. Selected hardware architecture**
-- The controller subsystem shall use a 5-inch class touch display compatible with the selected compute platform’s video output.
+**Selected Hardware Architecture**
+- The controller subsystem shall use a 5-inch class touch display compatible with the selected compute platform's video output.
 - The controller subsystem shall use an external ADC to acquire analog joystick inputs.
 - The controller subsystem shall use a dedicated long-range radio subsystem separate from the laptop audio-data path.
 - The controller subsystem shall use a battery-backed handheld power architecture capable of supporting the controller computer, display, radio hardware, and local I/O hardware simultaneously.
-- The controller subsystem shall be housed in a custom 3D-printed enclosure.
-- The controller enclosure shall be designed for manufacture using the same selected filament family used by the project’s frame subsystem.
+- The controller subsystem shall be housed in a custom 3D-printed enclosure manufactured using the same filament family as the frame subsystem.
 
-**C. User interface and operator awareness**
-- The controller subsystem shall display the current aircraft mode, including at minimum autonomous, manual, paused, return, landing, and fault states.
+**User Interface and Operator Awareness**
+- The controller subsystem shall display the current aircraft mode including at minimum autonomous, manual, paused, return, landing, and fault states.
 - The controller subsystem shall display aircraft battery information during operation.
 - The controller subsystem shall display controller battery or power status during operation.
 - The controller subsystem shall display wireless-link status during operation.
 - The controller subsystem shall display mission progress during autonomous operation.
 - The controller subsystem shall present critical warnings in a manner visually distinguishable from advisory messages.
 - The controller subsystem shall provide a user-accessible manual override interface at all times during flight.
-- The controller subsystem shall provide a clear indication whenever autonomy has been disabled.
-- The controller subsystem shall provide a clear indication whenever autonomy has been restored.
-- The controller subsystem shall support a screen structure that allows the operator to access system overview, mission status, manual override, and fault information.
+- The controller subsystem shall provide a clear indication whenever autonomy has been disabled or restored.
+- The controller subsystem shall support a screen structure allowing the operator to access system overview, mission status, manual override, and fault information.
 
-**D. Manual controls and safety**
-- The controller subsystem shall include at least two analog joystick axes per flight stick set as required by the final manual control scheme.
-- The controller subsystem shall include a dedicated autonomy kill-switch or dedicated equivalent input with priority over normal mission-control commands.
+**Manual Controls and Safety**
+- The controller subsystem shall include at least two analog joystick axes per flight stick set.
+- The controller subsystem shall include a dedicated autonomy kill-switch with priority over normal mission-control commands.
 - The controller subsystem shall prioritize manual takeover commands over routine supervisory commands.
 - The controller subsystem shall continue to present fault and status information while manual control is active.
 - The controller subsystem shall allow the operator to request return-to-land or equivalent safe recovery behavior after manual takeover.
 - The controller subsystem shall not indicate that autonomous resume is available unless the drone-side system reports that resume conditions are valid.
 
-**E. Wireless communication**
-- The controller subsystem shall communicate with the aircraft using the selected 915 MHz controller radio link.
+**Wireless Communication**
+- The controller subsystem shall communicate with the aircraft using the selected 915 MHz mLRS radio link.
 - The controller subsystem shall support bidirectional exchange of operator commands and aircraft telemetry.
-- The controller subsystem shall maintain separation between the controller radio link and the separate audio-data transmission path used by the DSP subsystem.
+- The controller subsystem shall maintain separation between the controller radio link and the DSP audio transmission path.
 - The controller subsystem shall detect and report loss or degradation of the controller-to-aircraft link.
-- The controller subsystem shall log or otherwise record loss-of-link events if logging is enabled in the final software build.
 - The controller subsystem shall not route raw DSP audio through the controller as the primary measurement transport path.
 
-**F. Interfaces to the drone’s internal components subsystem**
-- The controller subsystem shall transmit manual control inputs, supervisory commands, and mode requests to the drone’s internal control electronics through the selected radio architecture.
-- The controller subsystem shall receive flight-mode status, mission status, aircraft battery telemetry, and subsystem-fault data from the drone’s internal control electronics.
-- The controller subsystem shall support the selected control/telemetry architecture’s required serial and protocol compatibility on the controller side.
-- The controller subsystem shall be configurable to work with the selected drone-side receiver output mode required by the aircraft control implementation.
-
-**G. Analog and digital input acquisition**
+**Analog and Digital Input Acquisition**
 - The controller subsystem shall sample analog joystick inputs through the selected ADC interface.
 - The controller subsystem shall provide enough analog input channels for the full set of planned joystick controls and at least one reasonable expansion margin.
 - The controller subsystem shall debounce or otherwise condition digital button and switch inputs before use by the controller software.
 - The controller subsystem shall continuously monitor the kill-switch input whenever the controller is powered and flight supervision is active.
 
-**H. Power and battery subsystem requirements**
+**Power and Battery Requirements**
 - The controller subsystem shall operate from an onboard rechargeable battery system rather than requiring tethered wall power during normal use.
 - The controller subsystem shall provide regulated power suitable for the compute platform and attached controller electronics.
-- The controller subsystem shall provide sufficient runtime for a normal mission session as defined during detailed design verification.
+- The controller subsystem shall provide sufficient runtime for a normal mission session.
 - The controller subsystem shall support safe charging behavior appropriate to the selected battery configuration.
-- The controller subsystem shall support battery-state monitoring visible to the operator, either directly or through controller software integration.
+- The controller subsystem shall support battery-state monitoring visible to the operator.
 - The controller subsystem shall be designed so that the selected loose-cell battery arrangement can be installed and serviced safely within the enclosure.
 
-**I. Mechanical and packaging requirements**
-- The controller subsystem shall be mechanically packaged for one-handed or two-handed handheld use, as required by the final ergonomic design.
+**Mechanical and Packaging Requirements**
+- The controller subsystem shall be mechanically packaged for one-handed or two-handed handheld use.
 - The controller subsystem shall secure the display, Pi, radio hardware, power hardware, and I/O hardware against loosening during normal transport and operation.
 - The controller subsystem shall provide accessible openings or covers for charging, maintenance, and replacement of serviceable internal parts.
-- The controller subsystem shall support antenna placement that minimizes shielding by the enclosure and the operator’s hands.
-- The controller subsystem shall provide sufficient internal space and cable routing to prevent strain on the display, power, and radio connections.
+- The controller subsystem shall support antenna placement that minimizes shielding by the enclosure and the operator's hands.
+- The controller subsystem shall provide sufficient internal space and cable routing to prevent strain on display, power, and radio connections.
 
-**J. Software behavior**
+**Software Behavior**
 - The controller subsystem shall boot into a recognizable system state that allows the operator to determine readiness.
 - The controller subsystem shall perform local initialization checks on critical controller hardware during startup.
 - The controller subsystem shall not present the system as mission-ready when required controller hardware has failed initialization.
-- The controller subsystem shall support a mission-supervision mode during autonomous flight.
-- The controller subsystem shall support a manual-control mode during operator takeover.
-- The controller subsystem shall support a fault/alert presentation mode whenever abnormal conditions are detected.
-- The controller subsystem shall preserve configuration and calibration values needed for normal operation across power cycles, subject to the final software design.
+- The controller subsystem shall support mission-supervision, manual-control, and fault/alert presentation modes.
+- The controller subsystem shall preserve configuration and calibration values needed for normal operation across power cycles.
 
-**K. Integration with the larger project**
-- The controller subsystem shall operate as the operator-facing branch of the project’s broader coding subsystem.
-- The controller subsystem shall interface cleanly with the drone’s internal components subsystem without requiring direct electrical connection to the aircraft’s propulsion hardware.
+**Integration with the Larger Project**
+- The controller subsystem shall operate as the operator-facing branch of the project's broader coding subsystem.
+- The controller subsystem shall interface cleanly with the drone's internal components subsystem without requiring direct electrical connection to the aircraft's propulsion hardware.
 - The controller subsystem shall support supervisory interaction with the DSP subsystem through status and coordination data without replacing the DSP-to-laptop audio path.
 - The controller subsystem shall be designed so that an engineer unfamiliar with the project can integrate it into the larger autonomous acoustic measurement system using the interfaces defined in this specification.
-
-
 
 ## Ethical, Professional, and Standards Considerations
 
