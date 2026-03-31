@@ -546,47 +546,47 @@ The main advantage of this approach is reduced hardware complexity. Fewer links 
 
 However, this solution does not fit the architecture you described. Your vision uses separate transmitter/receiver paths: one for handheld controller communication with the drone and another for measurement data sent to the laptop. Keeping these communication roles separate improves system clarity and reduces the chance that heavy measurement-data transfer interferes with control and safety communication. Since supervisory control and emergency intervention are critical, combining them with measurement transport would create unnecessary risk and reduce modularity. For these reasons, the single-link approach is less desirable than a separated-link solution.
 
-### Design Considerations
+#### Design Considerations
 
 Several factors strongly influence the selection of the coding subsystem architecture.
 
-#### Mission Repeatability
+##### Mission Repeatability
 
 A major purpose of the system is to gather measurements at predefined locations in a consistent way. This means the coding subsystem should support autonomous movement to preset points and stable measurement triggering rather than depending on operator piloting skill.
 
-#### Safety and Human Oversight
+##### Safety and Human Oversight
 
 Even though the mission is autonomous, the system must allow immediate operator intervention. The handheld controller is intended to serve as the primary control center, so manual takeover, autonomy cancellation, and controlled mission resumption are critical design features.
 
-#### Controlled Initial Environment
+##### Controlled Initial Environment
 
 The initial implementation assumes a relatively simple testing environment, such as a football field with minimal expected obstacles. This means the first version does not need the most complex adaptive path-planning architecture, but it should still be structured for future expansion.
 
-#### Separation of Communication Roles
+##### Separation of Communication Roles
 
 The project intentionally separates the control/telemetry link from the audio-data link. This separation should be preserved in the coding subsystem so that flight supervision and emergency control remain independent from audio measurement transport.
 
-#### Expandability
+##### Expandability
 
 The coding subsystem should support future growth. Improvements such as more advanced obstacle handling, more dynamic mission planning, additional telemetry features, or more sophisticated measurement coordination should be possible without replacing the whole architecture.
 
-#### Operator Usability
+##### Operator Usability
 
 The handheld controller must provide a clear and practical interface for monitoring drone vitals, mission progress, current mode, and emergency options. The software should therefore be structured around quick supervisory awareness rather than around a complex desktop-style interface.
 
-### Comparative Summary
+#### Comparative Summary
 
 The fully manual solution is simple, but it fails to deliver the autonomy and repeatability that make the project valuable. The fully autonomous solution without override improves automation purity, but it does not satisfy the need for manual intervention and supervisory control. The laptop-centered control solution does not match the intended role of the handheld controller. The single-link communication solution reduces hardware complexity, but it weakens the clean separation between mission control and audio transport.
 
 The strongest solution is the one that combines preset-path autonomy, continuous supervision through the custom handheld controller, manual takeover capability, and separate communication handling for control and audio data. This solution best matches the intended operating concept and provides the best balance of repeatability, safety, and future expandability.
 
-### Chosen Solution
+#### Chosen Solution
 
 The selected solution for the coding subsystem is a supervised autonomous mission architecture with manual override and separate audio-data transport.
 
 Under this approach, the drone executes a preset autonomous path to predefined measurement points using onboard mission logic. The custom handheld controller acts as the primary supervisory interface and allows the operator to monitor drone vitals, view mission progress, disable autonomy instantly, manually control the drone when required, and resume autonomous operation when safe. Measurement events are triggered at preset points, and audio information is sent through a separate transmission path to a laptop running SMAART.
 
-### Justification for Selection
+#### Justification for Selection
 
 This solution was selected because it most accurately reflects the intended project vision while also offering the best engineering balance.
 
@@ -600,7 +600,7 @@ Fourth, it supports future development. The same architecture can later be exten
 
 Finally, it matches the real intended use of the system better than the alternatives. The coding subsystem is not just an autopilot, and it is not just a data logger. It is the core coordination layer that connects autonomous mission execution, emergency operator control, and measurement-system interaction into one practical field-ready workflow.
 
-### Final Conclusion
+#### Final Conclusion
 
 After comparing several possible coding subsystem approaches, the most appropriate solution is a supervised autonomous architecture centered around a preset flight path, a custom handheld control center, immediate manual override capability, and a separate communication path for audio measurement delivery to the laptop. This approach best satisfies the project’s goals of autonomous operation, repeatable measurement collection, operator safety, and future expandability.
 
