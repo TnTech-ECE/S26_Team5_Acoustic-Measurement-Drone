@@ -1220,3 +1220,5 @@ Revise the detailed timeline (Gantt chart) you created in the project proposal. 
 ## References
 
 ## Statement of Contributions
+
+Sean Ike - Controller Subsystem of Comparative Analysis of Potential Solutions, Controller Subsystem of Atomic Subsystem Specifications, Division of Labor.
