@@ -1170,9 +1170,11 @@ At minimum, the controller should provide these screens:
 
 The physical controls should include two analog sticks, a dedicated autonomy kill-switch, and sufficient buttons or toggles to support mission navigation and confirmation without relying only on touch input.
 
-#### 8. Functional flowchart section (reserved)
+#### 8. Functional flowchart section
 
-This section is reserved for insertion of the formal controller-subsystem flowcharts in the final report.
+![Controller Subsystem Flowchart](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Rough_Draft_Project/Reports/Images/Controller%20Subsystem%20Flowchart%20-%20Sean%20Ike.pdf)
+
+![Zero 2 W](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Rough_Draft_Project/Reports/Images/Zero%202%20W.webp)
 
 #### 9. Detailed shall statements
 
