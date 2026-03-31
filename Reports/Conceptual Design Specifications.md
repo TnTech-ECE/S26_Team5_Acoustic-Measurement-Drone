@@ -596,14 +596,14 @@ Several design considerations determined which controller solution was the best 
 
 The chosen controller solution is:
 
-Raspberry Pi Zero 2 W as the main controller computer
-Waveshare 5inch HDMI LCD (H) as the touchscreen interface
-MCP3008 as the external ADC for analog joystick channels
-Matek mR900-30-TX and mR900-30 as the 915 MHz radio package
-Waveshare UPS Module 3S as the controller power board
-Samsung 35E flat-top 18650 cells as the controller battery set
-a custom 3D-printed controller housing manufactured using the same filament selected in the project’s frame subsystem
-Justification for the Selected Solution
+- Raspberry Pi Zero 2 W as the main controller computer
+- Waveshare 5inch HDMI LCD (H) as the touchscreen interface
+- MCP3008 as the external ADC for analog joystick channels
+- Matek mR900-30-TX and mR900-30 as the 915 MHz radio package
+- Waveshare UPS Module 3S as the controller power board
+- Samsung 35E flat-top 18650 cells as the controller battery set
+- A custom 3D-printed controller housing manufactured using the same filament selected in the project’s frame subsystem
+- Justification for the Selected Solution
 
 This solution was selected because it best satisfies the full operating role of the controller subsystem.
 
@@ -1028,16 +1028,16 @@ At the subsystem level, the controller shall perform six primary functions.
 
 The controller subsystem is best understood as four cooperating internal blocks:
 
-Compute and UI block.
+- Compute and UI block.
 The Raspberry Pi Zero 2 W is the main compute element. It runs the controller software, renders the user interface, processes telemetry and mode/status information, handles mission-control commands, and manages interaction between the operator and the rest of the system. The Pi Zero 2 W exposes mini HDMI for display output, USB OTG, Wi-Fi/Bluetooth, and a 40-pin GPIO footprint for local interfacing.
 
-Input acquisition block.
+- Input acquisition block.
 The joysticks and other analog controls are read through the MCP3008 ADC over SPI because the Pi Zero 2 W does not provide native analog input channels. The MCP3008 is an in-production 8-channel, 10-bit ADC with SPI interface, making it suitable for two-axis sticks and spare analog inputs.
 
-Wireless command/telemetry block.
+- Wireless command/telemetry block.
 The controller-side radio hardware is the Matek mR900-30-TX kit configured for 915 MHz operation. The selected mLRS family supports bidirectional MAVLink and remote control, and the Matek TX kit includes the TX module, adapter, Bluetooth hardware, and power/cooling provisions. The matching drone-side receiver supports bidirectional serial MAVLink and a separate RC output path configurable as CRSF or SBUS.
 
-Power block.
+- Power block.
 The controller is powered by the UPS Module 3S and three Samsung 35E cells. The UPS Module 3S is intended for 3×18650 series operation and up to 5 V / 5 A output, which gives ample margin over the Pi Zero 2 W’s 5 V, 2.5 A input requirement and helps support the display, radio hardware, and other controller electronics in one handheld package.
 
 #### 4. Interfaces between the controller subsystem and other subsystems
@@ -1046,10 +1046,10 @@ The controller is powered by the UPS Module 3S and three Samsung 35E cells. The 
 
 The interface between the controller subsystem and the frame subsystem is primarily mechanical and packaging-related, not a live data interface. There is no direct controller-to-drone-frame data protocol. Instead, the frame subsystem influences controller integration in two ways: first, the project uses a custom 3D-printed controller enclosure that should be manufactured using the same chosen filament family as the frame subsystem; second, the drone frame must provide appropriate mounting, protection, and placement for the airborne radio receiver and antennas so the controller’s radio link remains usable.
 
-Signal type: none for normal operation; mechanical integration only
-Direction: not applicable as an electrical interface
-Protocol: none
-Data sent/received: none directly
+- Signal type: none for normal operation; mechanical integration only
+- Direction: not applicable as an electrical interface
+- Protocol: none
+- Data sent/received: none directly
 
 From a system-integration standpoint, the controller indirectly depends on the frame subsystem because poor antenna placement, excessive shielding, or mechanical vibration transmitted into onboard radio hardware can degrade the control link.
 
@@ -1069,11 +1069,11 @@ This interface is what makes the controller the operator-facing branch of the br
 
 The controller subsystem has no direct power or motor-control wiring interface to the drone’s battery, ESCs, motors, or propellers. All such actuation remains onboard the aircraft and is mediated by the internal control electronics. However, the controller does have an indirect supervisory interface to the external components subsystem because the controller receives aircraft battery status and propulsion-related warnings through telemetry, and its commands ultimately cause vehicle propulsion changes through the drone’s internal control chain.
 
-Signal type: indirect digital telemetry and command data via the internal components subsystem
-Direction: bidirectional at the system level, but indirect
-Protocol: same wireless supervisory/control interface as above; no direct controller-to-ESC/motor protocol
-Data sent by controller: high-level operator commands that indirectly affect thrust and vehicle motion
-Data received by controller: aircraft battery state, low-voltage/failsafe warnings, propulsion-related fault flags, arming state, and flight-mode status
+- Signal type: indirect digital telemetry and command data via the internal components subsystem
+- Direction: bidirectional at the system level, but indirect
+- Protocol: same wireless supervisory/control interface as above; no direct controller-to-ESC/motor protocol
+- Data sent by controller: high-level operator commands that indirectly affect thrust and vehicle motion
+- Data received by controller: aircraft battery state, low-voltage/failsafe warnings, propulsion-related fault flags, arming state, and flight-mode status
 
 This distinction is important for design clarity: the controller does not directly drive ESC signals, motor PWM, or power-distribution hardware. It commands the autonomy/flight stack, which then controls the external flight hardware.
 
@@ -1081,11 +1081,11 @@ This distinction is important for design clarity: the controller does not direct
 
 The controller subsystem interfaces with the DSP subsystem only at the coordination and status level, not as the primary audio transport path. Based on your high-level design, the DSP subsystem conditions and processes acoustic data onboard and transmits the resulting audio signal to the ground-station laptop running Smaart. The controller is therefore not the main carrier of the audio stream. Instead, it should receive DSP-related health/status information through system telemetry and may send mission-state information that helps coordinate measurements or operator awareness.
 
-Signal type: indirect digital status/coordination data
-Direction: bidirectional as supervisory metadata; raw audio is not expected to pass through the controller
-Protocol: supervisory telemetry over the controller-to-drone wireless link; DSP-to-laptop audio path remains separate
-Data sent by controller: mission start state, pause state, manual override state, mission progress tags if implemented, and operator notifications affecting measurement readiness
-Data received by controller: DSP online/offline state, audio-link-ready indication if available, fault/warning status associated with the acoustic chain, and optional measurement-state metadata
+- Signal type: indirect digital status/coordination data
+- Direction: bidirectional as supervisory metadata; raw audio is not expected to pass through the controller
+- Protocol: supervisory telemetry over the controller-to-drone wireless link; DSP-to-laptop audio path remains separate
+- Data sent by controller: mission start state, pause state, manual override state, mission progress tags if implemented, and operator notifications affecting measurement readiness
+- Data received by controller: DSP online/offline state, audio-link-ready indication if available, fault/warning status associated with the acoustic chain, and optional measurement-state metadata
 
 The controller should therefore be designed to inform the operator about DSP readiness without becoming the bottleneck for the audio data itself.
 
@@ -1093,63 +1093,63 @@ The controller should therefore be designed to inform the operator about DSP rea
 
 For actual controller implementation, the following internal interfaces are expected.
 
-Pi Zero 2 W ↔ touchscreen
-Signal type: digital video plus touch input
-Direction: Pi output to display for video; display output to Pi for touch
-Protocol: HDMI for display video; USB touch interface for touch events
-Data: rendered UI pages, status graphics, icons, text, touch coordinates, touch events
-The chosen Waveshare display is a 5-inch, 800 × 480 capacitive touchscreen with HDMI input and touch support.
+1. **Pi Zero 2 W ↔ touchscreen**
+- Signal type: digital video plus touch input
+- Direction: Pi output to display for video; display output to Pi for touch
+- Protocol: HDMI for display video; USB touch interface for touch events
+- Data: rendered UI pages, status graphics, icons, text, touch coordinates, touch events
+- The chosen Waveshare display is a 5-inch, 800 × 480 capacitive touchscreen with HDMI input and touch support.
 
-Pi Zero 2 W ↔ MCP3008
-Signal type: digital serial
-Direction: bidirectional
-Protocol: SPI
-Data: ADC configuration/clocking and sampled analog stick values
-The MCP3008 is an 8-channel, 10-bit SPI ADC and is the intended analog input stage for the joystick axes.
+2. **Pi Zero 2 W ↔ MCP3008**
+- Signal type: digital serial
+- Direction: bidirectional
+- Protocol: SPI
+- Data: ADC configuration/clocking and sampled analog stick values
+- The MCP3008 is an 8-channel, 10-bit SPI ADC and is the intended analog input stage for the joystick axes.
 
-Joysticks / analog controls ↔ MCP3008
-Signal type: analog voltage
-Direction: input to subsystem
-Protocol: none beyond analog sampling
-Data: joystick X/Y voltages and any future analog control voltages
+3. **Joysticks / analog controls ↔ MCP3008**
+- Signal type: analog voltage
+- Direction: input to subsystem
+- Protocol: none beyond analog sampling
+- Data: joystick X/Y voltages and any future analog control voltages
 
-Buttons / switches / kill-switch ↔ Pi or helper input stage
-Signal type: digital GPIO or equivalent digital logic
-Direction: input to subsystem
-Protocol: none beyond GPIO state reading/debouncing
-Data: button presses, switch states, kill-switch status, menu controls
+4. **Buttons / switches / kill-switch ↔ Pi or helper input stage**
+- Signal type: digital GPIO or equivalent digital logic
+- Direction: input to subsystem
+- Protocol: none beyond GPIO state reading/debouncing
+- Data: button presses, switch states, kill-switch status, menu controls
 
-Pi Zero 2 W ↔ radio TX module
-Signal type: digital serial supervisory/control data
-Direction: bidirectional
-Protocol: serial/UART-compatible integration for mLRS supervisory data path, with the airborne side exposing MAVLink/RC-compatible outputs
-Data: operator commands, manual channel values, telemetry packets, mode status, warning/fault data
-This specific electrical integration should be finalized in detailed design, but it shall remain compatible with the selected mLRS supervisory-control architecture documented by Matek and ArduPilot.
+5. **Pi Zero 2 W ↔ radio TX module**
+- Signal type: digital serial supervisory/control data
+- Direction: bidirectional
+- Protocol: serial/UART-compatible integration for mLRS supervisory data path, with the airborne side exposing MAVLink/RC-compatible outputs
+- Data: operator commands, manual channel values, telemetry packets, mode status, warning/fault data
+- This specific electrical integration should be finalized in detailed design, but it shall remain compatible with the selected mLRS supervisory-control architecture documented by Matek and ArduPilot.
 
-UPS Module 3S ↔ Pi/controller electronics
-Signal type: regulated power plus monitoring data
-Direction: power output from UPS to controller electronics; monitoring data from UPS to Pi
-Protocol: 5 V power distribution; I2C for monitoring if implemented
-Data: battery voltage, current, power, remaining capacity or related monitor values, depending on software integration
-Waveshare states the UPS Module 3S provides stable 5 V/3.3 V output and supports IIC output for voltage/current/power related parameters.
+6. **UPS Module 3S ↔ Pi/controller electronics**
+- Signal type: regulated power plus monitoring data
+- Direction: power output from UPS to controller electronics; monitoring data from UPS to Pi
+- Protocol: 5 V power distribution; I2C for monitoring if implemented
+- Data: battery voltage, current, power, remaining capacity or related monitor values, depending on software integration
+- Waveshare states the UPS Module 3S provides stable 5 V/3.3 V output and supports IIC output for voltage/current/power related parameters.
 
 #### 6. Detailed operation of the controller subsystem
 
 The controller subsystem is expected to operate in five phases.
 
-Phase 1: power-up and initialization.
+**Phase 1: power-up and initialization.**
 When powered on, the UPS/power stage shall energize the Pi, screen, local controls, and radio hardware. The controller software shall boot to a system-status page and verify local subsystem readiness, including ADC availability, screen operation, button/kill-switch detection, radio availability, and battery-monitoring availability if implemented.
 
-Phase 2: link establishment and status acquisition.
+**Phase 2: link establishment and status acquisition.**
 The controller shall establish communication with the airborne radio and begin receiving telemetry, mode state, and health data from the aircraft. The operator shall be able to see whether the drone is connected, armed, autonomous, paused, in manual control, or in a faulted state.
 
-Phase 3: mission supervision.
+**Phase 3: mission supervision.**
 During autonomous operation, the controller shall display flight mode, autonomy state, mission progress, current waypoint or segment state, aircraft battery level, link health, and critical fault indicators. The operator shall be able to command mission start, pause, abort, return, or landing, depending on the state of the drone-side software.
 
-Phase 4: manual override.
+**Phase 4: manual override.**
 If the operator activates the autonomy kill-switch or manual takeover control, the controller shall immediately prioritize manual authority. In this state, stick inputs and other relevant controls become the primary operator commands and the controller UI shall clearly indicate that autonomy has been suspended.
 
-Phase 5: mission continuation or shutdown.
+**Phase 5: mission continuation or shutdown.**
 After an override event, the operator may continue manually, command return/land, or request autonomy resume. The controller shall only offer a normal resume path if the drone-side system reports that resumption is valid. At shutdown, the controller shall preserve logs or state information as required by the final software design.
 
 #### 7. Expected user interface
@@ -1158,20 +1158,15 @@ The expected interface is a touch-capable handheld UI supported by physical flig
 
 At minimum, the controller should provide these screens:
 
-System Overview screen
-Shows controller battery state, aircraft battery state, link status, autonomy/manual mode, DSP-ready state if available, and general health summary.
+- System Overview screen - Shows controller battery state, aircraft battery state, link status, autonomy/manual mode, DSP-ready state if available, and general health summary.
 
-Mission screen
-Shows mission name or ID, current mission state, current waypoint or segment, mission progress, and operator command buttons such as start, pause, return, or abort.
+- Mission screen - Shows mission name or ID, current mission state, current waypoint or segment, mission progress, and operator command buttons such as start, pause, return, or abort.
 
-Manual Override screen
-Shows manual-control active state, stick status, takeover confirmation, autonomy-disabled indication, and a clearly visible path to land or return.
+- Manual Override screen - Shows manual-control active state, stick status, takeover confirmation, autonomy-disabled indication, and a clearly visible path to land or return.
 
-Faults and Alerts screen
-Shows critical versus noncritical faults, time-ordered warnings, and any operator acknowledgments required.
+- Faults and Alerts screen - Shows critical versus noncritical faults, time-ordered warnings, and any operator acknowledgments required.
 
-Settings / Maintenance screen
-Reserved for future configuration such as calibration, UI settings, controller diagnostics, radio settings, or battery-monitoring options.
+- Settings / Maintenance screen - Reserved for future configuration such as calibration, UI settings, controller diagnostics, radio settings, or battery-monitoring options.
 
 The physical controls should include two analog sticks, a dedicated autonomy kill-switch, and sufficient buttons or toggles to support mission navigation and confirmation without relying only on touch input.
 
