@@ -1607,8 +1607,8 @@ Sean Ike - Controller Subsystem of Comparative Analysis of Potential Solutions, 
 
 Jackson Phillips - Power and Propulsion System (Comparative Analysis, Atomic Subsystem Specifications, Budget), Hardware Block Diagram, Timeline.
 
-Elliot Lovins - Internal Components Subsystem (Comparative Analysis, Atomic Subsystem Specifications).
+Elliot Lovins - Internal Components Subsystem (Comparative Analysis, Atomic Subsystem Specifications), Resources, and Budget.
 
-Bernie Friesel - DSP / Acoustic Signal Processing Subsystem (Comparative Analysis, Atomic Subsystem Specifications).
+Bernie Friesel - Introduction, Restating the Problem, DSP / Acoustic Signal Processing Subsystem (Comparative Analysis, Atomic Subsystem Specifications).
 
-Mashoud Modi - Drone Frame Subsystem (Comparative Analysis, Atomic Subsystem Specifications).
+Mashoud Modi - Drone Frame Subsystem (Comparative Analysis, Atomic Subsystem Specifications), Ethics, Operational Flowchart.
