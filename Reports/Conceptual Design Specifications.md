@@ -502,107 +502,108 @@ Ultrasonic sensors are susceptible to motor noise and provide insufficient cover
 
 &nbsp; &nbsp; &nbsp; &nbsp; While analog wireless transmission may introduce some bandwidth limitations and signal coloration, these effects are acceptable for comparative acoustic analysis. The benefits of reliability, simplicity, and compatibility with industry workflows outweigh these limitations.
 
-### Coding Subsystem
+### Controller Subsystem
 
-The coding subsystem is the central control architecture for the autonomous acoustics measurement drone. It is responsible for executing the preset mission path, coordinating with onboard flight and sensing hardware, maintaining communication with the custom handheld controller, supporting immediate manual override during emergencies, and triggering the transfer of audio measurement information to a separate laptop running audio-processing software such as SMAART. Because this subsystem connects mission autonomy, operator supervision, safety response, and measurement coordination, several possible implementation approaches can be considered. This section outlines candidate solutions, discusses the main design considerations, and identifies the selected solution with justification.
+The controller subsystem serves as the operator-facing control center for the autonomous acoustics measurement drone. Unlike a conventional hobby radio transmitter, this subsystem is intended to supervise an autonomous mission, display vehicle status and mission progress, allow emergency manual takeover, and interface cleanly with the larger coding subsystem that executes the drone’s preset measurement path. Because of this role, the controller must balance several needs at once: it must be compact, practical to package into a custom 3D-printed frame, responsive enough for emergency override, capable of running a graphical interface, compatible with analog joystick inputs, and able to maintain a reliable radio link to the aircraft. The following analysis compares the main solution paths that were considered, explains the design considerations that affected the decision, and identifies the chosen solution with justification.
 
-#### Potential Solution 1: Fully Manual Control with Operator-Triggered Measurements
+#### Potential Solutions
 
-The first possible solution is a fully manual flight architecture in which the operator pilots the drone at all times using the handheld controller and manually positions the drone at each measurement location. Once the drone reaches a desired point, the operator triggers or allows the measurement to be transmitted to the laptop for audio processing.
+##### Potential Solution 1: Microcontroller-Centered Controller
 
-This solution offers the advantage of simplicity. It avoids the complexity of autonomous path execution, waypoint management, and mission-resume logic. It also gives the operator complete control over drone movement at all times, which may appear safer during early prototyping because the pilot can respond directly to unexpected behavior.
+The first potential solution is a controller built primarily around a microcontroller-class board, such as the Raspberry Pi Pico 2 W. The Pico 2 W offers built-in wireless capability, support for analog inputs, and a simpler embedded architecture than a Linux-based computer. Raspberry Pi documents the Pico 2 family as microcontroller boards rather than Linux computers, and the Pico 2 W adds 2.4 GHz wireless and Bluetooth 5.2 while exposing GPIO that can be used for ADC input.
 
-However, this approach does not align well with the primary goal of the project, which is to create a fully autonomous acoustics measurement system. Manual operation introduces inconsistency in point placement, hover time, and measurement repeatability. It also increases pilot workload and makes measurements more dependent on operator skill. Since repeatability is important for comparing sound behavior across locations, a fully manual solution would reduce the technical value of the system. For this reason, it may be useful only as an early backup mode, not as the primary coding subsystem design.
+This approach has several advantages. It is lightweight, low-power, deterministic, and fast to boot. For a controller that only needed to read joysticks, switches, and a few status LEDs, a microcontroller-centered design would be highly attractive. It would also reduce software overhead and simplify some real-time input handling.
 
-#### Potential Solution 2: Fully Autonomous Drone with No Manual Override
+However, this approach is not the best match for the intended mission concept. Your controller is not meant to be only a stick-and-switch device; it is supposed to serve as the main supervision center for the autonomous mission. That means it must support a screen-based interface, mode/status displays, telemetry awareness, fault presentation, and future expansion of controller-side software. A pure microcontroller design can do some of these things, but it becomes less efficient and less flexible once the controller begins to resemble a handheld mission computer rather than a simple transmitter. For that reason, the microcontroller-centered solution was judged to be better as a minimalist alternative or helper-controller concept than as the final primary architecture. This remains especially true because the drone itself is already using a dedicated flight controller, so the handheld device gains more value from UI and supervisory functions than from minimizing compute capability.
 
-A second possible solution is a fully autonomous architecture in which the drone executes a preset path from start to finish without any operator ability to interrupt mission control except through a full shutdown or mission abort. In this case, the handheld device would function mainly as a passive monitor rather than an active supervisory controller.
+##### Potential Solution 2: Linux-Based Smart Controller Without Touchscreen Emphasis
 
-This solution has the advantage of clean automation logic. The coding subsystem can focus entirely on mission execution, navigation through preset points, point-based measurement triggering, and automatic return-to-land behavior. Since the operator is not expected to intervene except in extreme cases, the control logic can be simpler than systems that switch between autonomy and manual authority.
+A second option is a Linux-capable controller built around a Raspberry Pi Zero 2 W, but paired with a very simple non-touch display, or even no integrated display at all. Raspberry Pi’s official Zero 2 W hardware provides a quad-core 1 GHz Cortex-A53 processor, 512 MB RAM, onboard wireless networking, mini HDMI, and the familiar 40-pin GPIO footprint in the 65 mm × 30 mm Zero form factor.
 
-The major disadvantage is that this design conflicts with the intended role of the custom handheld controller. Your concept clearly requires the controller to act as the main mission supervision system and to provide an autonomy kill switch that allows immediate takeover whenever needed. Removing that functionality would weaken safety, reduce operator confidence, and make the system less practical in real testing. It would also make future expansion harder, since supervisory control is one of the most valuable long-term features of the platform. As a result, this option is too rigid for the project goals.
+This option is much more aligned with the project than the pure microcontroller route because the Zero 2 W is powerful enough to support a real handheld interface, logs, mission-state handling, telemetry display, and future UI development. It also fits the physical scale of a custom handheld device well. A stripped-down display strategy could reduce cost and power consumption.
 
-#### Potential Solution 3: Autonomous Preset Path with Handheld Supervisory Controller and Manual Override
+Even so, this option does not fully satisfy the intended user experience. Since the controller is the main supervisory center, the operator should be able to read mission status quickly, acknowledge warnings, and navigate controller functions without unnecessary external equipment. A non-touch or minimal display weakens that goal. It also limits the usefulness of the controller when future features are added, such as mission selection, controller-side configuration, status pages, or recovery prompts for autonomy resume after a manual override. This made the “Linux controller with minimal display” option a workable intermediate step, but not the strongest final design.
 
-A third solution is a supervised autonomy architecture in which the drone normally flies a preset autonomous path, but the operator continuously oversees the mission through the custom handheld controller. The controller provides drone vitals, mission progress, mode indication, and an immediate autonomy kill switch. If an issue occurs, the operator can disable autonomy, assume manual control, resolve the issue, and then either resume the mission, command a return, or land the drone.
+##### Potential Solution 3: Linux-Based Smart Controller with Touch HDMI Display and External ADC
 
-This solution directly matches the intended vision of the project. It combines the repeatability and reduced workload of automation with the flexibility and safety of human oversight. The drone can reliably move between predefined measurement points while the operator remains ready to intervene if needed. This approach is especially appropriate for a first implementation in a controlled environment such as a football field, where the mission is simple and predefined but still benefits from an emergency fallback.
+The third option is a Linux-based smart controller built around the Raspberry Pi Zero 2 W, paired with a touchscreen and an external analog-to-digital converter for joystick inputs. This addresses one of the main hardware facts of the Zero 2 W platform: it provides digital GPIO, but not onboard analog joystick inputs. That makes an external ADC necessary if conventional analog joystick potentiometers are used. A widely used solution is the MCP3008, which offers 8 analog input channels at 10-bit resolution and is commonly integrated with Raspberry Pi systems over SPI.
 
-Its main challenge is that the software must manage mode transitions correctly. The subsystem must switch cleanly between autonomous and manual flight authority, preserve mission state during interruption, and verify whether it is safe to resume autonomy afterward. Even though this adds complexity, it is a worthwhile tradeoff because it reflects both the practical needs of field testing and the long-term usefulness of the system.
+This architecture is significantly stronger than the first two. It preserves the usability and flexibility of the Zero 2 W while solving the joystick-input problem directly. It also aligns well with the role of the controller as a software-rich supervisory device. The touchscreen becomes the main human interface, while the analog controls continue to provide manual flight authority when needed.
 
-#### Potential Solution 4: Autonomous Preset Path with Laptop as the Primary Control Interface
+Within this category, display selection became an important design choice. The controller needed a display that was readable, compact, and easy to integrate into a custom 3D-printed shell. The Waveshare 5inch HDMI LCD (H) stood out because it provides a 5-inch capacitive touchscreen, 800 × 480 resolution, HDMI video input, USB touch input, tempered glass, and broad Raspberry Pi compatibility. Waveshare’s product and wiki pages describe it as a capacitive 5-inch HDMI display with 5-point touch support and indicate support for Raspberry Pi systems, which is especially relevant because the Zero 2 W exposes mini HDMI rather than a DSI connector.
 
-Another possible solution is to make the laptop the central mission-control interface. In this design, the laptop would manage mission initiation, show drone status, supervise mission progress, and perhaps even allow manual override, while also receiving measurement data for SMAART or related software.
+This option was strong enough to become the baseline architecture for the final controller, but it still left open one major decision: what radio system should be used between the controller and the drone.
 
-This solution may appear attractive because the laptop already participates in the measurement process and can support a larger interface with more visual information. It could simplify development by consolidating mission setup, data monitoring, and audio-processing visibility into a single device.
+##### Potential Solution 4: Zero 2 W Controller with ELRS-Based Radio Link
 
-Despite that advantage, this approach is not ideal for your project. Your concept clearly places the custom handheld controller at the center of operational control. The laptop’s main job is to receive and process the audio measurement information, not to function as the pilot or mission-supervision console. Combining these roles would blur the system architecture and reduce the clarity of the separate communications design. It would also make the platform less portable and less aligned with your vision of a dedicated handheld control device. Therefore, this solution is less suitable than one centered on the handheld controller.
+The next major solution path paired the Zero 2 W smart controller architecture with an ExpressLRS-based radio link. ExpressLRS is a high-performance open-source radio-control system with broad 900 MHz and 2.4 GHz ecosystem support and an emphasis on low latency and high refresh. The official ExpressLRS documentation describes it as an open radio-control link with broad hardware support in both 900 MHz and 2.4 GHz families.
 
-#### Potential Solution 5: Integrated Single-Link Control and Audio Transmission Architecture
+This made ELRS an attractive candidate because it is a very common and capable ecosystem, with a strong user base, many compatible modules, and mature tooling. From a pure RC ecosystem perspective, it is arguably the most mainstream option considered.
 
-A fifth option is to design the coding subsystem so that both drone control/telemetry and audio measurement transfer share the same communication channel. This could reduce the number of radio interfaces and simplify some hardware integration choices.
+However, the controller in this project is not just a hobby radio substitute. It is intended to act as a supervisory mission device that works closely with the coding subsystem, supports autonomy status awareness, and offers cleaner integration with a drone-side architecture that already thinks in terms of supervisory commands, telemetry, and fallback control. In that context, ELRS is possible, but less naturally aligned with the project’s system philosophy than the alternative below. The issue is not that ELRS is weak; it is that it is optimized around a more traditional RC ecosystem, whereas this project benefits from a radio path that feels more naturally integrated into a controller-plus-mission-computer design.
 
-The main advantage of this approach is reduced hardware complexity. Fewer links may lower cost, reduce wiring, and make initial integration easier.
+##### Potential Solution 5: Zero 2 W Controller with mLRS 915 MHz Radio Link
 
-However, this solution does not fit the architecture you described. Your vision uses separate transmitter/receiver paths: one for handheld controller communication with the drone and another for measurement data sent to the laptop. Keeping these communication roles separate improves system clarity and reduces the chance that heavy measurement-data transfer interferes with control and safety communication. Since supervisory control and emergency intervention are critical, combining them with measurement transport would create unnecessary risk and reduce modularity. For these reasons, the single-link approach is less desirable than a separated-link solution.
+The fifth option, and the one ultimately selected, uses the Zero 2 W smart-controller architecture with Matek’s mLRS 900 MHz family in 915 MHz FCC operation. Matek’s official mLRS pages describe the mLRS RX/TX family as providing a bidirectional MAVLink serial connection combined with full remote control, and the mR900-30-TX product page lists 900 MHz operation with 868 MHz / 915 MHz FCC support and up to 30 dBm output settings.
 
-#### Design Considerations
+This radio choice is particularly well matched to the project because it bridges two needs at once. First, it supports the controller’s role as a remote-control device that must allow manual takeover. Second, it aligns well with the project’s broader supervision/telemetry architecture because the mLRS family is explicitly centered on bidirectional MAVLink plus remote control. That makes it especially attractive for a custom Pi-based controller that is meant to act like an intelligent supervisory station rather than a conventional consumer transmitter. The official Matek family page, TX page, and receiver page all reinforce that this system is designed around that hybrid serial-control model.
 
-Several factors strongly influence the selection of the coding subsystem architecture.
+This option also fits your regional assumption, because you explicitly chose to proceed with the 915 MHz version. That removes one of the major deployment ambiguities and lets the controller design be tuned around a single radio family from the start. For this project, that clarity is valuable.
 
-##### Mission Repeatability
+##### Potential Solution 6: Power Architecture Based on a Small Zero-Specific HAT
 
-A major purpose of the system is to gather measurements at predefined locations in a consistent way. This means the coding subsystem should support autonomous movement to preset points and stable measurement triggering rather than depending on operator piloting skill.
+Another solution branch involved the power system for the controller. One option was to use a small Zero-specific UPS HAT. Waveshare’s UPS HAT (C) is specifically described as a Zero-series UPS module with path management, voltage boost, and I2C battery monitoring, and its wiki lists it as supporting a single 803040 1000 mAh 3.7 V Li-po battery.
 
-##### Safety and Human Oversight
+This is a neat and compact option, and it has the benefit of being purpose-built for the Raspberry Pi Zero family. If the controller had been a very low-power or highly minimal build, it would have remained a serious contender.
 
-Even though the mission is autonomous, the system must allow immediate operator intervention. The handheld controller is intended to serve as the primary control center, so manual takeover, autonomy cancellation, and controlled mission resumption are critical design features.
+But for this project, the controller is expected to include a Pi Zero 2 W, touchscreen, radio module, ADC, joysticks, buttons, and additional supervisory functions inside a custom handheld shell. That makes a more substantial power architecture desirable. The goal is not just to power the Pi; it is to power the entire controller subsystem cleanly and with enough margin to avoid brownout-style issues or poor runtime.
 
-##### Controlled Initial Environment
+##### Potential Solution 7: Power Architecture Based on a 3S External UPS Module
 
-The initial implementation assumes a relatively simple testing environment, such as a football field with minimal expected obstacles. This means the first version does not need the most complex adaptive path-planning architecture, but it should still be structured for future expansion.
+The final power solution uses Waveshare’s UPS Module 3S with loose 18650 cells. Waveshare describes the UPS Module 3S as a 3-cell 18650-in-series UPS module with support for simultaneous charging and output, with up to 5 V / 5 A output. The module wiki also notes stable regulated outputs and monitoring features. Meanwhile, Samsung 35E cells are widely listed by battery retailers as flat-top 18650 cells with roughly 3500 mAh nominal capacity, 3.6 V nominal voltage, and an 8 A continuous discharge rating.
 
-##### Separation of Communication Roles
+This became the preferred choice because it better matches the controller’s actual duty. It supports a more robust power budget, fits well into a custom enclosure where board shape can be accommodated by the 3D-printed design, and aligns with your explicit statement that loose cells are acceptable. The Samsung 35E cells are especially appropriate here because this controller is not a very high-current load; runtime and practical energy density matter more than extreme discharge performance.
 
-The project intentionally separates the control/telemetry link from the audio-data link. This separation should be preserved in the coding subsystem so that flight supervision and emergency control remain independent from audio measurement transport.
+#### Design Considerations That Drove the Final Selection
 
-##### Expandability
+Several design considerations determined which controller solution was the best fit.
 
-The coding subsystem should support future growth. Improvements such as more advanced obstacle handling, more dynamic mission planning, additional telemetry features, or more sophisticated measurement coordination should be possible without replacing the whole architecture.
+1. Role Definition: The controller is not meant to be a traditional RC handset. It is a mission-supervision device with manual override capability. That immediately favored a Linux-capable platform with a real user interface over a minimalist transmitter architecture.
 
-##### Operator Usability
+2. Interface Quality: Because the operator must monitor autonomy state, mission progress, battery status, and fault conditions, the controller needs a screen that is both readable and easy to integrate. That pushed the design toward a compact HDMI touchscreen rather than a no-screen or minimal-screen approach. The Waveshare 5-inch panel met that need well with its capacitive touch interface and embedded-friendly physical style.
 
-The handheld controller must provide a clear and practical interface for monitoring drone vitals, mission progress, current mode, and emergency options. The software should therefore be structured around quick supervisory awareness rather than around a complex desktop-style interface.
+3. Analog Input Compatibility: Since the Zero 2 W does not provide native analog inputs, a practical external ADC was required to keep conventional joystick hardware in the design. That made the MCP3008-type solution a necessary support component rather than an optional accessory.
 
-#### Comparative Summary
+4. Radio Architecture: Because the controller must work closely with the coding subsystem and support both supervisory communication and fallback manual control, a radio family that naturally supports bidirectional serial/telemetry behavior alongside remote control was more attractive than one optimized primarily around a conventional RC ecosystem. That factor strongly favored mLRS over ELRS for this specific project.
 
-The fully manual solution is simple, but it fails to deliver the autonomy and repeatability that make the project valuable. The fully autonomous solution without override improves automation purity, but it does not satisfy the need for manual intervention and supervisory control. The laptop-centered control solution does not match the intended role of the handheld controller. The single-link communication solution reduces hardware complexity, but it weakens the clean separation between mission control and audio transport.
+5. Power Margin and Packaging: A small, Pi-only UPS board is neat, but the completed controller has broader power needs than the Pi alone. Once the touchscreen, radio, physical controls, and future expandability are considered, the 3S UPS module becomes a better long-term solution. Because the frame will be custom 3D printed using the material selected in the project’s frame subsystem, the design can package a separate UPS module and loose 18650 cells intentionally rather than being constrained by HAT form factors.
 
-The strongest solution is the one that combines preset-path autonomy, continuous supervision through the custom handheld controller, manual takeover capability, and separate communication handling for control and audio data. This solution best matches the intended operating concept and provides the best balance of repeatability, safety, and future expandability.
+6. Future Expandability: The controller subsystem should be able to grow with the project. A Zero 2 W-based controller with touchscreen, external ADC, and robust radio/power architecture gives much more room for future features such as richer menus, better fault handling, configuration pages, onboard logging, or tighter integration with the broader coding subsystem than a very lean transmitter-style design would.
 
 #### Chosen Solution
 
-The selected solution for the coding subsystem is a supervised autonomous mission architecture with manual override and separate audio-data transport.
+The chosen controller solution is:
 
-Under this approach, the drone executes a preset autonomous path to predefined measurement points using onboard mission logic. The custom handheld controller acts as the primary supervisory interface and allows the operator to monitor drone vitals, view mission progress, disable autonomy instantly, manually control the drone when required, and resume autonomous operation when safe. Measurement events are triggered at preset points, and audio information is sent through a separate transmission path to a laptop running SMAART.
+Raspberry Pi Zero 2 W as the main controller computer
+Waveshare 5inch HDMI LCD (H) as the touchscreen interface
+MCP3008 as the external ADC for analog joystick channels
+Matek mR900-30-TX and mR900-30 as the 915 MHz radio package
+Waveshare UPS Module 3S as the controller power board
+Samsung 35E flat-top 18650 cells as the controller battery set
+a custom 3D-printed controller housing manufactured using the same filament selected in the project’s frame subsystem
+Justification for the Selected Solution
 
-#### Justification for Selection
+This solution was selected because it best satisfies the full operating role of the controller subsystem.
 
-This solution was selected because it most accurately reflects the intended project vision while also offering the best engineering balance.
+It was chosen over a microcontroller-centered design because the project needs a real handheld mission computer, not just a signal generator for joysticks and switches. The Zero 2 W provides enough compute capability and I/O flexibility to support that role in a compact footprint.
 
-First, it supports the project’s primary goal of autonomous measurement collection. The drone can fly to repeatable preset points and perform measurement actions without requiring constant manual piloting.
+It was chosen over a minimal-display or non-touch design because the controller is supposed to be the main operator interface. A touch-enabled 5-inch display improves clarity, expandability, and day-to-day usability without making the handheld unit excessively large.
 
-Second, it preserves operator authority and safety. The handheld controller remains the main operational interface, and the operator can interrupt autonomy at any time. This is especially important during testing, where manual takeover provides a practical layer of protection.
+It was chosen over ELRS because this project benefits more from a radio family whose architecture is naturally aligned with bidirectional supervisory communication plus remote control, which is exactly how Matek presents the mLRS family. For a custom controller that works closely with the project’s coding subsystem, that is a major architectural advantage.
 
-Third, it preserves the separation between control functions and measurement transport. By keeping the controller link separate from the audio-data link, the system architecture remains cleaner and more robust.
+It was chosen over the smaller Zero-specific UPS HAT option because the total controller subsystem needs more power flexibility and more packaging freedom than a very small Pi-only backup board is designed to provide. The 3S UPS module and loose 18650 cells give better headroom for the full handheld build.
 
-Fourth, it supports future development. The same architecture can later be extended to more advanced environments, smarter mission logic, additional sensing, or more capable controller features without changing the fundamental structure of the coding subsystem.
-
-Finally, it matches the real intended use of the system better than the alternatives. The coding subsystem is not just an autopilot, and it is not just a data logger. It is the core coordination layer that connects autonomous mission execution, emergency operator control, and measurement-system interaction into one practical field-ready workflow.
-
-#### Final Conclusion
-
-After comparing several possible coding subsystem approaches, the most appropriate solution is a supervised autonomous architecture centered around a preset flight path, a custom handheld control center, immediate manual override capability, and a separate communication path for audio measurement delivery to the laptop. This approach best satisfies the project’s goals of autonomous operation, repeatable measurement collection, operator safety, and future expandability.
+Most importantly, it was chosen because it matches the project vision you established: a custom controller that oversees an autonomous drone mission, allows immediate manual takeover, interfaces cleanly with the controller-side branch of the coding subsystem, and can be packaged into a custom 3D-printed housing that fits the rest of the project’s subsystem choices.
 
 ## High-Level Solution
 
@@ -957,6 +958,268 @@ The subsystem is subject to the following constraints:
 Sent Data:
 - continuous processed audio signal (via wireless link)
 
+### Controller Subsystem
+
+#### 1. Subsystem purpose and selected implementation
+
+The controller subsystem is the operator’s primary command, supervision, and emergency-intervention interface for the autonomous acoustics measurement drone. It is not intended to behave like a conventional hobby transmitter alone. Instead, it functions as a smart handheld ground unit that supervises autonomous flight, displays mission and health status, allows immediate manual takeover, and coordinates with the drone-side control software during mission start, pause, resume, abort, return, and landing events. The selected implementation is based on a Raspberry Pi Zero 2 W, a Waveshare 5-inch HDMI capacitive touch display, an MCP3008 external ADC for analog joystick inputs, a Matek mR900-30-TX / mR900-30 915 MHz mLRS radio pair, and a Waveshare UPS Module 3S powered by three Samsung INR18650-35E flat-top cells. The Pi Zero 2 W provides a 1 GHz quad-core Cortex-A53 CPU, 512 MB RAM, mini HDMI, micro-USB OTG, and a 40-pin GPIO footprint; the chosen display provides a 5-inch 800 × 480 capacitive touch interface; the MCP3008 provides 8 analog input channels over SPI; the selected mLRS family provides bidirectional MAVLink plus remote control capability; and the UPS Module 3S provides regulated 5 V power from three loose 18650 cells with charging/discharging support and I2C monitoring output.
+
+The controller enclosure shall be a custom 3D-printed handheld frame, using the same filament family selected in the project’s frame subsystem, so that the controller package remains consistent with the project’s larger structural/manufacturing strategy. This controller housing is expected to support mounting for the display, joysticks, buttons, kill-switch, Pi, ADC, radio module, battery pack, and power board, while also providing cable routing, operator ergonomics, and reasonable service access for charging, wiring, and module replacement.
+
+#### 2. Functions the controller subsystem shall perform
+
+At the subsystem level, the controller shall perform six primary functions.
+
+First, it shall provide the human-machine interface for the system. The operator must be able to see the current flight mode, autonomy state, link quality, battery state, mission progress, and fault conditions without requiring a separate ground-station display for core flight supervision.
+
+Second, it shall provide the manual input path for emergency intervention. This includes joystick axes, buttons, switches, and a dedicated autonomy kill-switch that can immediately suspend autonomous mission execution and transfer control authority to the operator.
+
+Third, it shall provide the controller-side software interface to the broader coding subsystem. In practical terms, this means the controller software shall display status reported by the drone, send high-level mission commands, and support autonomy resume only when the drone reports that resumption is valid.
+
+Fourth, it shall provide the primary wireless supervisory and manual-control link to the aircraft through the selected 915 MHz mLRS radio system. The selected mLRS family is explicitly designed for bidirectional MAVLink serial connection combined with full remote control, and ArduPilot documents that mLRS can provide RC control and MAVLink telemetry together, with receiver outputs usable as SBUS, CRSF, or embedded MAVLink override depending on configuration.
+
+Fifth, it shall provide local controller power management and runtime monitoring. The Waveshare UPS Module 3S supports three 18650 cells in series, simultaneous charge/discharge, stable 5 V and 3.3 V outputs, and I2C output for battery-related monitoring data. The chosen Samsung 35E cells are flat-top, unprotected 18650 cells rated around 3500 mAh nominal capacity and 8 A continuous discharge, which is appropriate for a moderate-load handheld controller.
+
+Sixth, it shall support future expansion. The selected Pi/display/radio architecture leaves room for later additions such as controller-side logs, configuration pages, preflight checklists, richer fault screens, or more advanced mission control workflows without requiring the subsystem to be redesigned from scratch.
+
+#### 3. Controller subsystem internal architecture
+
+The controller subsystem is best understood as four cooperating internal blocks:
+
+Compute and UI block.
+The Raspberry Pi Zero 2 W is the main compute element. It runs the controller software, renders the user interface, processes telemetry and mode/status information, handles mission-control commands, and manages interaction between the operator and the rest of the system. The Pi Zero 2 W exposes mini HDMI for display output, USB OTG, Wi-Fi/Bluetooth, and a 40-pin GPIO footprint for local interfacing.
+
+Input acquisition block.
+The joysticks and other analog controls are read through the MCP3008 ADC over SPI because the Pi Zero 2 W does not provide native analog input channels. The MCP3008 is an in-production 8-channel, 10-bit ADC with SPI interface, making it suitable for two-axis sticks and spare analog inputs.
+
+Wireless command/telemetry block.
+The controller-side radio hardware is the Matek mR900-30-TX kit configured for 915 MHz operation. The selected mLRS family supports bidirectional MAVLink and remote control, and the Matek TX kit includes the TX module, adapter, Bluetooth hardware, and power/cooling provisions. The matching drone-side receiver supports bidirectional serial MAVLink and a separate RC output path configurable as CRSF or SBUS.
+
+Power block.
+The controller is powered by the UPS Module 3S and three Samsung 35E cells. The UPS Module 3S is intended for 3×18650 series operation and up to 5 V / 5 A output, which gives ample margin over the Pi Zero 2 W’s 5 V, 2.5 A input requirement and helps support the display, radio hardware, and other controller electronics in one handheld package.
+
+#### 4. Interfaces between the controller subsystem and other subsystems
+
+**4.1 Interface to the frame subsystem**
+
+The interface between the controller subsystem and the frame subsystem is primarily mechanical and packaging-related, not a live data interface. There is no direct controller-to-drone-frame data protocol. Instead, the frame subsystem influences controller integration in two ways: first, the project uses a custom 3D-printed controller enclosure that should be manufactured using the same chosen filament family as the frame subsystem; second, the drone frame must provide appropriate mounting, protection, and placement for the airborne radio receiver and antennas so the controller’s radio link remains usable.
+
+Signal type: none for normal operation; mechanical integration only
+Direction: not applicable as an electrical interface
+Protocol: none
+Data sent/received: none directly
+
+From a system-integration standpoint, the controller indirectly depends on the frame subsystem because poor antenna placement, excessive shielding, or mechanical vibration transmitted into onboard radio hardware can degrade the control link.
+
+**4.2 Interface to the internal components subsystem**
+
+This is the most important subsystem interface. The controller communicates with the drone’s internal components subsystem through the airborne mR900-30 receiver and the drone’s flight/control electronics. Matek documents the receiver as supporting bidirectional serial MAVLink on TX1/RX1 and RC output on TX2 as CRSF or SBUS; ArduPilot documents that mLRS can provide RC control and MAVLink telemetry and that RC controls can be delivered in SBUS or CRSF or by MAVLink override over the telemetry connection. The mLRS documentation also describes using the transmitter’s serial/MAVLink stream for ground-station functions and recommends MAVLink mode when that stream is used.
+
+Signal type: wireless digital communication over 915 MHz between controller TX and drone RX; serial digital communication on the aircraft side between receiver and internal control electronics
+Direction: bidirectional
+Protocol: mLRS wireless link carrying MAVLink telemetry/supervisory data and RC-control data; aircraft-side interface configured around MAVLink plus CRSF or SBUS as required by detailed implementation
+Data sent by controller: manual stick commands, mode-change requests, autonomy start, pause, abort, return, land, and resume requests, UI-originated acknowledgments, and kill-switch state
+Data received by controller: flight mode, autonomy state, waypoint/mission progress, battery telemetry, link quality, warnings, faults, localization status, and any available subsystem-health telemetry
+
+This interface is what makes the controller the operator-facing branch of the broader coding subsystem. The controller does not replace the drone’s onboard autonomy logic; it supervises and overrides it when necessary.
+
+**4.3 Interface to the external components subsystem**
+
+The controller subsystem has no direct power or motor-control wiring interface to the drone’s battery, ESCs, motors, or propellers. All such actuation remains onboard the aircraft and is mediated by the internal control electronics. However, the controller does have an indirect supervisory interface to the external components subsystem because the controller receives aircraft battery status and propulsion-related warnings through telemetry, and its commands ultimately cause vehicle propulsion changes through the drone’s internal control chain.
+
+Signal type: indirect digital telemetry and command data via the internal components subsystem
+Direction: bidirectional at the system level, but indirect
+Protocol: same wireless supervisory/control interface as above; no direct controller-to-ESC/motor protocol
+Data sent by controller: high-level operator commands that indirectly affect thrust and vehicle motion
+Data received by controller: aircraft battery state, low-voltage/failsafe warnings, propulsion-related fault flags, arming state, and flight-mode status
+
+This distinction is important for design clarity: the controller does not directly drive ESC signals, motor PWM, or power-distribution hardware. It commands the autonomy/flight stack, which then controls the external flight hardware.
+
+**4.4 Interface to the DSP subsystem**
+
+The controller subsystem interfaces with the DSP subsystem only at the coordination and status level, not as the primary audio transport path. Based on your high-level design, the DSP subsystem conditions and processes acoustic data onboard and transmits the resulting audio signal to the ground-station laptop running Smaart. The controller is therefore not the main carrier of the audio stream. Instead, it should receive DSP-related health/status information through system telemetry and may send mission-state information that helps coordinate measurements or operator awareness.
+
+Signal type: indirect digital status/coordination data
+Direction: bidirectional as supervisory metadata; raw audio is not expected to pass through the controller
+Protocol: supervisory telemetry over the controller-to-drone wireless link; DSP-to-laptop audio path remains separate
+Data sent by controller: mission start state, pause state, manual override state, mission progress tags if implemented, and operator notifications affecting measurement readiness
+Data received by controller: DSP online/offline state, audio-link-ready indication if available, fault/warning status associated with the acoustic chain, and optional measurement-state metadata
+
+The controller should therefore be designed to inform the operator about DSP readiness without becoming the bottleneck for the audio data itself.
+
+#### 5. Internal controller interfaces
+
+For actual controller implementation, the following internal interfaces are expected.
+
+Pi Zero 2 W ↔ touchscreen
+Signal type: digital video plus touch input
+Direction: Pi output to display for video; display output to Pi for touch
+Protocol: HDMI for display video; USB touch interface for touch events
+Data: rendered UI pages, status graphics, icons, text, touch coordinates, touch events
+The chosen Waveshare display is a 5-inch, 800 × 480 capacitive touchscreen with HDMI input and touch support.
+
+Pi Zero 2 W ↔ MCP3008
+Signal type: digital serial
+Direction: bidirectional
+Protocol: SPI
+Data: ADC configuration/clocking and sampled analog stick values
+The MCP3008 is an 8-channel, 10-bit SPI ADC and is the intended analog input stage for the joystick axes.
+
+Joysticks / analog controls ↔ MCP3008
+Signal type: analog voltage
+Direction: input to subsystem
+Protocol: none beyond analog sampling
+Data: joystick X/Y voltages and any future analog control voltages
+
+Buttons / switches / kill-switch ↔ Pi or helper input stage
+Signal type: digital GPIO or equivalent digital logic
+Direction: input to subsystem
+Protocol: none beyond GPIO state reading/debouncing
+Data: button presses, switch states, kill-switch status, menu controls
+
+Pi Zero 2 W ↔ radio TX module
+Signal type: digital serial supervisory/control data
+Direction: bidirectional
+Protocol: serial/UART-compatible integration for mLRS supervisory data path, with the airborne side exposing MAVLink/RC-compatible outputs
+Data: operator commands, manual channel values, telemetry packets, mode status, warning/fault data
+This specific electrical integration should be finalized in detailed design, but it shall remain compatible with the selected mLRS supervisory-control architecture documented by Matek and ArduPilot.
+
+UPS Module 3S ↔ Pi/controller electronics
+Signal type: regulated power plus monitoring data
+Direction: power output from UPS to controller electronics; monitoring data from UPS to Pi
+Protocol: 5 V power distribution; I2C for monitoring if implemented
+Data: battery voltage, current, power, remaining capacity or related monitor values, depending on software integration
+Waveshare states the UPS Module 3S provides stable 5 V/3.3 V output and supports IIC output for voltage/current/power related parameters.
+
+#### 6. Detailed operation of the controller subsystem
+
+The controller subsystem is expected to operate in five phases.
+
+Phase 1: power-up and initialization.
+When powered on, the UPS/power stage shall energize the Pi, screen, local controls, and radio hardware. The controller software shall boot to a system-status page and verify local subsystem readiness, including ADC availability, screen operation, button/kill-switch detection, radio availability, and battery-monitoring availability if implemented.
+
+Phase 2: link establishment and status acquisition.
+The controller shall establish communication with the airborne radio and begin receiving telemetry, mode state, and health data from the aircraft. The operator shall be able to see whether the drone is connected, armed, autonomous, paused, in manual control, or in a faulted state.
+
+Phase 3: mission supervision.
+During autonomous operation, the controller shall display flight mode, autonomy state, mission progress, current waypoint or segment state, aircraft battery level, link health, and critical fault indicators. The operator shall be able to command mission start, pause, abort, return, or landing, depending on the state of the drone-side software.
+
+Phase 4: manual override.
+If the operator activates the autonomy kill-switch or manual takeover control, the controller shall immediately prioritize manual authority. In this state, stick inputs and other relevant controls become the primary operator commands and the controller UI shall clearly indicate that autonomy has been suspended.
+
+Phase 5: mission continuation or shutdown.
+After an override event, the operator may continue manually, command return/land, or request autonomy resume. The controller shall only offer a normal resume path if the drone-side system reports that resumption is valid. At shutdown, the controller shall preserve logs or state information as required by the final software design.
+
+#### 7. Expected user interface
+
+The expected interface is a touch-capable handheld UI supported by physical flight controls.
+
+At minimum, the controller should provide these screens:
+
+System Overview screen
+Shows controller battery state, aircraft battery state, link status, autonomy/manual mode, DSP-ready state if available, and general health summary.
+
+Mission screen
+Shows mission name or ID, current mission state, current waypoint or segment, mission progress, and operator command buttons such as start, pause, return, or abort.
+
+Manual Override screen
+Shows manual-control active state, stick status, takeover confirmation, autonomy-disabled indication, and a clearly visible path to land or return.
+
+Faults and Alerts screen
+Shows critical versus noncritical faults, time-ordered warnings, and any operator acknowledgments required.
+
+Settings / Maintenance screen
+Reserved for future configuration such as calibration, UI settings, controller diagnostics, radio settings, or battery-monitoring options.
+
+The physical controls should include two analog sticks, a dedicated autonomy kill-switch, and sufficient buttons or toggles to support mission navigation and confirmation without relying only on touch input.
+
+#### 8. Functional flowchart section (reserved)
+
+This section is reserved for insertion of the formal controller-subsystem flowcharts in the final report.
+
+#### 9. Detailed “shall” statements
+
+The following are customer-style requirements for the controller subsystem.
+
+A. General function
+The controller subsystem shall serve as the primary operator control and supervision interface for the autonomous acoustics measurement drone.
+The controller subsystem shall support both autonomous mission supervision and emergency manual flight takeover.
+The controller subsystem shall be implemented around a Raspberry Pi Zero 2 W or an equivalent platform that meets the same functional requirements for compute capability, display output, and GPIO expansion.
+The controller subsystem shall include an integrated display-based user interface.
+The controller subsystem shall include physical manual-control inputs suitable for emergency aircraft control.
+The controller subsystem shall support future software expansion without requiring replacement of the core controller hardware architecture.
+B. Selected hardware architecture
+The controller subsystem shall use a 5-inch class touch display compatible with the selected compute platform’s video output.
+The controller subsystem shall use an external ADC to acquire analog joystick inputs.
+The controller subsystem shall use a dedicated long-range radio subsystem separate from the laptop audio-data path.
+The controller subsystem shall use a battery-backed handheld power architecture capable of supporting the controller computer, display, radio hardware, and local I/O hardware simultaneously.
+The controller subsystem shall be housed in a custom 3D-printed enclosure.
+The controller enclosure shall be designed for manufacture using the same selected filament family used by the project’s frame subsystem.
+C. User interface and operator awareness
+The controller subsystem shall display the current aircraft mode, including at minimum autonomous, manual, paused, return, landing, and fault states.
+The controller subsystem shall display aircraft battery information during operation.
+The controller subsystem shall display controller battery or power status during operation.
+The controller subsystem shall display wireless-link status during operation.
+The controller subsystem shall display mission progress during autonomous operation.
+The controller subsystem shall present critical warnings in a manner visually distinguishable from advisory messages.
+The controller subsystem shall provide a user-accessible manual override interface at all times during flight.
+The controller subsystem shall provide a clear indication whenever autonomy has been disabled.
+The controller subsystem shall provide a clear indication whenever autonomy has been restored.
+The controller subsystem shall support a screen structure that allows the operator to access system overview, mission status, manual override, and fault information.
+D. Manual controls and safety
+The controller subsystem shall include at least two analog joystick axes per flight stick set as required by the final manual control scheme.
+The controller subsystem shall include a dedicated autonomy kill-switch or dedicated equivalent input with priority over normal mission-control commands.
+The controller subsystem shall prioritize manual takeover commands over routine supervisory commands.
+The controller subsystem shall continue to present fault and status information while manual control is active.
+The controller subsystem shall allow the operator to request return-to-land or equivalent safe recovery behavior after manual takeover.
+The controller subsystem shall not indicate that autonomous resume is available unless the drone-side system reports that resume conditions are valid.
+E. Wireless communication
+The controller subsystem shall communicate with the aircraft using the selected 915 MHz controller radio link.
+The controller subsystem shall support bidirectional exchange of operator commands and aircraft telemetry.
+The controller subsystem shall maintain separation between the controller radio link and the separate audio-data transmission path used by the DSP subsystem.
+The controller subsystem shall detect and report loss or degradation of the controller-to-aircraft link.
+The controller subsystem shall log or otherwise record loss-of-link events if logging is enabled in the final software build.
+The controller subsystem shall not route raw DSP audio through the controller as the primary measurement transport path.
+F. Interfaces to the drone’s internal components subsystem
+The controller subsystem shall transmit manual control inputs, supervisory commands, and mode requests to the drone’s internal control electronics through the selected radio architecture.
+The controller subsystem shall receive flight-mode status, mission status, aircraft battery telemetry, and subsystem-fault data from the drone’s internal control electronics.
+The controller subsystem shall support the selected control/telemetry architecture’s required serial and protocol compatibility on the controller side.
+The controller subsystem shall be configurable to work with the selected drone-side receiver output mode required by the aircraft control implementation.
+G. Analog and digital input acquisition
+The controller subsystem shall sample analog joystick inputs through the selected ADC interface.
+The controller subsystem shall provide enough analog input channels for the full set of planned joystick controls and at least one reasonable expansion margin.
+The controller subsystem shall debounce or otherwise condition digital button and switch inputs before use by the controller software.
+The controller subsystem shall continuously monitor the kill-switch input whenever the controller is powered and flight supervision is active.
+H. Power and battery subsystem requirements
+The controller subsystem shall operate from an onboard rechargeable battery system rather than requiring tethered wall power during normal use.
+The controller subsystem shall provide regulated power suitable for the compute platform and attached controller electronics.
+The controller subsystem shall provide sufficient runtime for a normal mission session as defined during detailed design verification.
+The controller subsystem shall support safe charging behavior appropriate to the selected battery configuration.
+The controller subsystem shall support battery-state monitoring visible to the operator, either directly or through controller software integration.
+The controller subsystem shall be designed so that the selected loose-cell battery arrangement can be installed and serviced safely within the enclosure.
+I. Mechanical and packaging requirements
+The controller subsystem shall be mechanically packaged for one-handed or two-handed handheld use, as required by the final ergonomic design.
+The controller subsystem shall secure the display, Pi, radio hardware, power hardware, and I/O hardware against loosening during normal transport and operation.
+The controller subsystem shall provide accessible openings or covers for charging, maintenance, and replacement of serviceable internal parts.
+The controller subsystem shall support antenna placement that minimizes shielding by the enclosure and the operator’s hands.
+The controller subsystem shall provide sufficient internal space and cable routing to prevent strain on the display, power, and radio connections.
+J. Software behavior
+The controller subsystem shall boot into a recognizable system state that allows the operator to determine readiness.
+The controller subsystem shall perform local initialization checks on critical controller hardware during startup.
+The controller subsystem shall not present the system as mission-ready when required controller hardware has failed initialization.
+The controller subsystem shall support a mission-supervision mode during autonomous flight.
+The controller subsystem shall support a manual-control mode during operator takeover.
+The controller subsystem shall support a fault/alert presentation mode whenever abnormal conditions are detected.
+The controller subsystem shall preserve configuration and calibration values needed for normal operation across power cycles, subject to the final software design.
+K. Integration with the larger project
+The controller subsystem shall operate as the operator-facing branch of the project’s broader coding subsystem.
+The controller subsystem shall interface cleanly with the drone’s internal components subsystem without requiring direct electrical connection to the aircraft’s propulsion hardware.
+The controller subsystem shall support supervisory interaction with the DSP subsystem through status and coordination data without replacing the DSP-to-laptop audio path.
+The controller subsystem shall be designed so that an engineer unfamiliar with the project can integrate it into the larger autonomous acoustic measurement system using the interfaces defined in this specification.
+
+#### 10. Final subsystem summary
+
+The controller subsystem is a custom handheld supervisory control unit built around the Raspberry Pi Zero 2 W, a 5-inch touch display, external analog-input hardware, a 915 MHz mLRS control/telemetry link, and a 3×18650 power system. Its purpose is to give the operator a reliable, expandable, and safety-focused interface for monitoring the autonomous drone, interrupting autonomy instantly when needed, and coordinating with the rest of the system without interfering with the separate DSP audio path.
 
 ## Ethical, Professional, and Standards Considerations
 
@@ -1218,6 +1481,58 @@ Revise the detailed timeline (Gantt chart) you created in the project proposal. 
 
 
 ## References
+
+### Controller Subsystem References
+[1] Raspberry Pi Foundation, “Raspberry Pi Zero 2 W,” Raspberry Pi.
+URL: https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/
+
+[2] Raspberry Pi Foundation, “Raspberry Pi Zero 2 W Product Brief,” Raspberry Pi Product Information Portal.
+URL: https://pip.raspberrypi.com/documents/RP-008359-DS-raspberry-pi-zero-2-w-product-brief.pdf
+
+[3] Waveshare, “5inch HDMI LCD (H),” Waveshare Wiki.
+URL: https://www.waveshare.com/wiki/5inch_HDMI_LCD_(H)
+
+[4] Microchip Technology Inc., “MCP3008,” Microchip Technology.
+URL: https://www.microchip.com/en-us/product/mcp3008
+
+[5] Microchip Technology Inc., “MCP3004/MCP3008 2.7V 10-Bit A/D Converters with SPI Interface,” Microchip Technology.
+URL: https://ww1.microchip.com/downloads/en/DeviceDoc/21295d.pdf
+
+[6] Matek Systems, “mLRS MAVLink 900MHz TX Module KIT, mR900-30-TX,” Matek Systems.
+URL: https://www.mateksys.com/?portfolio=mr900-30-tx
+
+[7] Matek Systems, “mLRS MAVLink 900MHz Receiver, mR900-30,” Matek Systems.
+URL: https://www.mateksys.com/?portfolio=mr900-30
+
+[8] Matek Systems, “mLRS RX & TX Series,” Matek Systems.
+URL: https://www.mateksys.com/?page_id=12174
+
+[9] ArduPilot Dev Team, “mLRS project,” ArduPilot Copter Documentation.
+URL: https://ardupilot.org/copter/docs/common-mlrs-rc.html
+
+[10] ArduPilot Dev Team, “Radio Control Systems,” ArduPilot Copter Documentation.
+URL: https://ardupilot.org/copter/docs/common-rc-systems.html
+
+[11] Waveshare, “UPS Module 3S,” Waveshare Wiki.
+URL: https://www.waveshare.com/wiki/UPS_Module_3S
+
+[12] Waveshare, “UPS HAT (C),” Waveshare Wiki.
+URL: https://www.waveshare.com/wiki/UPS_HAT_(C)
+
+[13] ExpressLRS Team, “ExpressLRS: High Performance Open Source Radio Control Link,” ExpressLRS.
+URL: https://www.expresslrs.org/
+
+[14] CrowPi, “RC050S 5 Inch Raspberry Pi Monitor Touchscreen IPS Display,” CrowPi.
+URL: https://www.crowpi.cc/products/rc050s-raspberry-pi-monitor-5-inch-touchscreen-ips-display-800x480-usb-powered-hdmi-monitor-with-built-in-speaker-stand
+
+[15] Raspberry Pi Foundation, “Raspberry Pi Pico 2,” Raspberry Pi.
+URL: https://www.raspberrypi.com/products/raspberry-pi-pico-2/
+
+[16] Raspberry Pi Foundation, “Raspberry Pi Pico microcontroller boards,” Raspberry Pi Documentation.
+URL: https://www.raspberrypi.com/documentation/microcontrollers/pico-series.html
+
+[17] IMR Batteries, “Samsung 35E 18650 3500mAh 8A Battery,” IMR Batteries.
+URL: https://imrbatteries.com/products/samsung-35e-18650-3500mah-8a-battery
 
 ## Statement of Contributions
 
