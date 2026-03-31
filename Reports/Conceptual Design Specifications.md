@@ -647,6 +647,144 @@ Similar to a block diagram, the flow chart aims to specify the system, but from 
 
 ## Atomic Subsystem Specifications
 
+## Frame Subsystem
+
+### Functional Description
+
+&nbsp; &nbsp; &nbsp; &nbsp; The frame subsystem provides the structural foundation of the aircraft and supports all onboard components, including the propulsion system, power system, sensing subsystem, and onboard processing hardware. The frame maintains the geometric configuration required for stable multirotor flight while ensuring that all components are securely mounted and properly aligned.
+
+&nbsp; &nbsp; &nbsp; &nbsp; In addition to structural support, the frame subsystem is responsible for minimizing vibration transmission from the propulsion system to sensitive acoustic measurement components. This is critical because vibration can introduce noise into microphone signals and degrade measurement accuracy.
+
+&nbsp; &nbsp; &nbsp; &nbsp; The selected frame is a carbon-fiber H-frame with a nominal size of **16 in × 16 in**, using carbon-fiber structural members and 3D-printed mounts for component integration and vibration isolation.
+
+---
+
+### Subsystem Interfaces
+
+The frame subsystem interfaces mechanically with all other subsystems and indirectly affects signal integrity through vibration behavior.
+
+#### 1. Interface with Power and Propulsion Subsystem
+- **Type of Interaction:** Mechanical + Electrical Routing Support  
+- **Signal Type:** Electrical power (DC), PWM motor control signals  
+- **Direction:**  
+  - Input: mechanical loads from motors and propellers  
+  - Output: structural support and alignment  
+- **Description:**  
+  The frame provides mounting points for motors, ESCs, and battery. It also supports routing of power wiring from the battery to ESCs. The structural rigidity of the frame ensures stable thrust generation and proper motor alignment.
+
+---
+
+#### 2. Interface with Control and Processing Subsystem
+- **Type of Interaction:** Mechanical + Signal Stability  
+- **Signal Type:** Digital communication (e.g., UART, I2C, SPI)  
+- **Direction:**  
+  - Input: mounting requirements for flight controller and onboard processor  
+  - Output: vibration-isolated platform for electronics  
+- **Description:**  
+  The frame provides mounting surfaces for the flight controller and onboard computer. It also supports vibration isolation (e.g., dampers) to prevent noise from affecting control signals and sensor readings.
+
+---
+
+#### 3. Interface with Sensing Subsystem (Acoustic + Navigation)
+- **Type of Interaction:** Mechanical + Signal Integrity  
+- **Signal Type:** Analog audio signals, digital sensor data  
+- **Direction:**  
+  - Input: sensor mounting requirements  
+  - Output: stable and isolated mounting platform  
+- **Description:**  
+  The frame supports microphone placement and other sensors. It minimizes vibration transmission to ensure accurate acoustic measurements and stable sensor readings.
+
+---
+
+#### 4. Interface with Communication Subsystem
+- **Type of Interaction:** Mechanical  
+- **Signal Type:** Wireless communication (RF)  
+- **Direction:**  
+  - Input: antenna placement requirements  
+  - Output: structural mounting and positioning  
+- **Description:**  
+  The frame provides mounting points for antennas and communication modules, ensuring proper placement for signal transmission without interference from other components.
+
+---
+
+### Detailed Operation
+
+&nbsp; &nbsp; &nbsp; &nbsp; During operation, the frame acts as the central structural platform that supports all subsystems. The propulsion system generates thrust forces at the ends of the frame arms, which are transmitted through the carbon-fiber structure. The frame maintains alignment between motors and ensures that thrust is distributed symmetrically.
+
+&nbsp; &nbsp; &nbsp; &nbsp; The battery and onboard electronics are mounted near the center of mass to maintain stability and reduce rotational inertia. Sensors, including microphones, are mounted using vibration-isolated brackets to minimize noise interference.
+
+&nbsp; &nbsp; &nbsp; &nbsp; The frame also serves as a routing structure for wiring and component integration. Proper spacing and layout reduce electromagnetic interference and improve maintainability.
+
+---
+
+### Functional Flowchart
+
+The frame subsystem does not have a direct user interface; however, its operation within the system can be described as follows:
+
+1. Support component mounting  
+2. Maintain structural integrity during flight  
+3. Distribute loads from propulsion system  
+4. Minimize vibration transmission  
+5. Maintain alignment of all subsystems  
+6. Enable safe landing and structural durability  
+
+---
+
+### Performance Specifications
+
+The frame subsystem shall satisfy the following:
+
+- Frame configuration: H-frame  
+- Frame size: **16 in × 16 in**  
+- Frame material: carbon fiber  
+- Secondary materials: PETG or carbon-fiber reinforced nylon  
+- Estimated frame weight: 400–500 g  
+- Structural load capacity: ≥ 2.3 kg total aircraft mass  
+- Vibration isolation capability: reduce transmission of motor-induced vibration to sensors  
+- Mounting capability: support propulsion, power, sensing, and control subsystems  
+- Modularity: allow component removal and replacement  
+
+---
+
+### Detailed Shall Statements
+
+#### Functional Requirements
+- The subsystem shall provide structural support for all onboard components.  
+- The subsystem shall maintain geometric alignment required for stable multirotor flight.  
+- The subsystem shall provide mounting interfaces for all subsystems.  
+
+#### Mechanical Requirements
+- The subsystem shall use carbon fiber as the primary structural material.  
+- The subsystem shall maintain sufficient stiffness to prevent structural deformation during flight.  
+- The subsystem shall support a minimum total load of 2.3 kg.  
+
+#### Interface Requirements
+- The subsystem shall provide mounting points for motors, ESCs, battery, and electronics.  
+- The subsystem shall support routing of electrical wiring between subsystems.  
+- The subsystem shall allow secure mounting of sensors and communication devices.  
+
+#### Vibration Requirements
+- The subsystem shall minimize vibration transmission to acoustic sensors.  
+- The subsystem shall support vibration isolation mechanisms for sensitive components.  
+
+#### Weight Requirements
+- The subsystem shall minimize structural mass to improve flight efficiency.  
+- The subsystem shall maintain a total frame mass between 400 g and 500 g.  
+
+#### Validation Requirements
+- The subsystem shall be validated through structural inspection and load testing.  
+- The subsystem shall be validated through flight testing for stability and vibration performance.  
+- The subsystem shall demonstrate durability under repeated operation.  
+
+---
+
+### Major Data Elements
+
+- frame mass  
+- structural load capacity  
+- vibration characteristics  
+- mounting geometry  
+- subsystem interface locations  
 ### Power and Propulsion Subsystem
 
 **Functional Description**
