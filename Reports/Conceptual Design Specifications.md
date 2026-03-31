@@ -1187,7 +1187,7 @@ Physical controls shall include two analog sticks [36], a dedicated autonomy kil
 
 **Functional Flowchart**
 
-![Controller Subsystem Flowchart](Images\Controller_Subsystem_Flowchart.pdf)
+![Controller Subsystem Flowchart](Images\Controller_Subsystem_Flowchart.png)
 
 ---
 
