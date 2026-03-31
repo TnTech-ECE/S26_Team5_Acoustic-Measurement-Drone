@@ -248,10 +248,22 @@ This design provides the optimal balance of stability, payload space, low weight
 
 &nbsp; &nbsp; &nbsp; &nbsp; The final power and propulsion subsystem configuration consists of:
 
-- 6S 8000 mAh Li-Ion battery  
-- SunnySky V4008 380KV brushless motors (×4)  
-- HobbyWing XRotor 40A ESCs (×4)  
-- APC 13×4.5 multirotor propellers (×4)  
+- 6S 8000 mAh Li-Ion battery
+
+  ![Alt text](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Rough_Draft_Project/Reports/Images/Fullsend%20Battery.png)
+    
+- SunnySky V4008 380KV brushless motors (×4)
+
+   ![Alt text](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Rough_Draft_Project/Reports/Images/SunnySky%20Motor.png)
+  
+- HobbyWing XRotor 40A ESCs (×4)
+
+   ![Alt text](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Rough_Draft_Project/Reports/Images/HobbyWing%20ESC.png)
+  
+- APC 13×4.5 multirotor propellers (×4)
+
+    ![Alt text](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Rough_Draft_Project/Reports/Images/APC%20propellers.png)
+  
 - 16 in × 16 in 3D-printed H-frame  
 
 &nbsp; &nbsp; &nbsp; &nbsp; This configuration provides a balanced solution that meets the endurance requirements of the project while maintaining compatibility with the mechanical design. The selected components reduce unnecessary weight, improve efficiency during hover, and allow the system to achieve an estimated flight time near 20 minutes under optimized operating conditions.
