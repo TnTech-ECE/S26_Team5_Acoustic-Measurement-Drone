@@ -509,7 +509,7 @@ Example: Waveshare UPS Module 3S with Samsung 35E flat-top 18650 cells (~3500 mA
 
 **Raspberry Pi Zero 2 W** — main controller computer [33], [34]
 
-![Raspberry Pi Zero 2 W](Images\Zero_2_W.webp)
+![Zero 2 W](Images\Zero_2_W.webp)
 
 **Waveshare 5inch HDMI LCD (H)** — touchscreen interface [35]
 
@@ -1187,7 +1187,7 @@ Physical controls shall include two analog sticks [36], a dedicated autonomy kil
 
 **Functional Flowchart**
 
-![Controller Subsystem Flowchart](Images\Controller_Flowchart.png)
+![Controller Flowchart](Images\Controller_Flowchart.png)
 
 ---
 
