@@ -103,13 +103,50 @@ The subsystem ensures stable and efficient autonomous flight by maintaining suff
 
 ### Constraints
 
-- **Voltage constraint:** must operate within 6S system limits  
-- **Current constraint:** must not exceed ESC and motor ratings  
-- **Weight constraint:** increased system mass raises thrust and power requirements and reduces endurance  
-- **Frame constraint:** must fit within 16 in × 16 in geometry  
-- **Power regulation constraint:** Pixhawk requires regulated 5 V input  
-- **Safety constraint:** must include voltage/current monitoring for failsafe operation  
-- **Socio-economic constraint:** must use cost-effective, commercially available components  
+The power and propulsion subsystem is governed by several critical constraints that arise from physical limitations, component capabilities, system integration requirements, and practical considerations. These constraints directly influence component selection, system performance, and overall feasibility.
+
+
+
+#### **Electrical Voltage Constraint (Physics-Based)**  
+All components within the subsystem must operate within a 6S voltage architecture (nominal 22.2 V, maximum ~25.2 V fully charged). This constraint is dictated by the selected battery and must be adhered to by the ESCs, motors, and power module. Operating outside of this range can result in component damage, reduced efficiency, or system failure. This constraint ensures electrical compatibility across all propulsion components and prevents overvoltage conditions.
+
+
+
+#### **Current and Thermal Constraint (Physics + Hardware Limitations)**  
+The ESCs are rated at 40 A continuous and 60 A peak, while the motors draw current based on load and propeller size. The system must be designed such that current draw during all operating conditions (hover, climb, maneuvering) does not exceed these limits. Exceeding current ratings leads to excessive heat generation, which can cause ESC failure, motor degradation, or wiring damage. This constraint also impacts wire gauge selection and necessitates adequate airflow for cooling, particularly since ESCs are mounted on the arms.
+
+
+
+#### **Thrust-to-Weight Constraint (Performance Requirement)**  
+The propulsion system must maintain a thrust-to-weight ratio greater than 2:1 to ensure stable flight, controlled maneuvering, and safe takeoff/landing. This constraint arises from fundamental multirotor flight physics. If the ratio is too low, the drone will struggle to hover efficiently or respond to control inputs. This requirement directly influenced the selection of low-KV motors and 13-inch propellers to maximize thrust efficiency while supporting the total system mass.
+
+
+
+#### **Energy and Endurance Constraint (Physics-Based)**  
+The total available flight time is limited by the battery energy capacity (177.6 Wh) and the system’s average power consumption (~450–600 W). Only 80–85% of battery capacity is usable to prevent over-discharge, resulting in approximately 142–151 Wh of usable energy. This constrains the achievable flight time to roughly 16–20 minutes. This limitation requires careful balancing between weight, thrust, and efficiency to meet mission requirements.
+
+
+
+#### **Mechanical and Geometric Constraint (Subsystem Integration)**  
+All propulsion components must fit within the physical limits of the 16 in × 16 in frame while maintaining proper spacing between propellers to avoid interference. Propeller diameter (13 inches) and motor placement must ensure no overlap during operation. Additionally, components must be mounted such that the center of gravity remains near the geometric center of the frame. Improper placement would result in unstable flight and increased control effort.
+
+
+
+#### **Power Regulation Constraint (Subsystem Dependency)**  
+The flight controller cannot be powered directly from the 6S battery and requires a regulated 5 V supply. This necessitates the use of a power module capable of stepping down voltage and providing stable output under varying load conditions. Failure to meet this constraint would result in unreliable flight controller operation or system shutdown.
+
+
+
+#### **Safety Constraint (Standards and Operational Safety)**  
+The subsystem must include voltage and current monitoring to ensure safe operation. This allows the flight controller to detect low-voltage conditions and initiate failsafe procedures such as controlled landing. Additionally, wiring, connectors, and components must be rated appropriately to prevent overheating, short circuits, or electrical faults. This constraint aligns with general electrical safety standards and protects both the system and operators.
+
+
+
+#### **Socio-Economic Constraint (Cost and Availability)**  
+The subsystem must be constructed using cost-effective, commercially available components. This ensures that the design remains feasible within budget constraints and that replacement parts are readily accessible. Custom or highly specialized components were avoided in favor of widely available solutions to reduce cost, simplify procurement, and improve maintainability.
+
+
+These constraints collectively define the design space of the power and propulsion subsystem. Each constraint was considered during component selection and system integration to ensure that the final design is safe, feasible, and capable of achieving the intended performance. 
 
 ## Overview of Proposed Solution
 
