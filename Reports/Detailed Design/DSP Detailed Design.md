@@ -202,6 +202,9 @@ Ensures the design can be fabricated reliably and assembled without errors.
 
 ---
 
+(Images/Stage 1 Project.png)
+
+
 # References
 
 [1] Audio Engineering Society (AES), *AES48-2005: Grounding and EMC Practices for Audio Equipment*
