@@ -217,7 +217,6 @@ The primary energy source is a 6S 8000 mAh Li-Ion battery with a nominal voltage
 
 The estimated total mass of the aircraft for this subsystem analysis is approximately 2.2–2.3 kg. For a quadrotor, hover requires total thrust equal to weight. Therefore, the required thrust per motor is:
 
-```text
 2300 g / 4 = 575 g per motor
 
 The selected SunnySky V4008 380KV motors paired with 13×4.5 propellers are capable of producing approximately 1500–1600 g of thrust per motor at maximum output. This results in a total system thrust capability of approximately 6000–6400 g and a thrust-to-weight ratio of:
