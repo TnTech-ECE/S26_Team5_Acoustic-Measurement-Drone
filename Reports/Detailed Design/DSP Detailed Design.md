@@ -203,99 +203,135 @@ Ensures the design can be fabricated reliably and assembled without errors.
 ---
 ## Buildable Schematic
 
-The buildable schematic for the DSP Subsystem is divided into three primary stages: the XLR input stage, the THAT1510 microphone preamplifier stage, and the THAT1646 balanced line driver output stage. These stages work together to receive the balanced microphone signal from the Xvive P1 phantom power supply, condition the signal for the Teensy 4.1 Audio Shield, and convert the processed output back into a balanced line-level signal for wireless transmission.
-
----
+The buildable schematic for the Audio Capture, Signal Conditioning, and Transmission Subsystem is divided into three primary stages: the XLR input stage, the THAT1510 microphone preamplifier stage, and the THAT1646 balanced line driver output stage. These stages work together to receive the balanced microphone signal from the Xvive P1 phantom power supply, condition the signal for the Teensy 4.1 Audio Shield, and convert the processed output back into a balanced line-level signal for wireless transmission.
 
 ### Stage 1: XLR Input from Xvive P1
 
-The first stage of the schematic receives the balanced microphone signal from the Xvive P1 phantom power supply. The beyerdynamic MM 1 measurement microphone requires phantom power, but this subsystem does not generate phantom power directly. Instead, the Xvive P1 provides the required phantom power externally and sends the balanced audio signal into the PCB through an XLR connector [4].
+The first stage of the schematic receives the balanced microphone signal from the Xvive P1 phantom power supply. The beyerdynamic MM 1 measurement microphone requires phantom power, which is supplied externally by the Xvive P1. This subsystem does not generate phantom power internally, but must safely interface with a phantom-powered signal [4].
 
-XLR pin 2 carries the hot signal, XLR pin 3 carries the cold signal, and XLR pin 1 is connected to shield/chassis ground. The shield is connected to chassis at the XLR connector only to reduce noise pickup and avoid routing shield current through the analog signal ground.
+The XLR interface follows standard professional audio conventions:
 
-Each signal leg includes a 47 Ω series resistor, a 10 µF coupling capacitor, a 10 kΩ resistor to ground, a 220 pF capacitor to ground, and a 100 Ω series resistor before entering the THAT1510 preamplifier. The 10 µF capacitors block DC from the externally supplied phantom power while allowing the audio signal to pass. The 10 kΩ resistors provide a DC return path and establish the input reference after the coupling capacitors. The 220 pF capacitors provide high-frequency filtering, while the series resistors help provide input protection, RF isolation, and stability.
+- Pin 2: Hot (+)
+- Pin 3: Cold (−)
+- Pin 1: Shield / chassis ground
 
-The hot signal path is routed to pin 3 of the THAT1510, which is the non-inverting input. The cold signal path is routed to pin 2 of the THAT1510, which is the inverting input. This maintains the balanced input relationship and allows the preamplifier to reject common-mode noise [1], [5].
+The shield is connected to chassis ground at the XLR connector only. This follows AES grounding practices and helps prevent ground loops and noise coupling into the signal path [1].
 
-![Stage 1 Schematic](Reports/Detailed Design/Stage1Project.png)
+Each signal leg includes the following components:
 
+- 47 Ω series resistor (RF/ESD protection)
+- 10 µF coupling capacitor (DC blocking)
+- 10 kΩ resistor to ground (bias reference)
+- 220 pF capacitor to ground (high-frequency filtering)
+- 100 Ω series resistor (input isolation)
+
+The coupling capacitors block DC from the phantom power supply while allowing the AC audio signal to pass. The 10 kΩ resistors provide a DC return path and establish the input reference after the coupling stage. The 220 pF capacitors attenuate high-frequency noise, and the series resistors improve stability and protect the preamplifier inputs.
+
+The differential signals are routed as follows:
+
+- Hot (+) → THAT1510 Pin 3 (+IN)
+- Cold (−) → THAT1510 Pin 2 (−IN)
+
+This preserves the balanced signal structure and enables high common-mode noise rejection [5].
+
+![Stage 1](Reports/DetailedDesign/Stage1Project.png)
 
 ---
 
 ### Stage 2: THAT1510 Microphone Preamplifier
 
-The second stage uses a THAT1510 microphone preamplifier to convert the balanced microphone signal into a single-ended signal that can be sent to the Teensy Audio Shield. The THAT1510 is designed for low-noise microphone preamplifier applications and includes differential inputs, gain-setting pins, a reference pin, and a single-ended output [5].
+The second stage uses the THAT1510 microphone preamplifier to convert the balanced microphone signal into a single-ended signal suitable for the Teensy Audio Shield. The THAT1510 is designed for low-noise audio applications and provides excellent common-mode rejection and gain control [5].
 
-The corrected THAT1510 pin connections used in this design are:
+#### THAT1510 Pin Configuration
 
 | Pin | Function | Connection |
-|---|---|---|
-| 1 | RG1 | One side of gain resistor |
-| 2 | -IN | Cold input from XLR pin 3 |
-| 3 | +IN | Hot input from XLR pin 2 |
-| 4 | V- | -15 V supply rail |
-| 5 | REF | Analog ground reference |
-| 6 | OUT | Audio output to Teensy line input |
-| 7 | V+ | +15 V supply rail |
-| 8 | RG2 | Other side of gain resistor |
+|-----|----------|------------|
+| 1 | RG1 | Gain resistor |
+| 2 | −IN | Cold input (from XLR pin 3) |
+| 3 | +IN | Hot input (from XLR pin 2) |
+| 4 | V− | −15 V supply |
+| 5 | REF | Analog ground |
+| 6 | OUT | Audio output |
+| 7 | V+ | +15 V supply |
+| 8 | RG2 | Gain resistor |
 
-A 10 kΩ gain-setting resistor is placed between pins 1 and 8. This resistor sets the preamplifier gain to approximately +6 dB, which is a reasonable starting point because the signal is being sent into the Teensy Audio Shield line input rather than a microphone-level input. If testing shows that the signal level is too low, the gain resistor can be adjusted to increase gain. If the signal level is too high, the gain should remain low to avoid clipping the ADC input.
+A 10 kΩ resistor is placed between RG1 and RG2 (pins 1 and 8). This sets the gain to approximately +6 dB, which is appropriate for interfacing with the Teensy line-level input. The gain can be adjusted if testing shows the signal is too low or too high.
 
-Pin 7 is connected only to the positive supply rail, and pin 4 is connected to the negative supply rail. These rails should be equal in magnitude and opposite in polarity, such as +15 V and -15 V. Local decoupling capacitors are placed near the power pins to reduce noise on the supply rails. Pin 5, the REF pin, is tied to analog ground so that the output signal is referenced properly.
+The power supply connections are:
 
-The audio output from the THAT1510 comes only from pin 6. This output is routed through a 1 kΩ series resistor and a coupling capacitor before reaching the Teensy Audio Shield line input. A 10 kΩ resistor to ground provides an output reference, and an optional attenuation network can be used to reduce the signal level if ADC clipping occurs. The Teensy Audio Shield uses the SGTL5000 codec, which supports routing the line input into the ADC for audio processing [7], [8].
+- Pin 7 (V+) → +15 V
+- Pin 4 (V−) → −15 V
 
-![Stage 2 Schematic](Reports/Detailed Design/Stage2Project.png)
+Local decoupling capacitors (100 nF and 10 µF) are placed near the supply pins to reduce noise and stabilize operation. The REF pin (Pin 5) is tied to analog ground (AGND), which establishes the correct reference level for the output signal.
+
+The audio output is taken exclusively from Pin 6. This output is conditioned before being sent to the Teensy Audio Shield:
+
+- 1 kΩ series resistor → output isolation
+- coupling capacitor → blocks DC
+- 10 kΩ resistor to ground → establishes output reference
+- optional attenuation network → prevents ADC clipping
+
+The signal is then routed into the Teensy 4.1 Audio Shield line input, where analog-to-digital conversion and DSP processing occur [7], [8].
+
+![Stage 2](Reports/Detailed Design/Stage2Project.png)
 
 ---
 
 ### Stage 3: THAT1646 Balanced Line Driver Output
 
-After the signal is processed by the Teensy 4.1 and Audio Shield, the output is single-ended and must be converted back into a balanced signal before entering the wireless transmitter. This stage uses a THAT1646 balanced line driver to convert the processed single-ended signal into a balanced, low-impedance line-level output [6].
+After processing by the Teensy, the signal is single-ended and must be converted back to a balanced format for transmission. This stage uses the THAT1646 balanced line driver to perform this conversion [6].
 
-The single-ended output from the Teensy Audio Shield is routed into the input of the THAT1646 through an input resistor. The THAT1646 then produces two opposite-polarity outputs: a positive balanced output and a negative balanced output. These outputs are routed through 100 Ω output resistors before reaching the XLR output connector.
+The single-ended output from the Teensy Audio Shield is routed into the THAT1646 input through a resistor and optional filtering capacitor. The device generates two complementary outputs:
 
-The balanced output connector follows the standard professional audio XLR pin arrangement:
+- OUT+ (non-inverting)
+- OUT− (inverting)
 
-| XLR Pin | Function |
-|---|---|
+Each output is passed through a 100 Ω resistor before reaching the XLR connector. These resistors improve stability and help isolate the driver from cable loading.
+
+#### XLR Output Configuration
+
+| Pin | Function |
+|-----|----------|
 | 1 | Shield / Ground |
-| 2 | Hot / Positive Output |
-| 3 | Cold / Negative Output |
+| 2 | Hot (+) |
+| 3 | Cold (−) |
 
-This balanced output is then connected to the Shure SLXD3 plug-on transmitter. The balanced connection reduces noise pickup before transmission and maintains compatibility with professional audio equipment. At Front-of-House, the signal is received by the Shure SLXD4 receiver and routed into the audio interface or mixer for analysis in SMAART [9], [10], [11].
+The balanced output is connected to the Shure SLXD3 plug-on transmitter, which transmits the signal wirelessly to the SLXD4 receiver at FOH [9], [10].
 
-![Stage 3 Schematic](Reports/Detailed Design/Stage3Project.png)
+Balanced transmission reduces susceptibility to electromagnetic interference and maintains signal integrity prior to wireless conversion [6].
+
+![Stage 3](Reports/Detailed Design/Stage3Project.png)
 
 ---
 
 ### Schematic Design Summary
 
-The buildable schematic satisfies the subsystem requirements by providing a complete signal path from the measurement microphone to the wireless transmission system. The XLR input stage safely accepts the signal from the externally powered phantom supply while blocking unwanted DC from entering the preamplifier. The THAT1510 stage provides low-noise balanced-to-single-ended conversion and adjustable gain. The Teensy 4.1 Audio Shield performs digital processing, and the THAT1646 output stage restores the signal to a balanced format for the wireless transmitter.
+The complete signal path is:
 
-This design also addresses the major constraints of the subsystem. Balanced signaling helps reduce electromagnetic interference, coupling capacitors protect sensitive electronics from DC offsets, local decoupling capacitors improve supply stability, and the output attenuation option helps prevent ADC clipping. Overall, the schematic provides a practical and buildable implementation for acquiring, conditioning, processing, and transmitting acoustic measurement data.
+beyerdynamic MM 1 → Xvive P1 → THAT1510 → Teensy 4.1 Audio Shield → THAT1646 → Shure SLXD3 → Shure SLXD4 → SMAART
 
+This design ensures:
 
-# References
+- Proper handling of phantom-powered signals [4]
+- Low-noise differential amplification [5]
+- Reliable ADC and DSP processing [7], [8]
+- Balanced output for professional audio systems [6]
+- Compatibility with SMAART measurement workflows [11]
 
-[1] Audio Engineering Society (AES), *AES48-2005: Grounding and EMC Practices for Audio Equipment*
+The schematic provides a fully buildable and testable implementation that meets subsystem requirements while maintaining signal integrity and minimizing noise.
 
-[2] Davis, D., Patronis, E., *Sound System Engineering*, 4th ed., Focal Press, 2013
+---
 
-[3] beyerdynamic MM 1 Datasheet
+## References
 
-[4] Xvive P1 Product Documentation
-
-[5] THAT1510 Datasheet, THAT Corporation
-
-[6] THAT1646 Datasheet, THAT Corporation
-
-[7] Teensy 4.1 Documentation, PJRC
-
-[8] Teensy Audio Shield Documentation, PJRC
-
-[9] Shure SLXD3 Product Documentation
-
-[10] Shure SLXD4 Product Documentation
-
-[11] SMAART, Rational Acoustics
+[1] AES48-2005, Audio Engineering Society  
+[2] Davis & Patronis, *Sound System Engineering*  
+[3] beyerdynamic MM 1 Datasheet  
+[4] Xvive P1 Documentation  
+[5] THAT1510 Datasheet  
+[6] THAT1646 Datasheet  
+[7] PJRC Teensy 4.1 Documentation  
+[8] PJRC Audio Shield Documentation  
+[9] Shure SLXD3 Documentation  
+[10] Shure SLXD4 Documentation  
+[11] Rational Acoustics SMAART
