@@ -217,7 +217,8 @@ Each signal leg includes a 47 Ω series resistor, a 10 µF coupling capacitor, a
 
 The hot signal path is routed to pin 3 of the THAT1510, which is the non-inverting input. The cold signal path is routed to pin 2 of the THAT1510, which is the inverting input. This maintains the balanced input relationship and allows the preamplifier to reject common-mode noise [1], [5].
 
-![Stage 1 Schematic](Reports/Images/Stage1Project.png) 
+![Stage 1 Schematic](Reports/Detailed Design/Stage1Project.png)
+
 
 ---
 
@@ -244,7 +245,7 @@ Pin 7 is connected only to the positive supply rail, and pin 4 is connected to t
 
 The audio output from the THAT1510 comes only from pin 6. This output is routed through a 1 kΩ series resistor and a coupling capacitor before reaching the Teensy Audio Shield line input. A 10 kΩ resistor to ground provides an output reference, and an optional attenuation network can be used to reduce the signal level if ADC clipping occurs. The Teensy Audio Shield uses the SGTL5000 codec, which supports routing the line input into the ADC for audio processing [7], [8].
 
-![Stage 2 Schematic](Reports/Images/Stage2Project.png) 
+![Stage 2 Schematic](Reports/Detailed Design/Stage2Project.png)
 
 ---
 
@@ -264,7 +265,7 @@ The balanced output connector follows the standard professional audio XLR pin ar
 
 This balanced output is then connected to the Shure SLXD3 plug-on transmitter. The balanced connection reduces noise pickup before transmission and maintains compatibility with professional audio equipment. At Front-of-House, the signal is received by the Shure SLXD4 receiver and routed into the audio interface or mixer for analysis in SMAART [9], [10], [11].
 
-![Stage 3 Schematic](Reports/Images/Stage3Project.png)
+![Stage 3 Schematic](Reports/Detailed Design/Stage3Project.png)
 
 ---
 
