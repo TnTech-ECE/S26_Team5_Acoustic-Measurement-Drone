@@ -202,7 +202,7 @@ Ensures the design can be fabricated reliably and assembled without errors.
 
 ---
 
-(Images/Stage 1 Project.png)
+(Images/Stage1Project.png)
 
 
 # References
