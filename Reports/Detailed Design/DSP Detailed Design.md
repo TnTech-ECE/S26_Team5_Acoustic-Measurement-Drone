@@ -202,7 +202,7 @@ Ensures the design can be fabricated reliably and assembled without errors.
 
 ---
 
-![Alt text](Images/Stage1Project.png)
+![Stage 1 Schenatic](Images/Stage1Project.png)
 
 
 # References
