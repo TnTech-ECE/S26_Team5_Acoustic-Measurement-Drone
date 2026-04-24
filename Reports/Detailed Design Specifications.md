@@ -62,53 +62,50 @@ The subsystem ensures stable and efficient autonomous flight by maintaining suff
 
 - Estimated aircraft mass:  
   - Propulsion mass: 1460.4 g  
-  - Non-propulsion mass: 960 g  
-  - Total mass: ~2420 g (2.42 kg)  
+  - Non-propulsion mass: 1160 g  
+  - Total mass: ~2620 g (2.62 kg)  
 
 ### Thrust Requirements
 
 - Required hover thrust:  
-  - Total: ~2420 g  
-  - Per motor: ~605 g  
+  - Total: ~2620 g  
+  - Per motor: ~655 g  
 
 - Estimated max thrust per motor: ~1500–1600 g  
 - Total max thrust: ~6400 g  
 
 - Thrust-to-weight ratio:  
-  - ~2.6 : 1  
+  - ~2.4 : 1  
 
 ### Torque
 
 - Motor shaft torque:  
-  - ~0.13 N·m at hover  
+  - ~0.14 N·m at hover  
   - ~0.35 N·m at max thrust  
 
 - Control torque about CG:  
-  - ~1.2 N·m (hover)  
+  - ~1.3 N·m (hover)  
   - ~3.2 N·m (max)  
 
 ### Power Consumption
 
 - Average flight power:  
-  - 425–575 W  
-
-- Audio payload power:  
-  - ~0.09 W (negligible to main system)  
+  - 450–600 W  
 
 ### Flight Time
 
-- At 425 W: ~20–21 min  
-- At 500 W: ~17–18 min  
-- At 575 W: ~14–16 min  
+- At 450 W: ~18–20 min  
+- At 525 W: ~16–17 min  
+- At 600 W: ~14–15 min  
 
 - Realistic mission estimate:  
-  - **17–19 minutes**
+  - **16–17 minutes**
 
 ### Constraints
 
 - **Voltage constraint:** must operate within 6S system limits  
 - **Current constraint:** must not exceed ESC and motor ratings  
-- **Weight constraint:** added payload increases power demand and reduces endurance  
+- **Weight constraint:** increased system mass raises thrust and power requirements and reduces endurance  
 - **Frame constraint:** must fit within 16 in × 16 in geometry  
 - **Power regulation constraint:** Pixhawk requires regulated 5 V input  
 - **Safety constraint:** must include voltage/current monitoring for failsafe operation  
@@ -122,14 +119,14 @@ The subsystem uses a dual-path power architecture:
 Battery → Power distribution → ESCs → Motors → Propellers  
 
 ### Low-Power Path
-Battery → Power module → Flight controller   
+Battery → Power module → Flight controller  
 
 This architecture ensures:
 
 - efficient power delivery to propulsion components  
 - safe voltage regulation for avionics  
 - minimal electrical interference between subsystems  
-- adequate thrust for increased payload  
+- adequate thrust for the system mass  
 
 The system remains optimized for:
 
@@ -147,13 +144,8 @@ The system remains optimized for:
 | Flight Controller → ESCs | Digital | Output | PWM | Motor speed control |
 | ESCs → Motors | Electrical (3-phase) | Output | Direct wiring | Motor drive |
 | Motors → Propellers | Mechanical | Output | Shaft coupling | Thrust generation |
-| Xvive P1 → Microphone | Electrical + Signal | Output/Input | XLR | Phantom power + audio signal |
+| Power & Propulsion → Frame | Mechanical / Structural | Bidirectional | Mounting hardware (bolts, brackets, standoffs) | Structural support, load transfer, vibration transmission, and component mounting |
 
-The subsystem interfaces with:
-
-- **Flight control subsystem** through power and PWM signals  
-- **Sensor subsystem** through regulated power and shared control  
-- **Acoustic subsystem** through physical mounting and independent power supply  
 
 All interfaces are designed to ensure reliable communication, safe power distribution, and minimal interference between high-power and low-power systems.
 
@@ -206,40 +198,40 @@ The ESCs and power module contain internal electronics, but they are commercial 
 
 The power and propulsion subsystem is designed to supply electrical energy, regulate voltage for avionics, and generate sufficient thrust to support stable, efficient flight for an autonomous mapping drone. The system consists of a 6S Li-Ion battery, a regulated power module, four ESCs, four brushless motors, and four propellers. The design prioritizes endurance, efficiency, and reliability rather than aggressive maneuverability.
 
-The primary energy source is a 6S 8000 mAh Li-Ion battery with a nominal voltage of 22.2 V and total energy of 177.6 Wh. In practical operation, only 80–85% of this energy is usable to prevent over-discharge and maintain battery health, giving approximately 142–151 Wh of usable energy. This energy must support both propulsion and avionics loads.
+The primary energy source is a 6S 8000 mAh Li-Ion battery with a nominal voltage of 22.2 V and total energy of 177.6 Wh. In practical operation, only 80–85% of this energy is usable to prevent over-discharge and maintain battery health, giving approximately 142–151 Wh of usable energy. This energy supports both propulsion and avionics loads.
 
-The estimated total mass of the aircraft for this subsystem analysis is approximately 2.2–2.3 kg. For a quadrotor, hover requires total thrust equal to weight. Therefore, the required thrust per motor is:
+The estimated total mass of the aircraft for this subsystem analysis is approximately 2.6–2.7 kg. For a quadrotor, hover requires total thrust equal to weight. Therefore, the required thrust per motor is:
 
-2300 g / 4 = 575 g per motor
+2620 g / 4 = 655 g per motor
 
 The selected SunnySky V4008 380KV motors paired with 13×4.5 propellers are capable of producing approximately 1500–1600 g of thrust per motor at maximum output. This results in a total system thrust capability of approximately 6000–6400 g and a thrust-to-weight ratio of:
 
-6400 g / 2300 g ≈ 2.8 : 1
+6400 g / 2620 g ≈ 2.4 : 1
 
-A thrust-to-weight ratio above 2:1 ensures stable takeoff, sufficient control authority, and safe maneuvering. The selected configuration therefore satisfies the thrust requirement with adequate margin while avoiding excessive overdesign that would reduce efficiency.
+A thrust-to-weight ratio above 2:1 ensures stable takeoff, sufficient control authority, and safe maneuvering. The selected configuration therefore satisfies the thrust requirement with adequate margin while maintaining efficiency.
 
 The motor selection is appropriate for the intended application. The 380KV rating indicates a low-speed, high-torque motor, which is well suited for larger propellers. Larger propellers increase disk area, allowing more air to be moved at lower rotational speeds. This improves hover efficiency and reduces power consumption, which is critical for endurance-focused flight. The 13×4.5 propeller selection further supports this goal, as the moderate pitch reduces power demand while maintaining sufficient thrust.
 
-Power consumption for the propulsion system is estimated based on aircraft mass and typical multirotor performance. The system is expected to operate within an average power range of approximately 400–550 W during normal flight. Using the usable battery energy, the estimated flight time is:
+Power consumption for the propulsion system is estimated based on aircraft mass and typical multirotor performance. The system is expected to operate within an average power range of approximately 450–600 W during normal flight. Using the usable battery energy, the estimated flight time is:
 
-At 425 W: 142–151 Wh / 425 W ≈ 20–21 minutes  
-At 500 W: 142–151 Wh / 500 W ≈ 17–18 minutes  
-At 550 W: 142–151 Wh / 550 W ≈ 15–16 minutes
+At 450 W: 142–151 Wh / 450 W ≈ 18–20 minutes  
+At 525 W: 142–151 Wh / 525 W ≈ 16–17 minutes  
+At 600 W: 142–151 Wh / 600 W ≈ 14–15 minutes
 
-A realistic expected flight time for the subsystem is therefore approximately 17–20 minutes, depending on operating conditions. This meets the endurance requirements for a mapping-based mission profile.
+A realistic expected flight time for the subsystem is therefore approximately 16–17 minutes under typical operating conditions. This remains acceptable for the intended mapping mission profile.
 
 The ESC selection supports the electrical demands of the motors. Each HobbyWing XRotor 40A ESC is rated for 40 A continuous current and 60 A peak current. The selected motors operate below this threshold during typical flight, ensuring that the ESCs are not thermally or electrically stressed. Using individual ESCs rather than a 4-in-1 ESC improves cooling, distributes heat along the frame arms, and increases system reliability by isolating potential failures.
 
 The power module provides a regulated 5 V supply for the Pixhawk flight controller and monitors battery voltage and current. This is critical because the flight controller cannot be powered directly from the 6S battery. The inclusion of voltage and current sensing enables safe operation by allowing the flight controller to implement low-voltage failsafes and monitor system health.
 
-Torque characteristics further support system feasibility. At hover conditions, each motor produces approximately 0.13 N·m of shaft torque, increasing to approximately 0.35 N·m at higher thrust levels. With a motor arm length of approximately 0.2 m, this results in control moments of:
+Torque characteristics further support system feasibility. At hover conditions, each motor produces approximately 0.14 N·m of shaft torque, increasing to approximately 0.35 N·m at higher thrust levels. With a motor arm length of approximately 0.2 m, this results in control moments of:
 
-Hover: ~1.2 N·m  
-Max: ~3.0 N·m
+Hover: ~1.3 N·m  
+Max: ~3.2 N·m
 
 These values provide sufficient rotational authority for pitch and roll control, ensuring stable flight and responsiveness to control inputs.
 
-The subsystem also satisfies key design constraints. It operates within the 6S voltage range required by all propulsion components, maintains current levels within ESC and motor limits, and uses regulated power for sensitive avionics. The design uses commercially available components, making it practical, cost-effective, and easy to assemble. Safety constraints are addressed through proper power regulation, current capacity margins, and battery monitoring.
+The subsystem satisfies key design constraints. It operates within the 6S voltage range required by all propulsion components, maintains current levels within ESC and motor limits, and uses regulated power for sensitive avionics. The design uses commercially available components, making it practical, cost-effective, and easy to assemble. Safety constraints are addressed through proper power regulation, current capacity margins, and battery monitoring.
 
 From a physical integration perspective, the subsystem supports proper weight distribution and stability. The battery, as the heaviest component, is positioned near the center of gravity to minimize control effort. ESCs are distributed along the arms to improve cooling and balance. The motors are evenly spaced at 90° intervals, ensuring symmetric thrust and predictable control behavior.
 
