@@ -40,13 +40,6 @@ The subsystem consists of:
 
 The battery provides high-current DC power to the ESCs and regulated power to the flight controller through the power module. The ESCs convert DC power into 3-phase AC signals to drive the motors. The motors convert electrical energy into rotational motion, and the propellers convert this motion into thrust.
 
-The subsystem must also support the additional acoustic payload:
-
-- beyerdynamic MM 1 measurement microphone  
-- Xvive P1 phantom power supply  
-
-The phantom power system is self-powered and does not significantly draw from the main battery, but it adds mass that directly impacts thrust and flight time.
-
 The subsystem ensures stable and efficient autonomous flight by maintaining sufficient thrust, proper power regulation, and balanced weight distribution.
 
 ## Specifications and Constraints
