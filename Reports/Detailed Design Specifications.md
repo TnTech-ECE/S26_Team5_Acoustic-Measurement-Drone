@@ -197,7 +197,15 @@ For sections including a software component, produce a chart that demonstrates t
 
 ## BOM
 
-Provide a comprehensive list of all necessary components along with their prices and the total cost of the subsystem. This information should be presented in a tabular format, complete with the manufacturer, part number, distributor, distributor part number, quantity, price, and purchasing website URL. If the component is included in your schematic diagram, ensure inclusion of the component name on the BOM (i.e R1, C45, U4).
+| Ref | Component Name                  | Manufacturer | Part Number        | Distributor   | Distributor Part # | Qty | Unit Price ($) | Total ($) | URL |
+|-----|--------------------------------|--------------|--------------------|---------------|--------------------|-----|----------------|-----------|-----|
+| B1  | Li-Ion Battery (6S 8000mAh)    | iFlight      | Fullsend 6S 8000mAh| RobotShop     | IF-FS-8000-6S      | 1   | 179.81         | 179.81    | https://www.robotshop.com/products/iflight-fullsend-6s-2p-222v-8000mah-xt60h |
+| M1  | Brushless Motor               | T-Motor      | F90 1500KV         | RCDrone       | TM-F90-1500KV      | 4   | 52.34          | 209.36    | https://rcdrone.top/products/t-motor-f90-kv1300-kv1500-brus |
+| P1  | Propeller (10x4.5 MR)         | APC          | LP10045MR          | Nankin Hobby  | APC10045MR         | 4   | 3.49           | 13.96     | https://nankinhobby.com/products/apc10045mr-10x45-multi-rotor-propeller |
+| P2  | Propeller (Spare Set)         | APC          | APC10045MR         | RC Hobby Pros | APC10045MR         | 4   | 3.32           | 13.28     | https://rchobbypros.com/products/multi-rotor-propeller-10-x-4-5 |
+| HW1 | Motor Mounting Hardware       | Generic      | Aluminum Mount Kit | Amazon/Local  | N/A                | 4   | 5.00           | 20.00     | N/A |
+| HW2 | Battery Mount/Straps          | Generic      | XT60 Strap Mount   | Amazon/Local  | N/A                | 1   | 10.00          | 10.00     | N/A |
+| HW3 | Vibration Dampening Mount     | Generic      | Rubber Damper Kit  | Amazon/Local  | N/A                | 1   | 8.00           | 8.00      | N/A |
 
 ## Analysis
 
