@@ -121,32 +121,17 @@ The frame model includes the following measured features:
 ![Frame top view](image-2.png)
 **Figure 1.** Top view of the H-frame drone body showing the overall frame layout and motor locations.
 
-
-
-
 ![Frame diagonal dimension](image-1.png)
 **Figure 2.** Diagonal motor-to-motor distance of 20.000 in.
-
-
-
 
 ![Frame side view](image-5.png)
 **Figure 3.** Side view of the frame.
 
-
-
-
 ![Frame top-to-bottom](image-3.png)
 **Figure 4.** Side view of the frame showing the 2.250 in top-to-bottom spacing.
 
-
-
-
 ![Landing Gear](image-4.png)
 **Figure 5.** TPU 95A landing gear legs, 5.931 in in length.
-
-
-
 
 ---
 
@@ -187,25 +172,53 @@ During takeoff and flight, motor thrust loads are transferred from each motor mo
 
 ## Functional Flowchart
 
-![Functional Flowchart](image.png)
-This image shows the functional flow chart.
+```
+Start
+  ↓
+Frame supports mounted motors, battery, sensors, and electronics
+  ↓
+Frame maintains motor spacing and aircraft geometry
+  ↓
+Motor thrust loads transfer through arms into center body
+  ↓
+Frame supports battery and electronics near center of mass
+  ↓
+Frame limits flexing and vibration during flight
+  ↓
+TPU 95A landing gear absorbs impact loads on touchdown
+  ↓
+Frame transfers remaining landing loads into main body structure
+  ↓
+Frame protects mounted components during handling and transport
+  ↓
+End
+```
 
 ---
 
 ## Bill of Materials
 
-| Item | Description | Manufacturer / Source | Quantity | Est. Unit Price | Est. Total | Purchasing URL |
+| Item | Description | Manufacturer / Source | Qty | Est. Unit Price | Est. Total | Purchasing URL |
 |---|---|---|---|---|---|---|
-| Carbon fiber plate/sheet | Main body plates and arms, approx. 3 mm carbon fiber sheet | COYOUCO / Amazon | 1–2 sheets | $30–$80 | $30–$160 | [Amazon — COYOUCO Carbon Fiber Sheet [1]](https://www.amazon.com/COYOUCO-Carbon-Fiber-Surface-Sheets/dp/B0DLB6F3Z6) 
+| Carbon fiber plate/sheet | Main body plates and arms, approx. 3 mm carbon fiber sheet | COYOUCO / Amazon | 1–2 sheets | $30–$80 | $30–$160 | [Amazon — COYOUCO Carbon Fiber Sheet [1]](https://www.amazon.com/COYOUCO-Carbon-Fiber-Surface-Sheets/dp/B0DLB6F3Z6) ⚠️ *Verify availability before ordering* |
 | M3 aluminum standoffs | Frame spacing and stacked assembly support | ImpulseRC / MyFPVStore | 1 kit | $3.00–$6.00 | $3.00–$12.00 | [MyFPVStore — ImpulseRC M3 Standoff [2]](https://www.myfpvstore.com/extras-and-hardware/impulserc-m3-standoff-pick-your-length/) |
-| M3 screws/nuts/washers | Mechanical fastening hardware | PyroDrone | 1 kit | $4.00–$13.00 | $4.00–$13.00 | [PyroDrone — M3 Hardware [3]](https://pyrodrone.com/collections/m3) |
-| PETG-CF filament | Prototype sensor mounts and brackets | SUNLU | 1 kg | ~$19.99 | ~$19.99 | [SUNLU — PETG-CF Filament [4]](https://store.sunlu.com/products/petg-cfpetg-carbon-fiber-3d-printer-filament-1kg) |
-| Carbon-fiber nylon filament | Final rigid sensor mounts, if used | MatterHackers NylonX PA12 | 0.5 kg | ~$63.00 | ~$63.00 | [MatterHackers — NylonX PA12 Carbon Fiber [5]](https://www.matterhackers.com/store/3d-printer-filament/nylonx-carbon-fiber-nylon-filament-1.75mm) |
-| TPU 95A filament | 3D-printed landing gear legs (4×), Shore hardness 95A, flexible and impact-absorbing | SUNLU | 1 kg | ~$19.99 | ~$19.99 | [SUNLU — TPU 95A Filament [6]](https://store.sunlu.com/products/moq-3kg-tpu-3d-printer-filament-1kg) |
+| M2.5 × 10 mm flat head screws | Zinc-plated steel Phillips flat head, M2.5 × 0.45 mm thread, 10 mm long — PN 91420A020 | McMaster-Carr | 4 | ~$0.10–$0.20 ea | ~$0.40–$0.80 | [McMaster-Carr 91420A020 [3]](https://www.mcmaster.com/91420A020/) |
+| M2.5 × 12 mm flat head screws | Zinc-plated steel Phillips flat head, M2.5 × 0.45 mm thread, 12 mm long — PN 91420A022 | McMaster-Carr | 2 | ~$0.10–$0.20 ea | ~$0.20–$0.40 | [McMaster-Carr 91420A022 [4]](https://www.mcmaster.com/91420A022/) |
+| M2.5 Nylock nuts | M2.5 × 0.45 mm hex nylon-insert locknuts | McMaster-Carr | 2 | ~$0.10–$0.20 ea | ~$0.20–$0.40 | [McMaster-Carr — M2.5 Nylock Nut [5]](https://www.mcmaster.com/products/nylock/thread-size~m2-5/nut-type~hex/locking-type~nylon-insert/) |
+| M4 × 20 mm flat head screws | Zinc-plated steel Phillips flat head, M4 × 0.7 mm thread, 20 mm long — PN 91420A228 | McMaster-Carr | 8 | ~$0.15–$0.25 ea | ~$1.20–$2.00 | [McMaster-Carr 91420A228 [6]](https://www.mcmaster.com/91420A228/) |
+| M4 Nylock nuts | Medium-strength steel nylon-insert locknut Class 8, zinc plated, M4 × 0.7 mm, 5 mm high — PN 90576A103 | McMaster-Carr | 8 | ~$0.15–$0.25 ea | ~$1.20–$2.00 | [McMaster-Carr 90576A103 [7]](https://www.mcmaster.com/90576A103/) |
+| M4 hex standoffs (female threaded) | Corrosion-resistant 18-8 stainless steel female threaded hex standoff — PN 91115A827 | McMaster-Carr | 8 | ~$1.50–$3.00 ea | ~$12.00–$24.00 | [McMaster-Carr 91115A827 [8]](https://www.mcmaster.com/91115A827/) |
+| M4 × 20 mm flat head screws (motor mount) | Zinc-plated steel Phillips flat head, M4 × 0.7 mm thread, 20 mm long — PN 91420A228 (same PN as above) | McMaster-Carr | 16 | ~$0.15–$0.25 ea | ~$2.40–$4.00 | [McMaster-Carr 91420A228 [6]](https://www.mcmaster.com/91420A228/) |
+| 8-32 × 9/16 in flat head screws | 316 stainless steel hex-drive flat head, 82° countersink, 8-32 thread, 9/16 in long — PN 90585A134 | McMaster-Carr | 20 | ~$0.20–$0.35 ea | ~$4.00–$7.00 | [McMaster-Carr 90585A134 [9]](https://www.mcmaster.com/90585A134/) |
+| 8-32 thin Nylock nuts | Low-strength steel nylon-insert locknut, thin-profile, zinc-plated, 8-32 thread — PN 90633A009 | McMaster-Carr | 8 | ~$0.15–$0.25 ea | ~$1.20–$2.00 | [McMaster-Carr 90633A009 [10]](https://www.mcmaster.com/90633A009/) |
+| 8-32 × 11/16 in pan head screws | Passivated 18-8 stainless steel pan head Phillips, 8-32 thread, 11/16 in long — PN 91772A523 | McMaster-Carr | 4 | ~$0.20–$0.35 ea | ~$0.80–$1.40 | [McMaster-Carr 91772A523 [11]](https://www.mcmaster.com/91772A523/) |
+| PETG-CF filament | Prototype sensor mounts and brackets | SUNLU | 1 kg | ~$19.99 | ~$19.99 | [SUNLU — PETG-CF Filament [12]](https://store.sunlu.com/products/petg-cfpetg-carbon-fiber-3d-printer-filament-1kg) |
+| Carbon-fiber nylon filament | Final rigid sensor mounts, if used | MatterHackers NylonX PA12 | 0.5 kg | ~$63.00 | ~$63.00 | [MatterHackers — NylonX PA12 [13]](https://www.matterhackers.com/store/3d-printer-filament/nylonx-carbon-fiber-nylon-filament-1.75mm) |
+| TPU 95A filament | 3D-printed landing gear legs (4×), Shore hardness 95A | SUNLU | 1 kg | ~$19.99 | ~$19.99 | [SUNLU — TPU 95A Filament [14]](https://store.sunlu.com/products/moq-3kg-tpu-3d-printer-filament-1kg) |
 
 **Estimated frame subsystem total:**
-- Minimum estimated cost: ~$77 (with PETG-CF sensor mounts and TPU 95A landing gear)
-- Higher-performance estimate (with NylonX carbon-fiber nylon mounts): ~$270–$290
+- Minimum estimated cost: ~$105 (with PETG-CF sensor mounts, TPU 95A landing gear, and all McMaster-Carr fasteners)
+- Higher-performance estimate (with NylonX carbon-fiber nylon mounts): ~$320–$350
 
 ---
 
@@ -230,7 +243,7 @@ The 2.250 in top-to-bottom spacing provides clearance for electronics, wiring, a
 Carbon fiber or carbon-fiber-reinforced material is used because it provides high stiffness at low mass. This is important because the aircraft must carry sensors, battery mass, and propulsion hardware while maintaining reasonable flight time.
 
 ### Landing Gear Material Selection (TPU 95A)
-The landing gear legs are 3D-printed from TPU 95A (thermoplastic polyurethane, Shore hardness 95A). This material was selected because it provides a combination of structural integrity and elastic deformation that is well-suited for absorbing touchdown impact loads. TPU 95A is firmer than softer TPU variants such as 90A, meaning it holds the leg geometry under the weight of the aircraft while still compressing slightly on contact to absorb shock. Its abrasion resistance and rebound characteristics make it durable across repeated landings. Printing the landing gear from TPU 95A eliminates the need for separate rubber feet or damping inserts, simplifying the assembly while meeting the protection requirement for underside components. SUNLU TPU 95A filament is used as the source material at approximately $19.99 per kilogram [6].
+The landing gear legs are 3D-printed from TPU 95A (thermoplastic polyurethane, Shore hardness 95A). This material was selected because it provides a combination of structural integrity and elastic deformation that is well-suited for absorbing touchdown impact loads. TPU 95A is firmer than softer TPU variants such as 90A, meaning it holds the leg geometry under the weight of the aircraft while still compressing slightly on contact to absorb shock. Its abrasion resistance and rebound characteristics make it durable across repeated landings. Printing the landing gear from TPU 95A eliminates the need for separate rubber feet or damping inserts, simplifying the assembly while meeting the protection requirement for underside components. SUNLU TPU 95A filament is used as the source material at approximately $19.99 per kilogram [14].
 
 ---
 
@@ -287,10 +300,26 @@ The landing gear legs are 3D-printed from TPU 95A (thermoplastic polyurethane, S
 
 [2] ImpulseRC, "M3 Standoff (Pick Your Length) — Knurled 7075 Aluminum, 10–35 mm options," MyFPVStore.com. [Online]. Available: https://www.myfpvstore.com/extras-and-hardware/impulserc-m3-standoff-pick-your-length/. [Accessed: Apr. 2025].
 
-[3] PyroDrone, "M3 Hardware Collection — Screws, Standoffs, Nuts, and Washers for FPV Drones," PyroDrone.com. [Online]. Available: https://pyrodrone.com/collections/m3. [Accessed: Apr. 2025].
+[3] McMaster-Carr, "Zinc-Plated Steel Phillips Flat Head Screw, M2.5 × 0.45 mm Thread Size, 10 mm Long — PN 91420A020," McMaster-Carr.com. [Online]. Available: https://www.mcmaster.com/91420A020/. [Accessed: Apr. 2025].
 
-[4] SUNLU, "PETG-CF (PETG Carbon Fiber) 3D Printer Filament, 1.75mm, 1 kg, 10% Carbon Fiber Reinforced," SUNLU Online Store. [Online]. Available: https://store.sunlu.com/products/petg-cfpetg-carbon-fiber-3d-printer-filament-1kg. [Accessed: Apr. 2025].
+[4] McMaster-Carr, "Zinc-Plated Steel Phillips Flat Head Screw, M2.5 × 0.45 mm Thread Size, 12 mm Long — PN 91420A022," McMaster-Carr.com. [Online]. Available: https://www.mcmaster.com/91420A022/. [Accessed: Apr. 2025].
 
-[5] MatterHackers, "NylonX Carbon Fiber PA12 Filament, 1.75mm, 0.5 kg — 20% Chopped Carbon Fiber, Engineering Grade," MatterHackers.com. [Online]. Available: https://www.matterhackers.com/store/3d-printer-filament/nylonx-carbon-fiber-nylon-filament-1.75mm. [Accessed: Apr. 2025].
+[5] McMaster-Carr, "M2.5 × 0.45 mm Hex Nylon-Insert Locknut (Nylock), Zinc-Plated," McMaster-Carr.com. [Online]. Available: https://www.mcmaster.com/products/nylock/thread-size~m2-5/nut-type~hex/locking-type~nylon-insert/. [Accessed: Apr. 2025].
 
-[6] SUNLU, "TPU 95A / TPU 90A Flexible 3D Printer Filament, 1.75mm, 1 kg — Shore Hardness 95A, Dimensional Accuracy ±0.02 mm," SUNLU Online Store. [Online]. Available: https://store.sunlu.com/products/moq-3kg-tpu-3d-printer-filament-1kg. [Accessed: Apr. 2025].
+[6] McMaster-Carr, "Zinc-Plated Steel Phillips Flat Head Screw, M4 × 0.7 mm Thread Size, 20 mm Long — PN 91420A228," McMaster-Carr.com. [Online]. Available: https://www.mcmaster.com/91420A228/. [Accessed: Apr. 2025].
+
+[7] McMaster-Carr, "Medium-Strength Steel Nylon-Insert Locknut, Class 8, Zinc Plated, M4 × 0.7 mm, 5 mm High — PN 90576A103," McMaster-Carr.com. [Online]. Available: https://www.mcmaster.com/90576A103/. [Accessed: Apr. 2025].
+
+[8] McMaster-Carr, "Corrosion-Resistant 18-8 Stainless Steel Female Threaded Hex Standoff — PN 91115A827," McMaster-Carr.com. [Online]. Available: https://www.mcmaster.com/91115A827/. [Accessed: Apr. 2025].
+
+[9] McMaster-Carr, "316 Stainless Steel Hex-Drive Flat Head Screw, 82° Countersink Angle, 8-32 Thread Size, 9/16 in Long — PN 90585A134," McMaster-Carr.com. [Online]. Available: https://www.mcmaster.com/90585A134/. [Accessed: Apr. 2025].
+
+[10] McMaster-Carr, "Low-Strength Steel Nylon-Insert Locknut, Thin-Profile, Zinc-Plated, 8-32 Thread Size — PN 90633A009," McMaster-Carr.com. [Online]. Available: https://www.mcmaster.com/90633A009/. [Accessed: Apr. 2025].
+
+[11] McMaster-Carr, "Passivated 18-8 Stainless Steel Pan Head Phillips Screw, 8-32 Thread Size, 11/16 in Long — PN 91772A523," McMaster-Carr.com. [Online]. Available: https://www.mcmaster.com/91772A523/. [Accessed: Apr. 2025].
+
+[12] SUNLU, "PETG-CF (PETG Carbon Fiber) 3D Printer Filament, 1.75mm, 1 kg, 10% Carbon Fiber Reinforced," SUNLU Online Store. [Online]. Available: https://store.sunlu.com/products/petg-cfpetg-carbon-fiber-3d-printer-filament-1kg. [Accessed: Apr. 2025].
+
+[13] MatterHackers, "NylonX Carbon Fiber PA12 Filament, 1.75mm, 0.5 kg — 20% Chopped Carbon Fiber, Engineering Grade," MatterHackers.com. [Online]. Available: https://www.matterhackers.com/store/3d-printer-filament/nylonx-carbon-fiber-nylon-filament-1.75mm. [Accessed: Apr. 2025].
+
+[14] SUNLU, "TPU 95A / TPU 90A Flexible 3D Printer Filament, 1.75mm, 1 kg — Shore Hardness 95A, Dimensional Accuracy ±0.02 mm," SUNLU Online Store. [Online]. Available: https://store.sunlu.com/products/moq-3kg-tpu-3d-printer-filament-1kg. [Accessed: Apr. 2025].
