@@ -205,12 +205,11 @@ A flowchart is not required since this subsystem does not include custom softwar
 | B1 | Battery | iFlight | Fullsend 6S 8000mAh | iFlight | Pro1914 | 1 | 83.99 | 83.99 | https://shop.iflight.com/Fullsend-6S-8000mAh-Li-Ion-Battery-Pro1914 |
 | M1–M4 | Brushless Motor | SunnySky | V4008 380KV | SunnySky USA | V4008 | 4 | 54.99 | 219.96 | https://sunnyskyusa.com/products/sunnysky-v4008-motors |
 | ESC1–ESC4 | ESC | HobbyWing | XRotor 40A | HobbyWing Direct | XRotor-40A | 4 | 17.99 | 71.96 | https://www.hobbywingdirect.com/products/xrotor-40a-esc |
-| PM1 | Power Module | Holybro | PM02 | Holybro | PM02D | 1 | 24.99 | 24.99 | https://holybro.com/products/pm02-power-module |
 | P1–P4 | Propellers | APC | 13×4.5MR-B4 | APC | MR-B4 | 1 set | 16.87 | 16.87 | https://www.apcprop.com/product/13x4-5mr/ |
-| CONN1 | Battery Connectors | Amass | XT60 Pair | Amazon | XT60 Set | 2 | 1.90 | 3.80 | https://www.amazon.com/dp/B07QGZB8PZ |
-| WIRE1 | Power Wiring | BNTECHGO | 12–16 AWG Silicone Wire | Amazon | Wire Kit | 1 | 15.00 | 15.00 | https://www.amazon.com/dp/B01M0Z6V0H |
-| HS1 | Heat Shrink | Eventronic | Heat Shrink Kit | Amazon | HS-Kit | 1 | 10.00 | 10.00 | https://www.amazon.com/dp/B01MFA3OFA |
-| MISC | Mounting Hardware | Generic | — | Amazon | Assorted Kit | — | 15.00 | 15.00 | https://www.amazon.com/dp/B07H8RZ4K4 |
+| CONN1 | Battery Connectors | Amass | XT60 Pair | Amazon | XT60 Set | 2 | 1.90 | 3.80 |  |
+| WIRE1 | Power Wiring | BNTECHGO | 12–16 AWG Silicone Wire | Amazon | Wire Kit | 1 | ~15.00 | ~15.00 |  |
+| HS1 | Heat Shrink | Eventronic | Heat Shrink Kit | Amazon | HS-Kit | 1 | ~10.00 | ~10.00 |  |
+| MISC | Mounting Hardware | Generic | — | Amazon | Assorted Kit | — | ~15.00 | ~15.00 |  |
 
 ### **Total Cost: $461.57**
 
