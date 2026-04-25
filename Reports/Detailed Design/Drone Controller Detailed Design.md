@@ -1,4 +1,4 @@
-# Detailed Design
+# Drone Controller Detailed Design
 
 This document delineates the objectives of the operator controller subsystem for a custom acoustics measurement drone. Upon reviewing this design, the reader should have a clear understanding of:
 
@@ -6,23 +6,6 @@ This document delineates the objectives of the operator controller subsystem for
 - The constraints and specifications relevant to the controller subsystem
 - The rationale behind each crucial design decision
 - The intended architecture and operational role of the controller subsystem
-
-
-## General Requirements for the Document
-
-The document includes:
-
-- Explanation of the subsystem’s integration within the overall solution
-- Detailed specifications and constraints specific to the subsystem
-- Synopsis of the suggested solution
-- Interfaces to other subsystems
-- 3D models of customized mechanical elements
-- A buildable diagram placeholder
-- A Printed Circuit Board (PCB) design layout placeholder
-- An operational flowchart placeholder
-- A high-level component list for the subsystem
-- Analysis of crucial design decisions
-
 
 
 ## Function of the Subsystem
@@ -135,7 +118,7 @@ The inbound information returned to the controller for presentation may include:
 - payload or survey progress,
 - and health or warning messages.
 
-The exact transport and data framing are handled by the broader communications and avionics architecture and are therefore outside the implementation scope of this controller subsystem report.
+The exact transport and data framing are handled by the compatible software for the Pixhawk 6C mini [16] and it compatible drone control software, Ardupilot [17].
 
 ### Internal Electrical Interfaces
 
@@ -272,3 +255,11 @@ Overall, the subsystem design should satisfy its intended function as a custom h
 [13] Digikey / 3021059-01M, https://www.digikey.com/en/products/detail/qualtek/3021059-01M/7795309?gclsrc=aw.ds&gad_source=1&gad_campaignid=20232005509&gclid=CjwKCAjwqazPBhALEiwAOuXqdHRT8hXXG53vtq9huyp_aWrB9hwn6l8Ia6ooqDOnhOexaHedwiMqkBoCLkAQAvD_BwE . Used to connect the touch screen and Zero 2 W to the power bank.
 
 [14] AliExpress / 3256807816523654, https://www.aliexpress.us/item/3256807816523654.html?src=google&snps=y&src=google&albch=shopping&acnt=708-803-3821&isdl=y&slnk=&plac=&mtctp=&albbt=Google_7_shopping&aff_platform=google&aff_short_key=UneMJZVf&gclsrc=aw.ds&albagn=888888&ds_e_adid=&ds_e_matchtype=&ds_e_device=c&ds_e_network=x&ds_e_product_group_id=&ds_e_product_id=en3256807816523654&ds_e_product_merchant_id=704218984&ds_e_product_country=US&ds_e_product_language=en&ds_e_product_channel=online&ds_e_product_store_id=&ds_url_v=2&albcp=20542171667&albag=&isSmbAutoCall=false&needSmbHouyi=false&gad_source=1&gad_campaignid=18545443176&gclid=CjwKCAjw46HPBhAMEiwASZpLRGc_tOF_30Og6DcfSNr_PqhLfAz0AV2Q3w45cMSuHi44Gbp8oOv4SRoCduIQAvD_BwE&gatewayAdapt=glo2usa#nav-specification . Colling system for Zero 2 W and by extention the controller enclosure.
+
+
+[15] OpenAI, “ChatGPT (GPT-5.4 Thinking),” large language model, used for drafting, formatting, and editing assistance, 2026.
+
+[16] Holybro, "Pixhawk 6C Mini," Holybro, 2024. https://holybro.com/collections/flight-controllers/products/pixhawk-6c-mini
+
+[17] ArduPilot Dev Team, "Radio Control Systems," ArduPilot Copter Documentation. https://ardupilot.org/copter/docs/common-rc-systems.html
+
