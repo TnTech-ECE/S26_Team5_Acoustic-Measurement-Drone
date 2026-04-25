@@ -121,17 +121,32 @@ The frame model includes the following measured features:
 ![Frame top view](image-2.png)
 **Figure 1.** Top view of the H-frame drone body showing the overall frame layout and motor locations.
 
+
+
+
 ![Frame diagonal dimension](image-1.png)
 **Figure 2.** Diagonal motor-to-motor distance of 20.000 in.
+
+
+
 
 ![Frame side view](image-5.png)
 **Figure 3.** Side view of the frame.
 
+
+
+
 ![Frame top-to-bottom](image-3.png)
 **Figure 4.** Side view of the frame showing the 2.250 in top-to-bottom spacing.
 
+
+
+
 ![Landing Gear](image-4.png)
 **Figure 5.** TPU 95A landing gear legs, 5.931 in in length.
+
+
+
 
 ---
 
@@ -181,7 +196,7 @@ This image shows the functional flow chart.
 
 | Item | Description | Manufacturer / Source | Quantity | Est. Unit Price | Est. Total | Purchasing URL |
 |---|---|---|---|---|---|---|
-| Carbon fiber plate/sheet | Main body plates and arms, approx. 3 mm carbon fiber sheet | COYOUCO / Amazon | 1–2 sheets | $30–$80 | $30–$160 | [Amazon — COYOUCO Carbon Fiber Sheet [1]](https://www.amazon.com/COYOUCO-Carbon-Fiber-Surface-Sheets/dp/B0DLB6F3Z6) ⚠️ *Verify availability before ordering* |
+| Carbon fiber plate/sheet | Main body plates and arms, approx. 3 mm carbon fiber sheet | COYOUCO / Amazon | 1–2 sheets | $30–$80 | $30–$160 | [Amazon — COYOUCO Carbon Fiber Sheet [1]](https://www.amazon.com/COYOUCO-Carbon-Fiber-Surface-Sheets/dp/B0DLB6F3Z6) 
 | M3 aluminum standoffs | Frame spacing and stacked assembly support | ImpulseRC / MyFPVStore | 1 kit | $3.00–$6.00 | $3.00–$12.00 | [MyFPVStore — ImpulseRC M3 Standoff [2]](https://www.myfpvstore.com/extras-and-hardware/impulserc-m3-standoff-pick-your-length/) |
 | M3 screws/nuts/washers | Mechanical fastening hardware | PyroDrone | 1 kit | $4.00–$13.00 | $4.00–$13.00 | [PyroDrone — M3 Hardware [3]](https://pyrodrone.com/collections/m3) |
 | PETG-CF filament | Prototype sensor mounts and brackets | SUNLU | 1 kg | ~$19.99 | ~$19.99 | [SUNLU — PETG-CF Filament [4]](https://store.sunlu.com/products/petg-cfpetg-carbon-fiber-3d-printer-filament-1kg) |
