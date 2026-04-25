@@ -176,7 +176,6 @@ All interfaces are designed to ensure reliable operation, safe power distributio
 
 ## 3D Model of Custom Mechanical Components
 
-## 3D Model of Custom Mechanical Components
 
 The following models represent the major power and propulsion components used in the subsystem. These models are intended to show component placement, spacing, and general fit within the drone frame rather than internal electrical or mechanical construction. Dimensions were based on available component specifications and simplified where appropriate for clean CAD integration.
 
@@ -184,7 +183,7 @@ The following models represent the major power and propulsion components used in
 
 ### Motor Model — SunnySky V4008 380KV
 
-<img src="Reports/Images/380KV Motor.png" width="500">
+![Alt Text](Reports/tImages/Motor.png)
 
 The motor model represents the SunnySky V4008 380KV brushless motor used at each arm end. The model includes the outer cylindrical motor body, top rotor detail, shaft region, and mounting base. For frame integration, the most important dimensions are the rotor diameter, body length, mounting area, and clearance around the propeller hub.
 
@@ -206,7 +205,7 @@ This model is used to verify that the motors can be mounted symmetrically at the
 
 ### ESC Model — HobbyWing XRotor 40A ESC
 
-<img src="Reports/Images/ESC.png" width="500">
+![Alt Text](Reports/Images/ESC.png)
 
 The ESC model represents one of the four individual ESCs mounted along the frame arms. The model includes the rectangular ESC body and wire bundles entering and leaving the component. Each ESC receives high-current DC power from the power distribution system, receives a PWM control signal from the flight controller, and outputs three-phase motor drive signals to the motor.
 
@@ -221,7 +220,7 @@ Relevant dimensions and specifications:
 
 ### Battery Model — iFlight Fullsend 6S 8000mAh Li-Ion Battery
 
-<img src="Reports/Images/Li-Ion Battery.png" width="500">
+![Alt Text](Reports/Images/Battery.png)
 
 The battery model represents the main onboard energy source. Since the battery is the heaviest component in the power and propulsion subsystem, its placement is critical for maintaining the drone’s center of gravity. The battery should be mounted near the center of the frame and secured with a strap or mechanical retention bracket.
 
@@ -240,7 +239,7 @@ The battery model is simplified as a rectangular body with a visible label. This
 
 ### Propeller Model — APC 13×4.5MR
 
-<img src="Reports/Images/Propeller.png" width="600">
+![Alt Text](Reports/Images/Propeller.png)
 
 The propeller model represents the selected APC 13×4.5 multirotor propellers. The model includes the hub and blade geometry needed to visualize clearance between adjacent propeller disks. Propeller clearance is one of the most important checks in the frame layout because each propeller sweeps a circular area equal to its diameter.
 
@@ -257,7 +256,7 @@ The propeller model is used to verify that the selected frame geometry provides 
 
 ### Full Power and Propulsion Layout
 
-<img src="Reports/Images/Power and Propulsion.png" width="650">
+![Alt Text](Reports/Images/PowerAndPropulsion.png)
 
 The full layout shows the relative placement of the battery, ESCs, motors, and propellers. The battery is positioned near the center of the aircraft to reduce center-of-gravity offset. The ESCs are distributed near the arms to improve cooling and shorten motor wiring. The motors and propellers are placed symmetrically to maintain balanced thrust and predictable control response.
 
