@@ -23,6 +23,7 @@ The frame subsystem shall satisfy the following dimensional specifications:
 | Top-to-bottom spacing | 2.250 in |
 | Primary material | Carbon fiber or carbon-fiber-reinforced material |
 | Secondary/custom mount material | PETG or carbon-fiber-reinforced nylon |
+| Landing gear material | TPU 95A (Shore hardness 95A thermoplastic polyurethane) |
 | Target frame mass | Approximately 500 g |
 | Supported total aircraft mass | Approximately 2.2–2.3 kg |
 
@@ -35,6 +36,7 @@ The frame subsystem shall satisfy the following dimensional specifications:
 - The frame shall include sufficient clearance for propeller rotation.
 - The frame shall support safe handling, transport, takeoff, and landing.
 - The frame shall include protective spacing between the ground and underside components through the 2.25 in top-to-bottom spacing.
+- The landing gear shall be 3D-printed from TPU 95A to provide flexible, impact-absorbing contact points during touchdown.
 - The frame shall support safe operation by reducing the risk of loose components, sharp edges, and structural failure.
 
 ---
@@ -46,6 +48,8 @@ The frame subsystem shall satisfy the following dimensional specifications:
 &nbsp; &nbsp; &nbsp; &nbsp; The central body plate is approximately 14.000 in long and 4.000 in wide. This provides enough mounting area for the battery, flight controller, onboard electronics, and sensor hardware while keeping the design narrow enough to reduce unnecessary weight. Each arm is approximately 5.898 in long from the central body transition to the motor mount region.
 
 &nbsp; &nbsp; &nbsp; &nbsp; The design uses a stacked frame arrangement with a top-to-bottom height of approximately 2.250 in. This vertical spacing provides room for hardware mounting, wiring clearance, and limited impact protection during landing.
+
+&nbsp; &nbsp; &nbsp; &nbsp; The landing gear consists of four 3D-printed feet fabricated from TPU 95A filament. TPU 95A (Shore hardness 95A) was selected because it provides a balance of structural firmness and elasticity that is well-suited for absorbing landing impact loads. Unlike rigid materials, TPU 95A compresses slightly on touchdown and rebounds to its original shape, reducing shock transfer to the frame and electronics above. The 5.931 in printed landing gear legs extend below the frame body to ensure all underside components clear the ground during normal landing.
 
 ---
 
@@ -92,12 +96,12 @@ The frame supports the acoustic sensor hardware and must minimize vibration tran
 | Interface Item | Description |
 |---|---|
 | Interface type | Mechanical support |
-| Connected components | Landing feet, skids, dampers, protective mounts |
+| Connected components | TPU 95A landing feet/legs, dampers, protective mounts |
 | Signal type | None |
-| Direction | Frame transfers landing loads from feet/skids into the main body |
+| Direction | Frame transfers landing loads from TPU 95A feet/legs into the main body |
 | Data/protocol | None |
 
-The 2.25 in top-to-bottom spacing allows the frame to support landing clearance. Landing features should protect the battery, electronics, and sensor hardware from ground contact.
+The 2.25 in top-to-bottom spacing, combined with the 5.931 in TPU 95A landing gear legs, allows the frame to maintain adequate ground clearance. The TPU 95A material provides inherent flexibility and impact absorption at each landing contact point, protecting the battery, electronics, and sensor hardware from hard ground contact and shock loads during touchdown.
 
 ---
 
@@ -112,8 +116,9 @@ The frame model includes the following measured features:
 - Center body plate: **approximately 14.000 in × 4.000 in**
 - Arm length: **approximately 5.898 in**
 - Top-to-bottom spacing: **2.250 in**
+- Landing gear leg length: **5.931 in (3D-printed TPU 95A)**
 
-![Frame top view]![alt text](image-2.png)
+![Frame top view](image-2.png)
 **Figure 1.** Top view of the H-frame drone body showing the overall frame layout and motor locations.
 
 ![Frame diagonal dimension](image-1.png)
@@ -122,15 +127,13 @@ The frame model includes the following measured features:
 ![Frame side view](image-5.png)
 **Figure 3.** Side view of the frame.
 
-
-![Frame top-to-bottom ](image-3.png)
+![Frame top-to-bottom](image-3.png)
 **Figure 4.** Side view of the frame showing the 2.250 in top-to-bottom spacing.
 
 ![Landing Gear](image-4.png)
-**Figure 5.** Landing gear of the drone, 5.931 inch in lenght.
+**Figure 5.** TPU 95A landing gear legs, 5.931 in in length.
 
-
-
+---
 
 # Buildable Mechanical Diagram — H-Frame Drone Subsystem
 
@@ -145,6 +148,8 @@ The frame model includes the following measured features:
 | Center body plate width | 4.000 in |
 | Approximate arm length | 5.898 in |
 | Vertical spacing | 2.250 in |
+| Landing gear leg length | 5.931 in |
+| Landing gear material | TPU 95A (Shore hardness 95A) |
 
 ## Assembly Notes
 
@@ -153,8 +158,9 @@ The frame model includes the following measured features:
 - Mount the battery along the center body plate to maintain center-of-mass balance.
 - Route battery and ESC wiring along the frame body and arms.
 - Mount acoustic sensing hardware on an isolated bracket to reduce vibration transfer.
+- Attach four TPU 95A landing gear legs at the designated mounting points on the underside of the frame. Verify that each leg is flush and secured before flight.
 - Verify that all propeller zones are clear before operation.
-- Inspect all screws, standoffs, and mounts before flight.
+- Inspect all screws, standoffs, mounts, and TPU 95A landing gear for cracks or deformation before flight.
 
 ---
 
@@ -162,12 +168,12 @@ The frame model includes the following measured features:
 
 During operation, the frame acts as a passive structural subsystem. It does not process data or communicate electronically, but it directly affects the performance of the aircraft by supporting all components, maintaining alignment, and transferring loads.
 
-During takeoff and flight, motor thrust loads are transferred from each motor mount through the arms and into the center body. The center body supports the battery and electronics near the aircraft center of mass. During landing, impact loads are transferred from the landing points into the frame structure.
+During takeoff and flight, motor thrust loads are transferred from each motor mount through the arms and into the center body. The center body supports the battery and electronics near the aircraft center of mass. During landing, impact loads are transferred from the TPU 95A landing gear contact points through the legs and into the main frame structure. The flexibility of the TPU 95A material absorbs a portion of the shock before it reaches the rigid frame, reducing stress on the electronics and sensor hardware.
 
 ## Functional Flowchart
 
-```
-![alt text](image.png)
+![Functional Flowchart](image.png)
+This image shows the functional flow chart.
 
 ---
 
@@ -175,16 +181,16 @@ During takeoff and flight, motor thrust loads are transferred from each motor mo
 
 | Item | Description | Manufacturer / Source | Quantity | Est. Unit Price | Est. Total | Purchasing URL |
 |---|---|---|---|---|---|---|
-| Carbon fiber plate/sheet | Main body plates and arms, approx. 3 mm carbon fiber sheet | Generic carbon fiber sheet supplier | 1–2 sheets | $30–$80 | $30–$160 | [See supplier [1]](https://www.amazon.com/COYOUCO-Carbon-Fiber-Surface-Sheets/dp/B0DLB6F3Z6) |
-| M3 aluminum standoffs | Frame spacing and stacked assembly support | FPV hardware supplier | 1 kit | $3–$15 | $3–$15 | [See supplier [2],[3]](https://www.myfpvstore.com/extras-and-hardware/impulserc-m3-standoff-pick-your-length/) |
-| M3 screws/nuts/washers | Mechanical fastening hardware | Generic / FPV hardware supplier | 1 kit | $8–$15 | $8–$15 | [See supplier [3]](https://pyrodrone.com/collections/m3) |
-| PETG or PETG-CF filament | Prototype sensor mounts and brackets | SUNLU / filament supplier | 1 kg | ~$20–$30 | ~$20–$30 | [See supplier [4]](https://store.sunlu.com/products/petg-cfpetg-carbon-fiber-3d-printer-filament-1kg) |
-| Carbon-fiber nylon filament | Final rigid sensor mounts, if used | MatterHackers NylonX or equivalent | 0.5 kg | ~$60–$70 | ~$60–$70 | [See supplier [5]](https://www.matterhackers.com/store/3d-printer-filament/nylonx-carbon-fiber-nylon-filament-1.75mm) |
-| Landing feet/skids | Rubber/TPU/printed landing protection | Custom printed / generic | 4 | $2–$5 | $8–$20 | Custom or generic |
+| Carbon fiber plate/sheet | Main body plates and arms, approx. 3 mm carbon fiber sheet | COYOUCO / Amazon | 1–2 sheets | $30–$80 | $30–$160 | [Amazon — COYOUCO Carbon Fiber Sheet [1]](https://www.amazon.com/COYOUCO-Carbon-Fiber-Surface-Sheets/dp/B0DLB6F3Z6) ⚠️ *Verify availability before ordering* |
+| M3 aluminum standoffs | Frame spacing and stacked assembly support | ImpulseRC / MyFPVStore | 1 kit | $3.00–$6.00 | $3.00–$12.00 | [MyFPVStore — ImpulseRC M3 Standoff [2]](https://www.myfpvstore.com/extras-and-hardware/impulserc-m3-standoff-pick-your-length/) |
+| M3 screws/nuts/washers | Mechanical fastening hardware | PyroDrone | 1 kit | $4.00–$13.00 | $4.00–$13.00 | [PyroDrone — M3 Hardware [3]](https://pyrodrone.com/collections/m3) |
+| PETG-CF filament | Prototype sensor mounts and brackets | SUNLU | 1 kg | ~$19.99 | ~$19.99 | [SUNLU — PETG-CF Filament [4]](https://store.sunlu.com/products/petg-cfpetg-carbon-fiber-3d-printer-filament-1kg) |
+| Carbon-fiber nylon filament | Final rigid sensor mounts, if used | MatterHackers NylonX PA12 | 0.5 kg | ~$63.00 | ~$63.00 | [MatterHackers — NylonX PA12 Carbon Fiber [5]](https://www.matterhackers.com/store/3d-printer-filament/nylonx-carbon-fiber-nylon-filament-1.75mm) |
+| TPU 95A filament | 3D-printed landing gear legs (4×), Shore hardness 95A, flexible and impact-absorbing | SUNLU | 1 kg | ~$19.99 | ~$19.99 | [SUNLU — TPU 95A Filament [6]](https://store.sunlu.com/products/moq-3kg-tpu-3d-printer-filament-1kg) |
 
 **Estimated frame subsystem total:**
-- Minimum estimated cost: ~$69
-- Higher-performance estimate (with carbon-fiber nylon mounts): ~$250–$300
+- Minimum estimated cost: ~$77 (with PETG-CF sensor mounts and TPU 95A landing gear)
+- Higher-performance estimate (with NylonX carbon-fiber nylon mounts): ~$270–$290
 
 ---
 
@@ -208,6 +214,9 @@ The 2.250 in top-to-bottom spacing provides clearance for electronics, wiring, a
 ### Material Selection
 Carbon fiber or carbon-fiber-reinforced material is used because it provides high stiffness at low mass. This is important because the aircraft must carry sensors, battery mass, and propulsion hardware while maintaining reasonable flight time.
 
+### Landing Gear Material Selection (TPU 95A)
+The landing gear legs are 3D-printed from TPU 95A (thermoplastic polyurethane, Shore hardness 95A). This material was selected because it provides a combination of structural integrity and elastic deformation that is well-suited for absorbing touchdown impact loads. TPU 95A is firmer than softer TPU variants such as 90A, meaning it holds the leg geometry under the weight of the aircraft while still compressing slightly on contact to absorb shock. Its abrasion resistance and rebound characteristics make it durable across repeated landings. Printing the landing gear from TPU 95A eliminates the need for separate rubber feet or damping inserts, simplifying the assembly while meeting the protection requirement for underside components. SUNLU TPU 95A filament is used as the source material at approximately $19.99 per kilogram [6].
+
 ---
 
 ## Detailed Shall Statements
@@ -224,6 +233,7 @@ Carbon fiber or carbon-fiber-reinforced material is used because it provides hig
 3. The frame subsystem shall include a center body plate area of approximately 14.000 in × 4.000 in.
 4. The frame subsystem shall use arms approximately 5.898 in long from the center body transition to the motor mounting region.
 5. The frame subsystem shall provide approximately 2.250 in of top-to-bottom spacing.
+6. The frame subsystem shall include TPU 95A landing gear legs of approximately 5.931 in in length to provide ground clearance for all underside components.
 
 ### Mechanical Requirements
 1. The frame subsystem shall maintain sufficient stiffness to prevent excessive arm deflection during flight.
@@ -231,6 +241,7 @@ Carbon fiber or carbon-fiber-reinforced material is used because it provides hig
 3. The frame subsystem shall provide secure mounting holes for four motors.
 4. The frame subsystem shall provide mounting points for standoffs, landing supports, and component brackets.
 5. The frame subsystem shall provide adequate clearance for propeller rotation.
+6. The TPU 95A landing gear shall absorb landing impact loads and prevent direct hard contact between the frame body and the ground.
 
 ### Weight Requirements
 1. The frame subsystem shall minimize mass to reduce battery power consumption.
@@ -243,24 +254,28 @@ Carbon fiber or carbon-fiber-reinforced material is used because it provides hig
 3. The frame subsystem shall provide routing paths for motor, ESC, battery, and sensor wiring.
 4. The frame subsystem shall support removable or replaceable sensor mounts.
 5. The frame subsystem shall allow access to screws, standoffs, and electronics for maintenance.
+6. The TPU 95A landing gear legs shall be removable and replaceable without disassembling the main frame structure.
 
 ### Safety and Validation Requirements
 1. The frame subsystem shall be inspected before each flight for loose screws, cracks, or damaged mounting points.
-2. The frame subsystem shall be validated through a static load test before flight.
-3. The frame subsystem shall be validated through hover testing to observe vibration, flexing, and stability.
-4. The frame subsystem shall prevent mounted components from contacting the ground during normal landing.
-5. The frame subsystem shall avoid sharp exposed edges that could injure users during handling.
+2. The TPU 95A landing gear legs shall be inspected before each flight for tears, permanent deformation, or detachment.
+3. The frame subsystem shall be validated through a static load test before flight.
+4. The frame subsystem shall be validated through hover testing to observe vibration, flexing, and stability.
+5. The frame subsystem shall prevent mounted components from contacting the ground during normal landing, using the TPU 95A landing gear legs as the primary ground contact point.
+6. The frame subsystem shall avoid sharp exposed edges that could injure users during handling.
 
 ---
 
 ## References
 
-[1] COYOUCO, "Carbon Fiber Sheet, 400 × 500 mm," Amazon. [Online]. Available: https://www.amazon.com/COYOUCO-Ctandoff, Pick Your Length," MyFPVStore. [Online]. Available: https://www.myfpvstore.com/exarbon-Fiber-Surface-Sheets/dp/B0DLB6F3Z6
+[1] COYOUCO, "Carbon Fiber Sheet 400×500mm, 3K Twill Weave, 3mm Thickness," Amazon.com. [Online]. Available: https://www.amazon.com/COYOUCO-Carbon-Fiber-Surface-Sheets/dp/B0DLB6F3Z6. [Accessed: Apr. 2025].
 
-[2] ImpulseRC, "M3 Stras-and-hardware/impulserc-m3-standoff-pick-your-length/
+[2] ImpulseRC, "M3 Standoff (Pick Your Length) — Knurled 7075 Aluminum, 10–35 mm options," MyFPVStore.com. [Online]. Available: https://www.myfpvstore.com/extras-and-hardware/impulserc-m3-standoff-pick-your-length/. [Accessed: Apr. 2025].
 
-[3] PyroDrone, "M3 Hardware for FPV Racing & Freestyle Drones," PyroDrone. [Online]. Available: https://pyrodrone.com/collections/m3
+[3] PyroDrone, "M3 Hardware Collection — Screws, Standoffs, Nuts, and Washers for FPV Drones," PyroDrone.com. [Online]. Available: https://pyrodrone.com/collections/m3. [Accessed: Apr. 2025].
 
-[4] SUNLU, "PETG-CF 3D Printer Filament 1 kg," SUNLU Store. [Online]. Available: https://store.sunlu.com/products/petg-cfpetg-carbon-fiber-3d-printer-filament-1kg
+[4] SUNLU, "PETG-CF (PETG Carbon Fiber) 3D Printer Filament, 1.75mm, 1 kg, 10% Carbon Fiber Reinforced," SUNLU Online Store. [Online]. Available: https://store.sunlu.com/products/petg-cfpetg-carbon-fiber-3d-printer-filament-1kg. [Accessed: Apr. 2025].
 
-[5] MatterHackers, "NylonX Carbon Fiber Nylon Filament," MatterHackers. [Online]. Available: https://www.matterhackers.com/store/3d-printer-filament/nylonx-carbon-fiber-nylon-filament-1.75mm
+[5] MatterHackers, "NylonX Carbon Fiber PA12 Filament, 1.75mm, 0.5 kg — 20% Chopped Carbon Fiber, Engineering Grade," MatterHackers.com. [Online]. Available: https://www.matterhackers.com/store/3d-printer-filament/nylonx-carbon-fiber-nylon-filament-1.75mm. [Accessed: Apr. 2025].
+
+[6] SUNLU, "TPU 95A / TPU 90A Flexible 3D Printer Filament, 1.75mm, 1 kg — Shore Hardness 95A, Dimensional Accuracy ±0.02 mm," SUNLU Online Store. [Online]. Available: https://store.sunlu.com/products/moq-3kg-tpu-3d-printer-filament-1kg. [Accessed: Apr. 2025].
