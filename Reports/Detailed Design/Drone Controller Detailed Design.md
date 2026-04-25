@@ -118,7 +118,7 @@ The inbound information returned to the controller for presentation may include:
 - payload or survey progress,
 - and health or warning messages.
 
-The exact transport and data framing are handled by the compatible software for the Pixhawk 6C mini [16] and it compatible drone control software, Ardupilot [17].
+The exact transport and data framing are handled by the compatible software for the Pixhawk 6C mini [16] and it compatible drone control software, Ardupilot [17] which are both mentioned in detail within the Internal Components Detsailed Design.
 
 ### Internal Electrical Interfaces
 
@@ -159,7 +159,7 @@ The CAD package for the controller enclosure demonstrates ergonomic control plac
 
 ![Controller Wiring Diagram](Images\Controller_Wiring_Diagram.png)
 
-The schematic image shows the Raspberry Pi Zero 2 W header connections, the MCP3008 ADC placement on the Perfboard helper board, decoupling capacitor placement, analog joystick signal routing, digital switch routing, shared ground distribution, and reserved future channels. The already prepared perfboard-style helper-board wiring image should be placed in this section.
+The schematic image shows the Raspberry Pi Zero 2 W header connections, the MCP3008 ADC placement on the Perfboard helper board, decoupling capacitor placement, analog joystick signal routing, digital switch routing, shared ground distribution, and reserved future channels.
 
 
 ## Printed Circuit Board Layout
@@ -174,7 +174,7 @@ None Used for this Subsystem
 
 ## BOM
 
-The current controller subsystem has the following confirmed high-level component set. Detailed institutional purchasing data may be appended by the team in a controlled procurement sheet.
+The current controller subsystem has the following confirmed high-level component set. 
 
 | Item | Component | Manufacturer / Source | Part / Model | Qty. | Price | Notes |
 |---|---|---|---|---|---|---|
