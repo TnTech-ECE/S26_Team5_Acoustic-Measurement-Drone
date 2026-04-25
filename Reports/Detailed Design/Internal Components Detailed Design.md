@@ -69,13 +69,13 @@ The following models show the placement and integration of the internal componen
 ![Full Assembly Transparent View](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Rough_Draft_Project/Reports/Images/e/xray.png)
 *Figure 1: Transparent full assembly view showing the placement of all three internal components relative to the drone frame. The Pixhawk 6C Mini is mounted centrally on the upper deck, the H-Flow is positioned on the underside for unobstructed downward view, and the RPLIDAR C1 is mounted at the rear of the lower deck with full horizontal clearance.*
 
-![Pixhawk 6C Mini Closeup](Reports/Images/e/Controla.png)
+![Pixhawk 6C Mini Closeup](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Rough_Draft_Project/Reports/Images/e/Controla.png)
 *Figure 2: Pixhawk 6C Mini mounted centrally on the upper deck of the frame. Center placement minimizes the offset between the IMU and the drone's center of mass, reducing attitude estimation error during flight.*
 
-![H-Flow Closeup](Reports/Images/e/Hflow.png)
+![H-Flow Closeup](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Rough_Draft_Project/Reports/Images/e/Hflow.png)
 *Figure 3: Holybro H-Flow mounted on the underside of the lower deck, facing downward with an unobstructed view of the floor surface. This placement satisfies the requirement for reliable optical flow and distance sensing during indoor position hold.*
 
-![RPLIDAR C1 Closeup](Reports/Images/e/rp.png)
+![RPLIDAR C1 Closeup](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Rough_Draft_Project/Reports/Images/e/rp.png)
 *Figure 4: SLAMTEC RPLIDAR C1 mounted at the rear of the lower deck with full 360° horizontal clearance. The fixed forward reference is aligned to the drone's heading axis to ensure accurate directional obstacle response.*
 
 
@@ -83,7 +83,7 @@ The following models show the placement and integration of the internal componen
 
 The wiring diagram below shows all electrical and digital connections within the internal components subsystem and its interfaces to adjacent subsystems. Colored boxes indicate components owned by this subsystem. Gray boxes indicate external subsystem interfaces.
 
-![Wiring Diagram](Reports/Images/e/flowchaty.png)
+![Wiring Diagram](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Rough_Draft_Project/Reports/Images/e/flowchaty.png)
 *Figure 5: Internal components subsystem wiring diagram.*
 
 
@@ -91,7 +91,7 @@ The wiring diagram below shows all electrical and digital connections within the
 
 The following flowchart illustrates the decision-making logic of the Pixhawk 6C Mini [1] throughout an autonomous measurement mission.
 
-![Flowchart](Reports/Images/e/flowy.png)
+![Flowchart](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Rough_Draft_Project/Reports/Images/e/flowy.png)
 *Figure 6: Internal components subsystem operational flowchart.*
 
 
