@@ -205,7 +205,7 @@ This model is used to verify that the motors can be mounted symmetrically at the
 
 ### ESC Model — HobbyWing XRotor 40A ESC
 
-![Alt Text](Reports/Images/ESC.png)
+![ESC](Images/ESC.png)
 
 The ESC model represents one of the four individual ESCs mounted along the frame arms. The model includes the rectangular ESC body and wire bundles entering and leaving the component. Each ESC receives high-current DC power from the power distribution system, receives a PWM control signal from the flight controller, and outputs three-phase motor drive signals to the motor.
 
