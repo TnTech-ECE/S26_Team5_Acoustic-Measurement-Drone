@@ -124,8 +124,16 @@ The frame model includes the following measured features:
 
 
 
+
+
+
+
 ![Frame diagonal dimension](image-1.png)
 **Figure 2.** Diagonal motor-to-motor distance of 20.000 in.
+
+
+
+
 
 
 
@@ -136,14 +144,26 @@ The frame model includes the following measured features:
 
 
 
+
+
+
+
 ![Frame top-to-bottom](image-3.png)
 **Figure 4.** Side view of the frame showing the 2.250 in top-to-bottom spacing.
 
 
 
 
+
+
+
+
 ![Landing Gear](image-4.png)
 **Figure 5.** TPU 95A landing gear legs, 5.931 in in length.
+
+
+
+
 
 
 
