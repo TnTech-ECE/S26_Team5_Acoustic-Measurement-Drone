@@ -253,38 +253,38 @@ Overall, the analysis shows that the selected power and propulsion subsystem mee
 
 ## References
 
-[1] iFlight. *Fullsend 6S 8000mAh Li-Ion Battery Specifications.*  
+[1] iFlight, *Fullsend 6S 8000mAh Li-Ion Battery Specifications*.  
 https://shop.iflight.com/Fullsend-6S-8000mAh-Li-Ion-Battery-Pro1914
 
-[2] SunnySky. *V4008 Brushless Motor Datasheet and Specifications.*  
-https://sunnyskyusa.com/products/sunnysky-v4008-brushless-motor
+[2] SunnySky USA, *SunnySky V4008 High Efficiency Brushless Motors*.  
+https://sunnyskyusa.com/products/sunnysky-v4008-motors
 
-[3] HobbyWing. *XRotor 40A ESC Specifications and User Manual.*  
+[3] UAV Model, *SunnySky V4008 High Efficiency Brushless Motors Detailed Specifications*.  
+https://www.uavmodel.com/products/sunnysky-v4008-high-efficiency-brushless-motors
+
+[4] HobbyWing Direct, *XRotor 40A ESC COB Specifications*.  
 https://www.hobbywingdirect.com/products/xrotor-40a-esc
 
-[4] Holybro. *PM02 Power Module Documentation.*  
-https://holybro.com/products/pm02-power-module
+[5] HobbyWing, *XRotor 40A ESC Technical Overview*.  
+https://www.hobbywing.com/en/products/xrotor-40a122
 
-[5] PX4 Documentation. *Holybro Power Module (PM02) Technical Details.*  
-https://docs.px4.io/main/en/power_module/holybro_pm02.html
+[6] PX4 Documentation, *Holybro PM02 Power Module*.  
+https://docs.px4.io/v1.16/zh/power_module/holybro_pm02
 
-[6] APC Propellers. *13×4.5MR Multirotor Propeller Specifications.*  
-https://www.apcprop.com/product/13x4-5mr/
+[7] Holybro Documentation, *Pixhawk 6C Mini Technical Specification*.  
+https://docs.holybro.com/autopilot/pixhawk-6c-mini/technical-specification
 
-[7] Pixhawk. *Pixhawk 6C Flight Controller Specifications.*  
-https://holybro.com/products/pixhawk-6c
+[8] APC Propellers, *13x4.5MR-B4 Multirotor Propeller Specifications*.  
+https://www.apcprop.com/product/13x4-5mr-b4/
 
-[8] Betaflight / Multirotor Theory. *Basic Principles of ESC and Motor Control.*  
-https://betaflight.com/docs/wiki/guides/current/ESC
+[9] J Perkins Distribution, *APC 13x4.5 Multirotor Propeller Technical Specifications*.  
+https://www.jperkins.com/products/APCLP13045MR
 
-[9] Oscar Liang. *The Ultimate Guide to Building a Drone.*  
-https://oscarliang.com/build-drone/
+[10] Oscar Liang, *How to Build an FPV Drone Tutorial*.  
+https://oscarliang.com/how-to-build-fpv-drone/
 
-[10] DroneBot Workshop. *How Brushless Motors and ESCs Work.*  
-https://dronebotworkshop.com/brushless-motors/
-
-[11] Engineering Toolbox. *Electrical Wire Gauge and Current Ratings.*  
+[11] Engineering ToolBox, *AWG Wire Gauge Sizes and Current Ratings*.  
 https://www.engineeringtoolbox.com/wire-gauges-d_419.html
 
-[12] FAA. *Small Unmanned Aircraft Systems Safety Guidelines.*  
+[12] Federal Aviation Administration, *Unmanned Aircraft Systems*.  
 https://www.faa.gov/uas
