@@ -183,7 +183,7 @@ The following models represent the major power and propulsion components used in
 
 ### Motor Model — SunnySky V4008 380KV
 
-![Motor](Images/Motor.png)
+![Motor](../Images/Motor.png)
 
 The motor model represents the SunnySky V4008 380KV brushless motor used at each arm end. The model includes the outer cylindrical motor body, top rotor detail, shaft region, and mounting base. For frame integration, the most important dimensions are the rotor diameter, body length, mounting area, and clearance around the propeller hub.
 
@@ -220,7 +220,7 @@ Relevant dimensions and specifications:
 
 ### Battery Model — iFlight Fullsend 6S 8000mAh Li-Ion Battery
 
-![Battery](Images/Battery.png)
+![Battery](../Images/Battery.png)
 
 The battery model represents the main onboard energy source. Since the battery is the heaviest component in the power and propulsion subsystem, its placement is critical for maintaining the drone’s center of gravity. The battery should be mounted near the center of the frame and secured with a strap or mechanical retention bracket.
 
@@ -239,7 +239,7 @@ The battery model is simplified as a rectangular body with a visible label. This
 
 ### Propeller Model — APC 13×4.5MR
 
-![Propeller](Images/Propeller.png)
+![Propeller](../Images/Propeller.png)
 
 The propeller model represents the selected APC 13×4.5 multirotor propellers. The model includes the hub and blade geometry needed to visualize clearance between adjacent propeller disks. Propeller clearance is one of the most important checks in the frame layout because each propeller sweeps a circular area equal to its diameter.
 
@@ -256,7 +256,7 @@ The propeller model is used to verify that the selected frame geometry provides 
 
 ### Full Power and Propulsion Layout
 
-![PowerAndPropulsion](Reports/Images/PowerAndPropulsion.png)
+![PowerAndPropulsion](../Images/PowerAndPropulsion.png)
 
 The full layout shows the relative placement of the battery, ESCs, motors, and propellers. The battery is positioned near the center of the aircraft to reduce center-of-gravity offset. The ESCs are distributed near the arms to improve cooling and shorten motor wiring. The motors and propellers are placed symmetrically to maintain balanced thrust and predictable control response.
 
@@ -272,7 +272,7 @@ This layout supports the intended design because:
 
 ## Buildable Schematic 
 
-![PowerSchematic](Images/PowerSchematic.png)
+![PowerSchematic](../Images/PowerSchematic.png)
 
 ---
 
