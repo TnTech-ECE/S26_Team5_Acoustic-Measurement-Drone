@@ -228,7 +228,7 @@ During takeoff and flight, motor thrust loads are transferred from each motor mo
 
 | Item | Description | Manufacturer / Source | Qty | Est. Unit Price | Est. Total | Purchasing URL |
 |---|---|---|---|---|---|---|
-| Carbon fiber plate/sheet | Main body plates and arms, approx. 3 mm carbon fiber sheet | COYOUCO / Amazon | 1–2 sheets | $30–$80 | $30–$160 | [Amazon — COYOUCO Carbon Fiber Sheet [1]](https://www.amazon.com/COYOUCO-Carbon-Fiber-Surface-Sheets/dp/B0DLB6F3Z6) ⚠️ *Verify availability before ordering* |
+| Carbon fiber plate/sheet | Main body plates and arms, approx. 3 mm carbon fiber sheet | COYOUCO / Amazon | 1–2 sheets | $30–$80 | $30–$160 | [Amazon — COYOUCO Carbon Fiber Sheet [1]](https://www.amazon.com/COYOUCO-Carbon-Fiber-Surface-Sheets/dp/B0DLB6F3Z6) |
 | M3 aluminum standoffs | Frame spacing and stacked assembly support | ImpulseRC / MyFPVStore | 1 kit | $3.00–$6.00 | $3.00–$12.00 | [MyFPVStore — ImpulseRC M3 Standoff [2]](https://www.myfpvstore.com/extras-and-hardware/impulserc-m3-standoff-pick-your-length/) |
 | M2.5 × 10 mm flat head screws | Zinc-plated steel Phillips flat head, M2.5 × 0.45 mm thread, 10 mm long — PN 91420A020 | McMaster-Carr | 4 | ~$0.10–$0.20 ea | ~$0.40–$0.80 | [McMaster-Carr 91420A020 [3]](https://www.mcmaster.com/91420A020/) |
 | M2.5 × 12 mm flat head screws | Zinc-plated steel Phillips flat head, M2.5 × 0.45 mm thread, 12 mm long — PN 91420A022 | McMaster-Carr | 2 | ~$0.10–$0.20 ea | ~$0.20–$0.40 | [McMaster-Carr 91420A022 [4]](https://www.mcmaster.com/91420A022/) |
