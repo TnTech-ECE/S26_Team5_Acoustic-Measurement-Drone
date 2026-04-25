@@ -234,7 +234,7 @@ During takeoff and flight, motor thrust loads are transferred from each motor mo
 ## Functional Flowchart
 
 
-![Functional Flowchart](image.png)
+<img width="336" height="473" alt="image" src="https://github.com/user-attachments/assets/818fb9c8-39dd-4627-a50b-3092b22db3de" />
 
 ---
 
