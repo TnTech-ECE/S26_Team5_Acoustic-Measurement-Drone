@@ -113,17 +113,24 @@ The frame model includes the following measured features:
 - Arm length: **approximately 5.898 in**
 - Top-to-bottom spacing: **2.250 in**
 
-Suggested figure captions:
+![Frame top view]![alt text](image-2.png)
+**Figure 1.** Top view of the H-frame drone body showing the overall frame layout and motor locations.
 
-```markdown
-![Frame top view](path-to-image)
-**Figure X.** Top view of the H-frame drone body showing the overall frame layout and motor locations.
+![Frame diagonal dimension](image-1.png)
+**Figure 2.** Diagonal motor-to-motor distance of 20.000 in.
 
-![Frame diagonal dimension](path-to-image)
-**Figure X.** Diagonal motor-to-motor distance of 20.000 in.
+![Frame side view](image-5.png)
+**Figure 3.** Side view of the frame.
 
-![Frame height](path-to-image)
-**Figure X.** Side view of the frame showing the 2.250 in top-to-bottom spacing.
+
+![Frame top-to-bottom ](image-3.png)
+**Figure 4.** Side view of the frame showing the 2.250 in top-to-bottom spacing.
+
+![Landing Gear](image-4.png)
+**Figure 5.** Landing gear of the drone, 5.931 inch in lenght.
+
+
+
 
 # Buildable Mechanical Diagram — H-Frame Drone Subsystem
 
