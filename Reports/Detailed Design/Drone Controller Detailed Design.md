@@ -186,7 +186,7 @@ None Used for this Subsystem
 
 ## Flowchart
 
-![Drone Operational flowchart](Images/drone_operational_flowchart_v2-1.png)
+![Controller Flowchart](Images/Controller_Flowchart.png)
 
 
 ## BOM
@@ -215,7 +215,7 @@ The current controller subsystem has the following confirmed high-level componen
 
 - The analog trigger subsystem is intentionally deferred to a future implementation and is not included in the current subsystem revision.
 - The joystick click-button function is also reserved for future implementation and is not assigned in the present input map.
-- | Drone Controller Subsystem | Total Pricing (w/o tax) | $153.88 |
+-  **Drone Controller Subsystem Total Pricing (w/o tax): $153.88**
 
 
 ## Analysis
