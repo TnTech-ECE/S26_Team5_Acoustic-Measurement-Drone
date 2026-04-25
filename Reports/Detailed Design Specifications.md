@@ -160,24 +160,7 @@ During takeoff and flight, motor thrust loads are transferred from each motor mo
 ## Functional Flowchart
 
 ```
-Start
-  ↓
-Frame supports mounted motors, battery, sensors, and electronics
-  ↓
-Frame maintains motor spacing and aircraft geometry
-  ↓
-Motor thrust loads transfer through arms into center body
-  ↓
-Frame supports battery and electronics near center of mass
-  ↓
-Frame limits flexing and vibration during flight
-  ↓
-Frame provides clearance and support during landing
-  ↓
-Frame protects mounted components during handling and transport
-  ↓
-End
-```
+![alt text](image.png)
 
 ---
 
@@ -265,9 +248,9 @@ Carbon fiber or carbon-fiber-reinforced material is used because it provides hig
 
 ## References
 
-[1] COYOUCO, "Carbon Fiber Sheet, 400 × 500 mm," Amazon. [Online]. Available: https://www.amazon.com/COYOUCO-Carbon-Fiber-Surface-Sheets/dp/B0DLB6F3Z6
+[1] COYOUCO, "Carbon Fiber Sheet, 400 × 500 mm," Amazon. [Online]. Available: https://www.amazon.com/COYOUCO-Ctandoff, Pick Your Length," MyFPVStore. [Online]. Available: https://www.myfpvstore.com/exarbon-Fiber-Surface-Sheets/dp/B0DLB6F3Z6
 
-[2] ImpulseRC, "M3 Standoff, Pick Your Length," MyFPVStore. [Online]. Available: https://www.myfpvstore.com/extras-and-hardware/impulserc-m3-standoff-pick-your-length/
+[2] ImpulseRC, "M3 Stras-and-hardware/impulserc-m3-standoff-pick-your-length/
 
 [3] PyroDrone, "M3 Hardware for FPV Racing & Freestyle Drones," PyroDrone. [Online]. Available: https://pyrodrone.com/collections/m3
 
