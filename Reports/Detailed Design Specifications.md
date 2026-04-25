@@ -121,17 +121,32 @@ The frame model includes the following measured features:
 ![Frame top view](image-2.png)
 **Figure 1.** Top view of the H-frame drone body showing the overall frame layout and motor locations.
 
+
+
+
 ![Frame diagonal dimension](image-1.png)
 **Figure 2.** Diagonal motor-to-motor distance of 20.000 in.
+
+
+
 
 ![Frame side view](image-5.png)
 **Figure 3.** Side view of the frame.
 
+
+
+
 ![Frame top-to-bottom](image-3.png)
 **Figure 4.** Side view of the frame showing the 2.250 in top-to-bottom spacing.
 
+
+
+
 ![Landing Gear](image-4.png)
 **Figure 5.** TPU 95A landing gear legs, 5.931 in in length.
+
+
+
 
 ---
 
@@ -173,26 +188,7 @@ During takeoff and flight, motor thrust loads are transferred from each motor mo
 ## Functional Flowchart
 
 ```
-Start
-  ↓
-Frame supports mounted motors, battery, sensors, and electronics
-  ↓
-Frame maintains motor spacing and aircraft geometry
-  ↓
-Motor thrust loads transfer through arms into center body
-  ↓
-Frame supports battery and electronics near center of mass
-  ↓
-Frame limits flexing and vibration during flight
-  ↓
-TPU 95A landing gear absorbs impact loads on touchdown
-  ↓
-Frame transfers remaining landing loads into main body structure
-  ↓
-Frame protects mounted components during handling and transport
-  ↓
-End
-```
+![Functional Flowchart](image.png)
 
 ---
 
