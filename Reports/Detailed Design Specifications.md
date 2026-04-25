@@ -176,7 +176,98 @@ All interfaces are designed to ensure reliable operation, safe power distributio
 
 ## 3D Model of Custom Mechanical Components
 
-If custom mechanical components are used, this section should include multiple views of the 3D models with clear scaling and readability. Descriptions should be provided where necessary.
+## 3D Model of Custom Mechanical Components
+
+The following models represent the major power and propulsion components used in the subsystem. These models are intended to show component placement, spacing, and general fit within the drone frame rather than internal electrical or mechanical construction. Dimensions were based on available component specifications and simplified where appropriate for clean CAD integration.
+
+---
+
+### Motor Model — SunnySky V4008 380KV
+
+<img src="Reports/Images/380KV Motor.png" width="500">
+
+The motor model represents the SunnySky V4008 380KV brushless motor used at each arm end. The model includes the outer cylindrical motor body, top rotor detail, shaft region, and mounting base. For frame integration, the most important dimensions are the rotor diameter, body length, mounting area, and clearance around the propeller hub.
+
+Relevant dimensions and specifications:
+
+- Rotor diameter: **44.3 mm**
+- Stator diameter: **40 mm**
+- Body length: **20 mm**
+- Stator thickness: **8 mm**
+- Weight: **105 g**
+- KV rating: **380KV**
+- Maximum continuous power: **500 W**
+- Maximum continuous current: **20 A**
+- Recommended ESC: **30–40 A**
+- Recommended single takeoff weight: **≤1000 g per motor**  
+- Recommended propeller range includes **12–17 inch propellers** :contentReference[oaicite:0]{index=0}
+
+This model is used to verify that the motors can be mounted symmetrically at the arm ends and that each motor has enough clearance for the selected 13-inch propellers.
+
+### ESC Model — HobbyWing XRotor 40A ESC
+
+<img src="Reports/Images/ESC.png" width="500">
+
+The ESC model represents one of the four individual ESCs mounted along the frame arms. The model includes the rectangular ESC body and wire bundles entering and leaving the component. Each ESC receives high-current DC power from the power distribution system, receives a PWM control signal from the flight controller, and outputs three-phase motor drive signals to the motor.
+
+Relevant dimensions and specifications:
+
+- Continuous current rating: **40 A**
+- Peak current rating: **60 A**
+- Input voltage range: **2S–6S**
+- BEC: **None**
+- Weight: **26 g**
+- Dimensions: **68 mm × 25 mm × 8.7 mm**
+
+### Battery Model — iFlight Fullsend 6S 8000mAh Li-Ion Battery
+
+<img src="Reports/Images/Li-Ion Battery.png" width="500">
+
+The battery model represents the main onboard energy source. Since the battery is the heaviest component in the power and propulsion subsystem, its placement is critical for maintaining the drone’s center of gravity. The battery should be mounted near the center of the frame and secured with a strap or mechanical retention bracket.
+
+Relevant dimensions and specifications:
+
+- Voltage: **22.2 V nominal**
+- Capacity: **8000 mAh**
+- Energy: **177.6 Wh**
+- Cell configuration: **6S2P**
+- Size: **42 mm × 64 mm × 147 mm**
+- Weight: **840 g**
+- Discharge rating: **17.5C**
+- Main connector: **XT60**
+
+The battery model is simplified as a rectangular body with a visible label. This is sufficient for checking fit, mounting space, and center-of-gravity placement.
+
+### Propeller Model — APC 13×4.5MR
+
+<img src="Reports/Images/Propeller.png" width="600">
+
+The propeller model represents the selected APC 13×4.5 multirotor propellers. The model includes the hub and blade geometry needed to visualize clearance between adjacent propeller disks. Propeller clearance is one of the most important checks in the frame layout because each propeller sweeps a circular area equal to its diameter.
+
+Relevant dimensions and specifications:
+
+- Diameter: **13 in / 330 mm**
+- Pitch: **4.5 in**
+- Hub diameter: **0.65 in**
+- Hub thickness: **0.36 in**
+- Shaft diameter: **1/4 in**
+- Weight: **0.85 oz / 24.1 g**
+
+The propeller model is used to verify that the selected frame geometry provides enough spacing between propeller swept areas.
+
+### Full Power and Propulsion Layout
+
+<img src="Reports/Images/Power and Propulsion.png" width="650">
+
+The full layout shows the relative placement of the battery, ESCs, motors, and propellers. The battery is positioned near the center of the aircraft to reduce center-of-gravity offset. The ESCs are distributed near the arms to improve cooling and shorten motor wiring. The motors and propellers are placed symmetrically to maintain balanced thrust and predictable control response.
+
+This layout supports the intended design because:
+
+- the battery is centered to reduce imbalance
+- ESCs are placed near the motors for shorter three-phase wiring
+- motors are evenly spaced for symmetric thrust
+- propellers are shown with enough spacing to evaluate clearance
+- the arrangement reflects the physical wiring path of the subsystem
 
 ---
 
