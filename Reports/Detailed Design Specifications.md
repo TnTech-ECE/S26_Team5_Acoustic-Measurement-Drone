@@ -272,7 +272,7 @@ This layout supports the intended design because:
 
 ## Buildable Schematic 
 
-A detailed electrical schematic should be included here. The diagram must be readable, properly scaled, and sufficiently detailed so that someone unfamiliar with the system can understand and build it.
+![PowerSchematic](Images/PowerSchematic.png)
 
 ---
 
