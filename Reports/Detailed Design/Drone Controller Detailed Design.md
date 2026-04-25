@@ -141,15 +141,15 @@ The exact transport and data framing are handled by the compatible software for 
 
 ## 3D Model of Custom Mechanical Components
 
-![ControllerOverview](Images\ControllerOverview.png)
+![ControllerOverview](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/520dd80f169e465b70f5a01bcdc116141ace6367/Reports/Images/ControllerOverview.png)
 
-![ControllerFrontView](Images\ControllerFrontview.png)
+![ControllerFrontView](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/520dd80f169e465b70f5a01bcdc116141ace6367/Reports/Images/ControllerFrontview.png)
 Spaces in the controller for buttons and joysticks. and 2 spaces beside the screen clearence for future implementation.
 
-![ControllerTopandBackView](Images\ControllerTopandBackView.png)
+![ControllerTopandBackView](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/520dd80f169e465b70f5a01bcdc116141ace6367/Reports/Images/ControllerTopandBackView.png)
 Spaces for bumper buttons and future implementations for triggers. Spacing for buttons that are attached to the screen, as well as spacing for the power switch (right) and manual control switch (Left) Removable back panel (Blue) for easy internal access.
 
-![ControllerInternalView](Images\ControllerInternalView.png)
+![ControllerInternalView](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/520dd80f169e465b70f5a01bcdc116141ace6367/Reports/Images/ControllerInternalView.png)
 Spaces reserved for battery (Yellow), Microcomputer (orange), Cooling System (Blue), and Helper Board (Green).
 
 The CAD package for the controller enclosure demonstrates ergonomic control placement, internal component clearances, cable routing space, airflow vents for the active cooler, and the spatial relationship between the perfboard helper board and operator controls.
@@ -157,7 +157,7 @@ The CAD package for the controller enclosure demonstrates ergonomic control plac
 
 ## Buildable Schematic
 
-![Controller Wiring Diagram](Images\Controller_Wiring_Diagram.png)
+![Controller Wiring Diagram](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/520dd80f169e465b70f5a01bcdc116141ace6367/Reports/Images/Controller%20Wiring%20Diagram.png)
 
 The schematic image shows the Raspberry Pi Zero 2 W header connections, the MCP3008 ADC placement on the Perfboard helper board, decoupling capacitor placement, analog joystick signal routing, digital switch routing, shared ground distribution, and reserved future channels.
 
