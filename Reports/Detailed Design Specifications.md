@@ -39,7 +39,7 @@ This subsystem includes:
 - Four brushless motors (380 KV, 500 W max)  
 - Four propellers (13×4.5 in)  
 
-The battery supplies high-current DC power to the ESCs and regulated power to the flight controller via the power module. The ESCs convert this DC power into three-phase AC signals that drive the motors. The motors then convert electrical energy into rotational motion, which the propellers translate into thrust.
+The battery supplies high-current DC power to the ESCs and regulated power to the flight controller through the power module. The ESCs convert this DC power into three-phase AC signals that drive the motors. The motors then convert electrical energy into rotational motion, which the propellers translate into thrust.
 
 Overall, the subsystem ensures stable and efficient autonomous flight by maintaining sufficient thrust, proper power regulation, and balanced weight distribution.
 
@@ -168,7 +168,7 @@ The system is optimized for stable hovering and efficient lift generation.
 | Flight Controller → ESCs | Digital | Output | PWM | Motor speed control |
 | ESCs → Motors | Electrical (3-phase) | Output | Direct wiring | Motor drive |
 | Motors → Propellers | Mechanical | Output | Shaft coupling | Thrust generation |
-| Power & Propulsion → Frame | Mechanical / Structural | Bidirectional | Mounting hardware | Structural support and load transfer |
+| Power & Propulsion → Frame | Mechanical / Structural | Bidirectional | Mounting hardware | Structural support |
 
 All interfaces are designed to ensure reliable operation, safe power distribution, and minimal interference.
 
@@ -218,17 +218,39 @@ A flowchart is not required since this subsystem does not include custom softwar
 
 ## Analysis
 
-The subsystem is designed to provide reliable energy delivery, efficient propulsion, and stable flight performance. The selected components support a thrust-to-weight ratio of approximately 2.4:1, ensuring sufficient control authority and safe operation.
+The power and propulsion subsystem is designed to provide reliable energy delivery, efficient thrust generation, and stable flight performance for the autonomous drone. The selected design uses a 6S Li-Ion battery, a regulated power module, four individual ESCs, four low-KV brushless motors, and four 13×4.5 propellers. This configuration is appropriate for the mission because it emphasizes stable hover, efficient lift, and dependable operation rather than high-speed or aggressive flight.
 
-The battery provides adequate energy for a realistic flight time of 16–17 minutes. The motors and propellers are optimized for efficiency, while the ESCs operate within safe current limits.
+The estimated aircraft mass is approximately **2.62 kg**. For a quadcopter, the minimum hover thrust must equal the aircraft weight. This means each motor must provide approximately:
 
-The system also ensures proper voltage regulation, thermal management, and structural balance. All components are commercially available, making the design practical and maintainable.
+2620 g / 4 motors = 655 g per motor
 
-Overall, the analysis demonstrates that the subsystem meets all functional and performance requirements for autonomous flight.
+The selected motor and propeller combination is estimated to provide approximately 1500–1600 g of thrust per motor, giving a total maximum thrust capability of roughly 6400 g. This produces a thrust-to-weight ratio of approximately:
+
+6400 g / 2620 g ≈ 2.4 : 1
+
+A thrust-to-weight ratio above 2:1 is considered sufficient for stable takeoff, hover, maneuvering, and landing. This margin shows that the propulsion system should not need to operate near its maximum output during normal flight. As a result, the drone should have enough control authority to respond to disturbances, correct altitude changes, and maintain stable autonomous flight.
+
+The selected 380KV motors are appropriate because lower-KV motors provide higher torque and are better matched with larger propellers. The 13×4.5 propellers improve hover efficiency by moving a larger volume of air at a lower rotational speed. This is beneficial for an endurance-focused aircraft because it reduces unnecessary power consumption while still producing adequate thrust. The moderate 4.5-inch pitch also supports stable and efficient lift generation rather than prioritizing speed.
+
+The battery provides 177.6 Wh of stored energy. Since only about 80–85% of the battery should be used during normal operation, the usable energy is approximately 142–151 Wh. Based on the expected average flight power of 450–600 W, the estimated flight time is:
+
+At 450 W: ~18–20 minutes
+At 525 W: ~16–17 minutes
+At 600 W: ~14–15 minutes
+
+A realistic expected flight time is therefore approximately 16–17 minutes under typical operating conditions. This satisfies the intended function of supporting short-duration autonomous measurement or mapping missions while preserving a safety margin for landing and battery protection.
+
+The ESC selection also supports the design constraints. Each ESC is rated for 40 A continuous and 60 A peak, which provides adequate current margin for the selected motors during hover and moderate maneuvering. Using four separate ESCs improves cooling because each unit can be mounted along an arm with exposure to airflow. This also improves reliability and maintainability because one ESC can be replaced individually without replacing a complete 4-in-1 board.
+
+The power regulation requirement is satisfied through the power module. The Pixhawk flight controller cannot be powered directly from the 6S battery, so the power module steps the battery voltage down to a regulated 5 V supply. It also provides voltage and current telemetry, allowing the flight controller to monitor battery status and support low-voltage failsafe behavior. This improves operational safety and helps prevent unexpected power loss during flight.
+
+The subsystem also satisfies mechanical and integration constraints. The battery is the heaviest propulsion component, so it should be mounted near the center of gravity to reduce imbalance and minimize control effort. ESCs are distributed along the arms to improve cooling and maintain balanced mass distribution. Motors and propellers are placed symmetrically, giving balanced pitch and roll authority. This layout supports predictable control response and stable autonomous flight.
+
+The design is also practical from a cost and construction standpoint. The subsystem uses commercially available components with standard connectors, wiring, and mounting methods. This reduces fabrication complexity, simplifies troubleshooting, and makes replacement parts easier to obtain. Since the system does not require a custom PCB, construction can focus on safe wiring, proper mounting, and validation testing.
+
+Overall, the analysis shows that the selected power and propulsion subsystem meets the major design constraints. It operates within the required 6S voltage architecture, remains within ESC and motor current limits, provides sufficient thrust margin, supports safe voltage regulation, and offers a realistic flight time for the mission. Based on these calculations and design choices, the subsystem should accomplish its intended function of enabling stable, efficient, and reliable autonomous flight.
 
 ---
-
-## References
 
 ## References
 
