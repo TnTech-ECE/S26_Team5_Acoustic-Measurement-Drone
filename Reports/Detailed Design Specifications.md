@@ -119,6 +119,7 @@ The frame model includes the following measured features:
 - Landing gear leg length: **5.931 in (3D-printed TPU 95A)**
 
 ![Frame top view](image-2.png)
+
 **Figure 1.** Top view of the H-frame drone body showing the overall frame layout and motor locations.
 
 
@@ -128,7 +129,12 @@ The frame model includes the following measured features:
 
 
 
+
+
+
+
 ![Frame diagonal dimension](image-1.png)
+
 **Figure 2.** Diagonal motor-to-motor distance of 20.000 in.
 
 
@@ -138,7 +144,12 @@ The frame model includes the following measured features:
 
 
 
+
+
+
+
 ![Frame side view](image-5.png)
+
 **Figure 3.** Side view of the frame.
 
 
@@ -149,6 +160,7 @@ The frame model includes the following measured features:
 
 
 ![Frame top-to-bottom](image-3.png)
+
 **Figure 4.** Side view of the frame showing the 2.250 in top-to-bottom spacing.
 
 
