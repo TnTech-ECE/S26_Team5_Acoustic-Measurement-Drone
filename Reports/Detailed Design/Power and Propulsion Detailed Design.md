@@ -256,7 +256,7 @@ The propeller model is used to verify that the selected frame geometry provides 
 
 ### Full Power and Propulsion Layout
 
-![PowerAndPropulsion](Images/PowerAndPropulsion.png)
+![PowerAndPropulsion](Reports/Images/PowerAndPropulsion.png)
 
 The full layout shows the relative placement of the battery, ESCs, motors, and propellers. The battery is positioned near the center of the aircraft to reduce center-of-gravity offset. The ESCs are distributed near the arms to improve cooling and shorten motor wiring. The motors and propellers are placed symmetrically to maintain balanced thrust and predictable control response.
 
