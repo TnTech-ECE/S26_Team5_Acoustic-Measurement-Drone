@@ -169,7 +169,7 @@ None Used for this Subsystem
 
 ## Flowchart
 
-![Controller Flowchart](Reports\Images\Controller_Flowchart.png)
+![Controller Flowchart](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Rough_Draft_Project/Reports/Detailed%20Design/Drone%20Controller%20Detailed%20Design.md)
 
 
 ## BOM
