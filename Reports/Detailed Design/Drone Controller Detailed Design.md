@@ -158,15 +158,15 @@ The exact transport and data framing are handled by the broader communications a
 
 ## 3D Model of Custom Mechanical Components
 
-![Controller Overview](Images\ControllerOverview.png)
+![ControllerOverview](Images\ControllerOverview.png)
 
-![Controller Front View](Images\ControllerFrontview.png)
+![ControllerFrontView](Images\ControllerFrontview.png)
 Spaces in the controller for buttons and joysticks. and 2 spaces beside the screen clearence for future implementation.
 
-![Controller Top and Back View](Images\ControllerTopandBackView.png)
+![ControllerTopandBackView](Images\ControllerTopandBackView.png)
 Spaces for bumper buttons and future implementations for triggers. Spacing for buttons that are attached to the screen, as well as spacing for the power switch (right) and manual control switch (Left) Removable back panel (Blue) for easy internal access.
 
-![Controller Internal View](Images\ControllerInternalView.png)
+![ControllerInternalView](Images\ControllerInternalView.png)
 Spaces reserved for battery (Yellow), Microcomputer (orange), Cooling System (Blue), and Helper Board (Green).
 
 The CAD package for the controller enclosure demonstrates ergonomic control placement, internal component clearances, cable routing space, airflow vents for the active cooler, and the spatial relationship between the perfboard helper board and operator controls.
@@ -174,7 +174,7 @@ The CAD package for the controller enclosure demonstrates ergonomic control plac
 
 ## Buildable Schematic
 
-![Wiring Diagram](Images\Controller_Wiring_Diagram.png)
+![Controller Wiring Diagram](Images\Controller_Wiring_Diagram.png)
 
 The schematic image shows the Raspberry Pi Zero 2 W header connections, the MCP3008 ADC placement on the Perfboard helper board, decoupling capacitor placement, analog joystick signal routing, digital switch routing, shared ground distribution, and reserved future channels. The already prepared perfboard-style helper-board wiring image should be placed in this section.
 
@@ -186,7 +186,7 @@ None Used for this Subsystem
 
 ## Flowchart
 
-![Operational flowchart](Images/drone_operational_flowchart_v2-1.png)
+![Drone Operational flowchart](Images/drone_operational_flowchart_v2-1.png)
 
 
 ## BOM
@@ -194,7 +194,7 @@ None Used for this Subsystem
 The current controller subsystem has the following confirmed high-level component set. Detailed institutional purchasing data may be appended by the team in a controlled procurement sheet.
 
 | Item | Component | Manufacturer / Source | Part / Model | Qty. | Price | Notes |
-|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|
 | U1 | Single-board computer | Raspberry Pi | Raspberry Pi Zero 2 W | 1 | $15 | Core controller computer [1] |
 | DS1 | Display | Waveshare / PiShop | 5inch HDMI LCD (H), 800×480 capacitive | 1 | $53 | HDMI touchscreen display [2] |
 | BRD1 | Helper board | SchmalzTech | 2" × 2" Perfboard, ST-PERF-2-2 | 1 | $4.25 | Perfboard for ADC and signal routing [4] |
