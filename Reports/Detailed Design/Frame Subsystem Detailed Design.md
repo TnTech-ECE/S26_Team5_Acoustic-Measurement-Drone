@@ -1,4 +1,5 @@
 
+
 # Frame Subsystem Detailed Design
 
 ### Function of the Subsystem
@@ -118,7 +119,11 @@ The frame model includes the following measured features:
 - Top-to-bottom spacing: **2.250 in**
 - Landing gear leg length: **5.931 in (3D-printed TPU 95A)**
 
-![Frame top view](image-2.png)
+
+
+<img width="794" height="603" alt="image-2" src="https://github.com/user-attachments/assets/0dacb83c-9464-4a18-9efc-e67c4a340902" />
+
+
 
 **Figure 1.** Top view of the H-frame drone body showing the overall frame layout and motor locations.
 
@@ -133,7 +138,9 @@ The frame model includes the following measured features:
 
 
 
-![Frame diagonal dimension](image-1.png)
+<img width="620" height="560" alt="image-1" src="https://github.com/user-attachments/assets/a4cc70d7-02d7-4501-ba16-070bb188eda6" />
+
+
 
 **Figure 2.** Diagonal motor-to-motor distance of 20.000 in.
 
@@ -148,7 +155,10 @@ The frame model includes the following measured features:
 
 
 
-![Frame side view](image-5.png)
+
+<img width="848" height="511" alt="image-5" src="https://github.com/user-attachments/assets/2e089493-0f8e-4f5b-a9f7-5beb9b06d530" />
+
+
 
 **Figure 3.** Side view of the frame.
 
@@ -159,7 +169,9 @@ The frame model includes the following measured features:
 
 
 
-![Frame top-to-bottom](image-3.png)
+<img width="573" height="377" alt="image-3" src="https://github.com/user-attachments/assets/b7a6ba25-a88d-48ff-a831-e2ccd9426ab6" />
+
+
 
 **Figure 4.** Side view of the frame showing the 2.250 in top-to-bottom spacing.
 
@@ -169,8 +181,10 @@ The frame model includes the following measured features:
 
 
 
+<img width="1005" height="705" alt="image-4" src="https://github.com/user-attachments/assets/afef5d07-1a8a-4ada-8110-4c84ecaf701d" />
 
-![Landing Gear](image-4.png)
+
+
 **Figure 5.** TPU 95A landing gear legs, 5.931 in in length.
 
 
