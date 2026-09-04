@@ -98,11 +98,12 @@ The following flowchart illustrates the decision-making logic of the Pixhawk 6C 
 ## Bill of Materials
 
 | Component | Manufacturer | Part Number | Distributor | Distributor Part Number | Qty | Unit Price | Total Price | URL |
-|---|---|---|---|---|---|---|---|---|
-| Pixhawk 6C Mini (w/ PM02 V3) | Holybro | 0906 | Holybro | 0906 | 1 | $149.98 | $149.95 | https://holybro.com/products/pixhawk-6c-mini |
-| Holybro H-Flow | Holybro | H-Flow | Holybro | H-Flow | 1 | $124.90 | $125.00 | https://holybro.com/products/h-flow |
+|---|---|---|---|---|---:|---:|---:|---|
+| Pixhawk 6C Mini Model-A (revision) w/ PM02 V3 Power Module | Holybro | 11088+15010 | Holybro | 11088+15010 | 1 | $149.98 | $149.98 | https://holybro.com/products/pixhawk-6c-mini |
+| H-Flow Optical Flow and Distance Sensor Module | Holybro | 19006 | Holybro | 19006 | 1 | $125.00 | $125.00 | https://holybro.com/products/h-flow |
 | RPLIDAR C1 - DTOF LiDAR 360° (12m, IP54) | SLAMTEC | RPLIDAR-C1 | DFRobot | DFR0445 | 1 | $69.00 | $69.00 | https://www.dfrobot.com/product-2803.html |
 
+**Total BOM Cost: $343.98**
 ### Cost Summary
 
 | Category | Cost |
