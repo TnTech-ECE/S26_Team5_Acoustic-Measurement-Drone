@@ -240,27 +240,22 @@ During takeoff and flight, motor thrust loads are transferred from each motor mo
 
 ## Bill of Materials
 
-| Item | Description | Manufacturer / Source | Qty | Est. Unit Price | Est. Total | Purchasing URL |
-|---|---|---|---|---|---|---|
-| Carbon fiber plate/sheet | Main body plates and arms, approx. 3 mm carbon fiber sheet | COYOUCO / Amazon | 1–2 sheets | $30–$80 | $30–$160 | [Amazon — COYOUCO Carbon Fiber Sheet [1]](https://www.amazon.com/COYOUCO-Carbon-Fiber-Surface-Sheets/dp/B0DLB6F3Z6) |
-| M3 aluminum standoffs | Frame spacing and stacked assembly support | ImpulseRC / MyFPVStore | 1 kit | $3.00–$6.00 | $3.00–$12.00 | [MyFPVStore — ImpulseRC M3 Standoff [2]](https://www.myfpvstore.com/extras-and-hardware/impulserc-m3-standoff-pick-your-length/) |
-| M2.5 × 10 mm flat head screws | Zinc-plated steel Phillips flat head, M2.5 × 0.45 mm thread, 10 mm long — PN 91420A020 | McMaster-Carr | 4 | ~$0.10–$0.20 ea | ~$0.40–$0.80 | [McMaster-Carr 91420A020 [3]](https://www.mcmaster.com/91420A020/) |
-| M2.5 × 12 mm flat head screws | Zinc-plated steel Phillips flat head, M2.5 × 0.45 mm thread, 12 mm long — PN 91420A022 | McMaster-Carr | 2 | ~$0.10–$0.20 ea | ~$0.20–$0.40 | [McMaster-Carr 91420A022 [4]](https://www.mcmaster.com/91420A022/) |
-| M2.5 Nylock nuts | M2.5 × 0.45 mm hex nylon-insert locknuts | McMaster-Carr | 2 | ~$0.10–$0.20 ea | ~$0.20–$0.40 | [McMaster-Carr — M2.5 Nylock Nut [5]](https://www.mcmaster.com/products/nylock/thread-size~m2-5/nut-type~hex/locking-type~nylon-insert/) |
-| M4 × 20 mm flat head screws | Zinc-plated steel Phillips flat head, M4 × 0.7 mm thread, 20 mm long — PN 91420A228 | McMaster-Carr | 8 | ~$0.15–$0.25 ea | ~$1.20–$2.00 | [McMaster-Carr 91420A228 [6]](https://www.mcmaster.com/91420A228/) |
-| M4 Nylock nuts | Medium-strength steel nylon-insert locknut Class 8, zinc plated, M4 × 0.7 mm, 5 mm high — PN 90576A103 | McMaster-Carr | 8 | ~$0.15–$0.25 ea | ~$1.20–$2.00 | [McMaster-Carr 90576A103 [7]](https://www.mcmaster.com/90576A103/) |
-| M4 hex standoffs (female threaded) | Corrosion-resistant 18-8 stainless steel female threaded hex standoff — PN 91115A827 | McMaster-Carr | 8 | ~$1.50–$3.00 ea | ~$12.00–$24.00 | [McMaster-Carr 91115A827 [8]](https://www.mcmaster.com/91115A827/) |
-| M4 × 20 mm flat head screws (motor mount) | Zinc-plated steel Phillips flat head, M4 × 0.7 mm thread, 20 mm long — PN 91420A228 (same PN as above) | McMaster-Carr | 16 | ~$0.15–$0.25 ea | ~$2.40–$4.00 | [McMaster-Carr 91420A228 [6]](https://www.mcmaster.com/91420A228/) |
-| 8-32 × 9/16 in flat head screws | 316 stainless steel hex-drive flat head, 82° countersink, 8-32 thread, 9/16 in long — PN 90585A134 | McMaster-Carr | 20 | ~$0.20–$0.35 ea | ~$4.00–$7.00 | [McMaster-Carr 90585A134 [9]](https://www.mcmaster.com/90585A134/) |
-| 8-32 thin Nylock nuts | Low-strength steel nylon-insert locknut, thin-profile, zinc-plated, 8-32 thread — PN 90633A009 | McMaster-Carr | 8 | ~$0.15–$0.25 ea | ~$1.20–$2.00 | [McMaster-Carr 90633A009 [10]](https://www.mcmaster.com/90633A009/) |
-| 8-32 × 11/16 in pan head screws | Passivated 18-8 stainless steel pan head Phillips, 8-32 thread, 11/16 in long — PN 91772A523 | McMaster-Carr | 4 | ~$0.20–$0.35 ea | ~$0.80–$1.40 | [McMaster-Carr 91772A523 [11]](https://www.mcmaster.com/91772A523/) |
-| PETG-CF filament | Prototype sensor mounts and brackets | SUNLU | 1 kg | ~$19.99 | ~$19.99 | [SUNLU — PETG-CF Filament [12]](https://store.sunlu.com/products/petg-cfpetg-carbon-fiber-3d-printer-filament-1kg) |
-| Carbon-fiber nylon filament | Final rigid sensor mounts, if used | MatterHackers NylonX PA12 | 0.5 kg | ~$63.00 | ~$63.00 | [MatterHackers — NylonX PA12 [13]](https://www.matterhackers.com/store/3d-printer-filament/nylonx-carbon-fiber-nylon-filament-1.75mm) |
-| TPU 95A filament | 3D-printed landing gear legs (4×), Shore hardness 95A | SUNLU | 1 kg | ~$19.99 | ~$19.99 | [SUNLU — TPU 95A Filament [14]](https://store.sunlu.com/products/moq-3kg-tpu-3d-printer-filament-1kg) |
+| Item | Description | Manufacturer / Source | Qty | Unit / Pack Price | Est. Total | Purchasing URL |
+|---|---|---|---:|---:|---:|---|
+| M2.5 × 10 mm flat head screws | Zinc-Plated Steel Phillips Flat Head Screws, M2.5 × 0.45 mm thread size, 10 mm long — PN 91420A020 | McMaster-Carr | 1 pack (100) | $6.13 / pack | $6.13 | [McMaster-Carr 91420A020](https://www.mcmaster.com/91420A020/) |
+| M2.5 × 12 mm flat head screws | Zinc-Plated Steel Phillips Flat Head Screws, M2.5 × 0.45 mm thread size, 12 mm long — PN 91420A022 | McMaster-Carr | 1 pack (100) | $6.13 / pack | $6.13 | [McMaster-Carr 91420A022](https://www.mcmaster.com/91420A022/) |
+| M2.5 × 0.45 mm Nylock nuts | Nylon-Insert Locknuts, M2.5 × 0.45 mm thread — PN 90576A161 | McMaster-Carr | 1 pack (50) | $8.62 / pack | $8.62 | [McMaster-Carr 90576A161](https://www.mcmaster.com/90576A161/) |
+| M4 × 20 mm flat head screws | Zinc-Plated Steel Phillips Flat Head Screws, M4 × 0.7 mm thread, 20 mm long — PN 91420A228 | McMaster-Carr | 1 pack (100) | $6.88 / pack | $6.88 | [McMaster-Carr 91420A228](https://www.mcmaster.com/91420A228/) |
+| M4 Nylock nuts | Medium-Strength Steel Nylon-Insert Locknut, Class 8, zinc plated, M4 × 0.7 mm thread, 5 mm high — PN 90576A103 | McMaster-Carr | 1 pack (100) | $4.92 / pack | $4.92 | [McMaster-Carr 90576A103](https://www.mcmaster.com/90576A103/) |
+| M4 female-threaded hex standoffs | Corrosion-Resistant 18-8 Stainless Steel Female Threaded Hex Standoff — PN 91115A827 | McMaster-Carr | 8 | $4.62 ea | $36.96 | [McMaster-Carr 91115A827](https://www.mcmaster.com/91115A827/) |
+| 8-32 × 9/16 in flat head screws | 316 Stainless Steel Hex-Drive Flat Head Screw, 82° countersink, 8-32 thread size, 9/16 in long — PN 90585A134 | McMaster-Carr | 1 pack (10) | $3.55 / pack | $3.55 | [McMaster-Carr 90585A134](https://www.mcmaster.com/90585A134/) |
+| 8-32 thin Nylock nuts | Low-Strength Steel Nylon-Insert Locknut, thin-profile, zinc-plated, 8-32 thread size — PN 90633A009 | McMaster-Carr | 1 pack (100) | $3.90 / pack | $3.90 | [McMaster-Carr 90633A009](https://www.mcmaster.com/90633A009/) |
+| 8-32 × 11/16 in pan head screws | Passivated 18-8 Stainless Steel Pan Head Phillips Screw, 8-32 thread size, 11/16 in long — PN 91772A523 | McMaster-Carr | 1 pack (100) | $12.53 / pack | $12.53 | [McMaster-Carr 91772A523](https://www.mcmaster.com/91772A523/) |
+| PETG-CF filament | Carbon-fiber-reinforced PETG filament for structural sensor mounts, brackets, and prototype components | ELEGOO / Amazon | 2 | $18.99 ea | $37.98 | [Amazon — ELEGOO PETG-CF Filament](https://www.amazon.com/ELEGOO-Filament-Strength-Resistance-Functional/dp/B0F37YCK6K/) |
+| PLA filament | PLA filament for general prototype parts, fit checks, and non-structural components | SUNLU / Amazon | 1 | $12.59 ea | $12.59 | [Amazon — SUNLU PLA Filament](https://www.amazon.com/Printer-Filament-SUNLU-Dimensional-Accuracy/dp/B07XG3RM58/) |
+| TPU filament | Flexible TPU filament for landing gear and other impact-absorbing or flexible components | OVERTURE / Amazon | 1 | $23.99 ea | $23.99 | [Amazon — OVERTURE TPU Filament](https://www.amazon.com/Overture-Filament-Flexible-Consumables-Dimensional/dp/B07VDP2S3P/) |
 
-**Estimated frame subsystem total:**
-- Minimum estimated cost: ~$105 (with PETG-CF sensor mounts, TPU 95A landing gear, and all McMaster-Carr fasteners)
-- Higher-performance estimate (with NylonX carbon-fiber nylon mounts): ~$320–$350
+**Estimated BOM Total: $164.18**
 
 ---
 
