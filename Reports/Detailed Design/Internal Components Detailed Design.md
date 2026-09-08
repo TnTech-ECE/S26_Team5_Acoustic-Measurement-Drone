@@ -33,6 +33,7 @@ Together these three components form the navigation stack that enables safe, sta
 **Socioeconomic** — Component selection is constrained by the project budget. All three components were selected as commercially available COTS hardware to minimize cost and development time.
 
 
+
 ## Overview of Proposed Solution
 
 The internal components subsystem combines three COTS hardware components into a unified navigation stack: the Pixhawk 6C Mini flight controller [1], the Holybro H-Flow optical flow module [2], and the SLAMTEC RPLIDAR C1 scanning lidar [3].
@@ -41,10 +42,9 @@ The Pixhawk 6C Mini [1] runs ArduPilot firmware and manages all flight operation
 
 The H-Flow [2] connects to the Pixhawk via DroneCAN and provides continuous optical flow velocity and downward distance data. This enables stable indoor position hold and altitude control without GPS.
 
-The RPLIDAR C1 [3] connects via TTL UART to the Pixhawk's TELEM2 port and performs continuous 360° horizontal scanning at 5KHz. The flight controller monitors incoming distance data and maneuvers the drone to maintain a minimum 3 m clearance from any detected obstacle at all times.
+The RPLIDAR C1 [3] connects via TTL UART to the Pixhawk's TELEM2 port and is configured in ArduPilot as a 360° proximity sensor using the Lidar360 serial protocol (`SERIAL2_PROTOCOL = 11`, `SERIAL2_BAUD = 460800`, and `PRX1_TYPE = 5`) [9]. During autonomous waypoint navigation, ArduPilot's BendyRuler object-avoidance algorithm is enabled using `OA_TYPE = 1`. Because the RPLIDAR C1 provides horizontal obstacle measurements, Horizontal BendyRuler (`OA_BR_TYPE = 1`) is used to search for alternate obstacle-free paths while continuing toward the commanded waypoint [10]. The obstacle-avoidance margin (`OA_MARGIN_MAX`) will be configured to the subsystem's required 3 m clearance, while the BendyRuler look-ahead distance (`OA_BR_LOOKAHEAD`) will be initially configured to 5 m and verified during indoor testing. When an obstacle enters the planned path, BendyRuler evaluates alternate horizontal directions and commands the vehicle along a locally adjusted path before continuing toward the original mission destination.
 
-This configuration meets all positional accuracy, obstacle avoidance, and weight requirements while remaining within budget and minimizing integration complexity.
-
+This configuration meets the intended positional accuracy, obstacle avoidance, and weight requirements while remaining within budget and minimizing integration complexity.
 
 ## Interface with Other Subsystems
 
@@ -95,14 +95,82 @@ The following flowchart illustrates the decision-making logic of the Pixhawk 6C 
 *Figure 6: Internal components subsystem operational flowchart.*
 
 
+
+
+
+
+
+
+## Sensor Failure and Fallback Behavior
+
+The internal components subsystem uses ArduPilot sensor-health monitoring and failsafe functions to prevent a single sensor failure from causing uncontrolled autonomous flight. Before takeoff, ArduPilot pre-arm checks verify that required navigation and proximity sensors are connected and producing valid data. During flight, sensor health and estimator quality are continuously monitored. If a critical sensor becomes unavailable, autonomous waypoint navigation is suspended and the aircraft transitions to a degraded operating mode that prioritizes operator control and safe recovery.
+
+| Sensor / Failure | Failure Detection | Fallback Behavior | Mitigation |
+|---|---|---|---|
+| RPLIDAR C1 communication or measurement failure | ArduPilot's RPLIDAR driver changes the proximity sensor state to `NoData` if valid distance data are not received for 200 ms. The driver also attempts to reset the RPLIDAR if the fault persists [11]. | Autonomous waypoint translation and BendyRuler navigation are suspended. A Lua safety script will monitor the ArduPilot proximity status and command AltHold when the sensor is no longer reported as healthy. The operator is alerted and takes manual control before continuing or landing. | ArduPilot pre-arm proximity checks prevent the mission from beginning if the sensor reports `NoData` or `NotConnected`. The RPLIDAR driver also includes an automatic reset attempt for persistent communication failures [11], [12]. |
+| H-Flow optical-flow failure or unreliable horizontal position estimate | ArduPilot's EKF monitors position, velocity, and sensor consistency. If the navigation solution becomes unreliable, the EKF failsafe is triggered [13]. | The autonomous mission is aborted and `FS_EKF_ACTION` is configured for AltHold. The operator then assumes manual control and moves the aircraft to a safe landing location. If safe recovery cannot be maintained, a controlled landing is performed. | The H-Flow is mounted with an unobstructed downward view and its health is verified before flight. EKF failsafe monitoring provides an independent method of detecting an unreliable navigation solution. |
+| H-Flow downward distance measurement failure | Loss or invalidity of downward range data prevents reliable comparison between the expected floor position and the measured surface beneath the aircraft. | Automatic landing-zone obstruction protection is disabled. The aircraft shall not continue an unsupervised autonomous landing; the operator must verify that the landing area is clear and supervise or manually perform the landing. | Downward range data are checked before an autonomous landing begins. Loss of this measurement produces a fault indication to the operator rather than allowing the system to assume that the landing zone is clear. |
+| Single Pixhawk IMU failure | ArduPilot's estimator monitors IMU consistency and estimator health. | The Pixhawk's redundant IMU architecture allows the estimator to continue using a healthy sensor if a valid navigation solution remains available. If estimator health also becomes unacceptable, the EKF failsafe sequence is initiated. | The Pixhawk 6C Mini contains redundant inertial sensors, reducing dependence on a single IMU. |
+| Barometer or altitude-estimation failure | ArduPilot monitors estimator consistency and sensor health through the EKF. | Autonomous waypoint operation is terminated. Because reliable altitude hold may no longer be available, the system will not depend on AltHold as the sole recovery method. The operator assumes manual control and performs a controlled landing as soon as safely possible. | Barometer data are cross-checked within the EKF against inertial and available downward range measurements, and sensor health is monitored before and during flight. |
+| Multiple critical navigation-sensor failures | Loss of a trustworthy EKF solution or simultaneous critical sensor-health faults. | The autonomous mission is terminated. No additional waypoints are attempted, and the aircraft transitions to the safest available operator-controlled recovery mode followed by a controlled landing. | Multiple independent sensors, pre-arm checks, EKF health monitoring, manual override capability, and continuous telemetry reduce the likelihood that a single fault progresses into complete loss of control. |
+
+For the RPLIDAR C1 specifically, ArduPilot's source code defines a 200 ms communication timeout. If no valid distance measurement is received within this period, the proximity sensor status is changed to `NoData`. If the condition persists, the driver attempts to reset the RPLIDAR after 10 seconds [11]. ArduPilot also prevents arming when a configured proximity sensor reports `NoData` or `NotConnected` [12]. A Lua safety script will use the exposed proximity-health status to supplement this built-in monitoring and suspend autonomous navigation if the C1 becomes unhealthy during flight.
+
+For localization failures, the ArduPilot EKF failsafe will be used as the primary protection against an unreliable position estimate. The `FS_EKF_ACTION` parameter will be configured to select AltHold following an EKF failsafe during autonomous operation [13]. This provides the operator an opportunity to take manual control rather than commanding an immediate landing at an unknown location. If the aircraft cannot be safely recovered in AltHold or another manually controlled mode, the operator will command a controlled landing.
+
+This layered approach ensures that sensor failures result in progressively safer degraded operation rather than continued autonomous navigation with unreliable sensor data.
+
+
+
+
+
+
+## Indoor Test Plan and Pass/Fail Criteria
+
+Indoor validation of the navigation and obstacle-avoidance system will be conducted in Memorial Gym on campus. Initial tuning and low-risk flight testing may be performed outdoors on the university football field prior to indoor validation. The indoor test will evaluate waypoint accuracy, horizontal obstacle avoidance, and landing-zone obstruction detection.
+
+### Waypoint Accuracy Test
+
+Three predefined waypoints will be marked on the floor of Memorial Gym and uploaded as an autonomous mission to the Pixhawk 6C Mini. The drone will autonomously take off, navigate to each waypoint, hold position, proceed to the next waypoint, and land. The complete mission will be repeated three times.
+
+During each waypoint hover, the horizontal position of the drone will be projected or referenced to the floor using a fixed visual reference method while personnel remain outside the active flight area. The measured ground position of the drone's center will then be compared with the pre-marked commanded waypoint.
+
+**Pass Criteria:** The measured horizontal position error shall be no greater than ±0.5 m at each waypoint during all three test missions.
+
+**Fail Criteria:** A waypoint fails if the measured horizontal error exceeds 0.5 m or if the drone is unable to reach and maintain a stable hover at the commanded location.
+
+### Horizontal Obstacle-Avoidance Test
+
+A large cardboard or foam panel will be intentionally placed across the planned path between two autonomous waypoints. A 3 m exclusion boundary will be marked around the obstacle to provide a visible reference for the required minimum clearance. The drone will then execute the waypoint mission using the RPLIDAR C1 and ArduPilot BendyRuler obstacle-avoidance system.
+
+**Pass Criteria:** The drone shall detect the obstacle, generate an alternate path around it, remain at least 3 m from the obstacle, and successfully continue to the commanded waypoint without manual intervention.
+
+**Fail Criteria:** The test fails if the drone enters the 3 m exclusion boundary, fails to respond to the obstacle, makes contact with the obstacle, or cannot safely continue toward the waypoint.
+
+### Landing-Zone Obstruction Test
+
+A controlled landing test will evaluate the system's ability to identify an unexpected object beneath the aircraft. A lightweight foam or cardboard test object will be introduced into the designated landing area while all personnel remain outside the active flight zone. Downward distance measurements from the H-Flow sensor will be compared with the aircraft's expected height above the known floor level.
+
+**Pass Criteria:** If an unexpected surface is detected beneath the drone during descent, the landing shall be aborted before contact occurs and the aircraft shall return to a stable hover or other predefined safe state.
+
+**Fail Criteria:** The test fails if the aircraft continues descending onto the unexpected object, makes contact with the obstruction, or fails to enter the predefined safe state.
+
+
+
+
+
+
+
+
 ## Bill of Materials
 
 | Component | Manufacturer | Part Number | Distributor | Distributor Part Number | Qty | Unit Price | Total Price | URL |
-|---|---|---|---|---|---|---|---|---|
-| Pixhawk 6C Mini (w/ PM02 V3) | Holybro | 0906 | Holybro | 0906 | 1 | $149.98 | $149.95 | https://holybro.com/products/pixhawk-6c-mini |
-| Holybro H-Flow | Holybro | H-Flow | Holybro | H-Flow | 1 | $124.90 | $125.00 | https://holybro.com/products/h-flow |
+|---|---|---|---|---|---:|---:|---:|---|
+| Pixhawk 6C Mini Model-A (revision) w/ PM02 V3 Power Module | Holybro | 11088+15010 | Holybro | 11088+15010 | 1 | $149.98 | $149.98 | https://holybro.com/products/pixhawk-6c-mini |
+| H-Flow Optical Flow and Distance Sensor Module | Holybro | 19006 | Holybro | 19006 | 1 | $125.00 | $125.00 | https://holybro.com/products/h-flow |
 | RPLIDAR C1 - DTOF LiDAR 360° (12m, IP54) | SLAMTEC | RPLIDAR-C1 | DFRobot | DFR0445 | 1 | $69.00 | $69.00 | https://www.dfrobot.com/product-2803.html |
 
+**Total BOM Cost: $343.98**
 ### Cost Summary
 
 | Category | Cost |
@@ -115,16 +183,15 @@ The following flowchart illustrates the decision-making logic of the Pixhawk 6C 
 
 ## Analysis
 
-
 The internal components subsystem meets its intended function through three COTS components that together provide stable autonomous indoor flight, position hold, and obstacle avoidance [8].
 
-The Pixhawk 6C Mini [1] was selected over the full-size Pixhawk 6C because it provides identical processing and sensor performance at reduced cost and size, with no sacrifice in the connectivity required for this system. It manages all flight operations through ArduPilot/PX4 firmware, which natively supports all connected sensors. Its dual IMU configuration provides redundant attitude estimation, and firmware-enforced speed limits and failsafe behaviors directly satisfy FAA 14 CFR Part 107 [4] compliance requirements.
+The Pixhawk 6C Mini [1] was selected over the full-size Pixhawk 6C because it provides identical processing and sensor performance at reduced cost and size, with no sacrifice in the connectivity required for this system. It manages all flight operations through ArduPilot firmware, which natively supports the connected navigation and proximity sensors. Its dual IMU configuration provides redundant attitude estimation, and firmware-enforced speed limits and failsafe behaviors directly satisfy FAA 14 CFR Part 107 [4] compliance requirements.
 
-The H-Flow [2] was selected over GPS and UWB alternatives because it requires no external infrastructure and integrates natively with the Pixhawk firmware. It resolves the indoor GPS constraint by supplying optical flow velocity and downward distance data via DroneCAN. Fused with IMU data through ArduPilot's EKF3 state estimator, this enables the ±0.5m positional accuracy specification to be met during hover at each waypoint.
+The H-Flow [2] was selected over GPS and UWB alternatives because it requires no external infrastructure and integrates natively with the Pixhawk firmware. It resolves the indoor GPS constraint by supplying optical flow velocity and downward distance data via DroneCAN. Fused with IMU data through ArduPilot's EKF3 state estimator, this enables the ±0.5 m positional accuracy specification to be met during hover at each waypoint.
 
-The RPLIDAR C1 [3] was selected over ultrasonic and single-point ToF sensors because it provides full 360° horizontal coverage in a single lightweight unit, eliminating the blind spots and multi-sensor complexity of alternatives. With a 12m detection range at 5KHz, the flight controller continuously monitors incoming scan data and actively maneuvers the drone to maintain 3m clearance in all horizontal directions. If an obstacle is detected within that threshold, the drone halts and reroutes before the clearance constraint is violated, regardless of operating speed.
+The RPLIDAR C1 [3] was selected over ultrasonic and single-point ToF sensors because it provides full 360° horizontal coverage in a single lightweight unit, eliminating the blind spots and multi-sensor complexity of alternatives. The sensor is configured in ArduPilot as a 360° proximity sensor, and its measurements are provided to the BendyRuler obstacle-avoidance system [9], [10]. During autonomous waypoint navigation, Horizontal BendyRuler evaluates alternate obstacle-free directions whenever the commanded path is obstructed and generates a locally adjusted path while continuing toward the original mission waypoint. The obstacle-avoidance margin is configured to support the required 3 m horizontal clearance, and the look-ahead distance will be verified through indoor testing. This allows the system to respond to detected obstacles using ArduPilot's native path-planning logic rather than relying on a custom avoidance algorithm.
 
-Combined subsystem mass is approximately 172g — Pixhawk 6C Mini at 46.8g, H-Flow at 15.2g, and RPLIDAR C1 at 110g — within the 200g limit. The primary risk is H-Flow performance on reflective venue floors, mitigated by barometer-assisted altitude hold as a fallback [5], [6].
+Combined subsystem mass is approximately 172 g — Pixhawk 6C Mini at 46.8 g, H-Flow at 15.2 g, and RPLIDAR C1 at 110 g — within the 200 g limit. The primary risk is H-Flow performance on reflective venue floors, mitigated by barometer-assisted altitude hold as a fallback [5], [6].
 
 
 ## References
@@ -144,3 +211,13 @@ Combined subsystem mass is approximately 172g — Pixhawk 6C Mini at 46.8g, H-Fl
 [7] ArduPilot Dev Team, "Radio Control Systems," ArduPilot Copter Documentation. [Online]. Available: https://ardupilot.org/copter/docs/common-rc-systems.html
 
 [8] Anthropic, "Claude," Anthropic, San Francisco, CA, USA. [Online]. Available: https://claude.ai.
+
+[9] ArduPilot Dev Team, "RPLidar A1, A2, A2M12, C1 and S1 360 Degree Lidar," ArduPilot Copter Documentation. [Online]. Available: https://ardupilot.org/copter/docs/common-rplidar-a2.html
+
+[10] ArduPilot Dev Team, "Object Avoidance with Bendy Ruler," ArduPilot Copter Documentation. [Online]. Available: https://ardupilot.org/copter/docs/common-oa-bendyruler.html
+
+[11] ArduPilot Dev Team, "AP_Proximity_RPLidarA2.cpp," ArduPilot GitHub Repository. [Online]. Available: https://github.com/ArduPilot/ardupilot/blob/master/libraries/AP_Proximity/AP_Proximity_RPLidarA2.cpp
+
+[12] ArduPilot Dev Team, "AP_Proximity.cpp," ArduPilot GitHub Repository. [Online]. Available: https://github.com/ArduPilot/ardupilot/blob/master/libraries/AP_Proximity/AP_Proximity.cpp
+
+[13] ArduPilot Dev Team, "EKF Failsafe," ArduPilot Copter Documentation. [Online]. Available: https://ardupilot.org/copter/docs/common-ekf-inav-failsafe.html
