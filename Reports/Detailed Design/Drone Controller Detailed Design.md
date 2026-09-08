@@ -359,21 +359,24 @@ Joystick deadzones shall be configurable software parameters and shall be finali
 ![ControllerFrontView](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/520dd80f169e465b70f5a01bcdc116141ace6367/Reports/Images/ControllerFrontview.png)
 Spaces in the controller for buttons and joysticks. and 2 spaces beside the screen clearence for future implementation.
 
-![ControllerTopandBackView](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/520dd80f169e465b70f5a01bcdc116141ace6367/Reports/Images/ControllerTopandBackView.png)
-Spaces for bumper buttons and future implementations for triggers. Spacing for buttons that are attached to the screen, as well as spacing for the power switch (right) and manual control switch (Left) Removable back panel (Blue) for easy internal access.
+![ControllerTopView2](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/520dd80f169e465b70f5a01bcdc116141ace6367/Reports/Images/ControllerTopView2.png)
+Spaces for bumper buttons and future implementations for triggers. Spacing for buttons that are attached to the screen, as well as spacing for the power switch (right) and manual control switch (Left). Removable back panel (Blue) for easy internal access. Space on the top revealing the Transmitter for antenna implementation.
 
-![ControllerInternalView](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/520dd80f169e465b70f5a01bcdc116141ace6367/Reports/Images/ControllerInternalView.png)
-Spaces reserved for battery (Yellow), Microcomputer (orange), Cooling System (Blue), and Helper Board (Green).
+![ControllerInternalView2](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/520dd80f169e465b70f5a01bcdc116141ace6367/Reports/Images/ControllerInternalView2.png)
+Spaces reserved for battery (Yellow), Microcomputer (orange), Cooling System (Blue), USB Hub (Black), Radio Transmitter (Gray), and Helper Board (Green).
 
 The CAD package for the controller enclosure demonstrates ergonomic control placement, internal component clearances, cable routing space, airflow vents for the active cooler, and the spatial relationship between the perfboard helper board and operator controls.
 
 
 ## Buildable Schematic
 
-![Controller Wiring Diagram](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/520dd80f169e465b70f5a01bcdc116141ace6367/Reports/Images/Controller%20Wiring%20Diagram.png)
+![Controller Wiring Diagram2](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/520dd80f169e465b70f5a01bcdc116141ace6367/Reports/Images/Controller%20Wiring%20Diagram2.png)
 
-The schematic image shows the Raspberry Pi Zero 2 W header connections, the MCP3008 ADC placement on the Perfboard helper board, decoupling capacitor placement, analog joystick signal routing, digital switch routing, shared ground distribution, and reserved future channels.
+The wiring diagram shows the Raspberry Pi Zero 2 W GPIO header connections, the MCP3008 ADC mounted on the perfboard helper board, the 3.3 V and ground rails, and the 0.1 µF decoupling capacitor. It also shows the final analog joystick channel assignments, SPI connections between the Pi and MCP3008, digital wiring for the face buttons, D pad, menu and select buttons, bumpers, and the M.A.S. The diagram also identifies the reserved channels for future analog triggers and joystick click inputs and shows the common ground arrangement used throughout the controller.
 
+![Drone Controller Cable Diagram](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/520dd80f169e465b70f5a01bcdc116141ace6367/Reports/Images/Drone%20Controller%20Cable%20Diagram.png)
+
+The drone controller cabling diagram shows the main power, data, and signal connections between the controller components. It includes the Nitecore POCKET 5 battery, Raspberry Pi Zero 2 WH, Waveshare 5 inch HDMI touchscreen, Zero4U USB hub, Holybro SiK Telemetry Radio V3, MCP3008 perfboard helper board, joysticks, controller buttons, and cooling system. The diagram identifies the specific USB, HDMI, OTG, power, GPIO, SPI, and analog connections between these devices. It also shows the wireless SiK communication link between the controller and the air side radio connected to the Pixhawk 6C Mini.
 
 ## Printed Circuit Board Layout
 
