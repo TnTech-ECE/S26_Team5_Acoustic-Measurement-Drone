@@ -211,3 +211,13 @@ Combined subsystem mass is approximately 172 g — Pixhawk 6C Mini at 46.8 g, H-
 [7] ArduPilot Dev Team, "Radio Control Systems," ArduPilot Copter Documentation. [Online]. Available: https://ardupilot.org/copter/docs/common-rc-systems.html
 
 [8] Anthropic, "Claude," Anthropic, San Francisco, CA, USA. [Online]. Available: https://claude.ai.
+
+[9] ArduPilot Dev Team, "RPLidar A1, A2, A2M12, C1 and S1 360 Degree Lidar," ArduPilot Copter Documentation. [Online]. Available: https://ardupilot.org/copter/docs/common-rplidar-a2.html
+
+[10] ArduPilot Dev Team, "Object Avoidance with Bendy Ruler," ArduPilot Copter Documentation. [Online]. Available: https://ardupilot.org/copter/docs/common-oa-bendyruler.html
+
+[11] ArduPilot Dev Team, "AP_Proximity_RPLidarA2.cpp," ArduPilot GitHub Repository. [Online]. Available: https://github.com/ArduPilot/ardupilot/blob/master/libraries/AP_Proximity/AP_Proximity_RPLidarA2.cpp
+
+[12] ArduPilot Dev Team, "AP_Proximity.cpp," ArduPilot GitHub Repository. [Online]. Available: https://github.com/ArduPilot/ardupilot/blob/master/libraries/AP_Proximity/AP_Proximity.cpp
+
+[13] ArduPilot Dev Team, "EKF Failsafe," ArduPilot Copter Documentation. [Online]. Available: https://ardupilot.org/copter/docs/common-ekf-inav-failsafe.html
