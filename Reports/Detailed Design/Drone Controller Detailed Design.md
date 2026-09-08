@@ -359,7 +359,7 @@ Joystick deadzones shall be configurable software parameters and shall be finali
 ![ControllerFrontView](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/520dd80f169e465b70f5a01bcdc116141ace6367/Reports/Images/ControllerFrontview.png)
 Spaces in the controller for buttons and joysticks. and 2 spaces beside the screen clearence for future implementation.
 
-![ControllerTopView2](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Rough_Draft_Project/Reports/Detailed%20Design/Drone%20Controller%20Detailed%20Design.md)
+![ControllerTopView2](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/Rough_Draft_Project/Reports/Images/ControllerTopView2.png)
 Spaces for bumper buttons and future implementations for triggers. Spacing for buttons that are attached to the screen, as well as spacing for the power switch (right) and manual control switch (Left). Removable back panel (Blue) for easy internal access. Space on the top revealing the Transmitter for antenna implementation.
 
 ![ControllerInternalView2](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/520dd80f169e465b70f5a01bcdc116141ace6367/Reports/Images/ControllerInternalView2.png)
