@@ -385,7 +385,7 @@ None Used for this Subsystem
 
 ## Flowchart
 
-![Controller Flowchart](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/57cadd4bfbcaf87d2aa58eb15ad281b99be9a676/Reports/Images/Controller_Flowchart.png)
+![Controller Flowchart2](https://github.com/TnTech-ECE/S26_Team5_Acoustic-Measurement-Drone/blob/57cadd4bfbcaf87d2aa58eb15ad281b99be9a676/Reports/Images/Controller_Flowchart2.png)
 
 
 
